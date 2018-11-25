@@ -61,8 +61,9 @@ list的一定要写全了才能打上x, 如`- [ ] 写好了` 空格别忘了
 用绿色的波浪线指出有格式错误, 按`cmd+.` 看详情.
 可以也设置一些`rules`不生效
 
-
 ## latex
+
+如果无法在`hexo`中使用`$`来写公式, 参看这个[使用LaTex添加公式到Hexo博客里](https://www.jianshu.com/p/68e6f82d88b7)
 
 [YouTube视频](https://www.youtube.com/watch?v=RcvSMu9uRfA&list=PLsaRQCHmdZTD3rcrmGsV-AqCfDWJuBDNd)
 

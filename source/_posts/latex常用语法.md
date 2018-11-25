@@ -57,17 +57,57 @@ $$f(x)= \sum_{i=0}^{n}\int_{a}^{b}g(t)dt$$
 **注意:** 如果`hexo`出现不能显示公式的问题.
 
 1. 那么可以用[在线的latex中转图片来代替](https://cloud.tencent.com/developer/article/1337897), 虽然这种方式不好,比如遇到`f(x)`
-2. 开启`hexo`的`MathJax`功能(推荐): 这样就可以用`$`来写公式. [使用LaTex添加公式到Hexo博客里](https://www.jianshu.com/p/68e6f82d88b7)
+2. 开启`hexo`的`MathJax`功能(推荐): 这样就可以用`$`来写公式.
+
+{% post_link hexo中使用LaTex公式的开启方法 hexo中使用LaTex公式的开启方法(适用于next主题和非next主题) %}
+其他参考:
+[1. hexo的next主题开启mathjax](https://blog.csdn.net/yexiaohhjk/article/details/82526604)
+[2. 使用LaTex添加公式到Hexo博客里](https://www.jianshu.com/p/68e6f82d88b7)
 
 ## 数学公式基本语法 不会没关系,用[在线latex公式](https://www.codecogs.com/latex/eqneditor.php)
 
-1. 上标和下标 `^ _`
-2. 分式 `\frac{分子}{分母}`
-3. 根式 `\sqrt[n次方]{表达式}`
-4. 求和,积分 `\sum \int`
+常见的一些
 
-前面说了
+|命令|效果| | 命令|效果|
+|:--:|:--:|:--:|:--:|:--:|
+|\sqrt{2}|$\sqrt{2}$||\sqrt[3]{2}|$\sqrt[3]{2}$|
+|x_2|$x_2$||x^2|$x^2$|
+|\frac{1}{2}|$\frac{1}{2}$||\lim_{x\to2}x^2+2|$\lim_{x\to2}x^2+2$|
 
+$\lim\limits_{\substack{\sigma\rightarrow0 \\
+\tau_0\rightarrow0}}\frac{\sigma}{\tau_0} $
+
+|命令|效果| | 命令|效果|
+|:--:|:--:|:--:|:--:|:--:|
+|\sum|$\sum$||\sum_{i=1}^{n}|$\sum_{i=1}^{n}$|
+|\int|$\int$||\int_{a}^{b}|$\int_{a}^{b}$|
+|\iint|$\iint$||\iint_{a}^{b}|$\iint_{a}^{b}$|
+|\prod|$\prod$||\prod_{i=1}^{n}|$\prod_{i=1}^{n}$|
+|\bigcup|$\bigcup$||\bigcup_{i=1}^{n}|$\bigcup_{i=1}^{n}$|
+|\bigcap|$\bigcap$||\bigcap_{i=1}^{n}|$\bigcap_{i=1}^{n}$|
+
+一些希腊字母
+
+|命令|效果| | 命令|效果|
+|:--:|:--:|:--:|:--:|:--:|
+|\alpha|$\alpha$||\beta|$\beta$|
+|\gamma|$\gamma$||\delta|$\delta$|
+|\epsilon|$\epsilon$||\zeta|$\zeta$|
+|\eta|$\eta$||\theta|$\theta$|
+|\iota|$\iota$||\omega|$\omega$|
+|\lambda|$\lambda$||\mu|$\mu$|
+|\xi|$\xi$||\phi|$\phi$|
+|\pi|$\pi$||\rho|$\rho$|
+|\sigma|$\sigma$||\tau|$\tau$|
+|\upsilon|$\upsilon$||\nu|$\nu$|
+|\chi|$\chi$||\psi|$\psi$|
+|\kappa|$\kappa$||||
+
+如果使用**大写**的希腊字母，把命令的首字母变成大写即可，例如 `\Gamma` 输出的是 $\Gamma$。
+
+如果使用**斜体大写**希腊字母，再在大写希腊字母的LaTeX命令前加上`var`，例如`\varGamma` 生成 $\varGamma$。
+
+[MathJax basic tutorial](https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference)
 
 ## 宏包 `\package{packageName}`
 
@@ -75,15 +115,15 @@ $$f(x)= \sum_{i=0}^{n}\int_{a}^{b}g(t)dt$$
 
 ## latex常见文件类型
 
-| LaTex模板常见文件类型 | 功能介绍                                                   |
-| :-------------------: | :--------------------------------------------------------: |
-| .dtx                  | `Documented LaTeX sources`，宏包重要部分                     |
+| LaTex模板常见文件类型 | 功能介绍                                                       |
+| :-------------------: | :------------------------------------------------------------: |
+| .dtx                  | `Documented LaTeX sources`，宏包重要部分                       |
 | .ins                  | `installation`，控制 TeX 从 `.dtx` 文件里释放宏包文件          |
-| .cfg                  | `config`， 配置文件，可由上面两个文件生成                    |
-| .sty                  | `style files`使用`\usepackage{...}`命令进行加载              |
+| .cfg                  | `config`， 配置文件，可由上面两个文件生成                      |
+| .sty                  | `style files`使用`\usepackage{...}`命令进行加载                |
 | .cls                  | `classes files`，类文件，使用`\documentclass{...}`命令进行加载 |
-| .aux                  | `auxiliary`， 辅助文件，不影响正常使用                       |
-| .bst                  | `BibTeX style file`，用来控制参考文献样式                    |
+| .aux                  | `auxiliary`， 辅助文件，不影响正常使用                         |
+| .bst                  | `BibTeX style file`，用来控制参考文献样式                      |
 
 ## 参考
 

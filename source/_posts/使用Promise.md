@@ -5,7 +5,7 @@ tags:
 - es6
 - promise
 categories:
-- 前端教程
+- javascript教程
 comments: false
 permalink:
 ---
