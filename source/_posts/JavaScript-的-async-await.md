@@ -15,7 +15,8 @@ permalink:
 
 ## 结论放开头
 
-1. `async function`只是用来返回一个`Promise`对象或者要执行`await`时包上为了达到`async function`不阻塞的效果.(并是不说`async`里面一定要有`await`),**绝不会阻塞后面的语句,整个一个`async function`** 不会阻塞哦.(不要和里面的`await`遇到`Promise`阻塞搞混),而且**`await`不会包装值为`Promise`**
+1. `async function`只是用来**返回**一个`Promise`对象或者要执行`await`时包上为了达到`async function`不阻塞的效果.(并是不说`async`里面一定要有`await`),**绝不会阻塞后面的语句,整个一个`async function`** 不会阻塞哦, 且返回的是`Promise`.(不要和里面的`await`遇到`Promise`阻塞搞混),而且`await`不会包装值为`Promise`
+    1. --- 区别`async`会返回一个`Promise`, 不阻塞, `await`就算接收了`Promise`也只返回里面的值, 阻塞.
 2. `await`是用来在`async functnion`中等待执行一个表达式(`expression`),而且只能在`async function`中使用, 可以等的是普通的函数(那就当啥事没有,正常往下同步执行呗), 当然重点是说等着`Promsie`, 保证来的如果是`Promise`对象, 那么一定会保证先等这个`promise`搞定了(阻塞),再往下执行代码.(`await` 必须用在 `async` 函数中的原因就是为了`async function`不阻塞),**注意:`await`不会包装值为`Promise`**
 3. `async/await` 的优势在于**优化**处理 `then` 链以及对比`Promise`更清晰的**传递参数**
 4. 优化点, 处理`await`的时候最好用`try...catch`住,或者用`.catch` 防止`Promise`变为`reject`
