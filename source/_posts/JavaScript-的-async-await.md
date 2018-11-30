@@ -21,6 +21,7 @@ permalink:
 3. `async/await` 的优势在于**优化**处理 `then` 链以及对比`Promise`更清晰的**传递参数**
 4. 优化点, 处理`await`的时候最好用`try...catch`住,或者用`.catch` 防止`Promise`变为`reject`
 5. 处理多个的时候用`Promise.all()`,并且传入`数组[]` , 切记不要用`forEach`,虽然`forEach`**可能让他们并发执行**
+6. **至于`await`用不用, 看这一步的`await`会不会对后面的产生影响. 并不是说子的函数就搞定了. 他还是`promise,pending`的**
 
 ## 说下async起的作用
 

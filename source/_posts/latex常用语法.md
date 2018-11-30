@@ -128,3 +128,275 @@ $\lim\limits_{\substack{\sigma\rightarrow0 \\
 ## 参考
 
 [脚丫先生的LaTeX入门](https://blog.csdn.net/shujuelin/article/details/79340373)
+
+保存的代码
+```
+\documentclass{article}   {report}
+\usepackage[utf8]{inputenc}
+
+\title{Hello Workld}
+\author{pppxehng}
+\date{Augest 2018}
+
+\begin{ducument}
+
+\maketitle
+
+\section{Introduction}
+
+HELLO Workld
+
+\end{document}
+
+
+然后学习
+chapters section paragraph sub-section
+
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+    \geometry{
+        a4paper,
+        total = {160mm,245mm},
+        left = 30mm,
+        top = 30mm
+    }
+
+\begin{ducument}
+
+\chapter{Introduction to LATEX}
+\section{Introduction}
+
+HELLO Workld
+\chapter{Advantages of LATEX}
+
+\section{section1}   这是1.1
+
+\subsection{subsection}  默认有序1.1.1, 然后加了*号\subsection*{subsection}  就没了1.1.1
+
+\subsubsection{{seusebsectiob }}
+
+\paragraph{{this line}}
+
+\end{document}
+
+table figures images
+
+\usepackage{graphicx}
+
+the fig. \ref{fig: logo} is the logp
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=5in]{jkk.png}
+    \caption{oafd logo}
+    \label{fig: logo}           1.1
+\end{figure}
+
+
+mutiple images stacks in 
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+The Fig.\ref{mul_images} id an example of  two images stacked side by side
+
+\begin{figure}[ht]      //h: here, t: top, b: bottom, p: page
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.4\linewidth]{ninjas.png}
+        \caption{figure 1}
+        \label{fig:first}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.4\linewidth]{ninjas.png}
+        \caption{figure 2}
+        \label{fig:second}
+    \end{subfigure}
+    \caption{oafd logo}
+    \label{mul_images}          
+\end{figure}
+
+
+tables in LATEX
+\chapter{Tables}
+    \begin{table}[ht]
+        \centering
+        \scalebox{2}{
+            \begin{tabular}{|l|c|r|}
+                \hline
+                Sr. No. & Column1 & Column 2 \\
+                \hline
+                \hline
+                1 & Row1Col1 & Row1Col2 \\
+                \hline
+                2 & Row2Col1 & Row2Col2 \\
+                \hline
+                3 & Row3Col1 & Row3Col2 \\
+                \hline
+            \end{tabular}
+        }
+        \caption{First Table}
+        \label{tab: firstTable}
+    \end{table}
+
+multicolumn & multirow Tables
+
+The Table\ref{multicolumn_table} displays a table with multicolumn header
+
+\begin{table}[ht]
+    \centering
+    \scalebox{1.5}{
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            Sr & \multicolumn{3}{c|}{Multicolumn Header}\\
+            \cline{2-4}
+            No. & DataHeader1 & DataHeader2 & DataHeader3\\
+            \hline
+            1 & data1 & data2 & data3\\
+            \hline
+            2 & data1 & data2 & data3\\
+            \hline
+            3 & data1 & data2 & data3\\
+            \hline
+            4 & data1 & data2 & data3\\
+            \hline
+        \end{tabular}
+    }
+    \caption{Multicolumn Table}
+    \label{multicolumn_table}
+\end{table}
+
+The Table\ref{multicolumn_table} displays a table with a cell spanning multiple rows
+\usepackage{multirow}
+
+\begin{table}[ht]
+    \centering
+    \scalebox{1.5}{
+        \begin{tabular}{|c|c|c|}
+            \hline
+            Sr No. & Header1 & Header2\\
+            \hline
+            \multirows{2}{*}{1} & data1 & data2 \\
+                                &data3 &data4\\
+            \hline
+            2 & data1 & data2\\
+            \hline
+        \end{tabular}
+    }
+    \caption{Multicolumn Table}
+    \label{multicolumn_table}
+\end{table}
+
+Equations
+
+\usepackage{amsmath}
+
+\chapter{Equations}
+
+The Eqn. \ref{circleeqn} displays the equation for the circle
+
+\begin{equation}
+    x^2=y^2=r2
+    \label{circleeqn}
+\end{equation}
+
+The equation below shows us the equatin for the circle
+
+\begin{equation*}
+    x^2=y^2=r2
+    \label{circleeqn}
+\end{equation*}
+
+THe equation for the circle is given as $x^2=y^2=r2$ 
+
+
+
+Matrices & Derivatives
+
+Ten matrices ate show in wquatin \ref{matrix}
+
+\begin{equation}
+    Y = \begin{bmatrix}
+        a_{11} & a_{12} & a_{13}\\
+        a_{21} & a_{22} & a_{23}\\
+        a_{31} & a_{32} & a_{33}\\
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_1\\
+        x_2\\
+        x_3\\
+    \end{bmatrix}
+    \label{matrix}
+\end{equation}
+
+The derivative is shown in equatin \ref{derivative}
+
+\begin{equation}
+    \frac{dy}{dx} = 2t^2
+    \label{derivative}
+\end{equation}
+
+The partial derivatives are shown in eqn \ref{partialder}
+
+\begin{equation}
+    \frac{du}{dt} = 2x\frac{\partial u}{\partial x} +
+    2y\frac{\partial u}{\partial y}
+    \label{partialder}
+\end{equation}
+
+
+Limits, summation & Integrals
+
+
+Limits are inserted in Eqn. \ref{limits}
+
+\begin{equation}
+    \lim_{x\to2}x^2+2
+    \label{limits}
+\end{equation}
+
+Summations can be inserted as shown in eqn. \ref{sum}
+
+\begin{equation}
+    \sum_{x=1}^{n}x^2=1
+    \label{sum}
+\end{equation}
+
+Product sequence can be inserted as shown in Eqn. \ref{prod}
+
+\begin{equation}
+    \prod_{x=1}^{n}x^2
+    \label{prod}
+\end{equation}
+
+Eqn. \ref{int} shows integration
+
+\begin{equatin}
+    \int_{0}^{n}x^2dx
+    \label{int}
+\end{equatin}
+
+
+Citations & Bibliography
+
+直接在google scholar中搜 然后有个cite 点击Bib Tex, 然后复制在一个单独的文件中可以 qian1990new这个是cite
+
+@article{qian1990new,
+  title={A new scientific field--open complex giant systems and the methodology},
+  author={Qian, Xuesen and Yu, Jingyuan and Dai, Ruwei},
+  journal={Chinese Journal of Nature},
+  volume={13},
+  number={1},
+  pages={3--10},
+  year={1990}
+}
+
+使用的使用
+
+Thereference for this report are \cite{qian1990new} and ...
+
+\bibliographystyle{ieeetr}
+\bibliography{citation}
+```
