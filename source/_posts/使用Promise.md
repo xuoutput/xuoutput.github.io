@@ -119,13 +119,26 @@ new Promise( function(resolve, reject) {...} /* executor */  );
 
 1. `Promise.resolve(value)`:   返回一个状态由给定`value`决定的`Promise对象`。
 如果该`value`是一个`Promise`对象，则直接返回该`Promise`对象；
-如果该值是`thenable`(即，带有`then`方法的对象)，返回的`Promise`对象的最终状态由`then`方法执行决定；
+如果该值是`thenable`(即，带有`then`方法的对象)，返回的`Promise`对象的最终状态由`then`方法执行决定；(**注意**: 应该是`Promise.resolve`方法会将这个对象转为 `Promise` 对象，然后就立即执行`thenable`对象的`then`方法。)
+```javascript
+// 这是一个滴啊有then方法的对象, 所以
+let thenable = {
+  then: function(resolve, reject) {
+    resolve(42);
+  }
+};
+
+let p1 = Promise.resolve(thenable);  // 这里先包装thenable
+p1.then(function(value) {           // 这里执行, 最终结果.
+  console.log(value);  // 42
+});
+```
 否则的话(该`value`为`空`，`基本类型`或者不带`then`方法的对象),返回的`Promise`对象状态为`fulfilled`，并且将该`value`传递给对应的`then`方法。
 **通常而言**，如果你不知道一个值是否是`Promise`对象，使用`Promise.resolve(value)` 来返回一个`Promise`对象,这样就能将该`value`以`Promise`对象形式使用。
-2. `Promise.reject(reason)`:   返回一个状态为失败的`Promise对象`，并将给定的失败信息`reason`传递给对应的处理方法`catch`住.
+2. `Promise.reject(reason)`:   返回一个状态为失败的`Promise对象`，并将给定的失败信息`reason`传递给对应的处理方法`catch`住.(实际上只是 `then(null, ...)` 的语法糖)
 3. `Promise.all(iterable)`:    这个方法返回一个新的`promise`对象(**成功对应返回resolve一个Promise包装的所有成功value的数组, 失败就返回reject第一个失败的那个的reason信息**)，该`promise`对象在`iterable`参数对象里(不是说是`数组`,而是说要具有`iterable`接口)`所有的promise`对象都成功的时候才会触发成功，一旦有任何一个`iterable`里面的`promise`对象`失败`则立即触发该`promise`对象的失败。
 > 这个`新的promise`对象在触发成功状态以后，会把一个包含`iterable`里`所有promise`返回值的`数组`作为成功回调的返回值，顺序跟`iterable`的顺序保持一致；如果这个新的`promise`对象触发了`失败状态`，它会把iterable里第一个触发失败的`promise`对象的错误信息作为它的失败错误信息。`Promise.all`方法常被用于处理`多个promise`对象的状态集合。
-4. `Promise.race(iterable)`:   当`iterable`参数里的任意一个`子promise`被成功或失败后(就是看最快的那个, `all`相当于是看最慢的)，`父promise`马上也会用`子promise`的成功返回值或失败详情作为参数调用`父promise`绑定的相应句柄，并返回该`promise`对象。
+4. `Promise.race(iterable)`:   当`iterable`参数里的任意一个`子promise`被成功或失败后(就是看最快的那个, `all`相当于是看最慢的)，`父promise`马上也会用`子promise`的成功返回值或失败详情作为参数调用`父promise`绑定的相应句柄，并返回该`promise`对象。(**注意**:  `Promise.race` 在第一个`promise`对象变为`Fulfilled`之后，并不会取消其他`promise`对象的执行。)
 
 ![3.png](3.png)
 
@@ -135,9 +148,9 @@ new Promise( function(resolve, reject) {...} /* executor */  );
 
 方法就是常见的3个, `then` `catch` `finally`
 
-1. `Promise.prototype.then(onFulfilled, onRejected)`:  添加解决(`fulfillment`)和拒绝(`rejection`)回调到当前 `promise`, 返回一个`新的 promise`, 将以回调的返回值来`resolve`.
+1. `Promise.prototype.then(onFulfilled, onRejected)`:  添加解决(`fulfillment`)和拒绝(`rejection`)回调到当前 `promise`, 返回一个`新的 promise`, 将以回调的返回值来`resolve`. (`catch`只是`then`的一个特例)
 
-2. `Promise.prototype.catch(onRejected)`:  添加一个拒绝(`rejection`) 回调到当前 `promise`, 返回一个`新的promise`。当这个回调函数被调用，`新 promise` 将以它的返回值来`resolve`，否则如果当前`promise` 进入`fulfilled`状态，则以当前`promise`的完成结果作为新`promise`的完成结果.
+2. `Promise.prototype.catch(onRejected)`:  添加一个拒绝(`rejection`) 回调到当前 `promise`, 返回一个`新的promise`。当这个回调函数被调用，`新 promise` 将以它的返回值来`resolve`，否则如果当前`promise` 进入`fulfilled`状态，则以当前`promise`的完成结果作为新`promise`的完成结果.**注意这个也是返回一个Promise, 当成`then`只有第2个参数时呗**
 
 3. `Promise.prototype.finally(onFinally)`: 添加一个事件处理回调于当前`promise`对象，并且在`原promise`对象解析完毕后，返回一个`新的promise`对象。回调会在当前`promise`运行完毕后被调用，无论`当前promise`的状态是完成(`fulfilled`)还是失败(`rejected`)
 
@@ -165,7 +178,7 @@ const promise = new Promise(function(resolve, reject) {
 });
 ```
 
-1. `resolve`函数的作用是，将`Promise`对象的状态从“未完成”变为“成功”（即从 `pending` 变为`resolved`），在异步操作成功时调用，并将异步操作的结果，作为`参数`传递出去；
+1. `resolve`函数的作用是，将`Promise`对象的状态从“未完成”变为“成功”（即从 `pending` 变为``fulfilled``），在异步操作成功时调用，并将异步操作的结果，作为`参数`传递出去；
 2. `reject`函数的作用是，将`Promise`对象的状态从“未完成”变为“失败”（即从 `pending` 变为`rejected`）， 在异步操作失败时调用，并将异步操作报出的错误，作为`参数`传递出去。
 
 `Promise`实例生成以后，可以用`then`方法分别指定`resolved`状态和`rejected`状态的`回调函数`。
@@ -178,6 +191,44 @@ promise.then(function(value) {
 });
 ```
 
+立即`resolve`的 `Promise` 对象，是在**本轮**“事件循环”（`event loop`）的结束时，而不是在下一轮“事件循环”的开始时。
+
+```javascript
+setTimeout(function () {
+  console.log('three');
+}, 0);
+
+Promise.resolve().then(function () {
+  console.log('two');
+});
+
+console.log('one');
+
+// one
+// two
+// three
+```
+
+上面代码中，`setTimeout(fn, 0)`在**下一轮**“事件循环”开始时执行，`Promise. resolve()`在**本轮**“事件循环”结束时执行，`console.log('one')`则是**立即执行**，因此最先输出。
+
+**特别说明**：如果需要`resolve()`往后传递**多个**参数，不能直接写`resolve(a1,a2,a3)`，这样只能拿到第一个要传的参数，需要以数组或对象去传递
+
+```javascript
+let obj = {a1:a1,a2:a2,a3:a3};
+resolve(obj)
+//or
+let arr =[a1,a2,a3];
+resolve(arr);
+```
+
+Promise的链还停不了诶
+```javascript
+// 这里是返回一个pending状态的Promise
+new Promise(function(){})
+```
+
+虽然上面可以停住, 但会导致内存泄漏,毕竟一直停住了, 不释放内存.
+
 ## 参考
 
 [Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
@@ -186,3 +237,5 @@ promise.then(function(value) {
 
 进阶
 [你真的完全掌握了promise么？](https://juejin.im/post/5af29a62f265da0b8f628973)
+[对Promise状态的理解和基本用法](https://juejin.im/post/5a58551ef265da3e51330a8e)
+[从如何停掉 Promise 链说起](https://github.com/xieranmaya/blog/issues/5)

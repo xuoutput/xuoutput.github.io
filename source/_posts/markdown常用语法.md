@@ -7,7 +7,7 @@ categories:
 - 前端
 ---
 
-## 直接贴一段用markdown写好的文章，两边对照的那种看好了
+# 直接贴一段用markdown写好的文章，两边对照的那种看好了
 
 用stackEdit
 
@@ -17,6 +17,7 @@ categories:
 markdownlint
 
 ### 3款插件功能
+
 * markdown all in one
 
 | Tables               | Are          | Cool       |
@@ -32,7 +33,6 @@ markdownlint
 | 代码,代码块          | 高亮         |
 | \`\`\`|\`\`\`c++     |
 | 表格                 |
-
 
 ## 总结
 

@@ -2,6 +2,12 @@
 title: js的数组
 date: 2018-12-07 20:37:21
 tags:
+- javascript
+- 数组和对象
+categories:
+- javascript教程
+comments: false
+permalink:
 ---
 
 # js的数组
@@ -95,12 +101,12 @@ s[0]
 
 ## 对象
 
-是一种复合值, key:value. 也可以看做是属性的无序集合啊. key是字符串. hash, dictionary, associative property
+是一种复合值, key:value. 也可以看做是属性的无序集合啊. key是字符串. hash, dictionary, associative array
 对象不仅是个映射, 还有从一个称作原型的对象继承属性. 对象的方法通常是继承的属性. 原型式继承是js的核心啊.
 
 对象是动态的, 可以新增也可以删除属性.
 
-对象是可变的额, 所以通过一个引用 不是值来操作对象. 
+对象是可变的额, 所以通过一个引用 不是值来操作对象.
 
 **对象常用的用法是**:创建, 设置, 查找, 删除, 测试, 枚举.
 
@@ -142,7 +148,7 @@ new 是 加上一个函数, 通常是成为构造函数.
 原型: 只有null是没有原型的. 其他都会有, 
 比如{}创建的原型是Object.prototype, 用new+构造函数创建的就是对应的构造函数.prototype  (看图哦,原型中的 function Function注意点)
 
-所有的对象直接量创建的事同一个原型对象, Object.prototype
+所有的对象直接量创建的是同一个原型对象, Object.prototype
 用new+构造函数创建的就是对应的构造函数.prototype. 当然用new+Object()的创建的对象继承Object.prototype , 然后这些原型对象都可以看做是普通对象, 然后又有原型,一直向上., 就是说所有的内置构造函数的原型都继承来自Object.prototype
 
 没有原型的对象: Object.prototype是一个
@@ -295,5 +301,148 @@ es5可以通过这些api给原型对象添加方法, 并将它们设置为不可
 
 存取器属性不具有value和writable, 它的可写性由`setter`决定, 所以存取器属性的4个特性是get, set, enumerable, configurable.
 
+**为了实现属性特性的查询和设置**操作, es5定义了一个`property descriptor`对象, 这个对象**代表那4个特性**.
+所以**数据属**性的描述符对象的属性有value, writable, enumerable, configurable.
+**存取器属性**的描述符对象则用get和set代替value和writable,
+其中writable, enumerable, configurable是布尔值, get和set当然是函数值.
+
+> 分类为添加数据属性, 添加存取器属性.
+
+通过调用`Object.getOwnPropertyDescriptor()`可以获取某个对象特定属性的属性描述符.
+![getOwnPropertyDescriptor](getOwnPropertyDescriptor.png)
+
+只是对当前对象的自由属性, 如果是继承属性和不存在的属性就是`undefined`
+
+像要继承属性的特性需要遍历原型链, 用`Object.getPrototypeOf()`找打指定对象的原型, 然后用`Object.getOwnPropertyDescriptor()`
+
+接下来是设置属性的特性了, 用`Object.defineProperty()`, 传入要修改的对象, 要修改属性, 以及属性描述符对象.
+
+枚举指的是能不能被`for/in`还要能不能被`keys`, 还有`JSON.stringify`  就是影响这3个函数结果.
+
+只能读取对象本身的可枚举属性，并序列化为JSON对象。
+
+而`configurable`指能不能再次通过`Object.defineProperty()`来设置咯
+
+**注意**: 传入`Object.defineProperty()`里的属性描述符对象, 就是那第3个参数, 不必包含4个特性, 没传入的默认值当false或undefined.  而对于修改已有的属性特性, 不传入就是保持原来的. **这个不能修改继承属性,是要么新建自有属性, 要么修改已有属性**
+
+修改多个的话用`Object.defineProperties()`, 第二个参数变成一个映射表了.
+
+> 可**对象**的扩展性和**属性**的可配置的区别, 可扩展说的是能不能新建一个属性. 可配置将的是能不能再次修改这个属性的特性了
+
+有个规则看下:
+
+* 如果**对象**是不可扩展的, 说的是可以编辑已有的自有属性, 但不能新建添加.
+* 如果**属性**是不可配置的, 不能修改它的可配置下和可枚举性. vale和writable可以改诶, 那get和setter也能改.
+* 如果**存取器属性**是不可配置的, 不能修改getter和setter, 也不能转成数据属性
+* 如果**数据属性是**是不可配置的, 则不能转换成存取器属性. 不能将她的可写性从false到true, 但可以从true到false
+* 如果**数据属性是**是不可配置的和不可写的, 就是上面说的. 则不能修改它的值. 然而可配置加上不可写的话,这个值是可以修改的.(实际上是先将他标位可写, 然后修改它的值, 然后转换为不可写)
+
+复制对象的属性, 这个只是简单地复制属性名和值, 这里默认没有复制属性的特性,也没有复制存取器属性, 只是简单地转换为静态的数据属性.
+所以要加上用`Object.getOwnPropertyDescriptor()`和`Object.defineProperty()` 记得要把这个方法加到Object.prototype中, 然后设为不可枚举哦.
+
+### 6.8对象的3个属性
+
+有点蒙, 先说下是 原型prototype, 类class, 可扩展性extensible attribute
+
+**原型**: 以前常说的"o的原型"就是这个"o的原型属性"
+前面说的通过对象字面量{} 使用`Object.prototype` 原型, new+构造函数创建的实例用构造函数的prototype作为他们的原型, Object.create()的第一个参数作为原型.
+
+es5中用`Object.getPrototypeOf()`来查找对象的原型. 而不是说直接用`prototype`或`__proto__`获取原型
+
+检测一个对象是不是另一个对象的原型, 用`isPrototypeOf()` 这个和`instanceof`功能类似
+
+**类属性**:是一个字符串,表达对象类型信息.es5中都没有提供这个方法, 只有一种简洁的方法可以查询他, 就是toString 这个和那个[Symbol.toStringTag](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag)这个一样嗯么.
+
+想要获得对象的类, 可以调用对象的toString()方法, 然后提取返回字符串的第8个到倒数第2个之间的字符.因为很多对象继承的toString()方法重写了, 为了能调用正确的toString, 所以要间接得调用`Function.call()`方法
+
+```javascript
+Object.prototype.toString.call('foo').slice(8, -1) 
+```
+
+**可扩展性**:表示是否可以给对象添加新属性. 所以内置对象和自定义对象都是显示可扩展的额,宿主对象的可扩展性由javascript引擎定义.
+es5中通过将对象传入`Object.isExtensible()`来判断该对象是否是可扩展的, 想让对象不可扩展用`Object.preventExtensions()` ,不顾一旦变为不可扩展, 那就不能再变回来了. 而且注意这个只影响本对象自身的可扩展性.
+目的是为了lock, 避免外界干扰. **对象的可扩展性通常和属性的可配置型和可写性配合使用**:也就是前面的规则.
+**还有个更进一步**, `Object.seal()` 除了将对象设置为不可扩展, 还可以将对象的所有自有属性都设置为不可配置.(不能添加属性, 已有的属性也不能删除或修改), 已有的可写属性依旧可以设置. 也不能解封, 用`Object.isSealed()`判断
+**在进一步**: `Object.freeze()`更严格地锁定对象  冻住了, 除了将对象设置为不可扩展和属性设置为不可配置外, 将他自有的所有数据属性都设置为只读, 存取器属性不受影响. 使用`Object.idFrozen()`判断
+
+`Object.preventExtensions()`和`Object.seal()`和`Object.freeze()`这3这都返回传入的对象, 所以可以用该函数嵌套的方式调用他们.
+
+### 6.9序列化对象
+
+指将对象的状态转为字符串.也可以将字符串还原为对象, 这个不就是`JSON.stringify()`和`JSON.parse()`
+
+### 6.10 对象方法 4个
+
+`toString(), toLocaleString(), toJSON(), valueOf()`
 
 
+
+
+
+
+
+
+## 对象总结
+
+对象是一个`key: value`的, 无序集合哦. 看成映射也行, 比如`hash`, `dictionary`, `associative array`.
+
+对象是动态的, 可以新增和删除属性. 通过对象的**可扩展性**也可以定住.
+引用
+
+### 先说对象的3个属性和4个方法
+
+#### 原型`prototype`, 类`class`, 可扩展性`extensible attribute`
+
+* **原型**: 以前常说的"o的原型"就是这个"o的原型属性"
+
+通过对象字面量`{}` 使用`Object.prototype` 原型, `new`+`构造函数`创建的实例用构造函数的`prototype`作为他们的原型, `Object.create()`的第一个参数作为原型.
+
+详细讲js原型的: {% post_link javascript原型 javascript原型 %} 结合比较
+
+上面的而文章会用到`prototype`或`__proto__`属性获取获取对象原型.
+
+es5中用`Object.getPrototypeOf()`方法来**查找**对象的原型,更正式.
+还有就是检测一个对象是不是另一个对象的原型, 用`isPrototypeOf()` ,原理功能上的话和`instanceof`类似
+
+* **类属性`class attribute`**:是一个字符串,表达对象**类型信息**.es5中都没有提供这个方法, 只有一种简洁的方法可以查询他, 就是toString 这个和那个[Symbol.toStringTag](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag)一起看
+
+想要获得对象的类, 可以调用对象的`toString()`方法, 然后提取返回字符串的**第8个到倒数第2个之间**的字符.因为很多对象继承的`toString()`方法重写了, 为了能调用正确的`toString`, 所以必需要间接得调用`Function.call()`方法
+
+```javascript
+Object.prototype.toString.call('foo').slice(8, -1)
+```
+
+* **可扩展性`extensible attribute`**:表示是否可以给对象**添加**新属性(可以删除哦). 所以内置对象和自定义对象都是显示可扩展的额,宿主对象的可扩展性由javascript引擎定义(反正也是可扩展的).
+
+一共3个, 从对象属性覆盖到属性特性: `Object.preventExtensions()`和`Object.seal()`和`Object.freeze()` **都是只影响自有属性**, 和继承属性无关. **从对像可扩展到属性的可配置再加上属性的可写性**. 
+
+对象的`Object.preventExtensions()`和设置属性的`configurable`一样,一旦设置`false`就不能再次设置了.只还剩一个`freeze`的话还能改点可写性诶.
+
+es5中通过将对象传入`Object.isExtensible()`来判断该对象是否是可扩展的, 想让对象不可扩展用`Object.preventExtensions()` ,不顾一旦变为不可扩展, 那就不能再变回来了. 而且注意这个只影响**本对象自身**的可扩展性. 不可扩展对象的属性可能仍然可被删除.
+目的是为了lock, 避免外界干扰. **对象的可扩展性通常和属性的可配置型和可写性配合使用**:也就是前面的规则.
+**还有个更进一步**, `Object.seal()` 除了将对象设置为不可扩展, 还可以将对象的所有**自有属性**都设置为不可配置.(不能添加属性, 已有的属性也不能删除或修改), 已有的可写属性依旧可以设置. 也不能解封, 用`Object.isSealed()`判断
+**在进一步**: `Object.freeze()`更严格地锁定对象  冻住了, 除了将对象设置为不可扩展和属性设置为不可配置外, 将他**自有**的所有数据属性都设置为只读, 存取器属性不受影响. 使用`Object.idFrozen()`判断
+
+`Object.preventExtensions()`和`Object.seal()`和`Object.freeze()`这3这都返回传入的对象, 所以可以用该函数嵌套的方式调用他们.
+
+#### 4个方法
+
+没啥用的`toString()`, `toLocaleString()`, `toJSON`, `valueOf()`
+
+### 对象常用的用法是:创建, 查找, 设置, 删除, 检测, 枚举
+
+#### 创建对象, 注意和原型结合看
+
+3种方式创建: `对象直接量{}`, `new`, `Object.create()`
+
+**主要是创建后的原型不同**.
+
+* `{}`: 创建后原型就是`Object.prototype`
+
+> key的话如果用了`保留字` 比如`for` 要用`"for"` 套上, 还有`"a b"` `"a-b"`都可以,只要是字符串都行, 不过不建议啦.
+**注意**: 对象直接量`{}`是一个`表达式`, 每次运行都会创建并初始化一个新的对象. 所以里面的`key`的`value`也都会计算一次,
+
+* `new`+构造函数: 这个很熟悉了, 看前面的原型: {% post_link javascript原型 javascript原型 %}
+
+> 原型: 只有`null`是没有原型的. `Object.prototype`是最上层那个,也没有原型,其他都会有,
+> 所有的对象直接量`{}`创建的原型是`Object.prototype`, 用`new+构造函数`创建的就是对应的`构造函数.prototype`  (看图哦,原型中的 `function Function`注意点)
