@@ -63,6 +63,8 @@ docker本身的启动, 本身就可以看做是一个守护进程 `service docke
 
 ### Docker的14个命令,注意区分image和container
 
+![docker_command](docker_command.jpeg)
+
 1. `docker info`: 检查Docker是否安装, 显示Docker信息 `docker version`
 2. `docker images`: 检查本机有多少个docker image list, top level的. `-a`看完整的, 包括中间层images, `-q`只看id
 3. `docker inspect`看top level layer的 image详情MD信息,也可以看container, 如 IP,port, 配置信息
@@ -360,6 +362,15 @@ registry是docker提供的线上的那个index,包含repository, repository是�
 * 远程访问
   
 就是docker client和docker deamon不在同一个host上, 平时通过docker命令访问docker client然后docker client会访问deamon. 现在你可以直接通过远程REST API访问docker deamon
+
+* detach和attach区别
+
+`ctl+d`退出, `attach`再回到运行的容器中
+
+* run中link和name的区别
+
+--name只是别名, --link是指定链接到那个容器
+
 
 ## 参考
 

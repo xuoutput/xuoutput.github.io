@@ -630,7 +630,7 @@ var arr = new Array();
 // 我们可以看到这个数组是构造函数 Array 的实例对象，所以他的原型应该是：
 console.log(Array.prototype);   // 打印出来还是一个空数组
 
-// 我们可以继续往上找 
+// 我们可以继续往上找
 console.log(Array.prototype.__proto__);  // 空对象
 
 // 继续
