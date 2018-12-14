@@ -74,7 +74,7 @@ docker本身的启动, 本身就可以看做是一个守护进程 `service docke
 7. `docker ps`: 列出运行中的container, -a是所有不运行的也列出, 就是只看`start`不看`create`的咯和`docker container ls`,`docker container ls --all`
 8. `docker logs <ID/>name>`: 查询输出,
 9. `docker stop <ID/>name>`: 停止container,优雅退出,回收进程空间 start和stop可以多个 `docker kill <ID/>name>`直接杀. `docker container stop`这么写太繁琐
-10. `ctl+p ctl+q`: 将容器后台, 也就是变为守护, `exit`: 退出容器
+10. `ctl+p ctl+q`: 将容器后台, 也就是变为守护, attach, `exit`后`ctl+d`: 退出容器
 11. `docker start/restart <ID/>name>`: 运行/重启container `docker attach`重新进入-d的守护容器  
 12. `docker exec`: 在运行中的container中(有了进程空间的)运行command, 执行进程
 13. `docker rm <ID/>name>`: 删除构成container的可读写层,要先stop. `docker rmi <ID/>name>`是删top level layer image, `docker rmi $(docker images -q)`: 删了所有层 . 就是`docker container rm`和`docker image rm` 简写
@@ -135,7 +135,7 @@ MAINTAINER Victor Coisne victor.coisne@dotcloud.com
 
 #### COPY 命令
 
-将host指定目录中的内容复制到container中的指定目录,通常是`WORKDIR`指定的工作目录,
+**只能讲和Dockerfile文件同目录中的内容**复制到container中的指定目录,通常是`WORKDIR`指定的工作目录,
 如: Copy the current directory contents into the container at /app
 
 ```docker
@@ -143,6 +143,23 @@ COPY . /app
 ```
 
 暂时只要这个命令是改动1个层, 不会有Running的那个层
+
+[/var/lib/docker/tmp/docker-builderXXXXXXX/... no such file or directory #1922](https://github.com/docker/for-mac/issues/1922#issuecomment-418786503)
+
+`WORKDIR`只是在image内设置路径
+
+[说下`docker build`的最后的点`.`](https://stackoverflow.com/a/46201134/10282521)
+
+```docker
+docker build -t hello-demo-app .
+```
+
+which sets the current directory as the context, let's say you wanted the parent directory as the context, just use:
+
+```docker
+docker build -t hello-demo-app ..
+```
+
 
 #### CMD 命令
 
