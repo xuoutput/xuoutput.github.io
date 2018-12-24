@@ -163,7 +163,6 @@ git add . Git会递归地将你执行命令时所在的目录中的所有文件�
 第一步是用git add把文件添加进去，实际上就是把文件修改`添加`到暂存区(working directory没空哦)；
 第二步是用git commit提交更改，实际上就是把暂存区的`所有内容提交`到当前分支(暂存区也没空，不然怎么git diff)。
 
-
 ___
 
 ## 文件状态
@@ -171,10 +170,8 @@ untracked unmodified /  tracked modified staged committed
 > git指跟踪tracked的文件，也就是git add filename之后的，在staged状态，changes to be committed
 > modified之后 git status 看到Changes not staged for commit
 
-
 `git status` 查看
 ![fileStatus](fileStatus.png)
-
 
 ## .gitignore文件
 
@@ -229,10 +226,8 @@ $ mv README.txt README
 $ git rm README.txt
 $ git add README
 ```
+
 ___
-
-
-
 
 ## 穿越版本
 
@@ -244,6 +239,7 @@ ___
 要看文件具体修改了什么，用`git diff <filename>`
 知道修改了什么后就可以放心用`git add <filename>`添加到工作区
 这里如果在使用`git commit`之前用`git status`看就是会提示modified readme.md
+
 ```git
 $ git status
 On branch master

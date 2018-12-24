@@ -294,7 +294,7 @@ mymodule() // 调用
 
 js也使用词法作用域, 也就是说,函数的执行依赖于变量作用域, 这个**作用域是在函数定义时**决定的, 而不是函数调用时决定的, 为了实现词法作用域, js函数对象的内部状态不仅包含函数的代码逻辑, 还必须引用当前的作用域链. **函数对象可以通过作用域链相互关联起来**, 函数体内部的变量都可以保存在函数作用域内, 称为**闭包**
 
-从技术角度讲, 所有的js函数都是闭包: 他们都是对象, 他们都关联到作用域链. 定义大多数函数时的作用域链在调用函数时依旧有效, 但这并不影响闭包.
+从技术角度讲, 所有的js函数都是闭包: 他们都是对象, 他们都关联到作用域链. **`定义大多数函数时的作用域链在调用函数时依旧有效`**, 但这并不影响闭包.
 **当调用函数时闭包所指向的作用域链和定义函数时的作用域链不是同一个作用域时, 事情就变得非常微妙**. 当一个函数嵌套了另外一个函数, 外部函数讲嵌套的函数对象作为返回值返回的时候往往会发生这种事情.
 
 理解闭包首先要了解嵌套函数的词法作用域规则.
@@ -319,14 +319,100 @@ function checkscope() {
 checkscope()()    // => "local scope"
 ```
 
-词法作用域的基本规则: js函数的执行用到了作用域链, 这个作用域链是函数定义的时候创建的. 嵌套的函数`f()`定义在这个作用域里, 其中的变量`scope`一定是局部变量, 不管在何时何地执行函数`f()`, 这种绑定在执行`f()`时依旧有效, 因此最后一样代码返回`local scope`而不是`global scope`.
+词法作用域的基本规则: js函数的执行用到了作用域链, 这个作用域链是**函数定义**的时候创建的. 嵌套的函数`f()`定义在这个作用域里, 其中的变量`scope`一定是局部变量, 不管在何时何地执行函数`f()`, 这种绑定在执行`f()`时依旧有效, 因此最后一样代码返回`local scope`而不是`global scope`.
 简言之, 闭包的这个特性强大到让人吃惊: 他们可以捕捉到局部变量(和参数), 并一直保存下来, 看起来像这些变量绑定到了其中定义他们的外部函数.
 
+> 更底层, 了解基于栈的CPU架构: 如果一个函数的局部变量定会在CPU的栈中, 那么当函数返回时他们的确就不存在了.
 
+```javascript
+var uniqueInteger = (function() {
+    var counter = 0;
+    return function() { return counter++}
+})
+```
 
+也可以嵌套多个, 多个嵌套函数都共享一个作用域链.
 
+```javascript
+function counter() {
+    var n = 0;
+    return {
+        count: function() { return n++},
+        reset: function() { n = 0}
+    }
+}
+```
 
+一个对象下的共享, 不同对象下的不影响.
 
+从技术角度看, 其实可以将这个闭包合并为属性存取器方法`getter`和`setter`
+
+```javascript
+function counter(n) {   //  函数参数n是一个私有变量, count函数并没有声明局部变量
+    return {
+        // 属性getter方法返回并给私有计数器var递增1
+        get count() { return n++; },
+        set count(m) {
+            if (m >= n) n = m;
+            else throw Error("count can only be set to a large value")
+        }
+    }
+}
+
+var c = counter(1000)
+c.count
+c.count = 2000
+```
+
+```javascript
+function addPrivateProperty(o, name, preficate) {
+    var value
+    // getter
+    o["get" + name] = function() { return value }
+
+    // setter
+    o["set" + name] = function(v) {
+        if (predicate && !predicate(v))
+            throw Error("set" + name + ": invalid value " + v)
+        else
+            value = v
+    }
+}
+```
+
+> 注意咯, 这个函数的`getter`和`setter`函数, 所操作的属性值并没有存储在对象o中, 这个值仅仅保存在函数中的局部变量中.
+> 也就是说, 对于两个存取器方法来说这个变量是私有的, 没有办法绕过存取器方法来设置或修改这个值.
+
+要注意如果用循环创建很多个闭包, 会犯一个错误. 所有的闭包都共享一个值. 关联到闭包的作用域链都是"活动的", 嵌套的函数不会将作用域内的私有成员复制一份, 也不会对所绑定的变量生成静态快照.
+
+书写闭包的时候还需要注意, `this`是js的关键字, 而不是变量. 每个函数调用都包含一个this值, 如果闭包在外部函数里是无法访问this的, 除非外部函数讲this转存为一个变量.
+arguments类似, 他并不是一个关键字, 但在调用每个函数时都会自动声明它, 由于闭包具有自己所绑定的arguments, 因此闭包内无法直接访问外部函数的参数数组, 除非外部函数将参数数组保存到另一个变量中.
+
+## 8.7 函数属性, 方法和构造函数
+
+js中函数是值, 用`typeof`运算符返回字符串`'function'`, 但函数又是js中特殊的对象. 所有有属性和方法, 甚至可以用`Function()`构造函数来创建新的函数对象.
+
+### 8.7.1 length属性
+
+函数体里的`arguments.length`表示传入函数的实参的个数. 而在函数本身的`length`属性则有不同的含义. 函数的`length`属性是只读属性, 它代表函数是参数的数量, 这里的参数指的是'形参'而非'实参', 也就是函数定义时给出的形参个数, 通常也是在函数调用时期望传入函数的参数个数.
+
+例子是一个`check()`的函数, 从另外一个 函数给他传入`arguments`数组, 它比较`arguments.length`(实际传入的实参个数)和`arguments.callee.length`(期望传入的实参个数)来判断所传入的实参个数是否正确.
+
+```javascript
+function check(args) {
+    var actual = args.length;           // 实参的真实个数
+    var expected = args.callee.length;  // 期望的是从哪个数
+    if (actual !== expected)
+        throw Error("Expected " + expected + "args; got" + actual)
+}
+
+function f(x, y, z) {
+    check(arguments);
+    return x + y + z;
+}
+```
+
+### 8.7.2 prototye属性
 
 
 
