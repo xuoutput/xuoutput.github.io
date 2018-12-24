@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="javascript,prototype,">
+
+
+<meta name="description" content="javascript原型, 一文让你理解什么是 JS 原型对象创建有2种方式, 这里只看通过new+构造函数的方式. 如果是通过字面量{}创建的,那么原型就是Object.prototype 原型链图先把这张图过一遍 1. 原型1.1 传统构造函数的问题通过自定义构造函数的方式，创建小狗对象： 1234567891011121314function Dog(name, age) &amp;#123;">
+<meta name="keywords" content="javascript,prototype">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript原型">
+<meta property="og:url" content="http://yoursite.com/2018/12/06/javascript原型/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="javascript原型, 一文让你理解什么是 JS 原型对象创建有2种方式, 这里只看通过new+构造函数的方式. 如果是通过字面量{}创建的,那么原型就是Object.prototype 原型链图先把这张图过一遍 1. 原型1.1 传统构造函数的问题通过自定义构造函数的方式，创建小狗对象： 1234567891011121314function Dog(name, age) &amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/prototype.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/dog1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/dog2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p3.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/proto.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/constructor.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p4.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p5.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p6.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p7.png">
+<meta property="og:updated_time" content="2018-12-13T11:44:22.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript原型">
+<meta name="twitter:description" content="javascript原型, 一文让你理解什么是 JS 原型对象创建有2种方式, 这里只看通过new+构造函数的方式. 如果是通过字面量{}创建的,那么原型就是Object.prototype 原型链图先把这张图过一遍 1. 原型1.1 传统构造函数的问题通过自定义构造函数的方式，创建小狗对象： 1234567891011121314function Dog(name, age) &amp;#123;">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/06/javascript原型/prototype.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/06/javascript原型/">
+
+
+  <title>javascript原型 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/javascript原型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript原型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T08:54:01+08:00">2018-12-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript教程/" itemprop="url" rel="index"><span itemprop="name">javascript教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="javascript原型-一文让你理解什么是-JS-原型"><a href="#javascript原型-一文让你理解什么是-JS-原型" class="headerlink" title="javascript原型, 一文让你理解什么是 JS 原型"></a>javascript原型, <a href="https://segmentfault.com/a/1190000017207055" target="_blank" rel="noopener">一文让你理解什么是 JS 原型</a></h1><p><strong>对象创建有2种方式, 这里只看通过new+构造函数的方式</strong>.</p>
+<p>如果是通过字面量<code>{}</code>创建的,那么原型就是<code>Object.prototype</code></p>
+<h2 id="原型链图"><a href="#原型链图" class="headerlink" title="原型链图"></a>原型链图</h2><p>先把这张图过一遍<br><img src="prototype.png" alt="prototype.png"></p>
+<h2 id="1-原型"><a href="#1-原型" class="headerlink" title="1. 原型"></a>1. 原型</h2><h3 id="1-1-传统构造函数的问题"><a href="#1-1-传统构造函数的问题" class="headerlink" title="1.1 传统构造函数的问题"></a>1.1 传统构造函数的问题</h3><p>通过自定义构造函数的方式，创建小狗对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'汪汪汪'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">'哈士奇'</span>, <span class="number">1.5</span>);</span><br><span class="line"><span class="keyword">var</span> dog2 = <span class="keyword">new</span> Dog(<span class="string">'大黄狗'</span>, <span class="number">0.5</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dog1);</span><br><span class="line"><span class="built_in">console</span>.log(dog2);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dog1.say == dog2.say); <span class="comment">//输出结果为false</span></span><br></pre></td></tr></table></figure>
+<p>画个图理解下：<br><img src="dog1.jpeg" alt="dog1.jpeg"></p>
+<p>每次创建一个对象的时候，都会<strong>开辟一个新的空间</strong>，我们从上图可以看出，每只创建的小狗有一个<code>say</code>方法，<strong>这个方法都是独立的，但是功能完全相同</strong>。随着创建小狗的数量增多，造成内存的浪费就更多，这就是我们需要解决的问题。</p>
+<p>为了<strong>避免内存的浪费</strong>，我们想要的其实是下图的效果：<br><img src="dog2.jpeg" alt="dog2.jpeg"></p>
+<p><strong>解决方法</strong>：<br>这里最好的办法就是将函数体放在构造函数之外，在构造函数中只需要引用该函数即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayFn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'汪汪汪'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.say = sayFn();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">'哈士奇'</span>, <span class="number">1.5</span>);</span><br><span class="line"><span class="keyword">var</span> dog2 = <span class="keyword">new</span> Dog(<span class="string">'大黄狗'</span>, <span class="number">0.5</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dog1);</span><br><span class="line"><span class="built_in">console</span>.log(dog2);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dog1.say == dog2.say); <span class="comment">//输出结果为true</span></span><br></pre></td></tr></table></figure>
+<p><strong>这样写依然存在问题</strong>：</p>
+<ul>
+<li>全局变量增多，会增加引入框架命名冲突的风险</li>
+<li>代码结构混乱，会变得难以维护</li>
+</ul>
+<p>想要解决上面的问题就需要用到<code>构造函数的原型</code>概念。</p>
+<h3 id="1-2-原型的概念"><a href="#1-2-原型的概念" class="headerlink" title="1.2 原型的概念"></a>1.2 原型的概念</h3><p><code>prototype</code>：原型。每个构造函数在创建出来的时候系统会<strong>自动给这个构造函数创建并且关联一个空的对象</strong>。这个<code>空的对象</code>，就叫做<code>原型</code>。</p>
+<p><strong>关键点</strong>：</p>
+<ul>
+<li>每一个由构造函数创建出来的<code>对象</code>，都会默认的和构造函数的原型关联；</li>
+<li>当使用一个方法进行属性或者方法访问的时候，会先在当前对象内查找该属性和方法，如果当前对象内未找到，就会去跟它关联的原型对象内进行查找；</li>
+<li>也就是说，在原型中定义的方法跟属性，会被这个构造函数创建出来的对象所<code>共享</code>；</li>
+<li><code>访问原型</code>的方式：<code>构造函数名.prototype</code>。</li>
+</ul>
+<p>示例图：<br><img src="p.png" alt="p.png"></p>
+<p><strong>示例代码</strong>： 给构造函数的原型添加方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给构造函数的原型 添加say方法</span></span><br><span class="line">Dog.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'汪汪汪'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">'哈士奇'</span>, <span class="number">1.5</span>);</span><br><span class="line"><span class="keyword">var</span> dog2 = <span class="keyword">new</span> Dog(<span class="string">'大黄狗'</span>, <span class="number">0.5</span>);</span><br><span class="line"></span><br><span class="line">dog1.say();  <span class="comment">// 汪汪汪</span></span><br><span class="line">dog2.say();  <span class="comment">// 汪汪汪</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到，本身<code>Dog</code>这个构造函数中是<strong>没有</strong><code>say</code>这个方法的，我们通过<code>Dog.prototype.say</code>的方式，在构造函数<code>Dog</code>的<strong>原型中</strong>创建了一个方法，实例化出来的<code>dog1</code>、<code>dog2</code>会先在自己的对象先找<code>say</code>方法，找不到的时候，会去他们的<code>原型对象</code>中查找。</p>
+<p><strong>如图所示</strong>:<br><img src="p2.png" alt="p2.png"></p>
+<blockquote>
+<p>在构造函数的原型中可以存放<strong>所有对象共享的数据</strong>，这样可以避免多次创建对象浪费内存空间的问题。</p>
+</blockquote>
+<h3 id="1-3-原型的使用"><a href="#1-3-原型的使用" class="headerlink" title="1.3 原型的使用"></a>1.3 原型的使用</h3><p>1、使用对象的动态特性: 就是直接使用<code>prototype</code>为原型添加属性或者方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log( <span class="string">'讲了一句话'</span> );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Person.prototype.age = <span class="number">18</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person();</span><br><span class="line">p.say();  <span class="comment">// 讲了一句话</span></span><br><span class="line"><span class="built_in">console</span>.log(p.age);  <span class="comment">// 18</span></span><br></pre></td></tr></table></figure>
+<p>2、直接替换原型对象, (空对象)</p>
+<blockquote>
+<p>每次构造函数创建出来的时候，都会关联一个<strong>空对象</strong>，我们可以用一个对象替换掉这个<strong>空对象</strong>。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    say : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">'讲了一句话'</span> );</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person();</span><br><span class="line">p.say();  <span class="comment">// 讲了一句话</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>: 使用原型的时候，有<code>4个</code>注意点需要注意一下，我们通过几个案例来了解一下。</p>
+<p>1 使用<code>对象.属性名</code>去<strong>获取</strong>对象属性的时候，会<strong>先在自身</strong>中进行查找，如果没有，<strong>再去原型</strong>中查找；(<strong>所以只要查询才能体会到原型链的存在</strong>, 后面的设置属性是和原型链无关的)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个英雄的构造函数 它有自己的 name 和 age 属性</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hero</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=<span class="string">"德玛西亚之力"</span>;</span><br><span class="line">    <span class="keyword">this</span>.age=<span class="number">18</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 给这个构造函数的原型对象添加方法和属性</span></span><br><span class="line">Hero.prototype.age= <span class="number">30</span>;</span><br><span class="line">Hero.prototype.say=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'人在塔在！！！'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> h1 = <span class="keyword">new</span> Hero();</span><br><span class="line">h1.say();   <span class="comment">// 先去自身中找 say 方法，没有再去原型中查找  打印：'人在塔在！！！'</span></span><br><span class="line"><span class="built_in">console</span>.log(p1.name);  <span class="comment">// "德玛西亚之力"</span></span><br><span class="line"><span class="built_in">console</span>.log(p1.age);   <span class="comment">// 18 先去自身中找 age 属性，有的话就不去原型中找了</span></span><br></pre></td></tr></table></figure>
+<p>2 使用<code>对象.属性名</code>去<strong>设置</strong>对象属性的时候，<strong>只会在自身</strong>进行查找，如果有，就修改，如果没有，就添加；(<strong>注意:</strong>这里能不能添加修改原型上有的属性, <strong>看这个原型上的属性允不允许赋值</strong> 比如内置构造函数的原型是只读的<code>Object.prototype = o</code> 不行的)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个英雄的构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hero</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=<span class="string">"德玛西亚之力"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 给这个构造函数的原型对象添加方法和属性</span></span><br><span class="line">Hero.prototype.age = <span class="number">18</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> h1 = <span class="keyword">new</span> Hero();</span><br><span class="line"><span class="built_in">console</span>.log(h1);       <span class="comment">// &#123;name:"德玛西亚之力"&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(h1.age);   <span class="comment">// 18</span></span><br><span class="line"></span><br><span class="line">h1.age = <span class="number">30</span>;           <span class="comment">// 设置的时候只会在自身中操作，如果有，就修改，如果没有，就添加 不会去原型中操作</span></span><br><span class="line"><span class="built_in">console</span>.log(h1);       <span class="comment">// &#123;name:"德玛西亚之力",age:30&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(h1.age);   <span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
+<p>3 一般情况下，不会将属性放在原型中，只会将<strong>方法放在原型</strong>中；<br>4 在替换原型的时候，替换之前创建的对象，和替换之后创建的对象的原型不一致！！！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个英雄的构造函数 它有自己的 name 属性</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Hero</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=<span class="string">"德玛西亚之力"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 给这个构造函数的默认原型对象添加 say 方法</span></span><br><span class="line">Hero.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'人在塔在！！！'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> h1 = <span class="keyword">new</span> Hero();</span><br><span class="line"><span class="built_in">console</span>.log(h1);    <span class="comment">// &#123;name:"德玛西亚之力"&#125;</span></span><br><span class="line">h1.say();           <span class="comment">// '人在塔在！！！'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 开辟一个命名空间 obj，里面有个 kill 方法</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    kill : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'大宝剑'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将创建的 obj 对象替换原本的原型对象</span></span><br><span class="line">Hero.prototype = obj;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> h2 = <span class="keyword">new</span> Hero();</span><br><span class="line"></span><br><span class="line">h1.say();           <span class="comment">// '人在塔在！！！'</span></span><br><span class="line">h2.say();           <span class="comment">// 报错</span></span><br><span class="line"></span><br><span class="line">h1.kill();          <span class="comment">// 报错</span></span><br><span class="line">h2.kill();          <span class="comment">// '大宝剑'</span></span><br></pre></td></tr></table></figure>
+<p>图:<br><img src="p3.png" alt="p3.png"></p>
+<p>图中可以看出，实例出来的<code>h1</code>对象指向的原型中，只有<code>say()</code>方法，并没有<code>kill()</code>方法，所以<code>h1.kill()</code>会报错。同理，<code>h2.say()</code>也会报错。</p>
+<h3 id="1-4-proto-属性-前面图中也有显示"><a href="#1-4-proto-属性-前面图中也有显示" class="headerlink" title="1.4 __proto__属性 (前面图中也有显示)"></a>1.4 <code>__proto__</code>属性 (前面图中也有显示)</h3><p>私有属性和非标准属性</p>
+<blockquote>
+<p>在js中以<code>_</code>开头的属性名为js的<strong>私有属性</strong>，以<code>__</code>开头的属性名为非标准属性。<code>__proto__</code>是一个非标准属性，最早由<code>firefox</code>提出来。</p>
+</blockquote>
+<p>1、构造函数的 <code>prototype</code> 属性</p>
+<p>之前我们访问构造函数原型对象的时候，使用的是<code>prototype</code>属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="comment">//通过构造函数的原型属性prototype可以直接访问原型</span></span><br><span class="line">Person.prototype;</span><br></pre></td></tr></table></figure>
+<p>在之前我们是无法通过构造函数<code>new</code>出来的对象访问原型的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="comment">//以前不能直接通过p来访问原型对象</span></span><br></pre></td></tr></table></figure>
+<p>2、实例对象的 <code>__proto__</code> 属性</p>
+<p><code>__proto__</code>属性最早是火狐浏览器引入的，<strong>用以通过实例对象来访问原型</strong>，这个属性在早期是非标准的属性，有了<code>__proto__</code>属性，就可以通过构造函数创建出来的<strong>对象直接访问原型</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="comment">//实例对象的__proto__属性可以方便的访问到原型对象</span></span><br><span class="line">p.__proto__;</span><br><span class="line"></span><br><span class="line"><span class="comment">//既然使用构造函数的`prototype`和实例对象的`__proto__`属性都可以访问原型对象</span></span><br><span class="line"><span class="comment">//就有如下结论</span></span><br><span class="line">p.__proto__ === Person.prototype;</span><br></pre></td></tr></table></figure>
+<p><strong>如图所示</strong>: 也就是最开始的那张图中的从实例到原型那条<br><img src="proto.png" alt="proto.png"></p>
+<p>3、<code>__proto__</code>属性的用途, <strong>调试用</strong></p>
+<ul>
+<li>可以用来<strong>访问原型</strong>；</li>
+<li>在实际开发中除非有特殊的需求，不要轻易的使用实例对象的<code>__proto__</code>属性去修改原型的属性或方法；</li>
+<li>在<strong>调试</strong>过程中，可以轻易的查看原型的成员；</li>
+<li>由于兼容性问题，不推荐使用。</li>
+</ul>
+<p>1.5 <code>constuctor</code>属性, 指向构造函数, 用构造函数的<code>name</code> (构造函数的<code>name</code>就表示构造函数的类型)</p>
+<p><code>constructor</code>：构造函数，原型的<code>constructor</code>属性指向的是和原型关联的构造函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name=<span class="string">"husky"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> d=<span class="keyword">new</span> Dog();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取构造函数</span></span><br><span class="line"><span class="built_in">console</span>.log(Dog.prototype.constructor);  <span class="comment">// 打印构造函数 Dog</span></span><br><span class="line"><span class="built_in">console</span>.log(d.__proto__.constructor);    <span class="comment">// 打印构造函数 Dog</span></span><br></pre></td></tr></table></figure>
+<p><strong>如图所示</strong>:<br><img src="constructor.png" alt="constructor.png"></p>
+<p><strong>获取复杂类型的数据类型</strong>:</p>
+<p>通过<code>obj.constructor.name</code>的方式(<strong>简写</strong>)，获取当前对象<code>obj</code>的数据类型。</p>
+<p>在一个的函数中，有个返回值<code>name</code>，它<strong>表示的是当前函数的函数名</strong>；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Teacher</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> teacher = <span class="keyword">new</span> Teacher();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 假使我们只知道一个对象teacher，如何获取它的类型呢？</span></span><br><span class="line"><span class="built_in">console</span>.log(teacher.__proto__.constructor.name);  <span class="comment">// Teacher</span></span><br><span class="line"><span class="built_in">console</span>.log(teacher.constructor.name);  <span class="comment">// Teacher</span></span><br></pre></td></tr></table></figure>
+<p>实例化出来的<code>teacher</code>对象，它的数据类型是啥呢？我们可以通过实例对象<code>teacher.__proto__</code>，访问到它的<strong>原型对象</strong>，再通过<code>.constructor</code>访问它的构造函数，通过<code>.name</code>获取当前函数的<strong>函数名</strong>，所以就能得到当前对象的<strong>数据类型</strong>。又因为<code>.__proto__</code>是一个非标准的属性，而且实例出的对象继承原型对象的方法，所以直接可以写成：<code>obj.constructor.name</code>。</p>
+<p>1.6 原型继承</p>
+<p><strong>原型继承</strong>：每一个构造函数都有<code>prototype</code>原型属性，通过构造函数创建出来的对象都继承自该原型属性。所以可以<strong>通过更改构造函数的原型属性来实现继承</strong>。</p>
+<p>继承的方式有多种，可以一个对象继承另一个对象，也可以通过原型继承的方式进行继承。</p>
+<p><strong>1、简单遍历继承</strong>:</p>
+<p>直接遍历一个对象，将所有的属性和方法加到另一对象上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> animal = &#123;</span><br><span class="line">    name:<span class="string">"Animal"</span>,</span><br><span class="line">    sex:<span class="string">"male"</span>,</span><br><span class="line">    age:<span class="number">5</span>,</span><br><span class="line">    bark:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Animal bark"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> dog = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> animal)&#123;</span><br><span class="line">    dog[k]= animal[k];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dog);  <span class="comment">// 打印的对象与animal一模一样</span></span><br></pre></td></tr></table></figure>
+<p>缺点：只能一个对象继承自另一个对象，<strong>代码复用太低</strong>了。</p>
+<p><strong>2、混入式原型继承</strong>:</p>
+<p>混入式原型继承其实与上面的方法类似，只不过是将遍历的对象<strong>添加到构造函数的原型</strong>上。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">     name:<span class="string">'zs'</span>,</span><br><span class="line">     age:<span class="number">19</span>,</span><br><span class="line">     sex:<span class="string">'male'</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.weight=<span class="number">50</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> obj)&#123;</span><br><span class="line">    <span class="comment">// 将obj里面的所有属性添加到 构造函数 Person 的原型中</span></span><br><span class="line">    Person.prototype[k] = obj[k];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1=<span class="keyword">new</span> Person();</span><br><span class="line"><span class="keyword">var</span> p2=<span class="keyword">new</span> Person();</span><br><span class="line"><span class="keyword">var</span> p3=<span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(p1.name);  <span class="comment">// 'zs'</span></span><br><span class="line"><span class="built_in">console</span>.log(p2.age);   <span class="comment">// 19</span></span><br><span class="line"><span class="built_in">console</span>.log(p3.sex);   <span class="comment">// 'male'</span></span><br></pre></td></tr></table></figure>
+<p><strong>面向对象思想封装一个原型继承</strong>:</p>
+<p>我们可以利用面向对象的思想，将面向过程进行封装。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.type = <span class="string">'yellow Dog'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给构造函数 Dog 添加一个方法 extend</span></span><br><span class="line">Dog.prototype.extend = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 使用混入式原型继承，给 Dog 构造函数的原型继承 obj 的属性和方法</span></span><br><span class="line">     <span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> obj)&#123;</span><br><span class="line">        <span class="keyword">this</span>[k]=obj[k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用 extend 方法</span></span><br><span class="line">Dog.prototype.extend(&#123;</span><br><span class="line">    name:<span class="string">"二哈"</span>,</span><br><span class="line">    age:<span class="string">"1.5"</span>,</span><br><span class="line">    sex:<span class="string">"公"</span>,</span><br><span class="line">    bark:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'汪汪汪'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>3、替换式原型继承</strong>:</p>
+<p>替换式原型继承，在上面已经举过例子了，其实<strong>就是将一个构造函数的原型对象替换成另一个对象</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.weight=<span class="number">50</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj=&#123;</span><br><span class="line">    name:<span class="string">'zs'</span>,</span><br><span class="line">    age:<span class="number">19</span>,</span><br><span class="line">    sex:<span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 将一个构造函数的原型对象替换成另一个对象</span></span><br><span class="line">Person.prototype = obj;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1=<span class="keyword">new</span> Person();</span><br><span class="line"><span class="keyword">var</span> p2=<span class="keyword">new</span> Person();</span><br><span class="line"><span class="keyword">var</span> p3=<span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(p1.name);  <span class="comment">// 'zs'</span></span><br><span class="line"><span class="built_in">console</span>.log(p2.age);   <span class="comment">// 19</span></span><br><span class="line"><span class="built_in">console</span>.log(p3.sex);   <span class="comment">// 'male'</span></span><br></pre></td></tr></table></figure>
+<p>之前我们就说过，这样做会产生一个问题，就是替换的对象<strong>会重新开辟</strong>一个新的空间。</p>
+<p><strong>替换式原型继承时的bug</strong>:</p>
+<blockquote>
+<p>替换原型对象的方式会导致原型的<code>constructor</code>的丢失，<code>constructor</code>属性是默认原型对象指向构造函数的，就算是替换了默认原型对象，这个属性依旧是默认原型对象指向构造函数的，所以新的原型对象是没有这个属性的。</p>
+</blockquote>
+<p><img src="p4.png" alt="p4.png"></p>
+<p><strong>解决方法</strong>：<strong>手动关联</strong>一个<code>constructor</code>属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.weight = <span class="number">50</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'zs'</span>,</span><br><span class="line">    age: <span class="number">19</span>,</span><br><span class="line">    sex: <span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 在替换原型对象函数之前 给需要替换的对象添加一个 constructor 属性 指向原本的构造函数</span></span><br><span class="line">obj.constructor = Person;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将一个构造函数的原型对象替换成另一个对象</span></span><br><span class="line">Person.prototype = obj;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__.constructor === Person);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><strong>4、Object.create()方法实现原型继承</strong>:</p>
+<p>当我们想把<code>对象1</code>作为<code>对象2</code>的原型的时候，就可以实现<code>对象2</code>继承<code>对象1</code>。前面我们了解了一个属性：<code>__proto__</code>，实例出来的对象可以通过这个属性访问到它的原型，但是这个属性<strong>只适合开发调试时</strong>使用，并不能直接去替换原型对象。所以这里介绍一个新的方法：<code>Object.create()</code>。</p>
+<p><strong>语法</strong>： <code>var obj1 = Object.create(原型对象)</code>;</p>
+<p><strong>示例代码</strong>： 让<code>空对象obj1</code>继承<code>对象obj</code>的属性和方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name : <span class="string">'盖伦'</span>,</span><br><span class="line">    age : <span class="number">25</span>,</span><br><span class="line">    skill : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'大宝剑'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个方法会帮我们创建一个原型是 obj 的对象</span></span><br><span class="line"><span class="keyword">var</span> obj1 = <span class="built_in">Object</span>.create(obj);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj1.name);     <span class="comment">// "盖伦"</span></span><br><span class="line">obj1.skill();               <span class="comment">// "大宝剑"</span></span><br></pre></td></tr></table></figure>
+<p><strong>兼容性</strong>(暂时不考虑)：</p>
+<p>由于这个属性是<code>ECMAScript5</code>的时候提出来的，所以存在兼容性问题。<br>利用浏览器的能力检测，如果存在<code>Object.create</code>则使用，如果不存在的话，就创建构造函数来实现原型继承。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 封装一个能力检测函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 判断，如果浏览器有 Object.create 方法的时候</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">Object</span>.create)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.create(obj);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">// 创建构造函数 Fun</span></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">Fun</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">        Fun.prototype = obj; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Fun();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hero = &#123;</span><br><span class="line">    name: <span class="string">'盖伦'</span>,</span><br><span class="line">    age: <span class="number">25</span>,</span><br><span class="line">    skill: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'大宝剑'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hero1 = create(hero);</span><br><span class="line"><span class="built_in">console</span>.log(hero1.name);    <span class="comment">// "盖伦"</span></span><br><span class="line"><span class="built_in">console</span>.log(hero1.__proto__ == hero);   <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-原型链"><a href="#2-原型链" class="headerlink" title="2.原型链"></a>2.原型链</h2><p>对象有原型，原型本身又是一个对象，所以<strong>原型也有原型</strong>，这样就会形成一个链式结构的原型链</p>
+<h3 id="2-1-什么是原型链"><a href="#2-1-什么是原型链" class="headerlink" title="2.1 什么是原型链"></a>2.1 什么是原型链</h3><p><strong>示例代码</strong>： 原型继承练习</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 Animal 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.weight = <span class="number">50</span>;</span><br><span class="line">    <span class="keyword">this</span>.eat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'蜂蜜蜂蜜'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化一个 animal 对象</span></span><br><span class="line"><span class="keyword">var</span> animal = <span class="keyword">new</span> Animal();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 Preson 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'zs'</span>;</span><br><span class="line">    <span class="keyword">this</span>.tool = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'菜刀'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 让 Person 继承 animal （替换原型对象）</span></span><br><span class="line">Person.prototype = animal;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化一个 p 对象 </span></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 Student 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.score = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">this</span>.clickCode = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'啪啪啪'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 让 Student 继承 p （替换原型对象）</span></span><br><span class="line">Student.prototype = p;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实例化一个 student 对象</span></span><br><span class="line"><span class="keyword">var</span> student = <span class="keyword">new</span> Student();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(student);           <span class="comment">// 打印 &#123;score:100,clickCode:fn&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 因为是一级级继承下来的 所以最上层的 Animate 里的属性也是被继承的</span></span><br><span class="line"><span class="built_in">console</span>.log(student.weight);    <span class="comment">// 50</span></span><br><span class="line">student.eat();         <span class="comment">// 蜂蜜蜂蜜</span></span><br><span class="line">student.tool();        <span class="comment">// 菜刀</span></span><br></pre></td></tr></table></figure>
+<p><strong>如图所示</strong>：</p>
+<p>我们将上面的案例通过画图的方式展现出来后就一目了然了，实例对象<code>animal</code>直接替换了构造函数<code>Person</code>的原型，以此类推，这样就会形成一个链式结构的原型链。</p>
+<p><img src="p5.png" alt="p5.png"></p>
+<p><strong>完整的原型链</strong>:</p>
+<p>结合上图，我们发现，最初的构造函数<code>Animal</code>创建的同时，会创建出一个原型，此时的原型是一个<code>空的对象</code>。结合原型链的概念：“原型本身又是一个对象，所以原型也有原型”，那么这个空对象往上还能找出它的原型或者构造函数吗？</p>
+<p>我们如何创建一个<code>空对象</code>？ 1、字面量：<code>{}</code>；2、构造函数：<code>new Object()</code>。我们可以简单的理解为，这个空的对象就是，构造函数<code>Object</code>的实例对象。所以，这个空对象往上面找是能找到它的原型和构造函数的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 Animal 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.weight = <span class="number">50</span>;</span><br><span class="line">    <span class="keyword">this</span>.eat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'蜂蜜蜂蜜'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化一个 animal 对象</span></span><br><span class="line"><span class="keyword">var</span> animal = <span class="keyword">new</span> Animal();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(animal.__proto__);      <span class="comment">// &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(animal.__proto__.__proto__);  <span class="comment">// &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(animal.__proto__.__proto__.constructor);  <span class="comment">// function Object()&#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(animal.__proto__.__proto__.__proto__);  <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+<p><img src="p6.png" alt="p6.png"></p>
+<h3 id="2-2-原型链的拓展"><a href="#2-2-原型链的拓展" class="headerlink" title="2.2 原型链的拓展"></a>2.2 原型链的拓展</h3><p><strong>1、描述出数组<code>[]</code>的原型链结构</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个数组</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们可以看到这个数组是构造函数 Array 的实例对象，所以他的原型应该是：</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype);   <span class="comment">// 打印出来还是一个空数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们可以继续往上找</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.__proto__);  <span class="comment">// 空对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 继续</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.prototype.__proto__.__proto__)  <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
+<p><strong>如图所示</strong>：<br><img src="p7.png" alt="p7"></p>
+<p><strong>2、扩展内置对象</strong>:</p>
+<p>给js原有的内置对象，添加新的功能。<br><strong>注意</strong>：这里<strong>不能直接给内置对象的原型添加方法</strong>，因为在开发的时候，大家都会使用到这些内置对象，假如大家都是给内置对象的原型添加方法，就会出现问题。</p>
+<p>错误的做法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一个开发人员给 Array 原型添加了一个 say 方法</span></span><br><span class="line"><span class="built_in">Array</span>.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'哈哈哈'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个开发人员也给 Array 原型添加了一个 say 方法</span></span><br><span class="line"><span class="built_in">Array</span>.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'啪啪啪'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">arr.say();  <span class="comment">// 打印 “啪啪啪”  前面写的会被覆盖</span></span><br></pre></td></tr></table></figure>
+<p>为了避免出现这样的问题，只需自己定义一个构造函数，并且让这个构造函数继承数组的方法即可，再去添加新的方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个数组对象 这个数组对象继承了所有数组中的方法</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个属于自己的构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyArray</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只需要将自己创建的构造函数的原型替换成 数组对象，就能继承数组的所有方法</span></span><br><span class="line">MyArray.prototype = arr;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 现在可以单独的给自己创建的构造函数的原型添加自己的方法</span></span><br><span class="line">MyArray.prototype.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'这是我自己添加的say方法'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr1 = <span class="keyword">new</span> MyArray();</span><br><span class="line"></span><br><span class="line">arr1.push(<span class="number">1</span>);   <span class="comment">// 创建的 arr1 对象可以使用数组的方法</span></span><br><span class="line">arr1.say();     <span class="comment">// 也可以使用自己添加的方法  打印“这是我自己添加的say方法”</span></span><br><span class="line"><span class="built_in">console</span>.log(arr1);  <span class="comment">// [1]</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-3-属性的搜索原则-不是设置"><a href="#2-3-属性的搜索原则-不是设置" class="headerlink" title="2.3 属性的搜索原则(不是设置)"></a>2.3 属性的搜索原则(不是设置)</h3><p>当通过<code>对象名.属性名</code>获取属性是 ，会遵循以下属性搜索的原则：</p>
+<ol>
+<li>首先去对象自身属性中找，如果找到直接使用，</li>
+<li>如果没找到去自己的原型中找，如果找到直接使用，</li>
+<li>如果没找到，去原型的原型中继续找，找到直接使用，</li>
+<li>如果没有会沿着原型不断向上查找，直到找到null为止。</li>
+</ol>
+<p>关于查询和设置中, 如果遇到没有的属性, 报<code>undefined</code>和报错<br>比如没有<code>x.ddd</code> 是<code>undefined</code>, 如果在<code>x.ddd.length</code>则报错,而不是<code>undefined</code>, 所有 用 <code>x.dd &amp;&amp; x.dd.length</code></p>
+<p>结论就是<code>null</code>和<code>undefined</code>无论是读取他们的属性或设置属性都是报错的.</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://segmentfault.com/a/1190000017207055" target="_blank" rel="noopener">一文让你理解什么是 JS 原型</a><br><a href="https://www.ibm.com/developerworks/cn/web/1306_jiangjj_jsinstanceof/" target="_blank" rel="noopener">JavaScript instanceof 运算符深入剖析</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/prototype/" rel="tag"># prototype</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/28/React项目结构和组件命名之道/" rel="next" title="React项目结构和组件命名之道">
+                <i class="fa fa-chevron-left"></i> React项目结构和组件命名之道
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/07/js的数组/" rel="prev" title="js的数组">
+                js的数组 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#javascript原型-一文让你理解什么是-JS-原型"><span class="nav-number">1.</span> <span class="nav-text">javascript原型, 一文让你理解什么是 JS 原型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型链图"><span class="nav-number">1.1.</span> <span class="nav-text">原型链图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-原型"><span class="nav-number">1.2.</span> <span class="nav-text">1. 原型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-传统构造函数的问题"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.1 传统构造函数的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-原型的概念"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.2 原型的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-原型的使用"><span class="nav-number">1.2.3.</span> <span class="nav-text">1.3 原型的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-proto-属性-前面图中也有显示"><span class="nav-number">1.2.4.</span> <span class="nav-text">1.4 __proto__属性 (前面图中也有显示)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-原型链"><span class="nav-number">1.3.</span> <span class="nav-text">2.原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-什么是原型链"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.1 什么是原型链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-原型链的拓展"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2 原型链的拓展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-属性的搜索原则-不是设置"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.3 属性的搜索原则(不是设置)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

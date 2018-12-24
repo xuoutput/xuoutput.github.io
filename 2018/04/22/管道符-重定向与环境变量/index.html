@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="linux,ubuntu,">
+
+
+<meta name="description" content="输入输出重定向 &amp;lt; &amp;lt;&amp;lt; Delimiter &amp;gt; &amp;gt;&amp;gt;追加  2&amp;gt; 2&amp;gt;&amp;gt;  $&amp;gt;&amp;gt;   管道命令符 |   命令行的通配符 * ? [0-9]   常用哦转义字符 \ ‘’ “” ``   重要的环境变量 判断用户是否以绝对路径或相对路径的方式输入命令 Linux系统检查用户输入的命令是否为“别名命令” Bash解释器判断用户输入的是内部命令还是">
+<meta name="keywords" content="linux,ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="管道符,重定向与环境变量">
+<meta property="og:url" content="http://yoursite.com/2018/04/22/管道符-重定向与环境变量/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="输入输出重定向 &amp;lt; &amp;lt;&amp;lt; Delimiter &amp;gt; &amp;gt;&amp;gt;追加  2&amp;gt; 2&amp;gt;&amp;gt;  $&amp;gt;&amp;gt;   管道命令符 |   命令行的通配符 * ? [0-9]   常用哦转义字符 \ ‘’ “” ``   重要的环境变量 判断用户是否以绝对路径或相对路径的方式输入命令 Linux系统检查用户输入的命令是否为“别名命令” Bash解释器判断用户输入的是内部命令还是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.765Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="管道符,重定向与环境变量">
+<meta name="twitter:description" content="输入输出重定向 &amp;lt; &amp;lt;&amp;lt; Delimiter &amp;gt; &amp;gt;&amp;gt;追加  2&amp;gt; 2&amp;gt;&amp;gt;  $&amp;gt;&amp;gt;   管道命令符 |   命令行的通配符 * ? [0-9]   常用哦转义字符 \ ‘’ “” ``   重要的环境变量 判断用户是否以绝对路径或相对路径的方式输入命令 Linux系统检查用户输入的命令是否为“别名命令” Bash解释器判断用户输入的是内部命令还是">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/22/管道符-重定向与环境变量/">
+
+
+  <title>管道符,重定向与环境变量 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/22/管道符-重定向与环境变量/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">管道符,重定向与环境变量</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T09:53:42+08:00">2018-04-22</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>输入输出重定向<ol>
+<li>&lt; &lt;&lt; Delimiter</li>
+<li>> >>追加 </li>
+<li>2&gt; 2&gt;&gt; </li>
+<li>$&gt;&gt;</li>
+</ol>
+</li>
+<li>管道命令符<ol>
+<li>|</li>
+</ol>
+</li>
+<li>命令行的通配符<ol>
+<li>*</li>
+<li>?</li>
+<li>[0-9]</li>
+</ol>
+</li>
+<li>常用哦转义字符<ol>
+<li>\</li>
+<li>‘’</li>
+<li>“”</li>
+<li>``</li>
+</ol>
+</li>
+<li>重要的环境变量<ol>
+<li>判断用户是否以<strong>绝对路径或相对路径</strong>的方式输入命令</li>
+<li>Linux系统检查用户输入的命令是否为“<strong>别名命令</strong>”</li>
+<li>Bash解释器判断用户输入的是<strong>内部命令还是外部命令</strong></li>
+<li>系统在多个路径中查找用户输入的命令文件，而定义这些路径的变量叫作<strong>PATH</strong></li>
+</ol>
+</li>
+</ul>
+<h1 id="管道符-重定向与环境变量"><a href="#管道符-重定向与环境变量" class="headerlink" title="管道符,重定向与环境变量"></a>管道符,重定向与环境变量</h1><p>目前为止，我们已经学习了数十个常用的Linux系统命令，如果不能把这些命令进行<strong>组合使用</strong>，则无法提升工作效率。本章首先讲解与文件读写操作有关的重定向技术的<strong>5种模式</strong>:</p>
+<ol>
+<li>标准覆盖输出重定向</li>
+<li>标准追加输出重定向</li>
+<li>错误覆盖输出重定向</li>
+<li>错误追加输出重定向</li>
+<li>输入重定向，</li>
+</ol>
+<p>让读者通过实验切实理解每个重定向模式的作用，解决输出信息的保存问题。<strong>然后深入讲解管道命令符</strong>，帮助读者掌握命令之间的搭配使用方法，进一步提高命令输出值的处理效率。<br>随后通过讲解Linux系统命令行中的<strong>通配符和常见转义符</strong>，让您输入的Linux命令具有更准确的意义，为下一章学习编写Shell脚本打好功底。<br>最后，本章深度剖析了Bash解释器执行Linux命令的内部原理，为读者掌握<strong>PATH变量及Linux系统中的重要环境变量</strong>打下了基础。</p>
+<h2 id="输入输出重定向"><a href="#输入输出重定向" class="headerlink" title="输入输出重定向"></a>输入输出重定向</h2><p>既然我们已经在上一章学完了几乎所有基础且常用的Linux命令，那么接下来的任务就是把多个Linux命令适当地组合到一起，使其协同工作，以便我们更加高效地处理数据。要做到这一点，就必须搞明白命令的<strong>输入重定向和输出重定向的原理。</strong></p>
+<p>简而言之，<strong>输入重定向</strong>是指把文件导入到命令中，而<strong>输出重定向</strong>则是指把原本要输出到屏幕的数据信息写入到指定文件中。在日常的学习和工作中，相较于输入重定向，我们使用<strong>输出重定向的频率更高</strong>，所以又将输出重定向分为了<strong>标准输出重定向和错误输出重定向</strong>两种不同的技术，以及<strong>清空写入与追加</strong>写入两种模式。</p>
+<blockquote>
+<p>标准输入重定向（STDIN，文件描述符为0）：默认从键盘输入，也可从其他文件或命令中输入。</p>
+<p>标准输出重定向（STDOUT，文件描述符为1）：默认输出到屏幕。</p>
+<p>错误输出重定向（STDERR，文件描述符为2）：默认输出到屏幕。</p>
+</blockquote>
+<p>比如我们<strong>分别查看两个文件的属性信息</strong>，其中第二个文件是不存在的，虽然针对这两个文件的操作都分别会在屏幕上输出一些数据信息，但这两个操作的差异其实很大：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ touch linuxprobe</span><br><span class="line">$ ls -l linuxprobe </span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root <span class="number">0</span> Aug <span class="number">5</span> <span class="number">05</span>:<span class="number">35</span> linuxprobe</span><br><span class="line">$ ls -l xxxxxx</span><br><span class="line">ls: cannot access xxxxxx: No such file <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure>
+<p>在上述命令中，名为linuxprobe的文件是存在的，输出信息是该文件的一些相关权限、所有者、所属组、文件大小及修改时间等信息，这也是该命令的标准输出信息。而名为xxxxxx的第二个文件是不存在的，因此在执行完ls命令之后显示的报错提示信息也是该命令的错误输出信息。那么，要想把原本输出到屏幕上的数据转而写入到文件当中，就要区别对待这两种输出信息。</p>
+<p>对于输入重定向来讲，用到的符号及其作用如表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令 &lt; 文件</td>
+<td>将文件作为命令的标准输入</td>
+</tr>
+<tr>
+<td>命令 &lt;&lt; 分界符</td>
+<td>从标准输入中读入，直到遇见分界符才停止</td>
+</tr>
+<tr>
+<td>命令 &lt; 文件1 &gt; 文件2</td>
+<td>将文件1作为命令的标准输入并将标准输出到文件2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于输出重定向来讲，用到的符号及其作用如表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令 &gt; 文件</td>
+<td>将标准输出重定向到一个文件中（<strong>清空</strong>原有文件的数据）</td>
+</tr>
+<tr>
+<td>命令 2&gt; 文件</td>
+<td>将错误输出重定向到一个文件中（清空原有文件的数据）</td>
+</tr>
+<tr>
+<td>命令 &gt;&gt; 文件</td>
+<td>将标准输出重定向到一个文件中（<strong>追加</strong>到原有内容的后面）</td>
+</tr>
+<tr>
+<td>命令 2&gt;&gt; 文件</td>
+<td>将错误输出重定向到一个文件中（追加到原有内容的后面）</td>
+</tr>
+<tr>
+<td>命令 &gt;&gt; 文件 2&gt;&amp;1 或 命令 &amp;&gt;&gt; 文件</td>
+<td>将标准输出与错误输出共同写入到文件中（追加到原有内容的后面）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于重定向中的<strong>标准输出</strong>模式，可以省略文件描述符1不写，而<strong>错误输出</strong>模式的文件描述符2是必须要写的。我们先来小试牛刀。通过标准输出重定向将man bash命令原本要输出到屏幕的信息写入到文件readme.txt中，然后显示readme.txt文件中的内容。具体命令如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ man bash &gt; readme.txt</span><br><span class="line">$ cat readme.txt</span><br></pre></td></tr></table></figure>
+<p>我们接下来尝试输出重定向技术中的<strong>覆盖写入与追加写入</strong>这两种不同模式带来的变化。首先通过覆盖写入模式向readme.txt文件写入一行数据（该文件中包含上一个实验的man命令信息），然后再通过追加写入模式向文件再写入一次数据，其命令如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="string">"Welcome to LinuxProbe.Com"</span> &gt; readme.txt</span><br><span class="line">$ echo <span class="string">"Quality linux learning materials"</span> &gt;&gt; readme.txt</span><br></pre></td></tr></table></figure>
+<p>虽然都是输出重定向技术，但是不同命令的标准输出和错误输出还是有区别的。例如查看当前目录中某个文件的信息，这里以linuxprobe文件为例。因为这个文件是真实存在的，<strong>因此使用标准输出即可将原本要输出到屏幕的信息写入到文件中，而错误的输出重定向则依然把信息输出到了屏幕上。</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l linuxprobe </span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root <span class="number">0</span> Mar  <span class="number">1</span> <span class="number">13</span>:<span class="number">30</span> linuxprobe</span><br><span class="line">$ ls -l linuxprobe &gt; /root/<span class="built_in">stderr</span>.txt </span><br><span class="line">$ ls -l linuxprobe <span class="number">2</span>&gt; /root/<span class="built_in">stderr</span>.txt </span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root <span class="number">0</span> Mar  <span class="number">1</span> <span class="number">13</span>:<span class="number">30</span> linuxprobe  <span class="comment">//输出到屏幕</span></span><br></pre></td></tr></table></figure>
+<p><strong>如果想把命令的报错信息写入到文件</strong>，该怎么操作呢？当用户在执行一个自动化的Shell脚本时，这个操作会特别有用，而且特别实用，因为它可以把整个脚本执行过程中的报错信息都记录到文件中，便于安装后的排错工作。接下来我们以一个不存在的文件进行实验演示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l xxxxxx </span><br><span class="line">cannot access xxxxxx: No such file <span class="keyword">or</span> directory</span><br><span class="line">$ ls -l xxxxxx &gt; /root/<span class="built_in">stderr</span>.txt</span><br><span class="line">cannot access xxxxxx: No such file <span class="keyword">or</span> directory</span><br><span class="line">$ ls -l xxxxxx <span class="number">2</span>&gt; /root/<span class="built_in">stderr</span>.txt  <span class="comment">//与上面区别,这个如果不报错的情况下,当然输出到屏幕,相当于不执行.但是如果报错,那么用2&gt; 将错误信息写入文件.本来错误信息是输出到屏幕的.</span></span><br><span class="line">$ cat /root/<span class="built_in">stderr</span>.txt </span><br><span class="line">ls: cannot access xxxxxx: No such file <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure>
+<p>输入重定向相对来说有些冷门，在工作中遇到的概率会小一点。输入重定向的作用是把文件直接导入到命令中。接下来使用输入重定向把readme.txt文件导入给wc -l命令，统计一下文件中的内容行数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wc -l &lt; readme.txt</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上述命令实际上等同于接下来要学习的cat readme.txt | wc -l的管道符命令组合。</p>
+</blockquote>
+<h2 id="管道命令符"><a href="#管道命令符" class="headerlink" title="管道命令符"></a>管道命令符</h2><p>细心的读者肯定还记得在2.6节学习tr命令时曾经见到过一个名为管道符的东西。同时按下键盘上的Shift+\键即可输入管道符<code>|</code>，其执行格式为“命令A | 命令B”。管道命令符的作用也可以用一句话来概括“<strong>把前一个命令原本要输出到屏幕的标准正常数据当作是后一个命令的标准输入</strong>”。在2.8节讲解grep文本搜索命令时，我们通过匹配关键词/sbin/nologin找出了所有被限制登录系统的用户。在学完本节内容后，完全可以把下面这两条命令合并为一条：</p>
+<blockquote>
+<p>找出被限制登录用户的命令是grep “/sbin/nologin” /etc/passwd；</p>
+<p>统计文本行数的命令则是wc -l。</p>
+</blockquote>
+<p>现在要做的就是把搜索命令的输出值传递给统计命令，即把原本要输出到屏幕的用户信息列表再交给wc命令作进一步的加工，因此只需要把管道符放到两条命令之间即可，具体如下。这简直是太方便了！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">"/sbin/nologin"</span> /etc/passwd | wc -l</span><br></pre></td></tr></table></figure>
+<p>这个管道符就像一个法宝，我们可以将它套用到其他不同的命令上，比如<strong>用翻页的形式查看/etc目录中的文件列表及属性信息</strong>（这些内容默认会一股脑儿地显示到屏幕上，根本看不清楚）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l /etc/ | more</span><br><span class="line">total <span class="number">1400</span></span><br><span class="line">drwxr-xr-x. <span class="number">3</span> root root <span class="number">97</span> Jul <span class="number">10</span> <span class="number">17</span>:<span class="number">26</span> abrt</span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root <span class="number">16</span> Jul <span class="number">10</span> <span class="number">17</span>:<span class="number">36</span> adjtime</span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root <span class="number">1518</span> Jun <span class="number">7</span> <span class="number">2013</span> aliases</span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root <span class="number">12288</span> Jul <span class="number">10</span> <span class="number">09</span>:<span class="number">38</span> aliases.db</span><br><span class="line">--More--</span><br></pre></td></tr></table></figure>
+<p>在修改用户密码时，通常都需要<strong>输入两次密码以进行确认</strong>，这在编写自动化脚本时将成为一个非常致命的缺陷。通过把管道符和passwd命令的—stdin参数相结合，我们可以用一条命令来完成密码重置操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="string">"linuxprobe"</span> | passwd --<span class="built_in">stdin</span> root</span><br><span class="line">Changing password <span class="keyword">for</span> user root.</span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br></pre></td></tr></table></figure>
+<p>大家是不是觉得管道符命令有些相见恨晚？管道符的玩法还有很多，比如，在发送电子邮件时，默认采用交互式的方式来进行，我们完全可以利用一条结合了管道符的命令语句，<strong>把编辑好的内容与标题一起“打包”</strong>，最终用这一条命令实现邮件的发送。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="string">"Content"</span> | mail -s <span class="string">"Subject"</span> linuxprobe</span><br><span class="line">$ su - linuxprobe</span><br><span class="line">Last login: Fri Jul <span class="number">10</span> <span class="number">09</span>:<span class="number">44</span>:<span class="number">07</span> CST <span class="number">2017</span> on :<span class="number">0</span></span><br><span class="line">$ mail</span><br><span class="line">Heirloom Mail version <span class="number">12.5</span> <span class="number">7</span>/<span class="number">5</span>/<span class="number">10.</span> Type ? <span class="keyword">for</span> help.</span><br><span class="line"><span class="string">"/var/spool/mail/linuxprobe"</span>: <span class="number">1</span> message <span class="number">1</span> <span class="keyword">new</span></span><br><span class="line">&gt;N <span class="number">1</span> root Sun Aug <span class="number">30</span> <span class="number">17</span>:<span class="number">33</span> <span class="number">18</span>/<span class="number">578</span> <span class="string">"Subject"</span></span><br></pre></td></tr></table></figure>
+<p>如果读者是一名Linux新手，可能会觉得上面的命令组合已经十分复杂了，但是有过运维经验的读者又会感觉如隔靴挠痒般不过瘾，他们希望能将这样方便的命令写得更高级一些，功能更强大一些。比如通过重定向技术能够一次性地把多行信息打包输入或输出，让日常工作更有效率。</p>
+<p>下面这条自造的命令就结合使用了<strong>mail邮件命令与输入重定向的分界符</strong>，其目的是让用户一直输入内容，直到用户输入了其自定义的分界符时，才结束输入。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mail -s <span class="string">"Readme"</span> root@linuxprobe.com &lt;&lt; over</span><br><span class="line">&gt; I think linux is very practical</span><br><span class="line">&gt; I hope to learn more</span><br><span class="line">&gt; can you teach me ?</span><br><span class="line">&gt; over</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>当然，大家千万不要误以为管道命令符只能在一个命令组合中使用一次，我们完全可以这样使用：“命令A | 命令B | 命令C”。</p>
+<h2 id="命令行的通配符"><a href="#命令行的通配符" class="headerlink" title="命令行的通配符"></a>命令行的通配符</h2><p>大家可能都遇到过提笔忘字的尴尬，作为Linux运维人员，我们有时候也会遇到明明一个文件的名称就在嘴边但就是想不起来的情况。如果就记得一个文件的开头几个字母，想遍历查找出所有以这个关键词开头的文件，该怎么操作呢？又比如，假设想要批量查看所有硬盘文件的相关权限属性，一种方式是这样的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l /dev/sda</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">0</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda</span><br><span class="line">$ ls -l /dev/sda1</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">1</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda1</span><br><span class="line">$ ls -l /dev/sda2</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">2</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda2</span><br><span class="line">$ ls -l /dev/sda3</span><br><span class="line">ls: cannot access /dev/sda3: No such file <span class="keyword">or</span> directory</span><br></pre></td></tr></table></figure>
+<p>幸亏我的硬盘文件和分区只有3个，要是有几百个，估计需要花费一天的时间来忙这个事情了。由此可见，这种方式的效率确实很低。虽然我们在第6章才会讲解Linux系统的存储结构和FHS，但现在我们应该能看出一些简单规律了。比如，这些硬盘设备文件<strong>都是以sda开头并且存放到了/dev目录中</strong>，这样一来，即使我们不知道硬盘的分区编号和具体分区的个数，也可以使用通配符来搞定。<br>顾名思义，通配符就是通用的匹配信息的符号，比如星号（<code>*</code>）代表匹配零个或多个字符，问号（<code>?</code>）代表匹配单个字符，中括号内加上数字<code>[0-9]</code>代表匹配0～9之间的单个数字的字符，而中括号内加上字母<code>[abc]</code>则是代表匹配a、b、c三个字符中的任意一个字符。俗话讲“百闻不如一见，看书不如实验”，下面我们就来匹配所有在/dev目录中且以sda开头的文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l /dev/sda*</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">0</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">1</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda1</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">2</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda2</span><br></pre></td></tr></table></figure>
+<p>如果只想查看文件名为sda开头，但是后面还紧跟其他某一个字符的文件的相关信息，该怎么操作呢？这时就需要用到问号来进行通配了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l /dev/sda?</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">1</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda1</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">2</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda2</span><br></pre></td></tr></table></figure>
+<p>除了使用[0-9]来匹配0~9之间的单个数字，也可以用[135]这样的方式仅匹配这三个指定数字中的一个，若没有匹配到，则不会显示出来：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ls -l /dev/sda[<span class="number">0</span><span class="number">-9</span>]</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">1</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda1</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">2</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda2</span><br><span class="line">$ ls -l /dev/sda[<span class="number">135</span>]</span><br><span class="line">brw-rw----. <span class="number">1</span> root disk <span class="number">8</span>, <span class="number">1</span> May <span class="number">4</span> <span class="number">15</span>:<span class="number">55</span> /dev/sda1</span><br></pre></td></tr></table></figure>
+<h2 id="常用的转义字符"><a href="#常用的转义字符" class="headerlink" title="常用的转义字符"></a>常用的转义字符</h2><p>为了能够更好地理解用户的表达，Shell解释器还提供了特别丰富的转义字符来处理输入的特殊数据。从数十个转义字符中提炼出了<strong>4个</strong>最常用的转义字符！</p>
+<p>4个最常用的转义字符如下所示。</p>
+<blockquote>
+<p>反斜杠（\）：使反斜杠后面的一个变量变为单纯的字符串。</p>
+<p>单引号（’’）：转义其中所有的变量为单纯的字符串。</p>
+<p>双引号（””）：保留其中的变量属性，不进行转义处理。</p>
+<p>反引号（``）：把其中的命令执行后返回结果。</p>
+</blockquote>
+<p>我们先定义一个名为PRICE的变量并赋值为5，然后输出以双引号括起来的字符串与变量信息：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ PRICE=<span class="number">5</span></span><br><span class="line">$ echo <span class="string">"Price is $PRICE"</span></span><br><span class="line">Price is <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>接下来，我们希望能够输出“Price is $5”，即价格是5美元的字符串内容，但碰巧美元符号与变量提取符号合并后的<strong>$$作用是显示当前程序的进程ID号</strong>码，于是命令执行后输出的内容并不是我们所预期的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="string">"Price is $$PRICE"</span> </span><br><span class="line">Price is <span class="number">3767</span>PRICE</span><br></pre></td></tr></table></figure>
+<p>要想让<strong>第一个“$”</strong>乖乖地作为美元符号，那么就需要使用反斜杠（<code>\</code>）来进行转义，将这个命令提取符转义成单纯的文本，去除其特殊功能。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo <span class="string">"Price is \$$PRICE"</span></span><br><span class="line">Price is $<span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>而如果只需要某个命令的输出值时，可以像<code>命令</code>这样，将命令用<strong>反引号</strong>括起来，达到预期的效果。例如，将反引号与uname -a命令结合，然后使用echo命令来查看本机的Linux版本和内核信息：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo `uname -a`  <span class="comment">//很像es6,毕竟es6就是这么发展过来的</span></span><br><span class="line">Linux linuxprobe.com <span class="number">3.10</span><span class="number">.0</span><span class="number">-123.</span>el7.x86_64 #<span class="number">1</span> SMP Mon May <span class="number">5</span> <span class="number">11</span>:<span class="number">16</span>:<span class="number">57</span> EDT <span class="number">2017</span> x86_64 x86_64 x86_64 GNU/Linux</span><br></pre></td></tr></table></figure>
+<h2 id="重要的环境变量"><a href="#重要的环境变量" class="headerlink" title="重要的环境变量"></a>重要的环境变量</h2><p>变量是计算机系统用于保存可变值的数据类型。在Linux系统中，<strong>变量名称一般都是大写的</strong>，这是一种约定俗成的规范。我们可以直接通过变量名称来提取到对应的变量值。Linux系统中的环境变量是用来定义系统运行环境的一些参数，比如每个用户不同的家目录、邮件存放位置等。</p>
+<p>前文中曾经讲到，在Linux系统中一切都是文件，Linux命令也不例外。那么，在用户<strong>执行了一条命令之后</strong>，Linux系统中到底发生了什么事情呢？简单来说，命令在Linux中的执行分为<strong>4个</strong>步骤。</p>
+<p><strong>第1步：</strong>判断用户是否以<strong>绝对路径或相对路径</strong>的方式输入命令（如/bin/ls），如果是的话则直接执行。</p>
+<p><strong>第2步：</strong>Linux系统检查用户输入的命令是否为“<strong>别名命令</strong>”，即用一个自定义的命令名称来替换原本的命令名称。可以用<code>alias</code>命令来创建一个属于自己的命令别名，格式为“alias 别名=命令”。若要取消一个命令别名，则是用unalias命令，格式为“unalias 别名”。我们之前在使用rm命令删除文件时，Linux系统都会要求我们再确认是否执行删除操作，其实这就是Linux系统为了防止用户误删除文件而特意设置的rm别名命令，接下来我们把它取消掉：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">anaconda-ks.cfg Documents initial-setup-ks.cfg Pictures Templates</span><br><span class="line">Desktop Downloads Music Public Videos</span><br><span class="line">$ rm anaconda-ks.cfg </span><br><span class="line">rm: remove regular file ‘anaconda-ks.cfg’? y</span><br><span class="line">[root@linuxprobe~]<span class="meta"># alias rm</span></span><br><span class="line">alias rm='rm -i'</span><br><span class="line">$ unalias rm</span><br><span class="line">$ rm initial-setup-ks.cfg </span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p><strong>第3步：</strong>Bash解释器判断用户输入的是<strong>内部命令还是外部命令</strong>。内部命令是解释器内部的指令，会被直接执行；而用户在绝大部分时间输入的是外部命令，这些命令交由步骤4继续处理。可以使用“<code>type命令名称</code>”来判断用户输入的命令是内部命令还是外部命令。</p>
+<p><strong>第4步：</strong>系统在多个路径中查找用户输入的命令文件，而<strong>定义这些路径的变量叫作PATH</strong>，可以简单地把它理解成是“解释器的小助手”，作用是告诉Bash解释器待执行的命令可能存放的位置，然后Bash解释器就会乖乖地在这些位置中逐个查找。PATH是由多个路径值组成的变量，每个路径值之间用<strong>冒号间隔</strong>，对这些路径的增加和删除操作将影响到Bash解释器对Linux命令的查找。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ echo $PATH</span><br><span class="line">/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin</span><br><span class="line">$ PATH=$PATH:/root/bin</span><br><span class="line">$ echo $PATH</span><br><span class="line">/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/root/bin</span><br></pre></td></tr></table></figure>
+<p>这里有比较经典的问题：“<strong>为什么不能将当前目录（.）添加到PATH中呢?</strong> ” 原因是，尽管可以将当前目录（.）添加到PATH变量中，从而在某些情况下可以让用户免去输入命令所在路径的麻烦。但是，如果黑客在比较常用的公共目录/tmp中存放了一个与ls或cd命令同名的木马文件，而用户又恰巧在公共目录中执行了这些命令，那么就极有可能中招了。</p>
+<p>所以，作为一名态度谨慎、有经验的运维人员，在接手了一台Linux系统后一定会在执行命令前先检查PATH变量中是否有可疑的目录，另外读者从前面的PATH变量示例中是否也感觉到环境变量特别有用呢。我们可以使用env命令来查看到Linux系统中所有的环境变量，而刘遄老师为您精挑细选出了最重要的10个环境变量，</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>变量名称</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HOME</td>
+<td>用户的主目录（即家目录）</td>
+</tr>
+<tr>
+<td>SHELL</td>
+<td>用户在使用的Shell解释器名称</td>
+</tr>
+<tr>
+<td>HISTSIZE</td>
+<td>输出的历史命令记录条数</td>
+</tr>
+<tr>
+<td>HISTFILESIZE</td>
+<td>保存的历史命令记录条数</td>
+</tr>
+<tr>
+<td>MAIL</td>
+<td>邮件保存路径</td>
+</tr>
+<tr>
+<td>LANG</td>
+<td>系统语言、语系名称</td>
+</tr>
+<tr>
+<td>RANDOM</td>
+<td>生成一个随机数字</td>
+</tr>
+<tr>
+<td>PS1</td>
+<td>Bash解释器的提示符</td>
+</tr>
+<tr>
+<td>PATH</td>
+<td>定义解释器搜索用户执行命令的路径</td>
+</tr>
+<tr>
+<td>EDITOR</td>
+<td>用户默认的文本编辑器</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Linux作为一个多用户多任务的操作系统，能够为每个用户提供独立的、合适的工作运行环境，因此，<strong>一个相同的变量会因为用户身份的不同而具有不同的值</strong>。例如，我们使用下述命令来查看HOME变量在不同用户身份下都有哪些值（su是用于切换用户身份的命令，将在第5章跟大家见面）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ echo $HOME</span><br><span class="line">/root</span><br><span class="line">$ su - linuxprobe</span><br><span class="line">Last login: Fri Feb <span class="number">27</span> <span class="number">19</span>:<span class="number">49</span>:<span class="number">57</span> CST <span class="number">2017</span> on pts/<span class="number">0</span></span><br><span class="line">$ echo $HOME</span><br><span class="line">/home/linuxprobe</span><br></pre></td></tr></table></figure>
+<p>其实<strong>变量是由固定的变量名与用户或系统设置的变量值两部分组成</strong>的，我们完全可以自行创建变量，来满足工作需求。例如设置一个名称为WORKDIR的变量，方便用户更轻松地进入一个层次较深的目录：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir /home/workdir</span><br><span class="line">$ WORKDIR=/home/workdir</span><br><span class="line">$ cd $WORKDIR </span><br><span class="line">$ pwd</span><br><span class="line">/home/workdir</span><br></pre></td></tr></table></figure>
+<p>但是，这样的变量不具有全局性，作用范围也有限，默认情况下不能被其他用户使用。如果工作需要，可以使用<code>export命令将其提升为全局变量</code>，这样其他用户也就可以使用它了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe workdir]<span class="meta"># su linuxprobe</span></span><br><span class="line">Last login: Fri Mar <span class="number">20</span> <span class="number">20</span>:<span class="number">52</span>:<span class="number">10</span> CST <span class="number">2017</span> on pts/<span class="number">0</span></span><br><span class="line">[linuxprobe@linuxprobe ~]$ cd $WORKDIR</span><br><span class="line">[linuxprobe@linuxprobe ~]$ echo $WORKDIR</span><br><span class="line">[linuxprobe@linuxprobe ~]$ <span class="built_in">exit</span></span><br><span class="line">[root@linuxprobe ~]<span class="meta"># export WORKDIR</span></span><br><span class="line">[root@linuxprobe ~]<span class="meta"># su linuxprobe</span></span><br><span class="line">Last login: Fri Mar <span class="number">20</span> <span class="number">21</span>:<span class="number">52</span>:<span class="number">10</span> CST <span class="number">2017</span> on pts/<span class="number">0</span></span><br><span class="line">[linuxprobe@linuxprobe ~]$ cd $WORKDIR</span><br><span class="line">[linuxprobe@linuxprobe workdir]$ pwd</span><br><span class="line">/home/workdir</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/19/linux基本命令使用/" rel="next" title="linux基本命令使用">
+                <i class="fa fa-chevron-left"></i> linux基本命令使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/23/vim和shell命令脚本/" rel="prev" title="vim和shell命令脚本">
+                vim和shell命令脚本 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#管道符-重定向与环境变量"><span class="nav-number">1.</span> <span class="nav-text">管道符,重定向与环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入输出重定向"><span class="nav-number">1.1.</span> <span class="nav-text">输入输出重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道命令符"><span class="nav-number">1.2.</span> <span class="nav-text">管道命令符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行的通配符"><span class="nav-number">1.3.</span> <span class="nav-text">命令行的通配符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的转义字符"><span class="nav-number">1.4.</span> <span class="nav-text">常用的转义字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要的环境变量"><span class="nav-number">1.5.</span> <span class="nav-text">重要的环境变量</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

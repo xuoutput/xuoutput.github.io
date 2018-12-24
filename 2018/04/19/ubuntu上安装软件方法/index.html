@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="linux,ubuntu,">
+
+
+<meta name="description" content="ubuntu上安装软件方法总结下来就是有3种 使用sudo apt-get  12345apt-cache search package 搜索包apt-cache show package 获取包的相关信息，如说明、大小、版本等sudo apt-get install package 安装包sudo apt-get remove package 删除包  使用dpkg  1234567891011">
+<meta name="keywords" content="linux,ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu上安装软件方法">
+<meta property="og:url" content="http://yoursite.com/2018/04/19/ubuntu上安装软件方法/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="ubuntu上安装软件方法总结下来就是有3种 使用sudo apt-get  12345apt-cache search package 搜索包apt-cache show package 获取包的相关信息，如说明、大小、版本等sudo apt-get install package 安装包sudo apt-get remove package 删除包  使用dpkg  1234567891011">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.526Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ubuntu上安装软件方法">
+<meta name="twitter:description" content="ubuntu上安装软件方法总结下来就是有3种 使用sudo apt-get  12345apt-cache search package 搜索包apt-cache show package 获取包的相关信息，如说明、大小、版本等sudo apt-get install package 安装包sudo apt-get remove package 删除包  使用dpkg  1234567891011">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/19/ubuntu上安装软件方法/">
+
+
+  <title>ubuntu上安装软件方法 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/ubuntu上安装软件方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ubuntu上安装软件方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-19T09:43:55+08:00">2018-04-19</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ubuntu上安装软件方法"><a href="#ubuntu上安装软件方法" class="headerlink" title="ubuntu上安装软件方法"></a>ubuntu上安装软件方法</h1><h2 id="总结下来就是有3种"><a href="#总结下来就是有3种" class="headerlink" title="总结下来就是有3种"></a>总结下来就是有3种</h2><ol>
+<li>使用<code>sudo apt-get</code></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-cache search package 搜索包</span><br><span class="line">apt-cache show package 获取包的相关信息，如说明、大小、版本等</span><br><span class="line"></span><br><span class="line">sudo apt-get install package 安装包</span><br><span class="line">sudo apt-get remove package 删除包</span><br></pre></td></tr></table></figure>
+<ol>
+<li>使用<code>dpkg</code></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> dpkg -i &lt;package.deb&gt;</span><br><span class="line">安装一个 Debian 软件包，如你手动下载的文件，（其中-i等价于--install）</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> dpkg -c &lt;package.deb&gt;</span><br><span class="line">列出&lt;package.deb&gt; 的内容中包含的文件结构（其中-c等价于--contents）</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> dpkg - I&lt;package.deb&gt;</span><br><span class="line">从&lt;package.deb&gt; 中提取包裹信息的详细信息，包括软件名称. 版本以及大小等（其中-I等价于--info）</span><br><span class="line"></span><br><span class="line"><span class="number">4.</span> dpkg -r &lt;package&gt;</span><br><span class="line">移除一个已安装的包裹（软件名称可通过dpkg -I命令查看，其中-r等价于--remove）</span><br><span class="line"></span><br><span class="line"><span class="number">5.</span> dpkg -P &lt;package&gt;</span><br><span class="line">完全清除一个已安装的包裹。和 remove 不同的是，remove 只是删掉数据和可执行文件，purge 另外还删除所有的配制文件。</span><br></pre></td></tr></table></figure>
+<ol>
+<li>解压缩<code>.tar.gz</code>的直接运行</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">解压：$ tar -xzvf &lt;FileName.tar.gz&gt;</span><br><span class="line">压缩：$ tar -czvf &lt;FileName.tar.gz DirName&gt;</span><br><span class="line">-c: 建立压缩档案</span><br><span class="line">-x：解压</span><br><span class="line"></span><br><span class="line">-z：有gzip属性的</span><br><span class="line">-v：显示所有过程</span><br><span class="line">-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。</span><br></pre></td></tr></table></figure>
+<h2 id="apt-get"><a href="#apt-get" class="headerlink" title="apt-get"></a>apt-get</h2><p>常用的APT命令参数<br>　　apt-cache search package 搜索包<br>　　apt-cache show package 获取包的相关信息，如说明、大小、版本等</p>
+<p>　　sudo apt-get install package 安装包<br>　　sudo apt-get install package — reinstall 重新安装包<br>　　sudo apt-get -f install 修复安装”-f = —fix-missing”<br>　　sudo apt-get remove package 删除包<br>　　sudo apt-get remove package — purge 删除包，包括删除配置文件等<br>　　sudo apt-get update 更新源<br>　　sudo apt-get upgrade 更新已安装的包<br>　　sudo apt-get dist-upgrade 升级系统<br>　　sudo apt-get dselect-upgrade 使用 dselect 升级</p>
+<p>　　apt-cache depends package 了解使用依赖<br>　　apt-cache rdepends package 是查看该包被哪些包依赖</p>
+<p>　　sudo apt-get build-dep package 安装相关的编译环境<br>　　apt-get source package 下载该包的源代码<br>　　sudo apt-get clean &amp;&amp; sudo apt-get autoclean 清理无用的包<br>　　sudo apt-get check 检查是否有损坏的依赖<br>　　其中：<br>　　1 有sudo的表示需要管理员特权！<br>　　2 在UBUNTU中命令后面参数为短参数是用“-”引出，长参数用“—”引出<br>　　3 命令帮助信息可用man 命令的方式查看或者<br>　　命令 -H（—help）方式查看<br>　　4 在man命令中需要退出命令帮助请按“q”键！！<br>　　选项 含义 作用<br>　　sudo -h Help 列出使用方法，退出。<br>　　sudo -V Version 显示版本信息，并退出。<br>　　sudo -l List 列出当前用户可以执行的命令。只有在sudoers里的用户才能使用该选项。<br>　　sudo -u username|#uid User 以指定用户的身份执行命令。后面的用户是除root以外的，可以是用户名，也可以是#uid。<br>　　sudo -k Kill 清除“入场卷”上的时间，下次再使用sudo时要再输入密码。<br>　　sudo -K Sure kill 与-k类似，但是它还要撕毁“入场卷”，也就是删除时间戳文件。<br>　　sudo -b command Background 在后台执行指定的命令。<br>　　sudo -p prompt command Prompt 可以更改询问密码的提示语，其中%u会代换为使用者帐号名称，%h会显示主机名称。非常人性化的设计<br>　　sudo -e file Edit 不是执行命令，而是修改文件，相当于命令sudoedit。</p>
+<h2 id="dpkg"><a href="#dpkg" class="headerlink" title="dpkg"></a>dpkg</h2><pre><code>1. dpkg -i &lt;package.deb&gt;
+安装一个 Debian 软件包，如你手动下载的文件，（其中-i等价于--install）
+
+2. dpkg -c &lt;package.deb&gt;
+列出&lt;package.deb&gt; 的内容中包含的文件结构（其中-c等价于--contents）
+
+3. dpkg - I&lt;package.deb&gt;
+从&lt;package.deb&gt; 中提取包裹信息的详细信息，包括软件名称. 版本以及大小等（其中-I等价于--info）
+
+4. dpkg -r &lt;package&gt;
+移除一个已安装的包裹（软件名称可通过dpkg -I命令查看，其中-r等价于--remove）
+
+5. dpkg -P &lt;package&gt;
+完全清除一个已安装的包裹。和 remove 不同的是，remove 只是删掉数据和可执行文件，purge 另外还删除所有的配制文件。
+
+6. dpkg -L &lt;package&gt;
+列出 &lt;package&gt; 安装的软件包安装的所有文件（软件名称可通过dpkg -I命令查看，其中-L等价于--listfiles）
+
+7. dpkg -l &lt;package&gt;
+查看&lt;package&gt;软件包的信息（软件名称可通过dpkg -I命令查看，其中-l等价于--list）
+
+8. dpkg -s &lt;package&gt;
+显示已安装包裹的详细信息。同时请看 apt-cache 显示 Debian 存档中的包裹信息，以及 dpkg -I 来显示从一个 .deb 文件中提取的包裹信息。（软件名称可通过dpkg -I命令查看，其中-s等价于--status）
+
+9. dpkg-reconfigure &lt;package&gt;
+重新配制一个已经安装的包裹，如果它使用的是 debconf (debconf 为包裹安装提供了一个统一的配制界面)。
+</code></pre><h2 id="tar-gz"><a href="#tar-gz" class="headerlink" title=".tar.gz"></a>.tar.gz</h2><ol>
+<li>.tar.gz的先tar -x</li>
+</ol>
+<p>tar<br>-c: 建立压缩档案<br>-x：解压<br>-t：查看内容<br>-r：向压缩归档文件末尾追加文件<br>-u：更新原压缩包中的文件<br>这五个是独立的命令，压缩解压都要用到其中一个，可以和别的命令连用但只能用其中一个。下面的参数是根据需要在压缩或解压档案时可选的。</p>
+<p>-z：有gzip属性的<br>-j：有bz2属性的<br>-Z：有compress属性的<br>-v：显示所有过程<br>-O：将文件解开到标准输出</p>
+<p>下面的参数-f是必须的</p>
+<p>-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。</p>
+<p>$ tar -cf all.tar *.jpg<br>这条命令是将所有.jpg的文件打成一个名为all.tar的包。-c是表示产生新的包，-f指定包的文件名。 </p>
+<p>$ tar -rf all.tar *.gif<br>这条命令是将所有.gif的文件增加到all.tar的包里面去。-r是表示增加文件的意思。 </p>
+<p>$ tar -uf all.tar logo.gif<br>这条命令是更新原来tar包all.tar中logo.gif文件，-u是表示更新文件的意思。 </p>
+<p>$ tar -tf all.tar<br>这条命令是列出all.tar包中所有文件，-t是列出文件的意思 </p>
+<p>$ tar -xf all.tar<br>这条命令是解出all.tar包中所有文件，-x是解开的意思 </p>
+<p>压缩<br>tar –cvf jpg.tar <em>.jpg //将目录里所有jpg文件打包成tar.jpg<br>tar –czf jpg.tar.gz </em>.jpg   //将目录里所有jpg文件打包成jpg.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包，命名为jpg.tar.gz<br>tar –cjf jpg.tar.bz2 <em>.jpg //将目录里所有jpg文件打包成jpg.tar后，并且将其用bzip2压缩，生成一个bzip2压缩过的包，命名为jpg.tar.bz2<br>tar –cZf jpg.tar.Z </em>.jpg   //将目录里所有jpg文件打包成jpg.tar后，并且将其用compress压缩，生成一个umcompress压缩过的包，命名为jpg.tar.Z<br>rar a jpg.rar <em>.jpg //rar格式的压缩，需要先下载rar for Linux<br>zip jpg.zip </em>.jpg //zip格式的压缩，需要先下载zip for linux</p>
+<p>解压<br>tar –xvf file.tar //解压 tar包<br>tar -xzvf file.tar.gz //解压tar.gz<br>tar -xjvf file.tar.bz2   //解压 tar.bz2<br>tar –xZvf file.tar.Z   //解压tar.Z<br>unrar e file.rar //解压rar<br>unzip file.zip //解压zip</p>
+<p>总结</p>
+<ol>
+<li>*.tar 用 tar –xvf 解压</li>
+<li>*.gz 用 gzip -d或者gunzip 解压</li>
+<li><strong>*.tar.gz和*.tgz 用 tar –xzvf 解压</strong></li>
+<li>*.bz2 用 bzip2 -d或者用bunzip2 解压</li>
+<li>*.tar.bz2用tar –xjf 解压</li>
+<li>*.Z 用 uncompress 解压</li>
+<li>*.tar.Z 用tar –xZf 解压</li>
+<li>*.rar 用 unrar e解压</li>
+<li>*.zip 用 unzip 解压</li>
+</ol>
+<p>一般使用tar -xzvf  tar -czvf</p>
+<p>01-.tar格式<br>解包：[＊＊＊＊＊＊＊]$ tar xvf FileName.tar<br>打包：[＊＊＊＊＊＊＊]$ tar cvf FileName.tar DirName（注：tar是打包，不是压缩！）<br>02-.gz格式<br>解压1：[＊＊＊＊＊＊＊]$ gunzip FileName.gz<br>解压2：[＊＊＊＊＊＊＊]$ gzip -d FileName.gz<br>压 缩：[＊＊＊＊＊＊＊]$ gzip FileName</p>
+<p><strong>03-.tar.gz格式</strong><br><strong>解压：[＊＊＊＊＊＊＊]$ tar -zxvf FileName.tar.gz</strong><br><strong>压缩：[＊＊＊＊＊＊＊]$ tar -zcvf FileName.tar.gz DirName</strong></p>
+<p>04-.bz2格式<br>解压1：[＊＊＊＊＊＊＊]$ bzip2 -d FileName.bz2<br>解压2：[＊＊＊＊＊＊＊]$ bunzip2 FileName.bz2<br>压 缩： [＊＊＊＊＊＊＊]$ bzip2 -z FileName</p>
+<p>05-.tar.bz2格式<br>解压：[＊＊＊＊＊＊＊]$ tar jxvf FileName.tar.bz2<br>压缩：[＊＊＊＊＊＊＊]$ tar jcvf FileName.tar.bz2 DirName</p>
+<p>06-.bz格式<br>解压1：[＊＊＊＊＊＊＊]$ bzip2 -d FileName.bz<br>解压2：[＊＊＊＊＊＊＊]$ bunzip2 FileName.bz</p>
+<p>07-.tar.bz格式<br>解压：[＊＊＊＊＊＊＊]$ tar jxvf FileName.tar.bz</p>
+<p>08-.Z格式<br>解压：[＊＊＊＊＊＊＊]$ uncompress FileName.Z<br>压缩：[＊＊＊＊＊＊＊]$ compress FileName</p>
+<p>09-.tar.Z格式<br>解压：[＊＊＊＊＊＊＊]$ tar Zxvf FileName.tar.Z<br>压缩：[＊＊＊＊＊＊＊]$ tar Zcvf FileName.tar.Z DirName</p>
+<p>10-.tgz格式<br>解压：[＊＊＊＊＊＊＊]$ tar zxvf FileName.tgz</p>
+<p>11-.tar.tgz格式<br>解压：[＊＊＊＊＊＊＊]$ tar zxvf FileName.tar.tgz<br>压缩：[＊＊＊＊＊＊＊]$ tar zcvf FileName.tar.tgz FileName</p>
+<p>12-.zip格式<br>解压：[＊＊＊＊＊＊＊]$ unzip FileName.zip<br>压缩：[＊＊＊＊＊＊＊]$ zip FileName.zip DirName</p>
+<p>13-.lha格式<br>解压：[＊＊＊＊＊＊＊]$ lha -e FileName.lha<br>压缩：[＊＊＊＊＊＊＊]$ lha -a FileName.lha FileName</p>
+<p>14-.rar格式<br>解压：[＊＊＊＊＊＊＊]$ rar a FileName.rar<br>压缩：[＊＊＊＊＊＊＊]$ rar e FileName.rar<br>rar请到：下载！<br>解压后请将rar_static拷贝到/usr/bin目录（其他由$PATH环境变量<br>指定的目录也行）：[＊＊＊＊＊＊＊]$ cp rar_static /usr/bin/rar</p>
+<h2 id="这样的要在把东西解压到-usr-local中-然后"><a href="#这样的要在把东西解压到-usr-local中-然后" class="headerlink" title="这样的要在把东西解压到/usr/local中 然后"></a>这样的要在把东西解压到/usr/local中 然后</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar  -xzvf node-v5.10.1-linux-x64.tar.gz  /usr/local/</span><br><span class="line">cd /usr/local/</span><br><span class="line">sudo mv node-v5.10.1-linux-x64/ nodejs</span><br><span class="line">sudo ln -s /usr/local/nodejs/bin/node /usr/local/bin</span><br><span class="line">sudo ln -s /usr/local/nodejs/bin/npm /usr/local/bin</span><br></pre></td></tr></table></figure>
+<p>还有一种</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">下载完安装包，并解压 tgz（以下演示的是 <span class="number">64</span> 位 Linux上的安装） 。</span><br><span class="line"></span><br><span class="line">curl -O https:<span class="comment">//fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz    # 下载</span></span><br><span class="line">tar -zxvf mongodb-linux-x86_64<span class="number">-3.0</span><span class="number">.6</span>.tgz                                   # 解压</span><br><span class="line"></span><br><span class="line">mv  mongodb-linux-x86_64<span class="number">-3.0</span><span class="number">.6</span>/ /usr/local/mongodb                         # 将解压包拷贝到指定目录</span><br><span class="line"></span><br><span class="line">MongoDB 的可执行文件位于 bin 目录下，所以可以将其添加到 PATH 路径中：就是全局环境变量.window上那种</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> PATH=&lt;mongodb-install-directory&gt;/bin:$PATH</span><br><span class="line"><span class="keyword">export</span> PATH=/usr/local/mongodb/bin:$PATH</span><br><span class="line">&lt;mongodb-install-directory&gt; 为你 MongoDB 的安装路径。如本文的 /usr/local/mongodb 。</span><br></pre></td></tr></table></figure>
+<p>上面的重启就没了 怎么永久<br><a href="https://www.cnblogs.com/lihao-blog/p/6945040.html" target="_blank" rel="noopener">https://www.cnblogs.com/lihao-blog/p/6945040.html</a><br>source /etc/profile后只在一个终端中有效<br><a href="https://www.cnblogs.com/tomato0906/articles/6048383.html" target="_blank" rel="noopener">https://www.cnblogs.com/tomato0906/articles/6048383.html</a><br><a href="https://bbs.deepin.org/forum.php?mod=viewthread&amp;tid=143895" target="_blank" rel="noopener">https://bbs.deepin.org/forum.php?mod=viewthread&amp;tid=143895</a></p>
+<p><a href="http://liuzhijun.iteye.com/blog/1744465" target="_blank" rel="noopener">http://liuzhijun.iteye.com/blog/1744465</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/18/vscode上插件/" rel="next" title="vscode上插件">
+                <i class="fa fa-chevron-left"></i> vscode上插件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/19/linux基本命令使用/" rel="prev" title="linux基本命令使用">
+                linux基本命令使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ubuntu上安装软件方法"><span class="nav-number">1.</span> <span class="nav-text">ubuntu上安装软件方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结下来就是有3种"><span class="nav-number">1.1.</span> <span class="nav-text">总结下来就是有3种</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apt-get"><span class="nav-number">1.2.</span> <span class="nav-text">apt-get</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dpkg"><span class="nav-number">1.3.</span> <span class="nav-text">dpkg</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tar-gz"><span class="nav-number">1.4.</span> <span class="nav-text">.tar.gz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这样的要在把东西解压到-usr-local中-然后"><span class="nav-number">1.5.</span> <span class="nav-text">这样的要在把东西解压到/usr/local中 然后</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

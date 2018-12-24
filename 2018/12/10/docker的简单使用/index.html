@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="docker,">
+
+
+<meta name="description" content="docker的简单使用docker简介Flux7 Docker 系列教程（一）：Docker 简介 主要看英文版的好. 层叠的只读文件系统, 联合加载. Docker 3个组件/3个元素3个组件是 Docker Client, Docker Daemon, Docker index/Registry.3个元素是 Docker Container, Docker Image, DockerFile.">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker的简单使用">
+<meta property="og:url" content="http://yoursite.com/2018/12/10/docker的简单使用/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="docker的简单使用docker简介Flux7 Docker 系列教程（一）：Docker 简介 主要看英文版的好. 层叠的只读文件系统, 联合加载. Docker 3个组件/3个元素3个组件是 Docker Client, Docker Daemon, Docker index/Registry.3个元素是 Docker Container, Docker Image, DockerFile.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/d1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/d2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/d3.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/docker_command.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/run_commit.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/image1.pconng">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/container1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/running_container1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/running_container2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/image_layer1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/image_layer2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/image_layer3.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/docker的简单使用/run_start.png">
+<meta property="og:updated_time" content="2018-12-14T03:45:15.590Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker的简单使用">
+<meta name="twitter:description" content="docker的简单使用docker简介Flux7 Docker 系列教程（一）：Docker 简介 主要看英文版的好. 层叠的只读文件系统, 联合加载. Docker 3个组件/3个元素3个组件是 Docker Client, Docker Daemon, Docker index/Registry.3个元素是 Docker Container, Docker Image, DockerFile.">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/10/docker的简单使用/d1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/10/docker的简单使用/">
+
+
+  <title>docker的简单使用 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/10/docker的简单使用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">docker的简单使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-10T17:30:23+08:00">2018-12-10</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后端/" itemprop="url" rel="index"><span itemprop="name">后端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="docker的简单使用"><a href="#docker的简单使用" class="headerlink" title="docker的简单使用"></a>docker的简单使用</h1><h2 id="docker简介"><a href="#docker简介" class="headerlink" title="docker简介"></a>docker简介</h2><p><a href="https://segmentfault.com/a/1190000002711327" target="_blank" rel="noopener">Flux7 Docker 系列教程（一）：Docker 简介</a> 主要看英文版的好.</p>
+<p>层叠的只读文件系统, 联合加载.</p>
+<h3 id="Docker-3个组件-3个元素"><a href="#Docker-3个组件-3个元素" class="headerlink" title="Docker 3个组件/3个元素"></a>Docker 3个组件/3个元素</h3><p>3个组件是 Docker Client, Docker Daemon, Docker index/Registry.<br>3个元素是 Docker Container, Docker Image, DockerFile.</p>
+<p>他们如何交互呢?</p>
+<p><img src="d1.png" alt="d1.png"><br><img src="d2.png" alt="d2.png"><br><img src="d3.png" alt="d3.png"></p>
+<ol>
+<li>Docker Client：用户和 Docker 守护进程进行通信的接口，也就是 docker 命令。</li>
+<li>Docker Daemon守护进程：宿主机上用于用户应答用户请求的服务。</li>
+<li>Docker Index：用户进行用户的私有、公有 Docker 容器镜像托管，也就是 Docker 仓库。</li>
+<li>Docker constainer容器：用于运行应用程序的容器，包含操作系统、用户文件和元数据。</li>
+<li>Docker image镜像：只读的 Docker container容器模板，简言之就是系统镜像文件。</li>
+<li>DockerFile：进行镜像创建的指令文件。</li>
+</ol>
+<p>在学习 <code>Docker 组件</code>之前，先来看一下 <code>Docker</code> 底层到底是由什么组成的(暂时别看)</p>
+<ol>
+<li>Namespace：隔离技术的第一层，确保 Docker 容器内的进程看不到也影响不到 Docker 外部的进程。</li>
+<li>Control Groups：LXC 技术的关键组件，用于进行运行时的资源限制。</li>
+<li>UnionFS（文件系统）：容器的构件块，创建抽象层，从而实现 Docker 的轻量级和运行快速的特性。</li>
+</ol>
+<h3 id="如何运行咯"><a href="#如何运行咯" class="headerlink" title="如何运行咯"></a>如何运行咯</h3><p>运行任何应用都必须按照以下<strong>两个步骤</strong>来: <strong>先有镜像再有容器, container就是一个image的实例instance</strong></p>
+<ol>
+<li>创建一个image镜像文件</li>
+<li>运行container容器</li>
+</ol>
+<h4 id="1-创建一个镜像文件"><a href="#1-创建一个镜像文件" class="headerlink" title="1. 创建一个镜像文件"></a>1. 创建一个镜像文件</h4><p><code>Docker image</code>相当于一个只读的模板文件，保存着运行<code>container</code>所需要的所有的配置、文件；每次启动，都会以基础的 <code>Docker image</code>为模板，按照 <code>Dockerfile</code> 的指令，建立一个新的适用于你自己的 <code>Dokcer image</code>：实际上是在这个基础镜像上建立了一个新的应用层。</p>
+<p>自己创建的 <code>Docker image</code>可以推送到 <code>Docker Index</code> 中心，然后提供给他人使用。</p>
+<h4 id="2-运行容器"><a href="#2-运行容器" class="headerlink" title="2. 运行容器"></a>2. 运行容器</h4><p><code>container</code>被运行后，会在原有的<code>image</code>上<strong>创建一个可读写的层</strong>，容器设置完毕网络之后便可以运行应用了。</p>
+<p>docker本身的启动, 本身就可以看做是一个守护进程 <code>service docker start/stop/restart</code>,在<code>/etc/default/docker</code>配置<br>查看docker运行没, <code>ps -ed | grep docker</code> 或 <code>status docker</code></p>
+<h3 id="Docker的14个命令-注意区分image和container"><a href="#Docker的14个命令-注意区分image和container" class="headerlink" title="Docker的14个命令,注意区分image和container"></a>Docker的14个命令,注意区分image和container</h3><p><img src="docker_command.jpeg" alt="docker_command"></p>
+<ol>
+<li><code>docker info</code>: 检查Docker是否安装, 显示Docker信息 <code>docker version</code></li>
+<li><code>docker images</code>: 检查本机有多少个docker image list, top level的. <code>-a</code>看完整的, 包括中间层images, <code>-q</code>只看id</li>
+<li><code>docker inspect</code>看top level layer的 image详情MD信息,也可以看container, 如 IP,port, 配置信息</li>
+<li><code>docker search &lt;imageName&gt;</code>: 在docker index搜索镜像 <code>-s</code>star</li>
+<li><code>docker pull &lt;image name&gt;</code>: 下载镜像</li>
+<li><code>docker run busybox /bin/echo Hello worrld</code>: 运行container,(-d -p)   是<code>docker create</code>和<code>docker start</code>结合, 创建container并运行container <code>docker create</code>:是为指定image添加一个可读写层,构成一个新的container. 从image =&gt; container. <code>docker start</code>: 是为container文件系统创建了一个<strong>进程隔离空间</strong>, 每个容器只有一个. 里面跑不跑进程随意.</li>
+<li><code>docker ps</code>: 列出运行中的container, -a是所有不运行的也列出, 就是只看<code>start</code>不看<code>create</code>的咯和<code>docker container ls</code>,<code>docker container ls --all</code></li>
+<li><code>docker logs &lt;ID/&gt;name&gt;</code>: 查询输出,</li>
+<li><code>docker stop &lt;ID/&gt;name&gt;</code>: 停止container,优雅退出,回收进程空间 start和stop可以多个 <code>docker kill &lt;ID/&gt;name&gt;</code>直接杀. <code>docker container stop</code>这么写太繁琐</li>
+<li><code>ctl+p ctl+q</code>: 将容器后台, 也就是变为守护, attach, <code>exit</code>后<code>ctl+d</code>: 退出容器</li>
+<li><code>docker start/restart &lt;ID/&gt;name&gt;</code>: 运行/重启container <code>docker attach</code>重新进入-d的守护容器  </li>
+<li><code>docker exec</code>: 在运行中的container中(有了进程空间的)运行command, 执行进程</li>
+<li><code>docker rm &lt;ID/&gt;name&gt;</code>: 删除构成container的可读写层,要先stop. <code>docker rmi &lt;ID/&gt;name&gt;</code>是删top level layer image, <code>docker rmi $(docker images -q)</code>: 删了所有层 . 就是<code>docker container rm</code>和<code>docker image rm</code> 简写</li>
+<li><code>docker commit &lt;ID/&gt;name&gt; &lt;newImageName&gt;</code>: 保存contaner为新image(将可读写层变为只读层, 无论容器运不运行, 注意层的id会变), <code>docker build</code>: 从一个DockerFile中建立image(里面是4步,先FROM获取到image, 然后重复地 1. <code>docker run</code>新建一层读写,然后分配进程空间, 再2. <code>RUM</code> 执行命令 <strong>RUN其实就会新建一个读写层的</strong> , 3. <code>docker commit</code>保存这层为只读层), 两种方式都可以构建镜像. <code>-t</code>是打tag. 类似<code>git</code> 每一个修改都是一个<code>commit</code>, 保存记录.</li>
+<li><code>docker history &lt;imageName&gt;</code>: 获取镜像历史(只能是本地)</li>
+<li><code>docker push &lt;user&gt;/&lt;repo_name&gt;</code>: 推送镜像. <code>docker login</code> <code>-u -p</code>和<code>docker logout</code> :注意登录id不是邮箱, 然后这个id就算你注册的时候填了大写的, 注册成功后还都是小的, 看一下.</li>
+<li><code>docker help</code>和<code>docker &lt;command&gt; --help</code>: 帮助</li>
+<li><code>docker update</code>: 更新contain而配置</li>
+<li><code>docker rename</code>重命名container,也可以在<code>docker run</code>的时候指定name</li>
+<li><code>docker top</code>: 列出一个container中的运行的进程.</li>
+<li><code>docker pause</code>暂停一个或多个container中的所有进程 <code>docker unpause</code>, 保留进程空间</li>
+<li><code>docker port</code>: 列出container的端口映射</li>
+<li><code>docker tag image username/repository:tag</code>: 给image打tag,保留原始镜像, <code>docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]</code>  就是打一个image名字是<code>username/repository</code> tag是<code>tag</code></li>
+</ol>
+<p>暂时不看的命令</p>
+<ol>
+<li><code>docker import</code>和<code>docker export</code> : <code>export</code>会把容器打<code>tar</code>,但会移除不必要的MD和image层, 只输出一个层,很好用. 只能看到一个image, save能看到历史镜像</li>
+<li><code>docker save</code>和<code>docker load</code>: 使用 <code>load</code> 从 <code>stdin</code> 导入一个 <code>tar</code> 格式的镜像或者仓库，然后用 <code>save</code> 将 <code>tar</code> 镜像输出到 <code>stdout</code>。<code>save</code>会把一个镜像,只能是镜像,打<code>tar</code>并保留每一层的MD信息. 两个命令就是方便在别的机器上用</li>
+<li><code>docker cp</code>: 从container中复制进去文件</li>
+<li><code>docker deploy</code>和</li>
+<li><code>docker diff</code>: 看container中文件改动</li>
+<li><code>docker events</code> <code>docker stats</code> <code>docker wait</code></li>
+</ol>
+<p><img src="run_commit.png" alt="run_commit"></p>
+<h3 id="自动化-DockerFile"><a href="#自动化-DockerFile" class="headerlink" title="自动化 DockerFile"></a>自动化 DockerFile</h3><p>Docker 提供的 <code>Dockerfile</code> 是一个类似 <code>Makefile</code> 的工具，主要用来<strong>自动化构建镜像</strong>。既然能自动化创建镜像，那么我们何必去手动创建镜像呢。</p>
+<h4 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h4><p><code>Dockerfile</code> 中所有的命令都是以下格式：<code>INSTRUCTION argument</code><br>指令(INSTRUCTION)不分大小写，但是<strong>推荐大写</strong>。</p>
+<h4 id="FROM-命令"><a href="#FROM-命令" class="headerlink" title="FROM 命令"></a>FROM 命令</h4><p><code>FROM &lt;imageName&gt;</code>，例如 <code>FROM ubuntu</code></p>
+<p>所有的 <code>Dockerfile</code> 都用该以 <code>FROM</code> 开头，<code>FROM</code> 命令指明 <code>Dockerfile</code> 所创建的image文件以什么镜像为基础，<code>FROM</code> 以后的所有指令都会在 <code>FROM</code> 的基础上进行创建镜像；可以在同一个 <code>Dockerfile</code> 中多次使用 <code>FROM</code> 命令<strong>用于创建多个image</strong>。</p>
+<h4 id="MAINTAINER-命令"><a href="#MAINTAINER-命令" class="headerlink" title="MAINTAINER 命令"></a>MAINTAINER 命令</h4><p><code>MAINTAINER &lt;authorName&gt;</code> 用于指定镜像创建者和联系方式。</p>
+<p>例如:</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MAINTAINER</span> Victor Coisne victor.coisne@dotcloud.com</span><br></pre></td></tr></table></figure>
+<h4 id="RUN-命令"><a href="#RUN-命令" class="headerlink" title="RUN 命令"></a>RUN 命令</h4><p><code>RUN &lt;command&gt;</code> 用于container内部执行命令。每个 <code>RUN</code> 命令相当于在原有的image基础上添加了一个<strong>改动层</strong>，原有的镜像不会有变化, 运行完后再提交成只读层. 即类似先<code>docker run</code>再<code>docker commit</code></p>
+<h4 id="ADD-命令"><a href="#ADD-命令" class="headerlink" title="ADD 命令"></a>ADD 命令</h4><p><code>ADD &lt;src&gt; &lt;dst&gt;</code> 用于从将 <code>&lt;src&gt;</code> 文件复制到 <code>&lt;dst&gt;</code> 文件：<code>&lt;src&gt;</code> 是相对被构建的DockerFile的<strong>相对路径</strong>，可以是文件或目录的路径，也可以是一个远程的文件 url，<code>&lt;dst&gt;</code> 是container中的<strong>绝对路径</strong>。</p>
+<h4 id="COPY-命令"><a href="#COPY-命令" class="headerlink" title="COPY 命令"></a>COPY 命令</h4><p><strong>只能讲和Dockerfile文件同目录中的内容</strong>复制到container中的指定目录,通常是<code>WORKDIR</code>指定的工作目录,<br>如: Copy the current directory contents into the container at /app</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COPY</span> . /app</span><br></pre></td></tr></table></figure>
+<p>暂时只要这个命令是改动1个层, 不会有Running的那个层</p>
+<p><a href="https://github.com/docker/for-mac/issues/1922#issuecomment-418786503" target="_blank" rel="noopener">/var/lib/docker/tmp/docker-builderXXXXXXX/… no such file or directory #1922</a></p>
+<p><code>WORKDIR</code>只是在image内设置路径</p>
+<p><a href="https://stackoverflow.com/a/46201134/10282521" target="_blank" rel="noopener">说下<code>docker build</code>的最后的点<code>.</code></a></p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t hello-demo-app .</span><br></pre></td></tr></table></figure>
+<p>which sets the current directory as the context, let’s say you wanted the parent directory as the context, just use:</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t hello-demo-app ..</span><br></pre></td></tr></table></figure>
+<h4 id="CMD-命令"><a href="#CMD-命令" class="headerlink" title="CMD 命令"></a>CMD 命令</h4><p><code>CMD</code> 命令有3种格式：</p>
+<ul>
+<li><code>CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;]</code>：推荐使用的 exec 形式。</li>
+<li><code>CMD [&quot;param1&quot;,&quot;param2&quot;]</code>：无可执行程序形式</li>
+<li><code>CMD command param1 param2</code>：shell 形式。</li>
+</ul>
+<p><code>CMD</code> 命令用于<strong>启动container</strong>时默认执行的命令,即<code>docker run</code>时的默认命令, 但如果<code>docker run</code>加了命令, 会覆盖<code>CMD</code>的. 而<code>ENTRYPOINT</code>不会被覆盖, 要覆盖需要<code>docker run --entry</code>加参数<br>，<code>CMD</code> 命令可以包含可执行文件，也可以不包含可执行文件：不包含可执行文件的情况下就要用 <code>ENTRYPOINT</code> 指定一个，然后 <code>CMD</code> 命令的参数就会作为<code>ENTRYPOINT</code>的参数。</p>
+<blockquote>
+<p>一个 <code>Dockerfile</code> 中只能有一个<code>CMD</code>，如果有多个，则<strong>最后一个生效</strong>。<br><code>CMD</code> 的 shell 形式默认调用 <code>/bin/sh -c</code> 执行命令。<br><code>CMD</code>命令会被 <code>Docker</code> 命令行传入的参数覆盖：<code>docker run busybox /bin/echo Hello Docker</code> 会把 <code>CMD</code> 里的命令覆盖。</p>
+</blockquote>
+<h4 id="ENTRYPOINT-命令"><a href="#ENTRYPOINT-命令" class="headerlink" title="ENTRYPOINT 命令"></a>ENTRYPOINT 命令</h4><p><code>ENTRYPOINT</code> 命令的字面意思是进入点，而功能也恰如其意：<strong>他可以让你的container表现得像一个可执行程序一样</strong>。</p>
+<p><code>ENTRYPOINT</code> 命令也有2种格式：</p>
+<ul>
+<li><code>ENTRYPOINT [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;]</code> ：推荐使用的 exec 形式</li>
+<li><code>ENTRYPOINT command param1 param2</code> ：shell 形式</li>
+</ul>
+<blockquote>
+<p>一个 Dockerfile 中只能有一个 <code>ENTRYPOINT</code>，如果有多个，则最后一个生效。</p>
+</blockquote>
+<h5 id="关于-CMD-和-ENTRYPOINT-的联系请看下面的例子"><a href="#关于-CMD-和-ENTRYPOINT-的联系请看下面的例子" class="headerlink" title="关于 CMD 和 ENTRYPOINT 的联系请看下面的例子"></a>关于 <code>CMD</code> 和 <code>ENTRYPOINT</code> 的联系请看下面的例子</h5><p>仅仅使用 <code>ENTRYPOINT</code>：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">ENTRYPOINT</span> ls -l</span><br></pre></td></tr></table></figure>
+<p>执行 <code>docker run 306cd7e8408b /etc/fstab</code> 和 <code>docker run 306cd7e8408b</code> 结果并不会有什么差别：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">命令 <span class="comment"># docker run 306cd7e8408b /etc/fstab</span></span><br><span class="line">total <span class="number">64</span></span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Mar <span class="number">20</span> <span class="number">05</span>:<span class="number">22</span> bin</span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Apr <span class="number">10</span>  <span class="number">2014</span> boot</span><br><span class="line">drwxr-xr-x   <span class="number">5</span> root root  <span class="number">360</span> Apr <span class="number">24</span> <span class="number">02</span>:<span class="number">52</span> dev</span><br><span class="line">drwxr-xr-x  <span class="number">64</span> root root <span class="number">4096</span> Apr <span class="number">24</span> <span class="number">02</span>:<span class="number">52</span> etc</span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Apr <span class="number">10</span>  <span class="number">2014</span> home</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+<p>但是我们<strong>通常使用 <code>ENTRYPOINT</code> 作为container的入口，使用 <code>CMD</code> 给 <code>ENTRYPOINT</code> 增加默认选项</strong>：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">CMD</span> ["-l"]</span><br><span class="line">ENTRYPOINT ["ls"]</span><br></pre></td></tr></table></figure>
+<p>然后执行这个constainer：<br>不加参数便会默认有 <code>-l</code>参数：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">命令 <span class="comment"># docker run 89dc7e6d0ac1</span></span><br><span class="line">total <span class="number">64</span></span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Mar <span class="number">20</span> <span class="number">05</span>:<span class="number">22</span> bin</span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Apr <span class="number">10</span>  <span class="number">2014</span> boot</span><br><span class="line">drwxr-xr-x   <span class="number">5</span> root root  <span class="number">360</span> Apr <span class="number">24</span> <span class="number">02</span>:<span class="number">47</span> dev</span><br><span class="line">drwxr-xr-x  <span class="number">64</span> root root <span class="number">4096</span> Apr <span class="number">24</span> <span class="number">02</span>:<span class="number">47</span> etc</span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Apr <span class="number">10</span>  <span class="number">2014</span> home</span><br><span class="line">drwxr-xr-x  <span class="number">12</span> root root <span class="number">4096</span> Mar <span class="number">20</span> <span class="number">05</span>:<span class="number">21</span> lib</span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Mar <span class="number">20</span> <span class="number">05</span>:<span class="number">20</span> lib64</span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Mar <span class="number">20</span> <span class="number">05</span>:<span class="number">19</span> media</span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Apr <span class="number">10</span>  <span class="number">2014</span> mnt</span><br><span class="line">drwxr-xr-x   <span class="number">2</span> root root <span class="number">4096</span> Mar <span class="number">20</span> <span class="number">05</span>:<span class="number">19</span> opt</span><br><span class="line">dr-xr-xr-x <span class="number">386</span> root root    <span class="number">0</span> Apr <span class="number">24</span> <span class="number">02</span>:<span class="number">47</span> proc</span><br><span class="line">drwx------   <span class="number">2</span> root root <span class="number">4096</span> Mar <span class="number">20</span> <span class="number">05</span>:<span class="number">22</span> root</span><br><span class="line">drwxr-xr-x   <span class="number">7</span> root root <span class="number">4096</span> Mar <span class="number">20</span> <span class="number">05</span>:<span class="number">21</span> <span class="keyword">run</span></span><br><span class="line">drwxr-xr-x   2 root root 4096 Apr 21 22:18 sbin</span><br><span class="line">drwxr-xr-x   2 root root 4096 Mar 20 05:19 srv</span><br><span class="line">dr-xr-xr-x  13 root root    0 Apr 24 02:47 sys</span><br><span class="line">drwxrwxrwt   2 root root 4096 Mar 20 05:22 tmp</span><br><span class="line">drwxr-xr-x  11 root root 4096 Apr 21 22:18 usr</span><br><span class="line">drwxr-xr-x  12 root root 4096 Apr 21 22:18 var</span><br></pre></td></tr></table></figure>
+<p>加了 <code>/etc/fstab</code> 参数便会覆盖原有的 <code>-l</code> 参数：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">命令 <span class="comment"># docker run 89dc7e6d0ac1 /etc/fstab</span></span><br><span class="line">/etc/fstab</span><br></pre></td></tr></table></figure>
+<h4 id="EXPOSE-命令"><a href="#EXPOSE-命令" class="headerlink" title="EXPOSE 命令"></a>EXPOSE 命令</h4><p><code>EXPOSE &lt;port&gt; [&lt;port&gt;...]</code> 命令用来指定container对外开放的端口。<br>例如 <code>EXPOSE 80 3306</code>，开放 80 和 3306 端口, 但在<code>docker run</code>的时候还得在host上指定端口的</p>
+<h4 id="WORKDIR命令"><a href="#WORKDIR命令" class="headerlink" title="WORKDIR命令"></a>WORKDIR命令</h4><p><code>WORKDIR /path/to/work/dir</code> 配合 <code>RUN</code>，<code>CMD</code>，<code>ENTRYPOINT</code> 命令<strong>设置指令执行时的工作目录</strong>。<br>可以设置多次，如果是相对路径，则相对前一个 <code>WORKDIR</code> 命令。默认路径为<code>/</code>。</p>
+<p>会分2步变动层</p>
+<p>例如：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu</span><br><span class="line"><span class="keyword">WORKDIR</span> /etc</span><br><span class="line">WORKDIR ..</span><br><span class="line">WORKDIR usr</span><br><span class="line">WORKDIR lib</span><br><span class="line">ENTRYPOINT pwd</span><br></pre></td></tr></table></figure>
+<p><code>docker run ID</code> 得到的结果为：<code>/usr/lib</code></p>
+<h4 id="USER命令"><a href="#USER命令" class="headerlink" title="USER命令"></a>USER命令</h4><p><code>USER &lt;UID/Username&gt;</code> 为container内指定 <code>CMD</code> <code>RUN</code> <code>ENTRYPOINT</code> 命令运行时的用户名或UID。</p>
+<h4 id="VLOUME-命令"><a href="#VLOUME-命令" class="headerlink" title="VLOUME 命令"></a>VLOUME 命令</h4><p><code>VOLUME [&#39;/data&#39;]</code> 允许container访问容器的目录、允许container之间互相访问目录。<br><code>VOLUME</code> 仅仅是允许将某一个目录暴露在外面，更多的操作还需要依赖 <code>Docker</code> 命令实现。</p>
+<p>更多的内容可以参考 <a href="http://dockone.io/article/128" target="_blank" rel="noopener">深入理解 Docker Volume（一）</a></p>
+<h4 id="ENV-命令-Define-environment-variable"><a href="#ENV-命令-Define-environment-variable" class="headerlink" title="ENV 命令: Define environment variable"></a>ENV 命令: Define environment variable</h4><p>参考 <code>export</code> 的用法咧：<br><code>ENV LC_ALL en_US.UTF-8</code></p>
+<h4 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h4><p>所有应用都会有个最佳的方式，<a href="http://crosbymichael.com/dockerfile-best-practices.html" target="_blank" rel="noopener">Dockerfile 也不例外</a>，下面是我们总结出的最佳实现方式：</p>
+<ol>
+<li>把维护者和更新系统的命令依次写在最上方</li>
+<li>使用标签管理 Dockerfile</li>
+<li>避免映射公共端口</li>
+<li>使用类似 array 形式的 CMD 和 ENTRYPOINT</li>
+</ol>
+<blockquote>
+<p>注：映射端口并不属于 Dockerfile 的工作范围。</p>
+</blockquote>
+<h2 id="概念-10张图带你深入理解Docker容器和镜像"><a href="#概念-10张图带你深入理解Docker容器和镜像" class="headerlink" title="概念: 10张图带你深入理解Docker容器和镜像"></a>概念: <a href="http://dockone.io/article/783" target="_blank" rel="noopener">10张图带你深入理解Docker容器和镜像</a></h2><h3 id="Image-Definition"><a href="#Image-Definition" class="headerlink" title="Image Definition"></a><strong>Image Definition</strong></h3><p>Image 就是一堆只读层（read-only layer）的统一视角<br><img src="image1.pconng" alt="image1.png"></p>
+<h3 id="Container-Definition"><a href="#Container-Definition" class="headerlink" title="Container Definition"></a><strong>Container Definition</strong></h3><p>容器（container）的定义和镜像（image）几乎一模一样，也是一堆层的统一视角，<strong>唯一区别</strong>在于容器的最上面那一层是可读可写的。<br><img src="container1.png" alt="container1.png"></p>
+<p><strong>container只是在image上增加一层读写层, 并没有提及容器是否在运行</strong>.<br>要点：容器 = 镜像 + 读写层。并且容器的定义并没有提及是否要运行容器。</p>
+<h3 id="Running-Container-Definition"><a href="#Running-Container-Definition" class="headerlink" title="Running Container Definition"></a><strong>Running Container Definition</strong></h3><p>一个运行态容器（running container）被定义为一个可读写的统一文件系统<strong>加上隔离的进程空间和包含其中的进程</strong>。<br><img src="running_container1.png" alt="running_container1"></p>
+<p>正是文件系统隔离技术使得Docker成为了一个前途无量的技术。一个容器中的进程可能会对文件进行修改、删除、创建，这些改变都将作用于可读写层（read-write layer）。<br><img src="running_container2.png" alt="running_container2"></p>
+<h3 id="Image-Layer-Definition"><a href="#Image-Layer-Definition" class="headerlink" title="Image Layer Definition"></a><strong>Image Layer Definition</strong></h3><p>为了将零星的数据整合起来，我们提出了镜像层（<code>image layer</code>）这个概念。下面的这张图描述了一个镜像层，通过图片我们能够发现一个层并不仅仅包含文件系统的改变，它还能包含了其他重要信息。<br><img src="image_layer1.png" alt="image_layer1"></p>
+<p>元数据（<code>metadata</code>）就是关于这个层的额外信息，它不仅能够让Docker获取运行和构建时的信息，还包括父层的层次信息。需要注意，只读层和读写层都包含元数据。<br><img src="image_layer2.png" alt="image_layer2"></p>
+<p>除此之外，每一层都包括了一个<strong>指向父层的指针</strong>。如果一个层没有这个指针，说明它处于最底层。<br><img src="image_layer3.png" alt="image_layer3"></p>
+<h2 id="区别点"><a href="#区别点" class="headerlink" title="区别点"></a>区别点</h2><ul>
+<li><code>docker run</code> 与<code>docker start</code>的区别</li>
+</ul>
+<p><a href="https://www.wangminli.com/?p=1184" target="_blank" rel="noopener">docker run 与docker start的区别，为容器命名</a><br><code>docker run</code> 只在第一次运行时使用，将镜像放到容器中，以后再次启动这个容器时，只需要使用命令<code>docker start</code> 即可。<br><code>docker run</code>相当于执行了<strong>两步</strong>操作：将镜像放入容器中（<code>docker create</code>）,然后将容器启动，使之变成运行时容器（<code>docker start</code>）。<br><img src="run_start.png" alt="run_start.png"><br>而<code>docker start</code>的作用是，<strong>重新启动已存在的镜像</strong>。也就是说，如果使用这个命令，我们必须事先知道这个容器的<strong>ID或名字</strong>，我们可以使用<code>docker ps</code>找到这个容器的信息。</p>
+<ul>
+<li><code>docker run</code>和<code>docker exec</code>的区别</li>
+</ul>
+<p><a href="https://yq.aliyun.com/articles/640877" target="_blank" rel="noopener">“docker run”VS“docker exec”，这两个命令有区别吗？</a><br><code>docker run</code>通常是在<strong>新创建</strong>的容器中所使用的命令. 它适用于在没有其他容器运行的情况下，您想要创建一个容器，并且要启动它，然后在其上运行一个进程。<strong>如果镜像已经在容器中了, 用<code>docker start</code>或<code>docker restart</code></strong><br><code>docker exec</code>适用于<strong>在现有容器中</strong>运行命令的情况。如果已经拥有了一个正在运行的容器，并希望更改该容器或从中获取某些内容，那么使用<code>docker exec</code>命令就非常合适了。</p>
+<ul>
+<li><code>docker ps</code>和<code>docker images</code></li>
+</ul>
+<p>一个看containers, 一个看images<br><code>docker ps</code> 命令会列出<strong>所有运行中</strong>的container。这隐藏了非运行态容器的存在，如果想要找出这些容器，我们需要使用<code>docker ps -a</code><br><code>docker images</code>命令会列出了所有顶层（<code>top-level</code>）image。实际上，在这里我们<strong>没有办法区分一个镜像和一个只读层</strong>，所以我们提出了<code>top-level</code>镜像。<strong>只有创建容器时使用的镜像或者是直接pull下来的镜像能被称为顶层（<code>top-level</code>）镜像</strong>，并且每一个顶层镜像下面都隐藏了多个镜像层。</p>
+<ul>
+<li><code>registry</code>和<code>repository</code></li>
+</ul>
+<p>registry是docker提供的线上的那个index,包含repository, repository是本地中所有image,类似git的库,github是registry</p>
+<ul>
+<li><code>RUN</code>和<code>CMD</code></li>
+</ul>
+<p><code>RUN</code>是构建image时, 那一层image执行什么命令,而<code>CMD</code>是构建完image后,成为一个container后的命令</p>
+<ul>
+<li><code>CMD</code>和<code>ENTRYPOINT</code></li>
+</ul>
+<p><code>CMD</code>命令用于<strong>启动container</strong>时默认执行的命令,即<code>docker run</code>时的默认命令, 但如果<code>docker run</code>加了命令, 会覆盖<code>CMD</code>的. 而<code>ENTRYPOINT</code>不会被覆盖, 要覆盖需要<code>docker run --entry</code>加参数</p>
+<ul>
+<li>远程访问</li>
+</ul>
+<p>就是docker client和docker deamon不在同一个host上, 平时通过docker命令访问docker client然后docker client会访问deamon. 现在你可以直接通过远程REST API访问docker deamon</p>
+<ul>
+<li>detach和attach区别</li>
+</ul>
+<p><code>ctl+d</code>退出, <code>attach</code>再回到运行的容器中</p>
+<ul>
+<li>run中link和name的区别</li>
+</ul>
+<p>—name只是别名, —link是指定链接到那个容器</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://dockone.io/article/783" target="_blank" rel="noopener">10张图带你深入理解Docker容器和镜像</a><br><a href="https://segmentfault.com/a/1190000002711327" target="_blank" rel="noopener">Flux7 Docker 系列教程（一）：Docker 简介</a><br><a href="https://www.jianshu.com/p/5ec3d4dbf580" target="_blank" rel="noopener">Docker 联合文件系统(Union Filesystem)</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/09/hexo制作自己的主题/" rel="next" title="hexo制作自己的主题">
+                <i class="fa fa-chevron-left"></i> hexo制作自己的主题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/14/js函数/" rel="prev" title="js函数">
+                js函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#docker的简单使用"><span class="nav-number">1.</span> <span class="nav-text">docker的简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#docker简介"><span class="nav-number">1.1.</span> <span class="nav-text">docker简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-3个组件-3个元素"><span class="nav-number">1.1.1.</span> <span class="nav-text">Docker 3个组件/3个元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何运行咯"><span class="nav-number">1.1.2.</span> <span class="nav-text">如何运行咯</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建一个镜像文件"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">1. 创建一个镜像文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-运行容器"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">2. 运行容器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker的14个命令-注意区分image和container"><span class="nav-number">1.1.3.</span> <span class="nav-text">Docker的14个命令,注意区分image和container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动化-DockerFile"><span class="nav-number">1.1.4.</span> <span class="nav-text">自动化 DockerFile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#格式"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FROM-命令"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">FROM 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MAINTAINER-命令"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">MAINTAINER 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RUN-命令"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">RUN 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ADD-命令"><span class="nav-number">1.1.4.5.</span> <span class="nav-text">ADD 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COPY-命令"><span class="nav-number">1.1.4.6.</span> <span class="nav-text">COPY 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMD-命令"><span class="nav-number">1.1.4.7.</span> <span class="nav-text">CMD 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ENTRYPOINT-命令"><span class="nav-number">1.1.4.8.</span> <span class="nav-text">ENTRYPOINT 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关于-CMD-和-ENTRYPOINT-的联系请看下面的例子"><span class="nav-number">1.1.4.8.1.</span> <span class="nav-text">关于 CMD 和 ENTRYPOINT 的联系请看下面的例子</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPOSE-命令"><span class="nav-number">1.1.4.9.</span> <span class="nav-text">EXPOSE 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WORKDIR命令"><span class="nav-number">1.1.4.10.</span> <span class="nav-text">WORKDIR命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#USER命令"><span class="nav-number">1.1.4.11.</span> <span class="nav-text">USER命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VLOUME-命令"><span class="nav-number">1.1.4.12.</span> <span class="nav-text">VLOUME 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ENV-命令-Define-environment-variable"><span class="nav-number">1.1.4.13.</span> <span class="nav-text">ENV 命令: Define environment variable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳实践"><span class="nav-number">1.1.4.14.</span> <span class="nav-text">最佳实践</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念-10张图带你深入理解Docker容器和镜像"><span class="nav-number">1.2.</span> <span class="nav-text">概念: 10张图带你深入理解Docker容器和镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Image-Definition"><span class="nav-number">1.2.1.</span> <span class="nav-text">Image Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Container-Definition"><span class="nav-number">1.2.2.</span> <span class="nav-text">Container Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Running-Container-Definition"><span class="nav-number">1.2.3.</span> <span class="nav-text">Running Container Definition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Image-Layer-Definition"><span class="nav-number">1.2.4.</span> <span class="nav-text">Image Layer Definition</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区别点"><span class="nav-number">1.3.</span> <span class="nav-text">区别点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

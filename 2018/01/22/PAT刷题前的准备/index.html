@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="pat,刷题,lintcode,leetcode,">
+
+
+<meta name="description" content="C/C++快速入门123456#include &amp;lt;cstdio&amp;gt;int main()&amp;#123;    return 0;&amp;#125; 一个基本的C++程序模板，当然主要是注意头文件，和c语言的&amp;lt;stdio.h&amp;gt;不一样的,这里是&amp;lt;cstdio&amp;gt;常用的头文件还有1234#include &amp;lt;string.h&amp;gt;     //字符串#include &amp;lt;">
+<meta name="keywords" content="pat,刷题,lintcode,leetcode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PAT刷题前的准备">
+<meta property="og:url" content="http://yoursite.com/2018/01/22/PAT刷题前的准备/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="C/C++快速入门123456#include &amp;lt;cstdio&amp;gt;int main()&amp;#123;    return 0;&amp;#125; 一个基本的C++程序模板，当然主要是注意头文件，和c语言的&amp;lt;stdio.h&amp;gt;不一样的,这里是&amp;lt;cstdio&amp;gt;常用的头文件还有1234#include &amp;lt;string.h&amp;gt;     //字符串#include &amp;lt;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/01/22/PAT刷题前的准备/char1.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/22/PAT刷题前的准备/char2.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/22/PAT刷题前的准备/char3.png">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.502Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PAT刷题前的准备">
+<meta name="twitter:description" content="C/C++快速入门123456#include &amp;lt;cstdio&amp;gt;int main()&amp;#123;    return 0;&amp;#125; 一个基本的C++程序模板，当然主要是注意头文件，和c语言的&amp;lt;stdio.h&amp;gt;不一样的,这里是&amp;lt;cstdio&amp;gt;常用的头文件还有1234#include &amp;lt;string.h&amp;gt;     //字符串#include &amp;lt;">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/22/PAT刷题前的准备/char1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/22/PAT刷题前的准备/">
+
+
+  <title>PAT刷题前的准备 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/22/PAT刷题前的准备/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PAT刷题前的准备</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T20:50:10+08:00">2018-01-22</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="C-C-快速入门"><a href="#C-C-快速入门" class="headerlink" title="C/C++快速入门"></a>C/C++快速入门</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个基本的C++程序模板，当然主要是注意头文件，和c语言的<code>&lt;stdio.h&gt;</code>不一样的,这里是<code>&lt;cstdio&gt;</code><br>常用的头文件还有<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;     //字符串</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;       //数学函数</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;     //cin cout</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="基本数据类型-不用markdown，用html，但br换行"><a href="#基本数据类型-不用markdown，用html，但br换行" class="headerlink" title="基本数据类型  不用markdown，用html，但br换行"></a>基本数据类型  不用markdown，用html，但br换行</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">大致范围</th>
+<th>输入</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">整型</td>
+<td style="text-align:center">int</td>
+<td style="text-align:center">正负2*10^9用</td>
+<td>%d</td>
+<td>%d</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">long long</td>
+<td style="text-align:center">9*10^18 超过了用这个 LL</td>
+<td>%lld</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">浮点型</td>
+<td style="text-align:center">float</td>
+<td style="text-align:center">精度6-7位</td>
+<td>%f</td>
+<td>%f</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">double</td>
+<td style="text-align:center">精度15-16位</td>
+<td>%lf</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">字符型</td>
+<td style="text-align:center">char</td>
+<td style="text-align:center">-128~127 用0~127  ‘’</td>
+<td>%c</td>
+<td>%c</td>
+</tr>
+<tr>
+<td style="text-align:center">字符串</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">就是字符数组         “”</td>
+<td>%s</td>
+</tr>
+<tr>
+<td style="text-align:center">布尔型</td>
+<td style="text-align:center">bool</td>
+<td style="text-align:center">正负整数为true，0为false，存储按1和0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">%m.nf</span><br><span class="line">这个m表示最少输出m位，包括.  右对齐。前面补空格 %0md表示前面补0</span><br><span class="line">n表示小数输出n位，不存在四舍五入</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">scanf  printf  getchar putchar gets puts  sscanf sprintf 4对</span><br><span class="line"></span><br><span class="line">scanf是用空白符作为结束(包括tab 空格 回车。\f \r \n \t \v一般输入也就空格，tab，回车)，</span><br><span class="line">这个要特别注意%d和%c混用，并且用空格来分割两个整数的情况,读取字符串&quot;hi&quot;时和gets一样末尾自动加&apos;\0&apos;。再说下字符数组&#123;&apos;h&apos;, &apos;i&apos;&#125;因为这样初始化后，后面的元素为0，也就是ascii 0 \0</span><br><span class="line">&amp;只有字符串不加，其他加。</span><br><span class="line">getchar是用来输入字符(这个可以接受上面说的结束符，但上面scanf虽然接受了但用来做结束的)</span><br><span class="line">gets输入字符串的，末尾和scanf一样自动加`\0`，getchar不加。这个gets以\n回车为结束</span><br><span class="line">puts输出字符串，自动在末尾加\n</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">从<span class="built_in">scanf</span>和<span class="built_in">printf</span>到<span class="built_in">sscanf</span>和<span class="built_in">sprintf</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n); 到 <span class="built_in">scanf</span>(screen, <span class="string">"%d"</span>, &amp;n); 所以<span class="built_in">sscanf</span>(str, <span class="string">"%d"</span>, &amp;n);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>, n); 到 <span class="built_in">printf</span>(screen, <span class="string">"%d"</span>, n); 所以<span class="built_in">sprintf</span>(str, <span class="string">"%d"</span>, &amp;n);</span><br><span class="line">不过<span class="built_in">sscanf</span>和<span class="built_in">sprintf</span>虽然读入的是串，但可以规定按别的格式读入串。同理输出。可以和<span class="built_in">printf</span>混用，输出到屏幕</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">强制转换(新类型名)变量名</span><br></pre></td></tr></table></figure>
+<p>符号常量和const常量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define     const 推荐用const</span><br></pre></td></tr></table></figure>
+<p>注释</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//  /**/</span><br></pre></td></tr></table></figure>
+<p>运算符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.算数</span><br><span class="line">+ - * / % ++ --</span><br><span class="line">2.关系</span><br><span class="line">&gt; &lt; &gt;= &lt;= == !=</span><br><span class="line">3.逻辑</span><br><span class="line">&amp;&amp; || !</span><br><span class="line">4.条件</span><br><span class="line">? :</span><br><span class="line">5.位</span><br><span class="line">&amp; | !</span><br></pre></td></tr></table></figure>
+<h2 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h2><h2 id="常用数学函数-加math-h"><a href="#常用数学函数-加math-h" class="headerlink" title="常用数学函数 (加math.h)"></a>常用数学函数 (加math.h)</h2><ol>
+<li>fabs(double x)</li>
+<li>floor(double x) ceil(double x)</li>
+<li>round(double x)和java不一样</li>
+<li>pow(double r, double p)</li>
+<li>sqrt(double x)</li>
+<li>log(double x)</li>
+<li>sin(double x) cos(double x) tan(double x)</li>
+<li>asin(double x) acos(double x) atan(double x)</li>
+</ol>
+<h2 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if  else</span><br><span class="line">switch case break</span><br><span class="line"></span><br><span class="line">在使用if的过程中如果条件是</span><br><span class="line">n!=0, 可以直接写if(n)  非空</span><br><span class="line">n==0, 写if(!n)        这个不是非空，而是空</span><br></pre></td></tr></table></figure>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while do-while</span><br><span class="line">for(int i = 0; i &lt; n; i++) c++可以这么写。c不行</span><br><span class="line"></span><br><span class="line">break continue</span><br></pre></td></tr></table></figure>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>一维数组 大小固定 const N<br>下标0~n-1</p>
+<p>初始化的问题</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>] = &#123;&#125;;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">但不能</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">10</span>];  <span class="comment">//这里就不是0，而是随机数</span></span><br><span class="line"></span><br><span class="line">用<span class="built_in">memset</span>来对数组元素全设为<span class="number">0</span>或<span class="number">-1</span>，其他的用fill函数</span><br></pre></td></tr></table></figure>
+<p>二维数组</p>
+<p>int a[5][6] = { {}, {}, {} }；</p>
+<p>若定义的数组大于10^6，则放在main函数外，不然栈中放不下，静态存储区可以放得下。</p>
+<p>字符数组 char</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> str[<span class="number">15</span>] = &#123;<span class="string">'A'</span>, <span class="string">'B'</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> str2[<span class="number">15</span>] = <span class="string">"hello"</span>;    <span class="comment">//也可以用字符串，但仅在初始化可以用</span></span><br><span class="line"></span><br><span class="line">一维数组当字符串，二维的当字符串数组，这里上面两种方式不同，第二种末尾自动加`\<span class="number">0</span>`，第一种没有。</span><br><span class="line">不过说串就是字符数组啊，末尾自动加<span class="string">'\0'</span>。还有就是%s读取用<span class="built_in">scanf</span>和gets，会在末尾自动加\<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>//例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="comment">//通过vs调试可以看到</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> str[<span class="number">15</span>] = &#123;<span class="string">'h'</span>, <span class="string">'e'</span>, <span class="string">'l'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>&#125;;    <span class="comment">//这里都输出hello，因为str[5]及以后被初始化0，就是字符串的结束符</span></span><br><span class="line">	<span class="keyword">char</span> str2[<span class="number">15</span>] = <span class="string">"hello"</span>; </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, str );</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, str2 );</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="char1.png" alt="char1"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> str[<span class="number">5</span>] = &#123;<span class="string">'h'</span>, <span class="string">'e'</span>, <span class="string">'l'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>&#125;;    <span class="comment">//这个字符数组是不会自动加\0，这个没有溢出</span></span><br><span class="line"><span class="keyword">char</span> str2[<span class="number">5</span>] = <span class="string">"hello"</span>;     <span class="comment">//运行时这里报错，溢出，说明字符串是默认后面加个\0，</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> str[<span class="number">5</span>] = &#123;<span class="string">'h'</span>, <span class="string">'e'</span>, <span class="string">'l'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>&#125;;   <span class="comment">// 用%s格式可以输出，但因为末尾没有0，%s所以末尾会输出乱码</span></span><br><span class="line"><span class="keyword">char</span> str2[<span class="number">6</span>] = <span class="string">"hello"</span>; <span class="comment">//%s输出hello</span></span><br></pre></td></tr></table></figure>
+<p><img src="char2.png" alt="char2"><br><img src="char3.png" alt="char3"></p>
+<h2 id="string-h头文件"><a href="#string-h头文件" class="headerlink" title="string.h头文件"></a>string.h头文件</h2><p>4个常用的</p>
+<ol>
+<li>strlen(str)<br>可以得到字符数组中第一个\0前的字符个数</li>
+<li>strcmp(str1, str2)<br>按ASCII大小比较，按编辑器不同，返回正数，0，负数。</li>
+<li>strcpy(str1, str2)<br>str2复制给str1，包括str2的\0，不然怎么结束</li>
+<li>kstrcat(str1, str2)<br>str1接上str2</li>
+</ol>
+<p>sscanf和spritf</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><p>一个地址表示存有1个字节，通过数据类型知道要读多少个字节。</p>
+<p>&amp;取地址 是个unsigned整型。</p>
+<p>定义<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p1, p2;    <span class="comment">//一个是指针，一个是整型</span></span><br><span class="line"><span class="keyword">int</span> *p1, *p2;   <span class="comment">//两个指针</span></span><br></pre></td></tr></table></figure></p>
+<p>指针加减法</p>
+<p>加法表示跳过n个<strong>此种类型的距离</strong>。<br>减法表示以此种类型为<strong>基准</strong>，相差n个距离。</p>
+<h3 id="指针和数组"><a href="#指针和数组" class="headerlink" title="指针和数组"></a>指针和数组</h3><p>数组名就是个指针，当数组首地址使用，表示整个数组。</p>
+<h3 id="指针与函数"><a href="#指针与函数" class="headerlink" title="指针与函数"></a>指针与函数</h3><h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>对引用变量的操作就是对原变量的操作。<br>当你不想通过传地址，可以通过引用来实现交换数据。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">change</span> <span class="params">(<span class="keyword">int</span> &amp;y)</span></span>&#123;</span><br><span class="line">    y = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">10</span>;</span><br><span class="line">    change(x);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, x);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就是在函数的参数中，&amp;。<br><strong>注意参数变量得是变量，不能是const常量</strong></p>
+<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">studentInfo</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> gender;</span><br><span class="line">    <span class="keyword">char</span> name[<span class="number">20</span>];</span><br><span class="line">    <span class="keyword">char</span> major[<span class="number">20</span>];</span><br><span class="line">&#125;Alice, Bob, stu[<span class="number">1000</span>];</span><br></pre></td></tr></table></figure>
+<p>上面的定义中，studentInfo是结构体名字，Alice Bob是结构体变量，stu[1000]是数组。<br>上面studentInfo中不能出现studentInfo类型的，但可以出现定义自身类型的指针变量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    node n;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="访问结构体内元素"><a href="#访问结构体内元素" class="headerlink" title="访问结构体内元素"></a>访问结构体内元素</h3><p>要么用. 要么-&gt;</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">studentInfo</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> name[<span class="number">20</span>];</span><br><span class="line">    studentInfo *next;</span><br><span class="line">&#125;stu, *p</span><br></pre></td></tr></table></figure>
+<p>可以<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stu.id stu.name stu.next</span><br><span class="line">(*p).id (*p).name (*p).next</span><br><span class="line">p-&gt;id p-&gt;name p-&gt;next</span><br></pre></td></tr></table></figure></p>
+<h3 id="结构体初始化-利用构造函数"><a href="#结构体初始化-利用构造函数" class="headerlink" title="结构体初始化(利用构造函数)"></a>结构体初始化(利用构造函数)</h3><p>同java 没有返回类型，名字同结构体名<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">studentInfo</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">char</span> gender;</span><br><span class="line">    studentInfo()&#123;&#125;;</span><br><span class="line">    studentInfo(<span class="keyword">char</span> x)&#123;</span><br><span class="line">        gender = x;</span><br><span class="line">    &#125;;</span><br><span class="line">    studentInfo(<span class="keyword">int</span> x, <span class="keyword">char</span> y)&#123;</span><br><span class="line">        id = x;</span><br><span class="line">        gender = y;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="cin和cout"><a href="#cin和cout" class="headerlink" title="cin和cout"></a>cin和cout</h3><p>加头文件<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br></pre></td></tr></table></figure></p>
+<p>不需要指定格式</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cin</span> &gt;&gt; n &gt;&gt;db &gt;&gt; c &gt;&gt; str;</span><br><span class="line"></span><br><span class="line"><span class="comment">//一整行用getline</span></span><br><span class="line"><span class="keyword">char</span> str[<span class="number">100</span>];</span><br><span class="line"><span class="built_in">cin</span>.getline(str, <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//string容器</span></span><br><span class="line"><span class="built_in">string</span> str;</span><br><span class="line">getling(<span class="built_in">cin</span>, str);</span><br><span class="line"></span><br><span class="line"><span class="comment">//换行可以加\n或者endl</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; n &lt;&lt;<span class="string">""</span> &lt;&lt; c &lt;&lt;<span class="string">"\n"</span> &lt;&lt;<span class="built_in">endl</span></span><br></pre></td></tr></table></figure>
+<h3 id="浮点数比较大小"><a href="#浮点数比较大小" class="headerlink" title="浮点数比较大小"></a>浮点数比较大小</h3><p>利用一个eps 10^-8</p>
+<p>大于，小于 大于等于， 小于等于<br>这些都画个图就知道了</p>
+<p>(b-eps,b+eps) a<br>a &gt; b+eps<br>即a-b &gt; eps<br>同理</p>
+<p>cos(π) = -1 所以 π = acos(-1.0)</p>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><p>时间复杂度一般为10^7~10^8次,所以O(n^2) n=1000可以接受<br>空间复杂度也不要超过10^7 <code>A[10000][10000]</code>的就不要</p>
+<h2 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h2><p>单点测试 PAT</p>
+<p>多点测试<br>3种</p>
+<ol>
+<li>while……EOF   题目没有说明有多少数据需要输入时</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n) != EOF) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>while……break 题目要求输入的数据满足某个条件时停止输入</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b) != EOF) &#123;</span><br><span class="line">    <span class="keyword">if</span>(a == <span class="number">0</span> &amp;&amp; b == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span> , a + b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">改为更简洁的</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b), a || b) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span> , a + b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>while(T—)   题目给出测试数据的组数</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 正常输出</span><br><span class="line"><span class="number">2.</span> 每行输出后带一个空行</span><br><span class="line"><span class="number">3.</span> 最后一行不输出空行，就是加个判断，当T&gt;<span class="number">0</span>才输出空行。</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pat/" rel="tag"># pat</a>
+          
+            <a href="/tags/刷题/" rel="tag"># 刷题</a>
+          
+            <a href="/tags/lintcode/" rel="tag"># lintcode</a>
+          
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/21/刷题/" rel="next" title="刷题">
+                <i class="fa fa-chevron-left"></i> 刷题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/22/markdown常用语法/" rel="prev" title="markdown常用语法">
+                markdown常用语法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-C-快速入门"><span class="nav-number">1.</span> <span class="nav-text">C/C++快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本数据类型-不用markdown，用html，但br换行"><span class="nav-number">1.1.</span> <span class="nav-text">基本数据类型  不用markdown，用html，但br换行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序结构"><span class="nav-number">1.2.</span> <span class="nav-text">顺序结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用数学函数-加math-h"><span class="nav-number">1.3.</span> <span class="nav-text">常用数学函数 (加math.h)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择"><span class="nav-number">1.4.</span> <span class="nav-text">选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">1.5.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">1.6.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string-h头文件"><span class="nav-number">1.7.</span> <span class="nav-text">string.h头文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.8.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指针"><span class="nav-number">1.9.</span> <span class="nav-text">指针</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指针和数组"><span class="nav-number">1.9.1.</span> <span class="nav-text">指针和数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指针与函数"><span class="nav-number">1.9.2.</span> <span class="nav-text">指针与函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用"><span class="nav-number">1.9.3.</span> <span class="nav-text">引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体"><span class="nav-number">1.10.</span> <span class="nav-text">结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#访问结构体内元素"><span class="nav-number">1.10.1.</span> <span class="nav-text">访问结构体内元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体初始化-利用构造函数"><span class="nav-number">1.10.2.</span> <span class="nav-text">结构体初始化(利用构造函数)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">1.11.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cin和cout"><span class="nav-number">1.11.1.</span> <span class="nav-text">cin和cout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点数比较大小"><span class="nav-number">1.11.2.</span> <span class="nav-text">浮点数比较大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂度"><span class="nav-number">1.11.3.</span> <span class="nav-text">复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#黑盒测试"><span class="nav-number">1.12.</span> <span class="nav-text">黑盒测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

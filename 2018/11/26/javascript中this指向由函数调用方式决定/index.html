@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="this,">
+
+
+<meta name="description" content="javascript中this指向由函数调用方式决定结论在先JavaScript 函数中的 this 指向并不是在函数定义的时候确定的，而是在调用的时候确定的。换句话说，函数的调用方式决定了 this 指向 js中,普通的函数调用方式有三种：直接调用、方法调用和 new 调用还有些特殊的调用方式，比如通过 bind() 将函数绑定到对象之后再进行调用、通过 call()、apply() 进行调用e">
+<meta name="keywords" content="this">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript中this指向由函数调用方式决定">
+<meta property="og:url" content="http://yoursite.com/2018/11/26/javascript中this指向由函数调用方式决定/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="javascript中this指向由函数调用方式决定结论在先JavaScript 函数中的 this 指向并不是在函数定义的时候确定的，而是在调用的时候确定的。换句话说，函数的调用方式决定了 this 指向 js中,普通的函数调用方式有三种：直接调用、方法调用和 new 调用还有些特殊的调用方式，比如通过 bind() 将函数绑定到对象之后再进行调用、通过 call()、apply() 进行调用e">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-27T01:36:19.317Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript中this指向由函数调用方式决定">
+<meta name="twitter:description" content="javascript中this指向由函数调用方式决定结论在先JavaScript 函数中的 this 指向并不是在函数定义的时候确定的，而是在调用的时候确定的。换句话说，函数的调用方式决定了 this 指向 js中,普通的函数调用方式有三种：直接调用、方法调用和 new 调用还有些特殊的调用方式，比如通过 bind() 将函数绑定到对象之后再进行调用、通过 call()、apply() 进行调用e">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/26/javascript中this指向由函数调用方式决定/">
+
+
+  <title>javascript中this指向由函数调用方式决定 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/javascript中this指向由函数调用方式决定/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript中this指向由函数调用方式决定</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T08:31:54+08:00">2018-11-26</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript教程/" itemprop="url" rel="index"><span itemprop="name">javascript教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="javascript中this指向由函数调用方式决定"><a href="#javascript中this指向由函数调用方式决定" class="headerlink" title="javascript中this指向由函数调用方式决定"></a>javascript中this指向由函数调用方式决定</h1><h2 id="结论在先"><a href="#结论在先" class="headerlink" title="结论在先"></a>结论在先</h2><p>JavaScript 函数中的 <code>this</code> 指向并不是在函数定义的时候确定的，而<strong>是在调用的时候确定的</strong>。换句话说，<strong>函数的调用方式决定了 <code>this</code> 指向</strong></p>
+<p>js中,普通的函数调用方式有三种：<strong>直接调用、方法调用和 new 调用</strong><br>还有些特殊的调用方式，比如通过 <code>bind()</code> 将函数绑定到对象之后再进行调用、通过 <code>call()</code>、<code>apply()</code> 进行调用<br>es6 引入了<strong>箭头函数</strong><br>所以主要是分<strong>4类</strong>: <strong>直接调用(bind, call, apply)、方法调用、new 调用和es6的箭头函数</strong>.</p>
+<h2 id="直接调用-只要是通过函数名-不关是在什么作用域下"><a href="#直接调用-只要是通过函数名-不关是在什么作用域下" class="headerlink" title="直接调用, 只要是通过函数名(...), 不关是在什么作用域下"></a>直接调用, 只要是通过<code>函数名(...)</code>, 不关是在什么作用域下</h2><p>直接调用: 就是通过 <code>函数名(...)</code> 这种方式调用。这时候，<strong>函数内部</strong>的 <code>this</code> 指向<code>全局对象</code>，在浏览器中全局对象是 <code>window</code>，在 <code>NodeJs</code> 中全局对象是 <code>global</code>。</p>
+<p><strong>注意的一点是</strong>，直接调用并不是指在全局作用域下进行调用，<strong>在任何作用域下，直接通过 <code>函数名(...)</code> 来对函数进行调用的方式，都称为直接调用</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单兼容浏览器和 NodeJs 的全局对象</span></span><br><span class="line"><span class="keyword">const</span> _global = <span class="keyword">typeof</span> <span class="built_in">window</span> === <span class="string">"undefined"</span> ? global : <span class="built_in">window</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> === _global);    <span class="comment">// true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();    <span class="comment">// 直接调用</span></span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">_global</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 通过 IIFE 限定作用域</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span> === _global);  <span class="comment">// true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    test();     <span class="comment">// 非全局作用域下的直接调用</span></span><br><span class="line">&#125;)(<span class="keyword">typeof</span> <span class="built_in">window</span> === <span class="string">"undefined"</span> ? global : <span class="built_in">window</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="bind-对直接调用的影响-bind-对函数的影响是深远的，慎用！"><a href="#bind-对直接调用的影响-bind-对函数的影响是深远的，慎用！" class="headerlink" title="bind() 对直接调用的影响, bind() 对函数的影响是深远的，慎用！"></a><code>bind()</code> 对直接调用的影响, <code>bind()</code> 对函数的影响是深远的，<strong>慎用！</strong></h3><p>还有一点需要注意的是 <code>bind()</code> 的影响。<code>Function.prototype.bind()</code> 的作用是将当前函数与指定的对象绑定，并返回一个新函数，这个新函数<strong>无论以什么样的方式调用</strong>，其 <code>this</code> <strong>始终指向绑定的对象</strong>。</p>
+<h3 id="call-和-apply-对-this-的影响"><a href="#call-和-apply-对-this-的影响" class="headerlink" title="call 和 apply 对 this 的影响"></a><code>call</code> 和 <code>apply</code> 对 <code>this</code> 的影响</h3><p><code>call()</code> 方法调用一个函数, 其具有一个指定的<code>this</code>值和提供的<strong>参数(参数的列表)</strong>。<code>apply</code>是一个<code>数组[]</code></p>
+<blockquote>
+<p><code>call()</code>方法的作用和 <code>apply()</code> 方法类似，区别就是<code>call()</code>方法接受的是<strong>参数列表</strong>，而<code>apply()</code>方法接受的是一个<strong>参数数组</strong>。</p>
+</blockquote>
+<p>使用 <code>apply</code> 和 <code>call</code> 的时候仍然需要注意，如果目录函数本身是一个绑定<code>bind</code>了 <code>this</code> 对象的函数，那 <code>apply</code> 和 <code>call</code> 不会像预期那样执行, 由此可见，<code>bind()</code> 对函数的影响是深远的，慎用！</p>
+<h2 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h2><p>方法调用是指<strong>通过对象来调用其方法函数</strong>，它是 <code>对象.方法函数(...)</code> 这样的调用形式。这种情况下，函数中的 <code>this</code> 指向调用该方法的对象。但是，同样需要注意 <code>bind()</code> 的影响</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    <span class="comment">// 第一种方式，定义对象的时候定义其方法</span></span><br><span class="line">    test() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span> === obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种方式，对象定义好之后为其附加一个方法(函数表达式)</span></span><br><span class="line">obj.test2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> === obj);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三种方式和第二种方式原理相同</span></span><br><span class="line"><span class="comment">// 是对象定义好之后为其附加一个方法(函数定义)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">t</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> === obj);</span><br><span class="line">&#125;</span><br><span class="line">obj.test3 = t;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这也是为对象附加一个方法函数</span></span><br><span class="line"><span class="comment">// 但是这个函数绑定了一个不是 obj 的其它对象</span></span><br><span class="line">obj.test4 = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span> === obj);</span><br><span class="line">&#125;).bind(&#123;&#125;);</span><br><span class="line"></span><br><span class="line">obj.test();     <span class="comment">// true</span></span><br><span class="line">obj.test2();    <span class="comment">// true</span></span><br><span class="line">obj.test3();    <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 受 bind() 影响，test4 中的 this 指向不是 obj</span></span><br><span class="line">obj.test4();    <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是，<strong>后三种方式都是预定定义函数</strong>，再将其附加给 <code>obj</code> 对象作为其方法。<strong>再次强调，函数内部的 <code>this</code> 指向与定义无关，受调用方式的影响。</strong></p>
+<h3 id="方法中-this-指向全局对象的情况-而没有指向调用该方法的对象"><a href="#方法中-this-指向全局对象的情况-而没有指向调用该方法的对象" class="headerlink" title="方法中 this 指向全局对象的情况,而没有指向调用该方法的对象"></a><strong>方法中</strong> this 指向全局对象的情况,<strong>而没有指向调用该方法的对象</strong></h3><p>注意这里说的<strong>是方法中</strong>而不是<strong>方法调用中</strong>。方法中的 <code>this</code> 指向全局对象(而<strong>没有指向调用该方法的对象</strong>)，如果不是因为 <code>bind()</code>，那就一定是因为<strong>不是用的方法调用方式</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    test() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span> === obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> t = obj.test;</span><br><span class="line">t();    <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p><code>t</code> 就是 <code>obj</code> 的 <code>test</code> 方法，但是 <code>t()</code> 调用时，其中的 <code>this</code> 指向了<strong>全局</strong>。</p>
+<p>之所以要特别提出这种情况，<strong>主要是因为</strong>常常将一个对象方法作为回调传递给某个函数之后，却发现运行结果与预期不符——<strong>因为忽略了调用方式对 <code>this</code> 的影响。</strong></p>
+<p>例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 这里 $button 假设是一个指向某个按钮的 jQuery 对象</span></span><br><span class="line">    <span class="keyword">constructor</span>(data, $button) &#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">        $button.on(<span class="string">"click"</span>, <span class="keyword">this</span>.onButtonClick);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    onButtonClick(e) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> handlers = <span class="keyword">new</span> Handlers(<span class="string">"string data"</span>, $(<span class="string">"#someButton"</span>));</span><br><span class="line"><span class="comment">// 对 #someButton 进行点击操作之后</span></span><br><span class="line"><span class="comment">// 输出 undefined</span></span><br><span class="line"><span class="comment">// 但预期是输出 string data</span></span><br></pre></td></tr></table></figure>
+<p>主要看<code>$button.on</code>这块</p>
+<p>解决办法: 用<code>bind()</code> 或 es6箭头函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是在 es5 中的解决办法之一</span></span><br><span class="line"><span class="keyword">var</span> _this = <span class="keyword">this</span>;</span><br><span class="line">$button.on(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    _this.onButtonClick();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以通过 bind() 来解决</span></span><br><span class="line">$button.on(<span class="string">"click"</span>, <span class="keyword">this</span>.onButtonClick.bind(<span class="keyword">this</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// es6 中可以通过箭头函数来处理，在 jQuery 中慎用</span></span><br><span class="line">$button.on(<span class="string">"click"</span>, e =&gt; <span class="keyword">this</span>.onButtonClick(e));</span><br></pre></td></tr></table></figure>
+<h2 id="new-调用"><a href="#new-调用" class="headerlink" title="new 调用"></a>new 调用</h2><p>在 es6 之前，<strong>每一个函数都可以当作是构造函数</strong>，通过 <code>new</code> 调用来产生新的对象(函数内无特定返回值的情况下)。<strong>而 es6 改变了这种状态</strong>，虽然 <code>class</code> 定义的类用 <code>typeof</code> 运算符得到的仍然是 <code>&quot;function&quot;</code>，<strong>但它不能像普通函数一样直接调用</strong>；同时，<code>class</code> 中定义的方法函数，也不能当作构造函数用 <code>new</code> 来调用.</p>
+<p>而在 es5 中，用 <code>new</code> 调用一个构造函数，<strong>会创建一个新对象</strong>，而其中的 <code>this</code> 就指向这个新对象。这没有什么悬念，因为 <code>new</code> 本身就是设计来创建新对象的。</p>
+<h2 id="箭头函数中的-this"><a href="#箭头函数中的-this" class="headerlink" title="箭头函数中的 this"></a>箭头函数中的 this</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="noopener">MDN</a> 上对箭头函数的说明 这里已经清楚了说明了，箭头函数<strong>没有</strong>自己的 <code>this</code> 绑定。箭头函数中使用的 <code>this</code>，<strong>其实是直接包含它的那个函数或函数表达式中的 <code>this</code>。(就是外面的父)</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    test() &#123;</span><br><span class="line">        <span class="keyword">const</span> arrow = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 这里的 this 是 test() 中的 this，</span></span><br><span class="line">            <span class="comment">// 由 test() 的调用方式决定</span></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span> === obj);</span><br><span class="line">        &#125;;</span><br><span class="line">        arrow();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    getArrow() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 这里的 this 是 getArrow() 中的 this，</span></span><br><span class="line">            <span class="comment">// 由 getArrow() 的调用方式决定</span></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span> === obj);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj.test();     <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arrow = obj.getArrow();</span><br><span class="line">arrow();        <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>都是由箭头函数的<strong>直接外层函数(方法)决定</strong>的，而方法函数中的 <code>this</code> 是由其调用方式决定的, 上例的调用方式都是<strong>方法调用</strong>，所以 <code>this</code> 都指向方法调用的对象，即 <code>obj</code></p>
+<p><strong>箭头函数让大家在使用闭包的时候不需要太纠结 <code>this</code></strong>，不需要通过像 <code>_this</code> 这样的局部变量来临时引用 <code>this</code> 给闭包函数使用</p>
+<p>另外需要<strong>注意的是，箭头函数不能用 <code>new</code> 调用，不能 <code>bind()</code> 到某个对象</strong>(虽然 <code>bind()</code> 方法调用没问题，但是不会产生预期效果)。不管在什么情况下使用箭头函数，它本身是没有绑定 this 的，它用的是直接外层函数(即包含它的最近的一层函数或函数表达式)绑定的 <code>this</code>。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://segmentfault.com/a/1190000008400124" target="_blank" rel="noopener">1. JavaScript 的 this 指向问题深度解析</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/this/" rel="tag"># this</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/25/async-function-await/" rel="next" title="async function await">
+                <i class="fa fa-chevron-left"></i> async function await
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/28/mockjs简单用法/" rel="prev" title="mockjs简单用法">
+                mockjs简单用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#javascript中this指向由函数调用方式决定"><span class="nav-number">1.</span> <span class="nav-text">javascript中this指向由函数调用方式决定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结论在先"><span class="nav-number">1.1.</span> <span class="nav-text">结论在先</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接调用-只要是通过函数名-不关是在什么作用域下"><span class="nav-number">1.2.</span> <span class="nav-text">直接调用, 只要是通过函数名(...), 不关是在什么作用域下</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bind-对直接调用的影响-bind-对函数的影响是深远的，慎用！"><span class="nav-number">1.2.1.</span> <span class="nav-text">bind() 对直接调用的影响, bind() 对函数的影响是深远的，慎用！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-和-apply-对-this-的影响"><span class="nav-number">1.2.2.</span> <span class="nav-text">call 和 apply 对 this 的影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法调用"><span class="nav-number">1.3.</span> <span class="nav-text">方法调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法中-this-指向全局对象的情况-而没有指向调用该方法的对象"><span class="nav-number">1.3.1.</span> <span class="nav-text">方法中 this 指向全局对象的情况,而没有指向调用该方法的对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new-调用"><span class="nav-number">1.4.</span> <span class="nav-text">new 调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数中的-this"><span class="nav-number">1.5.</span> <span class="nav-text">箭头函数中的 this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.6.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

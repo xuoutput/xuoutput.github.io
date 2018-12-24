@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="mock,">
+
+
+<meta name="description" content="mockjs简单用法安装用npm install mockjs好了 语法规范Mock.js 的语法规范包括两部分：  数据模板定义规范（Data Template Definition，DTD） 数据占位符定义规范（Data Placeholder Definition，DPD）  数据模板定义规范 DTD 我只用到这个数据模板中的每个属性由 3 部分构成：属性名、生成规则、属性值: 1234//">
+<meta name="keywords" content="mock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mockjs简单用法">
+<meta property="og:url" content="http://yoursite.com/2018/11/28/mockjs简单用法/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="mockjs简单用法安装用npm install mockjs好了 语法规范Mock.js 的语法规范包括两部分：  数据模板定义规范（Data Template Definition，DTD） 数据占位符定义规范（Data Placeholder Definition，DPD）  数据模板定义规范 DTD 我只用到这个数据模板中的每个属性由 3 部分构成：属性名、生成规则、属性值: 1234//">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-30T02:12:53.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mockjs简单用法">
+<meta name="twitter:description" content="mockjs简单用法安装用npm install mockjs好了 语法规范Mock.js 的语法规范包括两部分：  数据模板定义规范（Data Template Definition，DTD） 数据占位符定义规范（Data Placeholder Definition，DPD）  数据模板定义规范 DTD 我只用到这个数据模板中的每个属性由 3 部分构成：属性名、生成规则、属性值: 1234//">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/28/mockjs简单用法/">
+
+
+  <title>mockjs简单用法 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/28/mockjs简单用法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mockjs简单用法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-28T10:08:56+08:00">2018-11-28</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript教程/" itemprop="url" rel="index"><span itemprop="name">javascript教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="mockjs简单用法"><a href="#mockjs简单用法" class="headerlink" title="mockjs简单用法"></a>mockjs简单用法</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>用<code>npm install mockjs</code>好了</p>
+<h2 id="语法规范"><a href="#语法规范" class="headerlink" title="语法规范"></a>语法规范</h2><p>Mock.js 的语法规范包括两部分：</p>
+<ol>
+<li>数据模板定义规范（Data Template Definition，DTD）</li>
+<li>数据占位符定义规范（Data Placeholder Definition，DPD）</li>
+</ol>
+<h3 id="数据模板定义规范-DTD-我只用到这个"><a href="#数据模板定义规范-DTD-我只用到这个" class="headerlink" title="数据模板定义规范 DTD 我只用到这个"></a>数据模板定义规范 DTD 我只用到这个</h3><p><strong>数据模板中的每个属性由 3 部分构成：属性名、生成规则、属性值</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 属性名   name</span></span><br><span class="line"><span class="comment">// 生成规则 rule</span></span><br><span class="line"><span class="comment">// 属性值   value</span></span><br><span class="line"><span class="string">'name|rule'</span>: value  <span class="comment">//有个'</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>:</p>
+<ul>
+<li><code>name</code> 和 <code>rule</code> 之间用竖线 <code>|</code> 分隔。 用<code>&#39;</code> 包上</li>
+<li><code>rule</code> 是可选的。<strong>在函数和正则那里没有用而已</strong></li>
+<li><code>rule</code> 有 7 种格式：<ol>
+<li>‘name|min-max’: value</li>
+<li>‘name|count’: value</li>
+<li>‘name|min-max.dmin-dmax’: value</li>
+<li>‘name|min-max.dcount’: value</li>
+<li>‘name|count.dmin-dmax’: value</li>
+<li>‘name|count.dcount’: value</li>
+<li>‘name|+step’: value</li>
+</ol>
+</li>
+</ul>
+<p><code>rule</code> 的 含义 需要依赖 <strong><code>value</code>的类型</strong> 才能确定。<br><code>value</code> 还指定了最终值的<strong>初始值和类型</strong><br><code>value</code> 中可以含有 <code>@占位符</code>。</p>
+<p>格式中看的 <code>rule</code>看<code>count</code>和<code>min-max</code> 然后就是组合下, 多个<code>+step</code></p>
+<h3 id="生成规则和示例："><a href="#生成规则和示例：" class="headerlink" title="生成规则和示例："></a>生成规则和示例：</h3><h4 id="1-属性值是字符串-String"><a href="#1-属性值是字符串-String" class="headerlink" title="1. 属性值是字符串 String"></a>1. 属性值是字符串 <code>String</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|count'</span>: string        <span class="comment">//+step当做count</span></span><br></pre></td></tr></table></figure>
+<p>通过重复 <code>string</code> 生成一个字符串，重复次数等于 <code>count</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|min-max'</span>: string</span><br></pre></td></tr></table></figure>
+<p>这个也是重复 <code>string</code> 生成一个字符串，不过重复次数 <code>min &lt;= count &lt;= max</code>。</p>
+<p><strong>忽略这种, 只看整数部分</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|min-max.dcount/dmin-dmax'</span>: string</span><br></pre></td></tr></table></figure>
+<h4 id="2-属性值是数字-Number"><a href="#2-属性值是数字-Number" class="headerlink" title="2. 属性值是数字 Number"></a>2. 属性值是数字 <code>Number</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|+1'</span>: number</span><br></pre></td></tr></table></figure>
+<p>属性值自动<strong>加 1</strong>，初始值为 <code>number</code>(<strong>这里是初始值</strong>)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|count'</span>: number</span><br></pre></td></tr></table></figure>
+<p>生成一个 等于<code>count</code> 的整数，属性值 number 只是用来确定类型(<strong>不是初始值哦</strong>)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|min-max'</span>: number</span><br></pre></td></tr></table></figure>
+<p>同理生成一个 <code>min &lt;= x &lt;= max</code> 的整数，属性值 number 只是用来确定类型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|min-max/count.dmin-dmax/dcount'</span>: number</span><br></pre></td></tr></table></figure>
+<p>生成一个<strong>浮点数</strong>，整数部分同理，小数部分产生count位, <strong>决定小数位数</strong></p>
+<h4 id="3-属性值是布尔型-Boolean"><a href="#3-属性值是布尔型-Boolean" class="headerlink" title="3. 属性值是布尔型 Boolean"></a>3. 属性值是布尔型 <code>Boolean</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|1'</span>: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>随机生成一个布尔值，值为 true 的概率是 1/2, 当然也有1/3, 1/4</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|min-max'</span>: value   /value指的是<span class="literal">true</span>或<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>随机生成一个布尔值，值为 value 的概率是 min / (min + max)，值为 !value 的概率是 max / (min + max)。</p>
+<p><strong>忽略小数部分</strong>.</p>
+<h4 id="4-属性值是对象-Object"><a href="#4-属性值是对象-Object" class="headerlink" title="4. 属性值是对象 Object"></a>4. 属性值是对象 <code>Object</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|count'</span>: object</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|min-max'</span>: object</span><br></pre></td></tr></table></figure>
+<p>从属性值 <code>object</code> 中随机选取 <code>count</code> 个属性。或者是<code>min-max</code>个</p>
+<p><code>+step</code>是直接把所有的属性列出, <code>count</code>太大也是把所有的列出.</p>
+<h4 id="5-属性值是数组-Array"><a href="#5-属性值是数组-Array" class="headerlink" title="5. 属性值是数组 Array"></a>5. 属性值是数组 <code>Array</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|1'</span>: array</span><br></pre></td></tr></table></figure>
+<p>从属性值 <code>array</code> 中<strong>随机</strong>选取 1 个元素，作为最终值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|+1'</span>: array</span><br></pre></td></tr></table></figure>
+<p>从属性值 <code>array</code> 中顺序选取 1 个元素，作为最终值。 但+2/+3都是第一个</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name|count'</span>: array</span><br></pre></td></tr></table></figure>
+<p>通过重复属性值 <code>array</code> 生成一个新数组，重复次数为 <code>count</code>。 同理<code>min-max</code></p>
+<h4 id="6-属性值是函数-Function"><a href="#6-属性值是函数-Function" class="headerlink" title="6. 属性值是函数 Function"></a>6. 属性值是函数 <code>Function</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name'</span>: <span class="function"><span class="keyword">function</span></span></span><br></pre></td></tr></table></figure>
+<p>执行函数 <code>function</code>，取其<strong>返回值</strong>作为最终的属性值，函数的上下文为属性 <code>&#39;name&#39;</code> 所在的对象。</p>
+<h4 id="7-属性值是正则表达式-RegExp"><a href="#7-属性值是正则表达式-RegExp" class="headerlink" title="7. 属性值是正则表达式 RegExp"></a>7. 属性值是正则表达式 <code>RegExp</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'name'</span>: regexp</span><br></pre></td></tr></table></figure>
+<p>根据正则表达式 <code>regexp</code> 反向生成可以匹配它的字符串。用于生成自定义格式的字符串。</p>
+<h3 id="Mock-mock"><a href="#Mock-mock" class="headerlink" title="Mock.mock()"></a><code>Mock.mock()</code></h3><p><code>Mock.mock( rurl?, rtype?, template|function( options ) )</code></p>
+<p><code>Mock.mock( template )</code><br>根据数据模板生成模拟数据。</p>
+<p><code>Mock.mock( rurl, template )</code>       <code>Mock.mock( rurl, function( options ) )</code></p>
+<p>记录数据模板。当拦截到匹配 <code>rurl</code> 的 <code>Ajax</code> 请求时，将根据数据模板 <code>template</code> 生成模拟数据，并作为响应数据返回。</p>
+<p>记录用于生成响应数据的函数。当拦截到匹配 <code>rurl</code> 的 <code>Ajax</code> 请求时，函数 <code>function(options)</code> 将被执行，并把执行结果作为响应数据返回。</p>
+<p><code>Mock.mock( rurl, rtype, template )</code>        <code>Mock.mock( rurl, rtype, function( options ) )</code><br>记录数据模板。当拦截到匹配 <code>rurl</code> 和 <code>rtype</code> 的 <code>Ajax</code> 请求时，将根据数据模板 <code>template</code> 生成模拟数据，并作为响应数据返回。</p>
+<p>记录用于生成响应数据的函数。当拦截到匹配 <code>rurl</code> 和 <code>rtype</code> 的 <code>Ajax</code> 请求时，函数 <code>function(options)</code> 将被执行，并把执行结果作为响应数据返回。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mock/" rel="tag"># mock</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/26/javascript中this指向由函数调用方式决定/" rel="next" title="javascript中this指向由函数调用方式决定">
+                <i class="fa fa-chevron-left"></i> javascript中this指向由函数调用方式决定
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/28/React项目结构和组件命名之道/" rel="prev" title="React项目结构和组件命名之道">
+                React项目结构和组件命名之道 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mockjs简单用法"><span class="nav-number">1.</span> <span class="nav-text">mockjs简单用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法规范"><span class="nav-number">1.2.</span> <span class="nav-text">语法规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据模板定义规范-DTD-我只用到这个"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据模板定义规范 DTD 我只用到这个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成规则和示例："><span class="nav-number">1.2.2.</span> <span class="nav-text">生成规则和示例：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-属性值是字符串-String"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1. 属性值是字符串 String</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-属性值是数字-Number"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2. 属性值是数字 Number</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-属性值是布尔型-Boolean"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3. 属性值是布尔型 Boolean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-属性值是对象-Object"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">4. 属性值是对象 Object</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-属性值是数组-Array"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">5. 属性值是数组 Array</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-属性值是函数-Function"><span class="nav-number">1.2.2.6.</span> <span class="nav-text">6. 属性值是函数 Function</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-属性值是正则表达式-RegExp"><span class="nav-number">1.2.2.7.</span> <span class="nav-text">7. 属性值是正则表达式 RegExp</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mock-mock"><span class="nav-number">1.2.3.</span> <span class="nav-text">Mock.mock()</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

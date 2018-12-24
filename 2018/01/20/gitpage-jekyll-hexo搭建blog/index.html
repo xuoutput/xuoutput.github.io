@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="git,jekyll,hexo,blog,">
+
+
+<meta name="description" content="使用github page 和jekyll  hexo来搭免费博客先使用github page来做一个仓库，可以看到显示结果。 github page当然下个github desktop也会是可以玩玩的这个desktop就是个垃圾 windows上下个ruby,下个稳定版比如与2.4的安装完ruby后不用装那个什么c，要啊MSYS2然后安装rubygems一个包管理的二、win 　　1.安装Rub">
+<meta name="keywords" content="git,jekyll,hexo,blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gitpage+jekyll&#x2F;hexo搭建blog">
+<meta property="og:url" content="http://yoursite.com/2018/01/20/gitpage-jekyll-hexo搭建blog/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="使用github page 和jekyll  hexo来搭免费博客先使用github page来做一个仓库，可以看到显示结果。 github page当然下个github desktop也会是可以玩玩的这个desktop就是个垃圾 windows上下个ruby,下个稳定版比如与2.4的安装完ruby后不用装那个什么c，要啊MSYS2然后安装rubygems一个包管理的二、win 　　1.安装Rub">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.505Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gitpage+jekyll&#x2F;hexo搭建blog">
+<meta name="twitter:description" content="使用github page 和jekyll  hexo来搭免费博客先使用github page来做一个仓库，可以看到显示结果。 github page当然下个github desktop也会是可以玩玩的这个desktop就是个垃圾 windows上下个ruby,下个稳定版比如与2.4的安装完ruby后不用装那个什么c，要啊MSYS2然后安装rubygems一个包管理的二、win 　　1.安装Rub">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/20/gitpage-jekyll-hexo搭建blog/">
+
+
+  <title>gitpage+jekyll/hexo搭建blog | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/20/gitpage-jekyll-hexo搭建blog/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">gitpage+jekyll/hexo搭建blog</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-20T19:55:48+08:00">2018-01-20</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用github-page-和jekyll-hexo来搭免费博客"><a href="#使用github-page-和jekyll-hexo来搭免费博客" class="headerlink" title="使用github page 和jekyll  hexo来搭免费博客"></a>使用github page 和jekyll  hexo来搭免费博客</h1><p>先使用github page来做一个仓库，可以看到显示结果。</p>
+<p><a href="https://pages.github.com/" target="_blank" rel="noopener">github page</a><br>当然下个github desktop也会是可以玩玩的<strong>这个desktop就是个垃圾</strong></p>
+<p>windows上<br>下个<a href="https://rubyinstaller.org/downloads/" target="_blank" rel="noopener">ruby</a>,下个稳定版比如与2.4的<br>安装完ruby后不用装那个什么c，要啊MSYS2<br>然后安装<a href="https://rubygems.org/pages/download" target="_blank" rel="noopener">rubygems</a>一个包管理的<br>二、win<br> 　　1.安装Ruby windows下Ruby安装包 安装成功以后检查 ruby -v 、gem -v  ；</p>
+<p>　　 2.gem install bundle、gem install jekyll 安装成功 检查 bundle -v、jekyll -v  看到各自安装的版本；</p>
+<p>　　[环境搭建]Windows下安装Ruby和Jekyll</p>
+<p>　　win下 bundle install的时候需要安装msys2 关于msys2  软件主页：<a href="https://sourceforge.net/projects/msys2/" target="_blank" rel="noopener">https://sourceforge.net/projects/msys2/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//在RubyGems官网上下载压缩包，解压到你的本地任意位置</span><br><span class="line">//在Terminal中</span><br><span class="line">cd yourpath to RubyGems //你解压的位置</span><br><span class="line">ruby setup.rb</span><br><span class="line"></span><br><span class="line">//有了gems之后安装jekyll</span><br><span class="line">$ gem install jekyll</span><br></pre></td></tr></table></figure></p>
+<p>我用了 <a href="http://jekyllthemes.org/themes/jacman/" target="_blank" rel="noopener">Jacman</a>这个模板放到你的仓库中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cd you website path //cd到你的网站目录下</span><br><span class="line">$ jekyll serve</span><br><span class="line">//一个开发服务器将会运行在 http://localhost:4000/</span><br><span class="line">//你就能在本地服务器看到你用模板搭建的网站了</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>用hexo吧 这个是nodejs环境的<br><a href="https://hexo.io/docs/" target="_blank" rel="noopener">hexo官网</a></p>
+<p>这是基于nodejs的，所以安装好nodejs和git就行</p>
+<p>然后用npm命令安装hexo-cli而不是hexo咯</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>模板用<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">iissnan</a><br>也就是<br><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">nextT主题</a><br>上面的是themes，不是正文，要区别好。<br>上面的_ 开头的配置和你用 hexo init建立的不一样。</p>
+<p>一开始我也不懂  后来才懂，看下鑫客栈 就是哔哩哔哩视频 你就会懂这个next主题是在themes中，而整个博客的文章是个大的配置</p>
+<p>首先要<code>hexo init &lt;name&gt;</code>才会有，进入后在<code>npm install</code></p>
+<p><code>.
+├── _config.yml
+├── package.json
+├── scaffolds
+├── source
+|   ├── _drafts
+|   └── _posts
+└── themes</code></p>
+<blockquote>
+<p>在 Hexo 中有<strong>两份</strong>主要的配置文件，其名称都是 _config.yml。 其中，一份位于站点根目录下，主要包含 Hexo 本身的配置；另一份位于主题目录下，这份配置由主题作者提供，主要用于配置主题相关的选项。为了描述方便，在以下说明中，将前者称为 站点配置文件， 后者称为 主题配置文件。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//常用</span><br><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）</span><br><span class="line">hexo deploy #将.deploy目录部署到GitHub</span><br><span class="line"></span><br><span class="line">//简写</span><br><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br><span class="line"></span><br><span class="line">//复合</span><br><span class="line">hexo deploy -g</span><br><span class="line">hexo server -g</span><br></pre></td></tr></table></figure>
+<h2 id="说下怎么用nexT主题"><a href="#说下怎么用nexT主题" class="headerlink" title="说下怎么用nexT主题"></a>说下怎么用nexT主题</h2><p>安装 Installation</p>
+<ol>
+<li><p>在终端切换到hexo 根目录. 在hexo目录下一定有 node_modules, source, themes 和其他文件夹:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init username.github.io</span><br><span class="line">$ cd username.github.io</span><br><span class="line">$ ls</span><br><span class="line">_config.yml  node_modules  package.json  public  scaffolds  source  themes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从 github 上获取主题 。这里有几种方式来获取主题:<br>下载最新发布的版本 Download tagged release version<br>在大多数情况下 稳定。 推荐用户下载这个。 还有两种什么标签发布版本，稳定master分支不管</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir themes/next</span><br><span class="line">$ curl -s https://api.github.com/repos/iissnan/hexo-theme-next/releases/latest | grep tarball_url | cut -d &apos;&quot;&apos; -f 4 | wget -i - -O- | tar -zx -C themes/next --strip-components=1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>直接git到github上出问题了，不像jekyll直接放上去就好了，不知道什么问题</p>
+<p>遇到</p>
+<h4 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a><strong>问题1</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:xuoutput/xuoutput.github.io.git</span><br><span class="line">git push -u origin master</span><br><span class="line">error: src refspec master does not match any.</span><br><span class="line">error: failed to push some refs to &apos;git@github.com:xuoutput/xuoutput.github.io.git&apos;</span><br><span class="line">//是因为你没有add commit 库里啥也没有</span><br></pre></td></tr></table></figure>
+<h4 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a><strong>问题2</strong></h4><ul>
+<li>用git push到github上了但还是看不来。<blockquote>
+<p>因为这个不是和jekyll一样的，直接push就好了，而是用hexo g生成后的publish文件。推荐用hexo d</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="单独来讲下hexo-deploy"><a href="#单独来讲下hexo-deploy" class="headerlink" title="单独来讲下hexo deploy"></a>单独来讲下hexo deploy</h2><ul>
+<li>在使用<code>git deploy</code>之前，先去 <code>_config.yml</code> 中修改参数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装 hexo-deployer-git。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>修改配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git             //有空格</span><br><span class="line">  repo: &lt;repository url&gt;</span><br><span class="line">  branch: [branch]</span><br><span class="line">  message: [message]</span><br><span class="line">参数	描述</span><br><span class="line">repo	库（Repository）地址</span><br><span class="line">branch	分支名称。如果您使用的是 GitHub 或 GitCafe 的话，程序会尝试自动检测。</span><br><span class="line">message	自定义提交信息 (默认为 Site updated: &#123;&#123; now(&apos;YYYY-MM-DD HH:mm:ss&apos;) &#125;&#125;)</span><br><span class="line"></span><br><span class="line">//注意空格要加上，</span><br></pre></td></tr></table></figure></p>
+<h3 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h3><p>Hexo 生成的所有文件都放在 public 文件夹中，您可以将它们复制到您喜欢的地方。不过我没找到public文件夹</p>
+<h3 id="每次部署的步骤，可按以下三步来进行。"><a href="#每次部署的步骤，可按以下三步来进行。" class="headerlink" title="每次部署的步骤，可按以下三步来进行。"></a>每次部署的步骤，可按以下三步来进行。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p><strong>再说三遍，不要用git push直接提交整个源blog，用hexo d来提交生成文件，这两个不一样的</strong><br><strong>再说三遍，不要用git push直接提交整个源blog，用hexo d来提交生成文件，这两个不一样的</strong><br><strong>再说三遍，不要用git push直接提交整个源blog，用hexo d来提交生成文件，这两个不一样的</strong></p>
+<p>还有关于git库的，不需要删了库中的内容重新提交，只要你直接提交，那个库就按你最新的文件内容更改。<br>比如原来库中是文件abc，你要改成文件456，不需要删了abc，直接本地工作区删了abc，commit文件456，库中就没有abc了，这个库中哦不是append，</p>
+<hr>
+<h2 id="写作hexo-new-然后做一个例子你就可以区分和hexo-new-page"><a href="#写作hexo-new-然后做一个例子你就可以区分和hexo-new-page" class="headerlink" title="写作hexo new  然后做一个例子你就可以区分和hexo new page"></a>写作<code>hexo new</code>  然后做一个例子你就可以区分和<code>hexo new page</code></h2><p>先在主题配置文档中打开,这样才能体会new和new page区别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  about: /about/ || user</span><br><span class="line">  tags: /tags/ || tags</span><br><span class="line">  categories: /categories/ || th</span><br><span class="line">  archives: /archives/ || archive</span><br><span class="line">  #schedule: /schedule/ || calendar</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap</span><br><span class="line">  commonweal: /404/ || heartbeat</span><br></pre></td></tr></table></figure>
+<p>用一下命令来新建一篇文章，注意新建的文件名是按title名来的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="文件名称"><a href="#文件名称" class="headerlink" title="文件名称"></a>文件名称</h3><p>Hexo 默认以标题做为文件名称，但您可编辑 <code>new_post_name</code> 参数来改变默认的文件名称，举例来说，设为 <code>:year-:month-:day-:title.md</code> 可让您更方便的通过日期来管理文章。</p>
+<h2 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h2><p>Front-matter 是文件最上方以 —- 分隔的区域，用于指定个别文件的变量，举例来说：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: my new post</span><br><span class="line">date: 2018-01-20 14:54:25</span><br><span class="line">tags:</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">参数	描述	默认值</span><br><span class="line">layout	布局	</span><br><span class="line">title	标题	</span><br><span class="line">date	建立日期	文件建立日期</span><br><span class="line">updated	更新日期	文件更新日期</span><br><span class="line"></span><br><span class="line">tags	标签（不适用于分页）	</span><br><span class="line">categories	分类（不适用于分页）</span><br><span class="line"></span><br><span class="line">comments	开启文章的评论功能	true</span><br><span class="line">permalink	覆盖文章网址</span><br></pre></td></tr></table></figure>
+<p>例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: post</span><br><span class="line">title: my new post with resource</span><br><span class="line">date: 2018-01-20 15:14:47</span><br><span class="line">updated: </span><br><span class="line">tags:</span><br><span class="line">- git</span><br><span class="line">- hexo</span><br><span class="line">- nodejs</span><br><span class="line">- resource directory</span><br><span class="line">categories: </span><br><span class="line">- diary</span><br><span class="line">comments: true</span><br><span class="line">premalink: </span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.zhihu.com/question/33324071" target="_blank" rel="noopener">hexo下新建页面下如何放多个文章？</a><br>上面添加好也可以点开标签tags或categories能看到你的文章，但是你在导航栏中点点tags或categories就找不到。这个就是<code>hexo new page</code>的功能了，其实在主题中的那个<code>menu</code>开启的也是这个功能，这个menu里面的名字可以自定义的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: post</span><br><span class="line">title: my new post with resource</span><br><span class="line">date: 2018-01-20 15:14:47</span><br><span class="line">updated: </span><br><span class="line">tags:</span><br><span class="line">- git</span><br><span class="line">- hexo</span><br><span class="line">- nodejs</span><br><span class="line">- resource directory</span><br><span class="line">categories: </span><br><span class="line">- diary</span><br><span class="line">comments: true</span><br><span class="line">premalink: </span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>下面实例，建tags和categories页面</p>
+<p>这其实就是hexo new [layout]这个layout的属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br></pre></td></tr></table></figure></p>
+<p>打开 tags/index.md ，并改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: 标签</span><br><span class="line">date: 日期</span><br><span class="line">type: &quot;tags&quot;        //这个一致，加不加引号无所谓</span><br><span class="line">comments: false</span><br></pre></td></tr></table></figure></p>
+<p><strong>同理categories</strong></p>
+<hr>
+<h3 id="资源文件夹"><a href="#资源文件夹" class="headerlink" title="资源文件夹"></a>资源文件夹</h3><p>比如图片，文章小，你可以放在source/images中（直接用markdown的语法<img src="" alt="">引用），但一旦文章多了，这就不好管理了。</p>
+<p>所以，为每个文章设置一个资源文件夹，首先开启配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_config.yml</span><br><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure></p>
+<p>然后<code>hexo new</code>就会多一个文件夹</p>
+<p>使用3种语法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_path slug %&#125;</span><br><span class="line">&#123;% asset_img slug [title] %&#125;</span><br><span class="line">&#123;% asset_link slug [title] %&#125;</span><br><span class="line">//比如图片</span><br><span class="line">&#123;% asset_img example.jpg This is an example image %&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/jekyll/" rel="tag"># jekyll</a>
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/blog/" rel="tag"># blog</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/20/常用git命令总结/" rel="next" title="常用git命令总结">
+                <i class="fa fa-chevron-left"></i> 常用git命令总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/21/刷题/" rel="prev" title="刷题">
+                刷题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用github-page-和jekyll-hexo来搭免费博客"><span class="nav-number">1.</span> <span class="nav-text">使用github page 和jekyll  hexo来搭免费博客</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#说下怎么用nexT主题"><span class="nav-number">1.1.</span> <span class="nav-text">说下怎么用nexT主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题1"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">问题1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题2"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">问题2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单独来讲下hexo-deploy"><span class="nav-number">1.2.</span> <span class="nav-text">单独来讲下hexo deploy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#其他方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">其他方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每次部署的步骤，可按以下三步来进行。"><span class="nav-number">1.2.2.</span> <span class="nav-text">每次部署的步骤，可按以下三步来进行。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写作hexo-new-然后做一个例子你就可以区分和hexo-new-page"><span class="nav-number">1.3.</span> <span class="nav-text">写作hexo new  然后做一个例子你就可以区分和hexo new page</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件名称"><span class="nav-number">1.3.1.</span> <span class="nav-text">文件名称</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Front-matter"><span class="nav-number">1.4.</span> <span class="nav-text">Front-matter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#资源文件夹"><span class="nav-number">1.4.1.</span> <span class="nav-text">资源文件夹</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

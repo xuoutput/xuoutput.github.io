@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="vue,node.js,lru-cache,">
+
+
+<meta name="description" content="LRU是Least Recently Used 的缩写，翻译过来就是“最近最少使用”。LRU缓存的处理方式如其命名，在固定的缓存空间下，把最近最少使用的数据移除，让给最新读取的数据。算法假设最常读取的数据一般也是访问次数最多的，尽力保留这部分数据可以提高cache的命中。 lru-cache 例子在保持几个从MongoDB中取出来的数据 使用1234567891011121314151617181">
+<meta name="keywords" content="vue,node.js,lru-cache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lru_cache最近最少使用缓存处理">
+<meta property="og:url" content="http://yoursite.com/2018/03/07/lru-cache最近最少使用缓存处理/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="LRU是Least Recently Used 的缩写，翻译过来就是“最近最少使用”。LRU缓存的处理方式如其命名，在固定的缓存空间下，把最近最少使用的数据移除，让给最新读取的数据。算法假设最常读取的数据一般也是访问次数最多的，尽力保留这部分数据可以提高cache的命中。 lru-cache 例子在保持几个从MongoDB中取出来的数据 使用1234567891011121314151617181">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.519Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lru_cache最近最少使用缓存处理">
+<meta name="twitter:description" content="LRU是Least Recently Used 的缩写，翻译过来就是“最近最少使用”。LRU缓存的处理方式如其命名，在固定的缓存空间下，把最近最少使用的数据移除，让给最新读取的数据。算法假设最常读取的数据一般也是访问次数最多的，尽力保留这部分数据可以提高cache的命中。 lru-cache 例子在保持几个从MongoDB中取出来的数据 使用1234567891011121314151617181">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/07/lru-cache最近最少使用缓存处理/">
+
+
+  <title>lru_cache最近最少使用缓存处理 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/lru-cache最近最少使用缓存处理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">lru_cache最近最少使用缓存处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T11:12:20+08:00">2018-03-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="LRU是Least-Recently-Used-的缩写，翻译过来就是“最近最少使用”。"><a href="#LRU是Least-Recently-Used-的缩写，翻译过来就是“最近最少使用”。" class="headerlink" title="LRU是Least Recently Used 的缩写，翻译过来就是“最近最少使用”。"></a>LRU是Least Recently Used 的缩写，翻译过来就是“最近最少使用”。</h1><p>LRU缓存的处理方式如其命名，在固定的缓存空间下，把最近最少使用的数据移除，让给最新读取的数据。算法假设最常读取的数据一般也是访问次数最多的，尽力保留这部分数据可以提高cache的命中。</p>
+<p><a href="https://npm.taobao.org/package/lru-cache" target="_blank" rel="noopener">lru-cache</a></p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>在保持几个从MongoDB中取出来的数据</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> LRU = <span class="built_in">require</span>(<span class="string">"lru-cache"</span>)</span><br><span class="line"><span class="comment">//默认接受max,下面的参数都是可选的</span></span><br><span class="line">otherCache = LRU(<span class="number">50</span>) <span class="comment">// sets just the max size</span></span><br><span class="line"></span><br><span class="line">options = &#123;</span><br><span class="line">    max: <span class="number">500</span>,</span><br><span class="line">    length: <span class="function"><span class="keyword">function</span> (<span class="params">n, key</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n * <span class="number">2</span> + key.length</span><br><span class="line">        &#125;,</span><br><span class="line">    dispose: <span class="function"><span class="keyword">function</span> (<span class="params">key, n</span>) </span>&#123; </span><br><span class="line">        n.close() </span><br><span class="line">    &#125;,</span><br><span class="line">    maxAge: <span class="number">1000</span> * <span class="number">60</span> * <span class="number">60</span></span><br><span class="line">&#125;</span><br><span class="line">cache = LRU(options)</span><br><span class="line"></span><br><span class="line">cache.set(<span class="string">"key"</span>, <span class="string">"value"</span>)</span><br><span class="line">cache.get(<span class="string">"key"</span>) <span class="comment">// "value"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// non-string keys ARE fully supported</span></span><br><span class="line"><span class="keyword">var</span> someObject = &#123;&#125;</span><br><span class="line">cache.set(someObject, <span class="string">'a value'</span>)</span><br><span class="line">cache.set(<span class="string">'[object Object]'</span>, <span class="string">'a different value'</span>)</span><br><span class="line">assert.equal(cache.get(someObject), <span class="string">'a value'</span>)</span><br><span class="line"></span><br><span class="line">cache.reset()    <span class="comment">// empty the cache</span></span><br></pre></td></tr></table></figure>
+<p>当然要注意数据不能放太多,不然溢出</p>
+<h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><ul>
+<li><code>max</code> cache的最大长度,使用length函数来对所有值检查合法性.必须设置,不然默认无穷大.</li>
+<li><code>maxAge</code> 以ms为单位的最大逗留时间.</li>
+<li><code>length</code> 这是一个Function用来计算 the length of stored items.<blockquote>
+<p>你在存储 strings or buffers时, 你可能想要做如下 <code>function(n, key){return n.length}</code>. The default is <code>function(){return 1}</code>, 表示你存储大小规模是 <code>max</code> 那设置就没事. The item is passed as the first argument, and the key is passed as the second argumnet.</p>
+</blockquote>
+</li>
+<li><code>dispose</code> 这个Function 是用来将items从cache中drop的. 当你关闭文件或做其他清除cache工作时,不需要用到这些items时可以使用. Called with <code>key, value</code>. 实际上是先call再把这个item是从内部cache中remove,如果你想立即put it back in, you’ll have to do that in a <code>nextTick</code> or <code>setTimeout</code> callback or it won’t do anything.</li>
+<li><code>stale</code> By default, if you set a <code>maxAge</code>, 只有当你使用<code>get(key)</code> 他才会真正把 stale items 拉出cache . (也就是说在做<code>setTimeout</code> or <code>anything</code>前并不能做其他事.)<ol>
+<li>如果你设置stale:true, 在你删除这个stale value前,他会返回给你.</li>
+<li>如果你没有设置这个值, 那么当你试图get a stale entry,  他会返回undefined , 因为他已经被删除了</li>
+</ol>
+</li>
+<li><code>noDisposeOnSet</code> By default, 如果你设置了 <code>dispose()</code> 方法,当你使用 <code>set()</code> 操作来重写一个已经存在的key时,他会被调用 If you set this option, <code>dispose()</code> will only be called when a key falls out of the cache, not when it is overwritten.</li>
+</ul>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><ul>
+<li><p>set(key, value, maxAge)</p>
+</li>
+<li><p>get(key) =&gt; value</p>
+</li>
+</ul>
+<p>Both of these will update the “recently used”-ness of the key. They do what you think. <code>maxAge</code> is optional and overrides the cache <code>maxAge</code> option if provided.</p>
+<p>If the key is not found, <code>get()</code> will return <code>undefined</code>.</p>
+<p>The key and val can be any value.</p>
+<ul>
+<li>peek(key)</li>
+</ul>
+<p>Returns the key value (or <code>undefined</code> if not found) without updating the “recently used”-ness of the key.</p>
+<p>(If you find yourself using this a lot, you might be using the wrong sort of data structure, but there are some use cases where it’s handy.)</p>
+<ul>
+<li>del(key)</li>
+</ul>
+<p>Deletes a key out of the cache.</p>
+<ul>
+<li>reset()</li>
+</ul>
+<p>Clear the cache entirely, throwing away all values.</p>
+<ul>
+<li>has(key)</li>
+</ul>
+<p>Check if a key is in the cache, without updating the recent-ness or deleting it for being stale.</p>
+<ul>
+<li>forEach(function(value,key,cache), [thisp])</li>
+</ul>
+<p>Just like <code>Array.prototype.forEach</code>. Iterates over all the keys in the cache, in order of recent-ness. (Ie, more recently used items are iterated over first.)</p>
+<ul>
+<li>rforEach(function(value,key,cache), [thisp])</li>
+</ul>
+<p>The same as <code>cache.forEach(...)</code> but items are iterated over in reverse order. (ie, less recently used items are iterated over first.)</p>
+<ul>
+<li>keys()</li>
+</ul>
+<p>Return an array of the keys in the cache.</p>
+<ul>
+<li>values()</li>
+</ul>
+<p>Return an array of the values in the cache.</p>
+<ul>
+<li>length</li>
+</ul>
+<p>Return total length of objects in cache taking into account length options function.</p>
+<ul>
+<li>itemCount</li>
+</ul>
+<p>Return total quantity of objects currently in cache. Note, that <code>stale</code> (see options) items are returned as part of this item count.</p>
+<ul>
+<li>dump()</li>
+</ul>
+<p>Return an array of the cache entries ready for serialization and usage with ‘destinationCache.load(arr)`.</p>
+<ul>
+<li>load(cacheEntriesArray)</li>
+</ul>
+<p>Loads another cache entries array, obtained with <code>sourceCache.dump()</code>, into the cache. The destination cache is reset before loading new entries</p>
+<ul>
+<li>prune()</li>
+</ul>
+<p>Manually iterates over the entire cache proactively pruning old entries</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/node-js/" rel="tag"># node.js</a>
+          
+            <a href="/tags/lru-cache/" rel="tag"># lru-cache</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/07/mongoose操作MongoDB数据库的模块/" rel="next" title="mongoose操作MongoDB数据库的模块">
+                <i class="fa fa-chevron-left"></i> mongoose操作MongoDB数据库的模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/07/require-dir增强require的使用/" rel="prev" title="require-dir增强require的使用">
+                require-dir增强require的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LRU是Least-Recently-Used-的缩写，翻译过来就是“最近最少使用”。"><span class="nav-number">1.</span> <span class="nav-text">LRU是Least Recently Used 的缩写，翻译过来就是“最近最少使用”。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Options"><span class="nav-number">1.2.1.</span> <span class="nav-text">Options</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API"><span class="nav-number">1.2.2.</span> <span class="nav-text">API</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="markdown,latex,vscode,">
+
+
+<meta name="description" content="latex常用语法latex是用来排版文章和数学公式的.基于Tex. 类似web, html+css =&amp;gt; 网页.这是有.tex+.cls/sty =&amp;gt; pdf, 也是内容和样式分离. 中科大Latex模板 里面还有一个106分钟的教程清华大学Latex模板 在线latex公式 基本使用首先不需要自己安装, 用在线的好了YouTube视频他推荐的shareLatex, 现在会跳转到o">
+<meta name="keywords" content="markdown,latex,vscode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="latex常用语法">
+<meta property="og:url" content="http://yoursite.com/2018/11/24/latex常用语法/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="latex常用语法latex是用来排版文章和数学公式的.基于Tex. 类似web, html+css =&amp;gt; 网页.这是有.tex+.cls/sty =&amp;gt; pdf, 也是内容和样式分离. 中科大Latex模板 里面还有一个106分钟的教程清华大学Latex模板 在线latex公式 基本使用首先不需要自己安装, 用在线的好了YouTube视频他推荐的shareLatex, 现在会跳转到o">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-30T02:15:54.185Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="latex常用语法">
+<meta name="twitter:description" content="latex常用语法latex是用来排版文章和数学公式的.基于Tex. 类似web, html+css =&amp;gt; 网页.这是有.tex+.cls/sty =&amp;gt; pdf, 也是内容和样式分离. 中科大Latex模板 里面还有一个106分钟的教程清华大学Latex模板 在线latex公式 基本使用首先不需要自己安装, 用在线的好了YouTube视频他推荐的shareLatex, 现在会跳转到o">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/24/latex常用语法/">
+
+
+  <title>latex常用语法 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/latex常用语法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">latex常用语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T19:13:03+08:00">2018-11-24</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端教程/" itemprop="url" rel="index"><span itemprop="name">前端教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="latex常用语法"><a href="#latex常用语法" class="headerlink" title="latex常用语法"></a>latex常用语法</h1><p>latex是用来排版文章和数学公式的.基于Tex. 类似web, html+css =&gt; 网页.<br>这是有.tex+.cls/sty =&gt; pdf, 也是内容和样式分离.</p>
+<p><a href="https://github.com/ustctug/ustcthesis" target="_blank" rel="noopener">中科大Latex模板</a> 里面还有一个106分钟的教程<br><a href="https://github.com/xueruini/thuthesis" target="_blank" rel="noopener">清华大学Latex模板</a></p>
+<p><a href="https://www.codecogs.com/latex/eqneditor.php" target="_blank" rel="noopener">在线latex公式</a></p>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><p>首先不需要自己安装, 用在线的好了<a href="https://www.youtube.com/watch?v=RcvSMu9uRfA&amp;list=PLsaRQCHmdZTD3rcrmGsV-AqCfDWJuBDNd" target="_blank" rel="noopener">YouTube视频</a>他推荐的<a href="https://www.sharelatex.com/" target="_blank" rel="noopener">shareLatex</a>, 现在会跳转到<a href="https://www.overleaf.com/" target="_blank" rel="noopener">overleaf</a></p>
+<p>vscode上装了Latex的这个LW, 但是不能预览, 不晓得怎么回事.</p>
+<p>也不需要懂各种文件的格式, 只需要先会用好了. 懂一点语法.能预览看.</p>
+<h2 id="跟着视频走一遍"><a href="#跟着视频走一遍" class="headerlink" title="跟着视频走一遍"></a>跟着视频走一遍</h2><p>基本上懂了</p>
+<h2 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h2><ol>
+<li>LATEX中的公式概念</li>
+</ol>
+<p>当做命令吧: 以<code>\</code>开头, 必选参数<code>{}</code> 可选参数<code>[]</code></p>
+<ol>
+<li>环境的概念</li>
+</ol>
+<p>以<code>\begin{环境名}</code>开始, <code>\end{环境名}</code>结束</p>
+<ol>
+<li>LATEX中排版文字和公式: 所有有书序模式和文本模式</li>
+</ol>
+<p><code>$ $</code> 和 <code>$$ $$</code>行内和行间的数学公式</p>
+<p>效果如下</p>
+<p>这是行内的公式: $f(x)= \sum_{i=0}^{n}\int_{a}^{b}g(t)dt$<br>这是行间公式:</p>
+<script type="math/tex; mode=display">f(x)= \sum_{i=0}^{n}\int_{a}^{b}g(t)dt</script><p><strong>注意:</strong> 如果<code>hexo</code>出现不能显示公式的问题.</p>
+<ol>
+<li>那么可以用<a href="https://cloud.tencent.com/developer/article/1337897" target="_blank" rel="noopener">在线的latex中转图片来代替</a>, 虽然这种方式不好,比如遇到<code>f(x)</code></li>
+<li>开启<code>hexo</code>的<code>MathJax</code>功能(推荐): 这样就可以用<code>$</code>来写公式.</li>
+</ol>
+<a href="/2018/11/25/hexo中使用LaTex公式的开启方法/" title="hexo中使用LaTex公式的开启方法(适用于next主题和非next主题)">hexo中使用LaTex公式的开启方法(适用于next主题和非next主题)</a>
+<p>其他参考:<br><a href="https://blog.csdn.net/yexiaohhjk/article/details/82526604" target="_blank" rel="noopener">1. hexo的next主题开启mathjax</a><br><a href="https://www.jianshu.com/p/68e6f82d88b7" target="_blank" rel="noopener">2. 使用LaTex添加公式到Hexo博客里</a></p>
+<h2 id="数学公式基本语法-不会没关系-用在线latex公式"><a href="#数学公式基本语法-不会没关系-用在线latex公式" class="headerlink" title="数学公式基本语法 不会没关系,用在线latex公式"></a>数学公式基本语法 不会没关系,用<a href="https://www.codecogs.com/latex/eqneditor.php" target="_blank" rel="noopener">在线latex公式</a></h2><p>常见的一些</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">效果</th>
+<th style="text-align:center"></th>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\sqrt{2}</td>
+<td style="text-align:center">$\sqrt{2}$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\sqrt[3]{2}</td>
+<td style="text-align:center">$\sqrt[3]{2}$</td>
+</tr>
+<tr>
+<td style="text-align:center">x_2</td>
+<td style="text-align:center">$x_2$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">x^2</td>
+<td style="text-align:center">$x^2$</td>
+</tr>
+<tr>
+<td style="text-align:center">\frac{1}{2}</td>
+<td style="text-align:center">$\frac{1}{2}$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\lim_{x\to2}x^2+2</td>
+<td style="text-align:center">$\lim_{x\to2}x^2+2$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>$\lim\limits_{\substack{\sigma\rightarrow0 \\<br>\tau_0\rightarrow0}}\frac{\sigma}{\tau_0} $</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">效果</th>
+<th style="text-align:center"></th>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\sum</td>
+<td style="text-align:center">$\sum$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\sum_{i=1}^{n}</td>
+<td style="text-align:center">$\sum_{i=1}^{n}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\int</td>
+<td style="text-align:center">$\int$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\int_{a}^{b}</td>
+<td style="text-align:center">$\int_{a}^{b}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\iint</td>
+<td style="text-align:center">$\iint$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\iint_{a}^{b}</td>
+<td style="text-align:center">$\iint_{a}^{b}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\prod</td>
+<td style="text-align:center">$\prod$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\prod_{i=1}^{n}</td>
+<td style="text-align:center">$\prod_{i=1}^{n}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\bigcup</td>
+<td style="text-align:center">$\bigcup$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\bigcup_{i=1}^{n}</td>
+<td style="text-align:center">$\bigcup_{i=1}^{n}$</td>
+</tr>
+<tr>
+<td style="text-align:center">\bigcap</td>
+<td style="text-align:center">$\bigcap$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\bigcap_{i=1}^{n}</td>
+<td style="text-align:center">$\bigcap_{i=1}^{n}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>一些希腊字母</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">效果</th>
+<th style="text-align:center"></th>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\alpha</td>
+<td style="text-align:center">$\alpha$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\beta</td>
+<td style="text-align:center">$\beta$</td>
+</tr>
+<tr>
+<td style="text-align:center">\gamma</td>
+<td style="text-align:center">$\gamma$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\delta</td>
+<td style="text-align:center">$\delta$</td>
+</tr>
+<tr>
+<td style="text-align:center">\epsilon</td>
+<td style="text-align:center">$\epsilon$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\zeta</td>
+<td style="text-align:center">$\zeta$</td>
+</tr>
+<tr>
+<td style="text-align:center">\eta</td>
+<td style="text-align:center">$\eta$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\theta</td>
+<td style="text-align:center">$\theta$</td>
+</tr>
+<tr>
+<td style="text-align:center">\iota</td>
+<td style="text-align:center">$\iota$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\omega</td>
+<td style="text-align:center">$\omega$</td>
+</tr>
+<tr>
+<td style="text-align:center">\lambda</td>
+<td style="text-align:center">$\lambda$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\mu</td>
+<td style="text-align:center">$\mu$</td>
+</tr>
+<tr>
+<td style="text-align:center">\xi</td>
+<td style="text-align:center">$\xi$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\phi</td>
+<td style="text-align:center">$\phi$</td>
+</tr>
+<tr>
+<td style="text-align:center">\pi</td>
+<td style="text-align:center">$\pi$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\rho</td>
+<td style="text-align:center">$\rho$</td>
+</tr>
+<tr>
+<td style="text-align:center">\sigma</td>
+<td style="text-align:center">$\sigma$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\tau</td>
+<td style="text-align:center">$\tau$</td>
+</tr>
+<tr>
+<td style="text-align:center">\upsilon</td>
+<td style="text-align:center">$\upsilon$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\nu</td>
+<td style="text-align:center">$\nu$</td>
+</tr>
+<tr>
+<td style="text-align:center">\chi</td>
+<td style="text-align:center">$\chi$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">\psi</td>
+<td style="text-align:center">$\psi$</td>
+</tr>
+<tr>
+<td style="text-align:center">\kappa</td>
+<td style="text-align:center">$\kappa$</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如果使用<strong>大写</strong>的希腊字母，把命令的首字母变成大写即可，例如 <code>\Gamma</code> 输出的是 $\Gamma$。</p>
+<p>如果使用<strong>斜体大写</strong>希腊字母，再在大写希腊字母的LaTeX命令前加上<code>var</code>，例如<code>\varGamma</code> 生成 $\varGamma$。</p>
+<p><a href="https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank" rel="noopener">MathJax basic tutorial</a></p>
+<h2 id="宏包-package-packageName"><a href="#宏包-package-packageName" class="headerlink" title="宏包 \package{packageName}"></a>宏包 <code>\package{packageName}</code></h2><p>就是引入模块</p>
+<h2 id="latex常见文件类型"><a href="#latex常见文件类型" class="headerlink" title="latex常见文件类型"></a>latex常见文件类型</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">LaTex模板常见文件类型</th>
+<th style="text-align:center">功能介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">.dtx</td>
+<td style="text-align:center"><code>Documented LaTeX sources</code>，宏包重要部分</td>
+</tr>
+<tr>
+<td style="text-align:center">.ins</td>
+<td style="text-align:center"><code>installation</code>，控制 TeX 从 <code>.dtx</code> 文件里释放宏包文件</td>
+</tr>
+<tr>
+<td style="text-align:center">.cfg</td>
+<td style="text-align:center"><code>config</code>， 配置文件，可由上面两个文件生成</td>
+</tr>
+<tr>
+<td style="text-align:center">.sty</td>
+<td style="text-align:center"><code>style files</code>使用<code>\usepackage{...}</code>命令进行加载</td>
+</tr>
+<tr>
+<td style="text-align:center">.cls</td>
+<td style="text-align:center"><code>classes files</code>，类文件，使用<code>\documentclass{...}</code>命令进行加载</td>
+</tr>
+<tr>
+<td style="text-align:center">.aux</td>
+<td style="text-align:center"><code>auxiliary</code>， 辅助文件，不影响正常使用</td>
+</tr>
+<tr>
+<td style="text-align:center">.bst</td>
+<td style="text-align:center"><code>BibTeX style file</code>，用来控制参考文献样式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/shujuelin/article/details/79340373" target="_blank" rel="noopener">脚丫先生的LaTeX入门</a></p>
+<p>保存的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br></pre></td><td class="code"><pre><span class="line">\documentclass&#123;article&#125;   &#123;report&#125;</span><br><span class="line">\usepackage[utf8]&#123;inputenc&#125;</span><br><span class="line"></span><br><span class="line">\title&#123;Hello Workld&#125;</span><br><span class="line">\author&#123;pppxehng&#125;</span><br><span class="line">\date&#123;Augest 2018&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;ducument&#125;</span><br><span class="line"></span><br><span class="line">\maketitle</span><br><span class="line"></span><br><span class="line">\section&#123;Introduction&#125;</span><br><span class="line"></span><br><span class="line">HELLO Workld</span><br><span class="line"></span><br><span class="line">\end&#123;document&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">然后学习</span><br><span class="line">chapters section paragraph sub-section</span><br><span class="line"></span><br><span class="line">\documentclass&#123;report&#125;</span><br><span class="line">\usepackage[utf8]&#123;inputenc&#125;</span><br><span class="line">\usepackage&#123;geometry&#125;</span><br><span class="line">    \geometry&#123;</span><br><span class="line">        a4paper,</span><br><span class="line">        total = &#123;160mm,245mm&#125;,</span><br><span class="line">        left = 30mm,</span><br><span class="line">        top = 30mm</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;ducument&#125;</span><br><span class="line"></span><br><span class="line">\chapter&#123;Introduction to LATEX&#125;</span><br><span class="line">\section&#123;Introduction&#125;</span><br><span class="line"></span><br><span class="line">HELLO Workld</span><br><span class="line">\chapter&#123;Advantages of LATEX&#125;</span><br><span class="line"></span><br><span class="line">\section&#123;section1&#125;   这是1.1</span><br><span class="line"></span><br><span class="line">\subsection&#123;subsection&#125;  默认有序1.1.1, 然后加了*号\subsection*&#123;subsection&#125;  就没了1.1.1</span><br><span class="line"></span><br><span class="line">\subsubsection&#123;&#123;seusebsectiob &#125;&#125;</span><br><span class="line"></span><br><span class="line">\paragraph&#123;&#123;this line&#125;&#125;</span><br><span class="line"></span><br><span class="line">\end&#123;document&#125;</span><br><span class="line"></span><br><span class="line">table figures images</span><br><span class="line"></span><br><span class="line">\usepackage&#123;graphicx&#125;</span><br><span class="line"></span><br><span class="line">the fig. \ref&#123;fig: logo&#125; is the logp</span><br><span class="line">\begin&#123;figure&#125;[ht]</span><br><span class="line">    \centering</span><br><span class="line">    \includegraphics[width=5in]&#123;jkk.png&#125;</span><br><span class="line">    \caption&#123;oafd logo&#125;</span><br><span class="line">    \label&#123;fig: logo&#125;           1.1</span><br><span class="line">\end&#123;figure&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mutiple images stacks in </span><br><span class="line">\usepackage&#123;caption&#125;</span><br><span class="line">\usepackage&#123;subcaption&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The Fig.\ref&#123;mul_images&#125; id an example of  two images stacked side by side</span><br><span class="line"></span><br><span class="line">\begin&#123;figure&#125;[ht]      //h: here, t: top, b: bottom, p: page</span><br><span class="line">    \centering</span><br><span class="line">    \begin&#123;subfigure&#125;&#123;0.49\textwidth&#125;</span><br><span class="line">        \centering</span><br><span class="line">        \includegraphics[width=0.4\linewidth]&#123;ninjas.png&#125;</span><br><span class="line">        \caption&#123;figure 1&#125;</span><br><span class="line">        \label&#123;fig:first&#125;</span><br><span class="line">    \end&#123;subfigure&#125;</span><br><span class="line">    \begin&#123;subfigure&#125;&#123;0.49\textwidth&#125;</span><br><span class="line">        \centering</span><br><span class="line">        \includegraphics[width=0.4\linewidth]&#123;ninjas.png&#125;</span><br><span class="line">        \caption&#123;figure 2&#125;</span><br><span class="line">        \label&#123;fig:second&#125;</span><br><span class="line">    \end&#123;subfigure&#125;</span><br><span class="line">    \caption&#123;oafd logo&#125;</span><br><span class="line">    \label&#123;mul_images&#125;          </span><br><span class="line">\end&#123;figure&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tables in LATEX</span><br><span class="line">\chapter&#123;Tables&#125;</span><br><span class="line">    \begin&#123;table&#125;[ht]</span><br><span class="line">        \centering</span><br><span class="line">        \scalebox&#123;2&#125;&#123;</span><br><span class="line">            \begin&#123;tabular&#125;&#123;|l|c|r|&#125;</span><br><span class="line">                \hline</span><br><span class="line">                Sr. No. &amp; Column1 &amp; Column 2 \\</span><br><span class="line">                \hline</span><br><span class="line">                \hline</span><br><span class="line">                1 &amp; Row1Col1 &amp; Row1Col2 \\</span><br><span class="line">                \hline</span><br><span class="line">                2 &amp; Row2Col1 &amp; Row2Col2 \\</span><br><span class="line">                \hline</span><br><span class="line">                3 &amp; Row3Col1 &amp; Row3Col2 \\</span><br><span class="line">                \hline</span><br><span class="line">            \end&#123;tabular&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        \caption&#123;First Table&#125;</span><br><span class="line">        \label&#123;tab: firstTable&#125;</span><br><span class="line">    \end&#123;table&#125;</span><br><span class="line"></span><br><span class="line">multicolumn &amp; multirow Tables</span><br><span class="line"></span><br><span class="line">The Table\ref&#123;multicolumn_table&#125; displays a table with multicolumn header</span><br><span class="line"></span><br><span class="line">\begin&#123;table&#125;[ht]</span><br><span class="line">    \centering</span><br><span class="line">    \scalebox&#123;1.5&#125;&#123;</span><br><span class="line">        \begin&#123;tabular&#125;&#123;|c|c|c|c|&#125;</span><br><span class="line">            \hline</span><br><span class="line">            Sr &amp; \multicolumn&#123;3&#125;&#123;c|&#125;&#123;Multicolumn Header&#125;\\</span><br><span class="line">            \cline&#123;2-4&#125;</span><br><span class="line">            No. &amp; DataHeader1 &amp; DataHeader2 &amp; DataHeader3\\</span><br><span class="line">            \hline</span><br><span class="line">            1 &amp; data1 &amp; data2 &amp; data3\\</span><br><span class="line">            \hline</span><br><span class="line">            2 &amp; data1 &amp; data2 &amp; data3\\</span><br><span class="line">            \hline</span><br><span class="line">            3 &amp; data1 &amp; data2 &amp; data3\\</span><br><span class="line">            \hline</span><br><span class="line">            4 &amp; data1 &amp; data2 &amp; data3\\</span><br><span class="line">            \hline</span><br><span class="line">        \end&#123;tabular&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    \caption&#123;Multicolumn Table&#125;</span><br><span class="line">    \label&#123;multicolumn_table&#125;</span><br><span class="line">\end&#123;table&#125;</span><br><span class="line"></span><br><span class="line">The Table\ref&#123;multicolumn_table&#125; displays a table with a cell spanning multiple rows</span><br><span class="line">\usepackage&#123;multirow&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;table&#125;[ht]</span><br><span class="line">    \centering</span><br><span class="line">    \scalebox&#123;1.5&#125;&#123;</span><br><span class="line">        \begin&#123;tabular&#125;&#123;|c|c|c|&#125;</span><br><span class="line">            \hline</span><br><span class="line">            Sr No. &amp; Header1 &amp; Header2\\</span><br><span class="line">            \hline</span><br><span class="line">            \multirows&#123;2&#125;&#123;*&#125;&#123;1&#125; &amp; data1 &amp; data2 \\</span><br><span class="line">                                &amp;data3 &amp;data4\\</span><br><span class="line">            \hline</span><br><span class="line">            2 &amp; data1 &amp; data2\\</span><br><span class="line">            \hline</span><br><span class="line">        \end&#123;tabular&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    \caption&#123;Multicolumn Table&#125;</span><br><span class="line">    \label&#123;multicolumn_table&#125;</span><br><span class="line">\end&#123;table&#125;</span><br><span class="line"></span><br><span class="line">Equations</span><br><span class="line"></span><br><span class="line">\usepackage&#123;amsmath&#125;</span><br><span class="line"></span><br><span class="line">\chapter&#123;Equations&#125;</span><br><span class="line"></span><br><span class="line">The Eqn. \ref&#123;circleeqn&#125; displays the equation for the circle</span><br><span class="line"></span><br><span class="line">\begin&#123;equation&#125;</span><br><span class="line">    x^2=y^2=r2</span><br><span class="line">    \label&#123;circleeqn&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br><span class="line"></span><br><span class="line">The equation below shows us the equatin for the circle</span><br><span class="line"></span><br><span class="line">\begin&#123;equation*&#125;</span><br><span class="line">    x^2=y^2=r2</span><br><span class="line">    \label&#123;circleeqn&#125;</span><br><span class="line">\end&#123;equation*&#125;</span><br><span class="line"></span><br><span class="line">THe equation for the circle is given as $x^2=y^2=r2$ </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Matrices &amp; Derivatives</span><br><span class="line"></span><br><span class="line">Ten matrices ate show in wquatin \ref&#123;matrix&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;equation&#125;</span><br><span class="line">    Y = \begin&#123;bmatrix&#125;</span><br><span class="line">        a_&#123;11&#125; &amp; a_&#123;12&#125; &amp; a_&#123;13&#125;\\</span><br><span class="line">        a_&#123;21&#125; &amp; a_&#123;22&#125; &amp; a_&#123;23&#125;\\</span><br><span class="line">        a_&#123;31&#125; &amp; a_&#123;32&#125; &amp; a_&#123;33&#125;\\</span><br><span class="line">    \end&#123;bmatrix&#125;</span><br><span class="line">    \begin&#123;bmatrix&#125;</span><br><span class="line">        x_1\\</span><br><span class="line">        x_2\\</span><br><span class="line">        x_3\\</span><br><span class="line">    \end&#123;bmatrix&#125;</span><br><span class="line">    \label&#123;matrix&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br><span class="line"></span><br><span class="line">The derivative is shown in equatin \ref&#123;derivative&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;equation&#125;</span><br><span class="line">    \frac&#123;dy&#125;&#123;dx&#125; = 2t^2</span><br><span class="line">    \label&#123;derivative&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br><span class="line"></span><br><span class="line">The partial derivatives are shown in eqn \ref&#123;partialder&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;equation&#125;</span><br><span class="line">    \frac&#123;du&#125;&#123;dt&#125; = 2x\frac&#123;\partial u&#125;&#123;\partial x&#125; +</span><br><span class="line">    2y\frac&#123;\partial u&#125;&#123;\partial y&#125;</span><br><span class="line">    \label&#123;partialder&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Limits, summation &amp; Integrals</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Limits are inserted in Eqn. \ref&#123;limits&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;equation&#125;</span><br><span class="line">    \lim_&#123;x\to2&#125;x^2+2</span><br><span class="line">    \label&#123;limits&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br><span class="line"></span><br><span class="line">Summations can be inserted as shown in eqn. \ref&#123;sum&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;equation&#125;</span><br><span class="line">    \sum_&#123;x=1&#125;^&#123;n&#125;x^2=1</span><br><span class="line">    \label&#123;sum&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br><span class="line"></span><br><span class="line">Product sequence can be inserted as shown in Eqn. \ref&#123;prod&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;equation&#125;</span><br><span class="line">    \prod_&#123;x=1&#125;^&#123;n&#125;x^2</span><br><span class="line">    \label&#123;prod&#125;</span><br><span class="line">\end&#123;equation&#125;</span><br><span class="line"></span><br><span class="line">Eqn. \ref&#123;int&#125; shows integration</span><br><span class="line"></span><br><span class="line">\begin&#123;equatin&#125;</span><br><span class="line">    \int_&#123;0&#125;^&#123;n&#125;x^2dx</span><br><span class="line">    \label&#123;int&#125;</span><br><span class="line">\end&#123;equatin&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Citations &amp; Bibliography</span><br><span class="line"></span><br><span class="line">直接在google scholar中搜 然后有个cite 点击Bib Tex, 然后复制在一个单独的文件中可以 qian1990new这个是cite</span><br><span class="line"></span><br><span class="line">@article&#123;qian1990new,</span><br><span class="line">  title=&#123;A new scientific field--open complex giant systems and the methodology&#125;,</span><br><span class="line">  author=&#123;Qian, Xuesen and Yu, Jingyuan and Dai, Ruwei&#125;,</span><br><span class="line">  journal=&#123;Chinese Journal of Nature&#125;,</span><br><span class="line">  volume=&#123;13&#125;,</span><br><span class="line">  number=&#123;1&#125;,</span><br><span class="line">  pages=&#123;3--10&#125;,</span><br><span class="line">  year=&#123;1990&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">使用的使用</span><br><span class="line"></span><br><span class="line">Thereference for this report are \cite&#123;qian1990new&#125; and ...</span><br><span class="line"></span><br><span class="line">\bibliographystyle&#123;ieeetr&#125;</span><br><span class="line">\bibliography&#123;citation&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/markdown/" rel="tag"># markdown</a>
+          
+            <a href="/tags/latex/" rel="tag"># latex</a>
+          
+            <a href="/tags/vscode/" rel="tag"># vscode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/23/hexo基本使用/" rel="next" title="hexo基本使用">
+                <i class="fa fa-chevron-left"></i> hexo基本使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/25/hexo中使用LaTex公式的开启方法/" rel="prev" title="hexo中使用LaTex公式的开启方法">
+                hexo中使用LaTex公式的开启方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#latex常用语法"><span class="nav-number">1.</span> <span class="nav-text">latex常用语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">1.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跟着视频走一遍"><span class="nav-number">1.2.</span> <span class="nav-text">跟着视频走一遍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本知识"><span class="nav-number">1.3.</span> <span class="nav-text">基本知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学公式基本语法-不会没关系-用在线latex公式"><span class="nav-number">1.4.</span> <span class="nav-text">数学公式基本语法 不会没关系,用在线latex公式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宏包-package-packageName"><span class="nav-number">1.5.</span> <span class="nav-text">宏包 \package{packageName}</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#latex常见文件类型"><span class="nav-number">1.6.</span> <span class="nav-text">latex常见文件类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

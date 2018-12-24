@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="tmux,">
+
+
+<meta name="description" content="tmux简单使用安装ubuntu下 1sudo apt-get install tmux 安装完后运行 基本概念Tmux基于典型的c/s模型，主要分为会话、窗口和面板三个元素：  Session：输入tmux后就创建了一个会话，一个会话是一组窗体的集合。 Window：会话中一个当前活动的窗口。 Pane:一个窗口可以分成多个面板   图中左下角的3显示为当前会话，随后1 vim,2 bash,3">
+<meta name="keywords" content="tmux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tmux简单使用">
+<meta property="og:url" content="http://yoursite.com/2018/02/25/tmux简单使用/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="tmux简单使用安装ubuntu下 1sudo apt-get install tmux 安装完后运行 基本概念Tmux基于典型的c/s模型，主要分为会话、窗口和面板三个元素：  Session：输入tmux后就创建了一个会话，一个会话是一组窗体的集合。 Window：会话中一个当前活动的窗口。 Pane:一个窗口可以分成多个面板   图中左下角的3显示为当前会话，随后1 vim,2 bash,3">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/02/25/tmux简单使用/tmuxbase.jpg">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.525Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tmux简单使用">
+<meta name="twitter:description" content="tmux简单使用安装ubuntu下 1sudo apt-get install tmux 安装完后运行 基本概念Tmux基于典型的c/s模型，主要分为会话、窗口和面板三个元素：  Session：输入tmux后就创建了一个会话，一个会话是一组窗体的集合。 Window：会话中一个当前活动的窗口。 Pane:一个窗口可以分成多个面板   图中左下角的3显示为当前会话，随后1 vim,2 bash,3">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/25/tmux简单使用/tmuxbase.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/25/tmux简单使用/">
+
+
+  <title>tmux简单使用 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/25/tmux简单使用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">tmux简单使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-25T17:46:01+08:00">2018-02-25</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="tmux简单使用"><a href="#tmux简单使用" class="headerlink" title="tmux简单使用"></a>tmux简单使用</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>ubuntu下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install tmux</span><br></pre></td></tr></table></figure>
+<p>安装完后运行</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>Tmux基于典型的c/s模型，主要分为会话、窗口和面板三个元素：</p>
+<ul>
+<li>Session：输入tmux后就创建了一个会话，一个会话是一组窗体的集合。</li>
+<li>Window：会话中一个当前活动的窗口。</li>
+<li>Pane:一个窗口可以分成多个面板</li>
+</ul>
+<p><img src="tmuxbase.jpg" alt="tmuxbase"></p>
+<p>图中左下角的3显示为当前会话，随后1 vim,2 bash,3 ssh 分别是3个窗口，蓝色bash表示当前窗口.<br>图中用蓝色数字标记的1,2,3分别是bash窗口的三个面板(Pane)。你还可以在tmux配置文件中给状态栏添加时间、天气等信息。</p>
+<h2 id="操作-有个前缀"><a href="#操作-有个前缀" class="headerlink" title="操作(有个前缀)"></a>操作(有个前缀)</h2><p>Tmux的所有操作必须使用一个前缀进入<strong>命令模式</strong>，默认前缀为ctrl+b，很多人会改为ctrl+a,你可以修改tmux.conf配置文件来修改默认前缀：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#前缀设置为&lt;Ctrl-a&gt;</span><br><span class="line">set -g prefix C-a</span><br><span class="line">#解除&lt;Ctrl-b&gt;</span><br><span class="line">ubind C-b</span><br></pre></td></tr></table></figure>
+<h2 id="窗格操作-Pane"><a href="#窗格操作-Pane" class="headerlink" title="窗格操作(Pane)"></a>窗格操作(Pane)</h2><ul>
+<li>% 向右平分出两个窗格</li>
+<li>“ 向下平分出两个窗格</li>
+<li>x 关闭当前窗格(当窗口中只剩一个pane时，就是关闭窗口)</li>
+<li>q 显示所有窗格的序号，在序号出现期间按下对应的数字，即可跳转至对应的窗格</li>
+<li>{ 当前窗格前移(所有窗口大小不变，内容按从上往下，从左往右。往前走)</li>
+<li>} 当前窗格后移</li>
+<li>; 选择上次使用的窗格，只能记住一次</li>
+<li>o 选择下一个窗格，也可以使用上下左右<strong>方向键</strong>来选择(改成vim的 hjkl)</li>
+<li>space 切换窗格布局，tmux 内置了五种窗格布局，也可以通过 ⌥1 至 ⌥5来切换</li>
+<li>z(zoom) 最大化当前窗格，再次执行可恢复原来大小</li>
+</ul>
+<h2 id="窗口操作-window"><a href="#窗口操作-window" class="headerlink" title="窗口操作(window)"></a>窗口操作(window)</h2><p>tmux 除了窗格以外，还有窗口（window） 的概念。依次使用以下快捷键来熟悉 tmux 的窗口操作：</p>
+<ul>
+<li>c(create) 新建窗口，此时当前窗口会切换至新窗口，不影响原有窗口的状态</li>
+<li>&amp; 关闭当前窗口</li>
+<li>p(previous) 切换至上一窗口</li>
+<li>n(next) 切换至下一窗口</li>
+<li>w(window) 窗口列表选择，注意 macOS 下使用 ⌃p 和 ⌃n 进行上下选择</li>
+<li>l 在前后两个窗口间互相切换</li>
+<li>0 切换至 0 号窗口，使用其他数字 id 切换至对应窗口(0~9,在10往上就不行了)</li>
+<li>. 修改当前窗口编号；相当于窗口重新排序(一个是编号，一个是名字1:~xioaming)</li>
+<li>,(搜狗) 重命名窗口，可以使用中文，重命名后能在 tmux 状态栏更快速的识别窗口 id</li>
+<li>f(find) 根据窗口名搜索选择窗口，可模糊匹配</li>
+<li>ctrl+方向 调整窗口大小(技巧：按住ctrl+k再按方向键)</li>
+</ul>
+<h2 id="会话操作-session"><a href="#会话操作-session" class="headerlink" title="会话操作(session)"></a>会话操作(session)</h2><p>如果运行了多次 tmux 命令则会开启多个 tmux 会话（session）。在 tmux 会话中，使用前缀快捷键 ⌃b 配合以下快捷键可操作会话：</p>
+<ul>
+<li>s(session) 选择会话列表，就是开了几个tmux</li>
+<li>d detach 当前会话，运行后将会退出 tmux 进程，返回至 shell 主进程(但会话列表仍在，就是退出与保存)</li>
+<li>$ 重命名当前会话</li>
+<li>: 进入命令行模式；此时可以输入支持的命令，例如kill-server可以关闭服务器</li>
+<li>[ 进入复制模式；此时的操作与vi/emacs相同，按q/Esc退出([ space 鼠标 enter])<ol>
+<li>按前缀+[ 进入复制模式</li>
+<li>按一下 space 开始复制，方向键选择复制区域</li>
+<li>按 Enter 复制并退出copy-mode。</li>
+<li>将光标移动到指定位置，按前缀+ ] 粘贴</li>
+</ol>
+</li>
+</ul>
+<p>在 <strong>shell</strong> 主进程下运行以下命令可以操作 tmux 会话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tmux ls # 列出所有 tmux 会话</span><br><span class="line">//新建与打开</span><br><span class="line">tmux new -s foo # 新建名称为 foo 的会话</span><br><span class="line">tmux a # 恢复至上一次的会话</span><br><span class="line">tmux a -t foo # 恢复名称为 foo 的会话，会话默认名称为数字</span><br><span class="line">//删除</span><br><span class="line">tmux kill-session -t foo # 删除名称为 foo 的会话</span><br><span class="line">tmux kill-server # 删除所有的会话</span><br></pre></td></tr></table></figure>
+<p>除以上提到的快捷键以外，tmux 还有许多其他的快捷键和命令，使用前缀快捷键 ctrl+b 加 ? 可以<strong>查看所有的快捷键列表</strong>，该列表视图为 <strong>tmux copy 模式</strong>，该模式下可使用以下快捷键（无需加 ⌃b 前缀）：</p>
+<ul>
+<li>⌃s 向前搜索</li>
+<li>q 退出 copy 模式</li>
+<li>⌃v 下一页 翻页也可用pageup pagedown</li>
+<li>Meta v 上一页 （tmux 快捷键为 Emacs 风格，这里的 Meta 键可用 Esc 模拟）</li>
+</ul>
+<h2 id="常见配置与问题"><a href="#常见配置与问题" class="headerlink" title="常见配置与问题"></a>常见配置与问题</h2><h3 id="1、鼠标滚屏"><a href="#1、鼠标滚屏" class="headerlink" title="1、鼠标滚屏"></a>1、鼠标滚屏</h3><p>tmux 默认配置中最糟糕的体验就是滚屏查看和文本复制（大家可以先试试看）。你需要先使用 ⌃b [ 快捷键进入 copy 模式，然后使用翻页、字符定位来选择需要的字符，效率远没有鼠标选择来的快。</p>
+<p>因此 tmux 提供了一些个性化配置项来优化这些配置，首先在 shell 中运行 <code>touch ~/.tmux.conf</code> 新建用户配置文件。在文件中增加以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 开启鼠标模式</span><br><span class="line">set -g mode-mouse on</span><br><span class="line">​</span><br><span class="line"># 允许鼠标选择窗格</span><br><span class="line">set -g mouse-select-pane on</span><br><span class="line">​</span><br><span class="line"># 如果喜欢给窗口自定义命名，那么需要关闭窗口的自动命名</span><br><span class="line">set-option -g allow-rename off</span><br><span class="line">​</span><br><span class="line"># 如果对 vim 比较熟悉，可以将 copy mode 的快捷键换成 vi 模式</span><br><span class="line">set-window-option -g mode-keys vi</span><br></pre></td></tr></table></figure>
+<p>配置文件修改完成后，可以 <code>tmux kill-server</code> 重启所有 tmux 进程，或者在 tmux 会话中使用 ctrl+b : 进入控制台模式，输入 <code>source-file ~/.tmux.conf</code> 命令重新加载配置(ubuntu上没这命令)。</p>
+<h3 id="2、-pane切换"><a href="#2、-pane切换" class="headerlink" title="2、 pane切换"></a>2、 pane切换</h3><p>切换面板就和vim一样了,方向键太变扭了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># map Vi movement keys as pane movement keys</span><br><span class="line">bind h select-pane -L</span><br><span class="line">bind j select-pane -D</span><br><span class="line">bind k select-pane -U</span><br><span class="line">bind l select-pane -R</span><br></pre></td></tr></table></figure>
+<h3 id="3、美化-tmux-powerline"><a href="#3、美化-tmux-powerline" class="headerlink" title="3、美化 tmux-powerline"></a>3、美化 tmux-powerline</h3><p>就是我的效果达不到例子那样</p>
+<p><a href="https://github.com/erikw/tmux-powerline" target="_blank" rel="noopener">https://github.com/erikw/tmux-powerline</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tmux/" rel="tag"># tmux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/14/ubuntu上优化/" rel="next" title="ubuntu上优化">
+                <i class="fa fa-chevron-left"></i> ubuntu上优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/06/fastclick-解决移动端click事件300ms延迟/" rel="prev" title="fastclick 解决移动端click事件300ms延迟">
+                fastclick 解决移动端click事件300ms延迟 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#tmux简单使用"><span class="nav-number">1.</span> <span class="nav-text">tmux简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作-有个前缀"><span class="nav-number">1.3.</span> <span class="nav-text">操作(有个前缀)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#窗格操作-Pane"><span class="nav-number">1.4.</span> <span class="nav-text">窗格操作(Pane)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#窗口操作-window"><span class="nav-number">1.5.</span> <span class="nav-text">窗口操作(window)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会话操作-session"><span class="nav-number">1.6.</span> <span class="nav-text">会话操作(session)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见配置与问题"><span class="nav-number">1.7.</span> <span class="nav-text">常见配置与问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、鼠标滚屏"><span class="nav-number">1.7.1.</span> <span class="nav-text">1、鼠标滚屏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、-pane切换"><span class="nav-number">1.7.2.</span> <span class="nav-text">2、 pane切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、美化-tmux-powerline"><span class="nav-number">1.7.3.</span> <span class="nav-text">3、美化 tmux-powerline</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

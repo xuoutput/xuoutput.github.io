@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="koa,">
+
+
+<meta name="description" content="koa的一些常用的middleware直接去github中的koa的wiki中搜 FrameworksFrameworks, boilerplates and other starter kits using Koa. MiddlewareKnown middleware for Koa, you may want to search npm with “koa” to find more. Se">
+<meta name="keywords" content="koa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="koa的一些middleware">
+<meta property="og:url" content="http://yoursite.com/2018/03/07/koa的一些middleware/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="koa的一些常用的middleware直接去github中的koa的wiki中搜 FrameworksFrameworks, boilerplates and other starter kits using Koa. MiddlewareKnown middleware for Koa, you may want to search npm with “koa” to find more. Se">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.519Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="koa的一些middleware">
+<meta name="twitter:description" content="koa的一些常用的middleware直接去github中的koa的wiki中搜 FrameworksFrameworks, boilerplates and other starter kits using Koa. MiddlewareKnown middleware for Koa, you may want to search npm with “koa” to find more. Se">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/07/koa的一些middleware/">
+
+
+  <title>koa的一些middleware | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/koa的一些middleware/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">koa的一些middleware</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T19:36:14+08:00">2018-03-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="koa的一些常用的middleware"><a href="#koa的一些常用的middleware" class="headerlink" title="koa的一些常用的middleware"></a>koa的一些常用的middleware</h1><p><a href="https://github.com/koajs/koa/wiki" target="_blank" rel="noopener">直接去github中的koa的wiki中搜</a></p>
+<h2 id="Frameworks"><a href="#Frameworks" class="headerlink" title="Frameworks"></a>Frameworks</h2><p>Frameworks, boilerplates and other starter kits using Koa.</p>
+<h2 id="Middleware"><a href="#Middleware" class="headerlink" title="Middleware"></a>Middleware</h2><p>Known middleware for Koa, you may want to search npm with “koa” to find more.</p>
+<h2 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h2><h2 id="Body-Parsing"><a href="#Body-Parsing" class="headerlink" title="Body Parsing"></a>Body Parsing</h2><h2 id="Parameter-Validation"><a href="#Parameter-Validation" class="headerlink" title="Parameter Validation"></a>Parameter Validation</h2><h2 id="Rate-Limiting"><a href="#Rate-Limiting" class="headerlink" title="Rate Limiting"></a>Rate Limiting</h2><h2 id="Vhost"><a href="#Vhost" class="headerlink" title="Vhost"></a>Vhost</h2><h2 id="Routing-and-Mounting"><a href="#Routing-and-Mounting" class="headerlink" title="Routing and Mounting"></a>Routing and Mounting</h2><h2 id="Documentation"><a href="#Documentation" class="headerlink" title="Documentation"></a>Documentation</h2><h2 id="File-Serving"><a href="#File-Serving" class="headerlink" title="File Serving"></a>File Serving</h2><h3 id="koa-static"><a href="#koa-static" class="headerlink" title="koa-static"></a>koa-static</h3><p>静态文件服务中间件,是<code>koa-send</code>的包装</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install koa-<span class="keyword">static</span></span><br></pre></td></tr></table></figure>
+<h4 id="API"><a href="#API" class="headerlink" title="API"></a>API</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">API</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"><span class="comment">//有点不同哦，还是看下面例子好了</span></span><br><span class="line">app.use(<span class="built_in">require</span>(<span class="string">'koa-static'</span>)(root, opts));</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>root</code> 根目录 String</li>
+<li><code>opts</code> options object.</li>
+</ul>
+<h4 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h4><ul>
+<li><code>maxage</code> 浏览cache的最大时间ms 默认 0</li>
+<li><code>hidden</code> 允不允许改变隐藏文件. 默认 false</li>
+<li><code>index</code> 默认文件名, 默认 ‘index.html’</li>
+<li><code>defer</code> 如果为true, 在 <code>return next()</code>之后, 服务器允许任何一个downstream middleware 首先回应.</li>
+<li><code>gzip</code> 当用户支持gzip格式, 并且.gz这种文件存在就行. 默认 true.</li>
+<li><code>br</code> 同上 .br 格式存在时 (但要注意这个只用在https中). 默认 true.</li>
+<li><code>setHeaders</code> Function to set custom headers on response.</li>
+<li><code>extensions</code> 当在URL中没有匹配到扩展名时,那么会试着去从传过来的数组中匹配. 默认 false</li>
+</ul>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> serve = <span class="built_in">require</span>(<span class="string">'koa-static'</span>);</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="comment">// $ GET /package.json</span></span><br><span class="line">app.use(serve(<span class="string">'.'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// $ GET /hello.txt</span></span><br><span class="line">app.use(serve(<span class="string">'test/fixtures'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// or use absolute paths</span></span><br><span class="line">app.use(serve(__dirname + <span class="string">'/test/fixtures'</span>));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'listening on port 3000'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="SPDY"><a href="#SPDY" class="headerlink" title="SPDY"></a>SPDY</h2><h2 id="HTTP2"><a href="#HTTP2" class="headerlink" title="HTTP2"></a>HTTP2</h2><h2 id="JSON-and-JSONP-Responses"><a href="#JSON-and-JSONP-Responses" class="headerlink" title="JSON and JSONP Responses"></a>JSON and JSONP Responses</h2><h2 id="Compression"><a href="#Compression" class="headerlink" title="Compression"></a>Compression</h2><h2 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h2><h2 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h2><h2 id="Sessions"><a href="#Sessions" class="headerlink" title="Sessions"></a>Sessions</h2><h2 id="Templating"><a href="#Templating" class="headerlink" title="Templating"></a>Templating</h2><h2 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h2><h2 id="CSS-Preprocessor"><a href="#CSS-Preprocessor" class="headerlink" title="CSS Preprocessor"></a>CSS Preprocessor</h2><h2 id="Livereload"><a href="#Livereload" class="headerlink" title="Livereload"></a>Livereload</h2><h2 id="Error-reporting"><a href="#Error-reporting" class="headerlink" title="Error reporting"></a>Error reporting</h2><h3 id="koa-onerror"><a href="#koa-onerror" class="headerlink" title="koa-onerror"></a>koa-onerror</h3><p>就是一个抓错误的处理器 for koa, <strong>hack</strong> ctx.onerror.<br>就是handle all errors, steams’ and events’ errors</p>
+<p>比koa-error使用简单,且抓的错误多</p>
+<h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install koa-onerror</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> onerror = <span class="built_in">require</span>(<span class="string">'koa-onerror'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> koa();</span><br><span class="line"><span class="comment">//这里就是使用咯</span></span><br><span class="line">onerror(app);</span><br><span class="line"></span><br><span class="line">app.use(<span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// foo();</span></span><br><span class="line">  ctx.body = fs.createReadStream(<span class="string">'not exist'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="Options-1"><a href="#Options-1" class="headerlink" title="Options"></a>Options</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onerror(app, options);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>all: if options.all exist, ignore negotiation</li>
+<li>text: text error handler</li>
+<li>json: json error handler</li>
+<li>html: html error handler</li>
+<li>redirect: if accepct html, can redirect to another error page</li>
+</ul>
+<p>check out default handler to write your own handler.</p>
+<h4 id="Status-and-Headers"><a href="#Status-and-Headers" class="headerlink" title="Status and Headers"></a>Status and Headers</h4><p><code>koa-onerror</code> will automatic set <code>err.status</code> as response status code, and <code>err.headers</code> as response headers.</p>
+<h2 id="Logging"><a href="#Logging" class="headerlink" title="Logging"></a>Logging</h2><h3 id="koa-logger"><a href="#koa-logger" class="headerlink" title="koa-logger"></a>koa-logger</h3><p>Development <strong>style logger</strong> middleware for koa.</p>
+<p><strong>注意: <code>koa-logger@2</code> 支持 <code>koa@2</code>; 如果你想在 <code>koa@1</code>中使用, 请使用 <code>koa-logger@1</code>.</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;-- GET /</span><br><span class="line">--&gt; GET / <span class="number">200</span> <span class="number">835</span>ms <span class="number">746</span>b</span><br><span class="line">&lt;-- GET /</span><br><span class="line">--&gt; GET / <span class="number">200</span> <span class="number">960</span>ms <span class="number">1.9</span>kb</span><br><span class="line">&lt;-- GET /users</span><br><span class="line">--&gt; GET /users <span class="number">200</span> <span class="number">357</span>ms <span class="number">922</span>b</span><br><span class="line">&lt;-- GET /users?page=<span class="number">2</span></span><br><span class="line">--&gt; GET /users?page=<span class="number">2</span> <span class="number">200</span> <span class="number">466</span>ms <span class="number">4.66</span>kb</span><br></pre></td></tr></table></figure>
+<h4 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install koa-logger</span><br></pre></td></tr></table></figure>
+<h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> logger = <span class="built_in">require</span>(<span class="string">'koa-logger'</span>)</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</span><br><span class="line">app.use(logger())</span><br></pre></td></tr></table></figure>
+<h4 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h4><p>Recommended that you <code>.use()</code> this middleware near the top to “wrap” all subsequent middleware.<br>就是在顺序上放最上面来<code>app.use(logger())</code></p>
+<h2 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h2><h2 id="Analytics"><a href="#Analytics" class="headerlink" title="Analytics"></a>Analytics</h2><h2 id="i18n-or-L10n"><a href="#i18n-or-L10n" class="headerlink" title="i18n or L10n"></a>i18n or L10n</h2><h2 id="Response-Transformation"><a href="#Response-Transformation" class="headerlink" title="Response Transformation"></a>Response Transformation</h2><h2 id="Utilities"><a href="#Utilities" class="headerlink" title="Utilities"></a>Utilities</h2><h3 id="koa-convert"><a href="#koa-convert" class="headerlink" title="koa-convert"></a>koa-convert</h3><p>就是将只能在koa1中使用的middleware转换成koa2中能用的,当然也能反之咯.<strong>但注意有些不能转换</strong> 比如<code>koa-router</code></p>
+<h4 id="安装-3"><a href="#安装-3" class="headerlink" title="安装"></a>安装</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install koa-convert</span><br></pre></td></tr></table></figure>
+<h4 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>) <span class="comment">// koa v2.x</span></span><br><span class="line"><span class="keyword">const</span> convert = <span class="built_in">require</span>(<span class="string">'koa-convert'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</span><br><span class="line"><span class="comment">//这是正常是用koa2的middleware</span></span><br><span class="line">app.use(modernMiddleware)</span><br><span class="line"><span class="comment">//这是使用koa2之前的版本,加上convert</span></span><br><span class="line">app.use(convert(legacyMiddleware))</span><br><span class="line"><span class="comment">//这是一起用,混合</span></span><br><span class="line">app.use(convert.compose(legacyMiddleware, modernMiddleware))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> * <span class="title">legacyMiddleware</span> (<span class="params">next</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// before</span></span><br><span class="line">  <span class="keyword">yield</span> next</span><br><span class="line">  <span class="comment">// after</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">modernMiddleware</span> (<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// before</span></span><br><span class="line">  <span class="keyword">return</span> next().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// after</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="关于区分-legacy-and-modern-middleware"><a href="#关于区分-legacy-and-modern-middleware" class="headerlink" title="关于区分 legacy and modern middleware"></a>关于区分 legacy and modern middleware</h4><p>就一个意思,通过 <code>fn.constructor.name == &#39;GeneratorFunction&#39;</code>来判断版本.</p>
+<h4 id="API-1"><a href="#API-1" class="headerlink" title="API"></a>API</h4><p>就3个,实现不管新版本还是旧版本都能使用middleware<br>一个将老的middleware转成新的,<br>一个混合老的和新的middleware都转成新的,<br>一个将新的middleware转成老的</p>
+<ul>
+<li>convert()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modernMiddleware = convert(legacyMiddleware)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>convert.compose()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">composedModernMiddleware = convert.compose(legacyMiddleware, modernMiddleware)</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">composedModernMiddleware = convert.compose([legacyMiddleware, modernMiddleware])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>convert.back()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">legacyMiddleware = convert.back(modernMiddleware)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/koa/" rel="tag"># koa</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/07/strip-ansi是将转义码转换为原码/" rel="next" title="strip-ansi是将转义码转换为原码">
+                <i class="fa fa-chevron-left"></i> strip-ansi是将转义码转换为原码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/07/JSON-Web-Token实现URL认证访问/" rel="prev" title="JSON_Web_Token实现URL认证访问">
+                JSON_Web_Token实现URL认证访问 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#koa的一些常用的middleware"><span class="nav-number">1.</span> <span class="nav-text">koa的一些常用的middleware</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Frameworks"><span class="nav-number">1.1.</span> <span class="nav-text">Frameworks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Middleware"><span class="nav-number">1.2.</span> <span class="nav-text">Middleware</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Security"><span class="nav-number">1.3.</span> <span class="nav-text">Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Body-Parsing"><span class="nav-number">1.4.</span> <span class="nav-text">Body Parsing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parameter-Validation"><span class="nav-number">1.5.</span> <span class="nav-text">Parameter Validation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rate-Limiting"><span class="nav-number">1.6.</span> <span class="nav-text">Rate Limiting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vhost"><span class="nav-number">1.7.</span> <span class="nav-text">Vhost</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Routing-and-Mounting"><span class="nav-number">1.8.</span> <span class="nav-text">Routing and Mounting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Documentation"><span class="nav-number">1.9.</span> <span class="nav-text">Documentation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-Serving"><span class="nav-number">1.10.</span> <span class="nav-text">File Serving</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#koa-static"><span class="nav-number">1.10.1.</span> <span class="nav-text">koa-static</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.10.1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API"><span class="nav-number">1.10.1.2.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Options"><span class="nav-number">1.10.1.3.</span> <span class="nav-text">Options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-number">1.10.1.4.</span> <span class="nav-text">Example</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SPDY"><span class="nav-number">1.11.</span> <span class="nav-text">SPDY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP2"><span class="nav-number">1.12.</span> <span class="nav-text">HTTP2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-and-JSONP-Responses"><span class="nav-number">1.13.</span> <span class="nav-text">JSON and JSONP Responses</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compression"><span class="nav-number">1.14.</span> <span class="nav-text">Compression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Caching"><span class="nav-number">1.15.</span> <span class="nav-text">Caching</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Authentication"><span class="nav-number">1.16.</span> <span class="nav-text">Authentication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sessions"><span class="nav-number">1.17.</span> <span class="nav-text">Sessions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Templating"><span class="nav-number">1.18.</span> <span class="nav-text">Templating</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Services"><span class="nav-number">1.19.</span> <span class="nav-text">Services</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-Preprocessor"><span class="nav-number">1.20.</span> <span class="nav-text">CSS Preprocessor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Livereload"><span class="nav-number">1.21.</span> <span class="nav-text">Livereload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Error-reporting"><span class="nav-number">1.22.</span> <span class="nav-text">Error reporting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#koa-onerror"><span class="nav-number">1.22.1.</span> <span class="nav-text">koa-onerror</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-1"><span class="nav-number">1.22.1.1.</span> <span class="nav-text">安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.23.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Options-1"><span class="nav-number">1.23.0.1.</span> <span class="nav-text">Options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Status-and-Headers"><span class="nav-number">1.23.0.2.</span> <span class="nav-text">Status and Headers</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logging"><span class="nav-number">1.24.</span> <span class="nav-text">Logging</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#koa-logger"><span class="nav-number">1.24.1.</span> <span class="nav-text">koa-logger</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-2"><span class="nav-number">1.24.1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-1"><span class="nav-number">1.24.1.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Notes"><span class="nav-number">1.24.1.3.</span> <span class="nav-text">Notes</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Metrics"><span class="nav-number">1.25.</span> <span class="nav-text">Metrics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Analytics"><span class="nav-number">1.26.</span> <span class="nav-text">Analytics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#i18n-or-L10n"><span class="nav-number">1.27.</span> <span class="nav-text">i18n or L10n</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Response-Transformation"><span class="nav-number">1.28.</span> <span class="nav-text">Response Transformation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Utilities"><span class="nav-number">1.29.</span> <span class="nav-text">Utilities</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#koa-convert"><span class="nav-number">1.29.1.</span> <span class="nav-text">koa-convert</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-3"><span class="nav-number">1.29.1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-2"><span class="nav-number">1.29.1.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于区分-legacy-and-modern-middleware"><span class="nav-number">1.29.1.3.</span> <span class="nav-text">关于区分 legacy and modern middleware</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API-1"><span class="nav-number">1.29.1.4.</span> <span class="nav-text">API</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

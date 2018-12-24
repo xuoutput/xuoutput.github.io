@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="linux,">
+
+
+<meta name="description" content="ubuntu重装后要做的事(manjaro看其他)如何安装看ubuntu上安装软件方法3种方式安装 重点说下 123sudo apt-get update  更新源sudo apt-get upgrade 更新已安装的包 当然是先安装玩ubuntu18.04咯,当然也有别的版本如voyagerlive和haiku OS还是用ukylin18.04(我的天 这界面xp时代的吧)Manjaro吧,不是">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu重装后要做的事">
+<meta property="og:url" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="ubuntu重装后要做的事(manjaro看其他)如何安装看ubuntu上安装软件方法3种方式安装 重点说下 123sudo apt-get update  更新源sudo apt-get upgrade 更新已安装的包 当然是先安装玩ubuntu18.04咯,当然也有别的版本如voyagerlive和haiku OS还是用ukylin18.04(我的天 这界面xp时代的吧)Manjaro吧,不是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/Amazon1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/yuan1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/dock1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/time1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/background1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/avatar1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/vm1.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/vm2.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/zuojian.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/zuojian2.png">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.526Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ubuntu重装后要做的事">
+<meta name="twitter:description" content="ubuntu重装后要做的事(manjaro看其他)如何安装看ubuntu上安装软件方法3种方式安装 重点说下 123sudo apt-get update  更新源sudo apt-get upgrade 更新已安装的包 当然是先安装玩ubuntu18.04咯,当然也有别的版本如voyagerlive和haiku OS还是用ukylin18.04(我的天 这界面xp时代的吧)Manjaro吧,不是">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/Amazon1.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/">
+
+
+  <title>ubuntu重装后要做的事 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/04/ubuntu重装后要做的事/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ubuntu重装后要做的事</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-04T21:16:38+08:00">2018-06-04</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ubuntu重装后要做的事-manjaro看其他"><a href="#ubuntu重装后要做的事-manjaro看其他" class="headerlink" title="ubuntu重装后要做的事(manjaro看其他)"></a>ubuntu重装后要做的事(manjaro看其他)</h1><p>如何安装看<a href="">ubuntu上安装软件方法</a>3种方式安装</p>
+<p>重点说下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  更新源</span><br><span class="line"></span><br><span class="line">sudo apt-get upgrade 更新已安装的包</span><br></pre></td></tr></table></figure>
+<p>当然是先安装玩ubuntu18.04咯,当然也有别的版本如voyagerlive和haiku OS<br>还是用ukylin18.04(我的天 这界面xp时代的吧)<br>Manjaro吧,不是Arch,不过这个gnome不好用吧<br>下个debian吧</p>
+<h2 id="web专业人员工具"><a href="#web专业人员工具" class="headerlink" title="web专业人员工具"></a>web专业人员工具</h2><h3 id="计算机"><a href="#计算机" class="headerlink" title="计算机"></a>计算机</h3><p>Windows MAC Linux 这里说Linux了</p>
+<h3 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h3><p>vim sublime vscode<br>atom brackets webstorm</p>
+<h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><p>chrome Firefox Safari opera edge ie</p>
+<h3 id="图片编辑器"><a href="#图片编辑器" class="headerlink" title="图片编辑器"></a>图片编辑器</h3><p>photoshop gimp</p>
+<h3 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h3><p>git</p>
+<h3 id="自动化构建工具"><a href="#自动化构建工具" class="headerlink" title="自动化构建工具"></a>自动化构建工具</h3><p>grunt glup</p>
+<h2 id="优化步骤"><a href="#优化步骤" class="headerlink" title="优化步骤"></a>优化步骤</h2><h3 id="首先删除一些不用的东西"><a href="#首先删除一些不用的东西" class="headerlink" title="首先删除一些不用的东西"></a>首先删除一些不用的东西</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove packageName</span><br></pre></td></tr></table></figure>
+<ul>
+<li>unity-webapps-common 亚马逊链接  18.04中不是这个名字了,用右键查看细节去删除<ul>
+<li><img src="Amazon1.jpg" alt="Amazon1"></li>
+</ul>
+</li>
+<li>rhythmbox 音乐,换网易云16.04,18.04的暂时用不了</li>
+<li>libreoffice-common   libreoffice换wps.deb</li>
+<li>empathy 聊天软件, 18.04也没这个 没用（系统没这个) 有微信就可以了 github搜 Electronic WeChat  也有wechat这个版本</li>
+<li>deja-dup 备份,虚拟机中用不到</li>
+<li>thunderbird 自带邮件</li>
+<li>transmission-common 自带的bt下载客户端</li>
+</ul>
+<p>下面这些随意了</p>
+<ul>
+<li>gnome-mahjongg 对对碰游戏，麻将</li>
+<li>simple-scan（扫描器删了，又不是打印，也不是用不到）</li>
+<li>aisleriot 纸牌</li>
+<li>gnome-mines 扫雷</li>
+<li>cheese 相机</li>
+<li>gnome-orca 屏幕阅读</li>
+<li>webbrowser-app 自带浏览器</li>
+<li>gnome-sudoku   数独</li>
+<li>onboard 屏幕键盘（虚拟键盘）</li>
+<li>landscape-client-ui-install  管理服务</li>
+</ul>
+<h3 id="换下源-建议先删除不要的东西后再换源-防止不要的软件更新"><a href="#换下源-建议先删除不要的东西后再换源-防止不要的软件更新" class="headerlink" title="换下源(建议先删除不要的东西后再换源,防止不要的软件更新)"></a>换下源(建议先删除不要的东西后再换源,防止不要的软件更新)</h3><p>software&amp;updates中选择切换,虽然大家都选aliyun, 我选了ustc的,当然你可以自动选.<br><img src="yuan1.jpg" alt="yuan1"></p>
+<p>然后更新下源和包</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  更新源,换源后要执行</span><br><span class="line"></span><br><span class="line">sudo apt-get upgrade 更新已安装的包,旧的软件升级</span><br></pre></td></tr></table></figure>
+<p>然后就是安装你想要的东西了.</p>
+<p>解释下上面为什么<br>首先第一条更新源,其实我们的源,这些地址都保存在<br><code>sudo cat /etc/apt/sources.list</code><br>当然你可以直接修改这里, 也可以按上面说的在software&amp;updates修改.只不过修改完后要执行<br><code>sudo apt-get update</code>来更新, 就这么回事, 不然还是旧的,有缓存到本地软件列表.<br>而第二条<code>sudo apt-get upgrade</code><br>这个命令，会把本地已安装的软件，与刚下载的软件列表里对应软件进行对比，如果发现已安装的软件版本太低，就会提示你更新。<br><strong>总结下 update是更新本地软件列表，upgrade是升级本地软件</strong></p>
+<h3 id="桌面整理"><a href="#桌面整理" class="headerlink" title="桌面整理"></a>桌面整理</h3><h4 id="Dock"><a href="#Dock" class="headerlink" title="Dock"></a>Dock</h4><p>dock换到下面,并且设置自动隐藏<br><img src="dock1.jpg" alt="dock1"></p>
+<p>Ubuntu Dock 启用最小化操作：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'</span><br></pre></td></tr></table></figure>
+<h4 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h4><p>时区修改下,为上海.在setting &gt; detail中<br><img src="time1.jpg" alt="time1"></p>
+<h4 id="背景及锁屏和头像"><a href="#背景及锁屏和头像" class="headerlink" title="背景及锁屏和头像"></a>背景及锁屏和头像</h4><p>背景和锁屏在setting中修改<br><img src="background1.jpg" alt="background1"></p>
+<p>头像在detail中<br><img src="avatar1.jpg" alt="avatar1"></p>
+<h4 id="vm上的工具"><a href="#vm上的工具" class="headerlink" title="vm上的工具"></a>vm上的工具</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install open-vm-tools open-vm-tools-desktop</span><br></pre></td></tr></table></figure>
+<h4 id="解锁’Tweaks’隐藏的设置"><a href="#解锁’Tweaks’隐藏的设置" class="headerlink" title="解锁’Tweaks’隐藏的设置"></a>解锁’Tweaks’隐藏的设置</h4><p>安装gnome-tweak-tool</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gnome-tweak-tool</span><br></pre></td></tr></table></figure>
+<p>1.打开软件，extensions<br>2.启动两个插件 appindicators  dock<br>3.打开软件商城，附加组件<br>4安装  ??</p>
+<blockquote>
+<p>user themes<br>dash to dock<br>Hide Top Bar<br>weather in the clock</p>
+</blockquote>
+<h2 id="开始安装web专业人员工具"><a href="#开始安装web专业人员工具" class="headerlink" title="开始安装web专业人员工具"></a>开始安装web专业人员工具</h2><p>先vim git 用apt-get安装好,剩下的用.deb双击好了,要么tar.gz解压好了</p>
+<h3 id="编程工具"><a href="#编程工具" class="headerlink" title="编程工具"></a>编程工具</h3><p>都只要解压后 export就行.export PATH=$PATH:/usr/local/go/bin<br>前端</p>
+<ul>
+<li>chrome</li>
+<li>vscode</li>
+<li>nvm nodejs nrm</li>
+<li>mongodb+robo3T/nosqlbooster4mongo-4.5.2.AppImage</li>
+</ul>
+<p>其他</p>
+<ul>
+<li>gcc</li>
+<li>IDEA+jdk10</li>
+<li>go</li>
+<li>jq 处理JSON格式的工具</li>
+<li>GIMP</li>
+</ul>
+<h3 id="终端工具"><a href="#终端工具" class="headerlink" title="终端工具"></a>终端工具</h3><ul>
+<li>guake</li>
+<li>terminator</li>
+<li>tmux</li>
+</ul>
+<p>shell</p>
+<ul>
+<li>zsh</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install zsh</span><br><span class="line"><span class="comment">// 然后安装oh-my-zsh, 要先有git 下面二选一</span></span><br><span class="line">sh -c <span class="string">"$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"</span></span><br><span class="line">sudo wget https:<span class="comment">//github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</span></span><br><span class="line"><span class="comment">//在.zshrc中修改自己喜欢的主题 ys</span></span><br><span class="line"><span class="comment">//切换shell为, chsh 命令是改变登陆shell，需要重启才能看到效果。</span></span><br><span class="line">chsh -s /bin/zsh</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查看本机有哪些shell</span></span><br><span class="line">cat /etc/shells</span><br><span class="line"><span class="comment">// 查看本机用了那个shell用env</span></span><br><span class="line">env | grep SHELL</span><br></pre></td></tr></table></figure>
+<p>配置zsh<br>此时已经看到shell已经改变（关了shell重开），默认主题为robbyrussell，接下来我们还要再安装一些插件，更改外观让他变得更强大更好看。<br>zsh的配置文件在用户目录下的.zshrc里面<br>主题配置<br>更改主题只需在~/.zshrc 文件中 修改ZSH_THEME=”设置为你的主题”<br>而在~/.oh-my-zsh/themes下是各种的自带的主题(博主的是ys)。<br>设置方法如下如更改ZSH_THEME为自己的主题名即可<br>ZSH_THEME=”ys”</p>
+<p>当然要更新下配置文件<br>source ~/.zshrc</p>
+<p><a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes" target="_blank" rel="noopener">查看主题截图请戳这里</a><br>插件配置<br>添加插件只需在~/.zshrc 文件中<br>~/.oh-my-zsh/plugins里面有默认自带的近百的插件 </p>
+<p>powerline的配置</p>
+<p>zsh: corrupt history file /home/floodlight/.zsh_history</p>
+<p>mv .zsh_history .zsh_history_bad<br>strings .zsh_history_bad &gt; .zsh_history<br>fc -R .zsh_history</p>
+<h3 id="文字工具"><a href="#文字工具" class="headerlink" title="文字工具"></a>文字工具</h3><ul>
+<li>vim</li>
+<li>sublime</li>
+<li>wps</li>
+<li>typora</li>
+</ul>
+<h3 id="输入法"><a href="#输入法" class="headerlink" title="输入法"></a>输入法</h3><ul>
+<li>搜狗</li>
+</ul>
+<h3 id="系统工具"><a href="#系统工具" class="headerlink" title="系统工具"></a>系统工具</h3><ul>
+<li>htop</li>
+<li>shutter</li>
+</ul>
+<p>触摸屏</p>
+<ul>
+<li>自带synaptics</li>
+<li>Touchégg</li>
+<li>Fusuma</li>
+</ul>
+<p>Indicator-Multiload，(这货有时候你开的多了 gnome桌面就崩了,所以卸载它就好了)<br>是一个很不错的系统指示器，可以显示CPU、内存、网络状态、SWAP交换空间、加载程序、硬盘使用等情况。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:indicator-multiload/stable-daily</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install indicator-multiload</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/y277an/article/details/51514284" target="_blank" rel="noopener">Psensor 温度传感器 ??</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install lm-sensors</span><br><span class="line">sudo sensors-detect</span><br><span class="line">sudo apt-add-repository ppa:jfi/ppa</span><br><span class="line">sudo apt-get update </span><br><span class="line">sudo apt-get install psensor</span><br></pre></td></tr></table></figure>
+<p>lm-sensors是一款软件工具，可以借助嵌入在硬件的传感器，监测温度、电压、湿度和风扇运行状况。hddtemp这款工具可以通过S.M.A.R.T.数值，测量硬盘的温度。psensor是一款用于监测温度的图形化前端程序</p>
+<p>Linux下Albert 相当于launchy</p>
+<h3 id="网络工具"><a href="#网络工具" class="headerlink" title="网络工具"></a>网络工具</h3><ul>
+<li>curl</li>
+<li>tsocks 代理</li>
+</ul>
+<hr>
+<h2 id="一些linux上遇到的问题"><a href="#一些linux上遇到的问题" class="headerlink" title="一些linux上遇到的问题"></a>一些linux上遇到的问题</h2><h3 id="vm中"><a href="#vm中" class="headerlink" title="vm中"></a>vm中</h3><p>一旦在任务管理器中终止了VMware导致打不开虚拟机或电脑了，直接把所有的vmware的进程都给结束，然后打开虚拟机就可以了。<br>吓死我了，那个文件只有3K了<br><img src="vm1.png" alt="vm1.png"><br>以后删除快照都要暂停机子搞<br>但这里出现问题，虚拟机中的机子都上不了网了，处理办法：<br>（”我的电脑”）右键—管理—服务，然后启动<br><a href="https://jingyan.baidu.com/article/066074d668155bc3c21cb0ca.html" target="_blank" rel="noopener">VMware Workstation虚拟机不能联网的解决办法</a><br><img src="vm2.png" alt="vm2"></p>
+<h3 id="左键失效"><a href="#左键失效" class="headerlink" title="左键失效"></a>左键失效</h3><p><img src="zuojian.png" alt="zuojian.png"><br>虚拟机中的ubuntu菜单栏 这个都点不开，特么这是触摸屏不能按 直接按触摸屏的左键就行</p>
+<p>拖动图标，只要左键按住1秒就行<br><img src="zuojian2.png" alt="zuojian2.png"></p>
+<p>在18.04中如果点击左键还是失效,显示一个小手,那就按下win键.这个和16.04中按alt拖动不同. 这其实就是老是meta键触发,气死.</p>
+<h3 id="无法对下载下来的sublime固定dock上"><a href="#无法对下载下来的sublime固定dock上" class="headerlink" title="无法对下载下来的sublime固定dock上"></a>无法对下载下来的sublime固定dock上</h3><p>就是右键没有add to favorites</p>
+<h3 id="小瑕疵"><a href="#小瑕疵" class="headerlink" title="小瑕疵"></a>小瑕疵</h3><p>sublime没有pacman的版本.chrome也是. 当我用tar.gz的用之后怎么把他们都加到all applications中去?</p>
+<p>怎么查看我的pacman中有这个软件包,用pacman -Q 不怎么好用</p>
+<h3 id="直接下来的原码包怎么用"><a href="#直接下来的原码包怎么用" class="headerlink" title="直接下来的原码包怎么用"></a>直接下来的原码包怎么用</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/30/牛客JS能力评测/" rel="next" title="牛客JS能力评测">
+                <i class="fa fa-chevron-left"></i> 牛客JS能力评测
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/10/pacman源添加及yaourt安装/" rel="prev" title="pacman源添加及yaourt安装">
+                pacman源添加及yaourt安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ubuntu重装后要做的事-manjaro看其他"><span class="nav-number">1.</span> <span class="nav-text">ubuntu重装后要做的事(manjaro看其他)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#web专业人员工具"><span class="nav-number">1.1.</span> <span class="nav-text">web专业人员工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机"><span class="nav-number">1.1.1.</span> <span class="nav-text">计算机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本编辑器"><span class="nav-number">1.1.2.</span> <span class="nav-text">文本编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器"><span class="nav-number">1.1.3.</span> <span class="nav-text">浏览器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片编辑器"><span class="nav-number">1.1.4.</span> <span class="nav-text">图片编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本控制"><span class="nav-number">1.1.5.</span> <span class="nav-text">版本控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动化构建工具"><span class="nav-number">1.1.6.</span> <span class="nav-text">自动化构建工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化步骤"><span class="nav-number">1.2.</span> <span class="nav-text">优化步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先删除一些不用的东西"><span class="nav-number">1.2.1.</span> <span class="nav-text">首先删除一些不用的东西</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#换下源-建议先删除不要的东西后再换源-防止不要的软件更新"><span class="nav-number">1.2.2.</span> <span class="nav-text">换下源(建议先删除不要的东西后再换源,防止不要的软件更新)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#桌面整理"><span class="nav-number">1.2.3.</span> <span class="nav-text">桌面整理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Dock"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">Dock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时间"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景及锁屏和头像"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">背景及锁屏和头像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vm上的工具"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">vm上的工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解锁’Tweaks’隐藏的设置"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">解锁’Tweaks’隐藏的设置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始安装web专业人员工具"><span class="nav-number">1.3.</span> <span class="nav-text">开始安装web专业人员工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编程工具"><span class="nav-number">1.3.1.</span> <span class="nav-text">编程工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#终端工具"><span class="nav-number">1.3.2.</span> <span class="nav-text">终端工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文字工具"><span class="nav-number">1.3.3.</span> <span class="nav-text">文字工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入法"><span class="nav-number">1.3.4.</span> <span class="nav-text">输入法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统工具"><span class="nav-number">1.3.5.</span> <span class="nav-text">系统工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络工具"><span class="nav-number">1.3.6.</span> <span class="nav-text">网络工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些linux上遇到的问题"><span class="nav-number">1.4.</span> <span class="nav-text">一些linux上遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vm中"><span class="nav-number">1.4.1.</span> <span class="nav-text">vm中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左键失效"><span class="nav-number">1.4.2.</span> <span class="nav-text">左键失效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无法对下载下来的sublime固定dock上"><span class="nav-number">1.4.3.</span> <span class="nav-text">无法对下载下来的sublime固定dock上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小瑕疵"><span class="nav-number">1.4.4.</span> <span class="nav-text">小瑕疵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接下来的原码包怎么用"><span class="nav-number">1.4.5.</span> <span class="nav-text">直接下来的原码包怎么用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

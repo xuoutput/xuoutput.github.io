@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="vue,markdown,node,simplemde,">
+
+
+<meta name="description" content="SimpleMDE is a simple, embeddable, and beautiful JS markdown editorsimplemde marked highlight.js区别第一个是编辑器,第二个是解析器,第三个是语法高亮 安装通过npm 1npm install simplemde --sava 通过 jsDelivr.但这个更新会有延迟  12&amp;lt;link rel=&quot;">
+<meta name="keywords" content="vue,markdown,node,simplemde">
+<meta property="og:type" content="article">
+<meta property="og:title" content="simplemde一款markdown编辑器">
+<meta property="og:url" content="http://yoursite.com/2018/03/06/simplemde一款markdown编辑器/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="SimpleMDE is a simple, embeddable, and beautiful JS markdown editorsimplemde marked highlight.js区别第一个是编辑器,第二个是解析器,第三个是语法高亮 安装通过npm 1npm install simplemde --sava 通过 jsDelivr.但这个更新会有延迟  12&amp;lt;link rel=&quot;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.524Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="simplemde一款markdown编辑器">
+<meta name="twitter:description" content="SimpleMDE is a simple, embeddable, and beautiful JS markdown editorsimplemde marked highlight.js区别第一个是编辑器,第二个是解析器,第三个是语法高亮 安装通过npm 1npm install simplemde --sava 通过 jsDelivr.但这个更新会有延迟  12&amp;lt;link rel=&quot;">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/06/simplemde一款markdown编辑器/">
+
+
+  <title>simplemde一款markdown编辑器 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/06/simplemde一款markdown编辑器/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">simplemde一款markdown编辑器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T21:27:23+08:00">2018-03-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="SimpleMDE-is-a-simple-embeddable-and-beautiful-JS-markdown-editor"><a href="#SimpleMDE-is-a-simple-embeddable-and-beautiful-JS-markdown-editor" class="headerlink" title="SimpleMDE is a simple, embeddable, and beautiful JS markdown editor"></a><a href="https://github.com/sparksuite/simplemde-markdown-editor" target="_blank" rel="noopener">SimpleMDE</a> is a simple, embeddable, and beautiful JS markdown editor</h1><p><strong>simplemde marked highlight.js区别</strong><br>第一个是编辑器,第二个是解析器,第三个是语法高亮</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>通过npm</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install simplemde --sava</span><br></pre></td></tr></table></figure>
+<p>通过 jsDelivr.但这个更新会有延迟 </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个会自动加载到页面上第一个textarea上,不建议这么做</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE();</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 应该用一个特殊的加了id的</span></span><br><span class="line"><span class="regexp">&lt;textarea id="MyID"&gt; &lt;/</span>textarea&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE(&#123; </span><br><span class="line">    element: <span class="built_in">document</span>.getElementById(<span class="string">"MyID"</span>) </span><br><span class="line">&#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="获取-设置内容"><a href="#获取-设置内容" class="headerlink" title="获取/设置内容"></a>获取/设置内容</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get</span></span><br><span class="line">simplemde.value();</span><br><span class="line"><span class="comment">//set</span></span><br><span class="line">simplemde.value(<span class="string">"This text will appear in the editor"</span>);</span><br><span class="line"><span class="comment">//这里当然是用来解析markdown后显示html,有个markdown函数,我们不用,用marked</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h2><ul>
+<li>autoDownloadFontAwesome: 默认是undefined,可选true/false 是否自动下载字体,图标.建议false,因为速度会变慢.我们npm下载就好了</li>
+<li>autofocus: 默认false, true/false, 自动聚焦到编辑器.</li>
+<li>autosave: 自动保存<ul>
+<li>enabled: 默认false</li>
+<li>delay: 默认延迟 10000 (10s). 延迟10s自动保存</li>
+<li>uniqueId: 设置自动保存就一定要设置一个id</li>
+</ul>
+</li>
+<li>blockStyles: 自定义bold code italic怎么标记<ul>
+<li>bold  ** or __. Defaults to **.</li>
+<li>code  ``` or ~~~. Defaults to ```.</li>
+<li>italic  * or _. Defaults to *.</li>
+</ul>
+</li>
+<li>element: DOM元素挂载点 默认就是页面中第一个textarea标签.建议修改掉,用id=””指定</li>
+<li>forceSync: 前置同步. 默认false.</li>
+<li>hideIcons: 要隐藏图标的一个数组</li>
+<li>indentWithTabs: 缩进用tab 默认 true. 否则就是space</li>
+<li>initialValue: 自定义一个初始值,不是placeholder</li>
+<li>insertTexts: 自定义插入文本的行为,是一个有2个元素的数组. 第1个元素时鼠标或高亮前插入,第2个之后插入, For example, this is the default link value: [“<a href="http://" target="_blank" rel="noopener">“, “</a>“].<ul>
+<li>horizontalRule</li>
+<li>image</li>
+<li>link</li>
+<li>table</li>
+</ul>
+</li>
+<li>lineWrapping: 自动换行. 默认 true.</li>
+<li>parsingConfig: 在编辑的时候对解析markdown的设置进行调整(不是预先写入)<ul>
+<li>allowAtxHeaderWithoutSpace: 如果是true就在对标题渲染的时候在#后面不会带一个空格. 默认 false.</li>
+<li>strikethrough: false的话不处理 GFM strikethrough 语法. 默认 true.</li>
+<li>underscoresBreakWords: true的话下划线当做分隔符,默认 false</li>
+</ul>
+</li>
+<li>placeholder: 自定义placeholder显示</li>
+<li>previewRender: 自定义解析markdown到html的函数. 当用户预览的时候会加载</li>
+<li>promptURLs: true的话, 会有2个js弹窗出现要求link或img的url.默认false.</li>
+<li><p>renderingConfig: 在预览的时候解析markdown的设置进行调整.(不是在编辑时)</p>
+<ul>
+<li>singleLineBreaks: false的话, 不会解析GFM single line breaks. 默认 true.</li>
+<li>codeSyntaxHighlighting: true的话 将会对使用 highlight.js的进行高亮. 默认 false. 使用这个功能的话你必须在你的页面上加载 highlight.js . For example, include the script and the CSS files like:<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>shortcuts: 快捷键 默认有一张表.</p>
+</li>
+<li>showIcons: 一组显示图标名字</li>
+<li>spellChecker: 拼写检查. 默认true.</li>
+<li>status: 默认 true 显示状态栏<ul>
+<li>当然这个也可以你定义</li>
+</ul>
+</li>
+<li>styleSelectedText:  false的话, 从选择的行中移除CodeMirror-selectedtext class . 默认 true.</li>
+<li>tabSize: 自定义tab大小. 默认 2.</li>
+<li>toolbar: false的话, 隐藏工具栏. 默认是展示</li>
+<li>toolbarTips: false的话, 关闭工具栏按钮提示. 默认true.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Most options demonstrate the non-default behavior</span></span><br><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE(&#123;</span><br><span class="line">	autofocus: <span class="literal">true</span>,</span><br><span class="line">	autosave: &#123;</span><br><span class="line">		enabled: <span class="literal">true</span>,</span><br><span class="line">		uniqueId: <span class="string">"MyUniqueID"</span>,</span><br><span class="line">		delay: <span class="number">1000</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	blockStyles: &#123;</span><br><span class="line">		bold: <span class="string">"__"</span>,</span><br><span class="line">		italic: <span class="string">"_"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	element: <span class="built_in">document</span>.getElementById(<span class="string">"MyID"</span>),</span><br><span class="line">	forceSync: <span class="literal">true</span>,</span><br><span class="line">	hideIcons: [<span class="string">"guide"</span>, <span class="string">"heading"</span>],</span><br><span class="line">	indentWithTabs: <span class="literal">false</span>,</span><br><span class="line">	initialValue: <span class="string">"Hello world!"</span>,</span><br><span class="line">	insertTexts: &#123;</span><br><span class="line">		horizontalRule: [<span class="string">""</span>, <span class="string">"\n\n-----\n\n"</span>],</span><br><span class="line">		image: [<span class="string">"![](http://"</span>, <span class="string">")"</span>],</span><br><span class="line">		link: [<span class="string">"["</span>, <span class="string">"](http://)"</span>],</span><br><span class="line">		table: [<span class="string">""</span>, <span class="string">"\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"</span>],</span><br><span class="line">	&#125;,</span><br><span class="line">	lineWrapping: <span class="literal">false</span>,</span><br><span class="line">	parsingConfig: &#123;</span><br><span class="line">		allowAtxHeaderWithoutSpace: <span class="literal">true</span>,</span><br><span class="line">		strikethrough: <span class="literal">false</span>,</span><br><span class="line">		underscoresBreakWords: <span class="literal">true</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	placeholder: <span class="string">"Type here..."</span>,</span><br><span class="line">	previewRender: <span class="function"><span class="keyword">function</span>(<span class="params">plainText</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> customMarkdownParser(plainText); <span class="comment">// Returns HTML from a custom parser</span></span><br><span class="line">	&#125;,</span><br><span class="line">	previewRender: <span class="function"><span class="keyword">function</span>(<span class="params">plainText, preview</span>) </span>&#123; <span class="comment">// Async method</span></span><br><span class="line">		setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			preview.innerHTML = customMarkdownParser(plainText);</span><br><span class="line">		&#125;, <span class="number">250</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Loading..."</span>;</span><br><span class="line">	&#125;,</span><br><span class="line">	promptURLs: <span class="literal">true</span>,</span><br><span class="line">	renderingConfig: &#123;</span><br><span class="line">		singleLineBreaks: <span class="literal">false</span>,</span><br><span class="line">		codeSyntaxHighlighting: <span class="literal">true</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	shortcuts: &#123;</span><br><span class="line">		drawTable: <span class="string">"Cmd-Alt-T"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	showIcons: [<span class="string">"code"</span>, <span class="string">"table"</span>],</span><br><span class="line">	spellChecker: <span class="literal">false</span>,</span><br><span class="line">	status: <span class="literal">false</span>,</span><br><span class="line">	status: [<span class="string">"autosave"</span>, <span class="string">"lines"</span>, <span class="string">"words"</span>, <span class="string">"cursor"</span>], <span class="comment">// Optional usage</span></span><br><span class="line">	status: [<span class="string">"autosave"</span>, <span class="string">"lines"</span>, <span class="string">"words"</span>, <span class="string">"cursor"</span>, &#123;</span><br><span class="line">		className: <span class="string">"keystrokes"</span>,</span><br><span class="line">		defaultValue: <span class="function"><span class="keyword">function</span>(<span class="params">el</span>) </span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.keystrokes = <span class="number">0</span>;</span><br><span class="line">			el.innerHTML = <span class="string">"0 Keystrokes"</span>;</span><br><span class="line">		&#125;,</span><br><span class="line">		onUpdate: <span class="function"><span class="keyword">function</span>(<span class="params">el</span>) </span>&#123;</span><br><span class="line">			el.innerHTML = ++<span class="keyword">this</span>.keystrokes + <span class="string">" Keystrokes"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;], <span class="comment">// Another optional usage, with a custom status bar item that counts keystrokes</span></span><br><span class="line">	styleSelectedText: <span class="literal">false</span>,</span><br><span class="line">	tabSize: <span class="number">4</span>,</span><br><span class="line">	toolbar: <span class="literal">false</span>,</span><br><span class="line">	toolbarTips: <span class="literal">false</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="高度-2种都可以-在html中或css中"><a href="#高度-2种都可以-在html中或css中" class="headerlink" title="高度(2种都可以,在html中或css中)"></a>高度(2种都可以,在html中或css中)</h2><p>To change the minimum height (before it starts auto-growing):</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.CodeMirror</span>, <span class="selector-class">.CodeMirror-scroll</span> &#123;</span><br><span class="line">	<span class="attribute">min-height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">Or</span>, <span class="selector-tag">you</span> <span class="selector-tag">can</span> <span class="selector-tag">keep</span> <span class="selector-tag">the</span> <span class="selector-tag">height</span> <span class="selector-tag">static</span>:</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.CodeMirror</span> &#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2><p><a href="https://codemirror.net/doc/manual.html#events" target="_blank" rel="noopener">You can catch the following list of events:</a> </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE();</span><br><span class="line">simplemde.codemirror.on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(simplemde.value());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="从textarea中移除simplemde"><a href="#从textarea中移除simplemde" class="headerlink" title="从textarea中移除simplemde"></a>从textarea中移除simplemde</h2><p>通过调用 toTextArea 方法. 注意这个也会清除自动保存,就是textarea内容重置了.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE();</span><br><span class="line">...</span><br><span class="line">simplemde.toTextArea();</span><br><span class="line">simplemde = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="一些常用方法"><a href="#一些常用方法" class="headerlink" title="一些常用方法"></a>一些常用方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE();</span><br><span class="line">simplemde.isPreviewActive(); <span class="comment">// returns boolean</span></span><br><span class="line">simplemde.isSideBySideActive(); <span class="comment">// returns boolean</span></span><br><span class="line">simplemde.isFullscreenActive(); <span class="comment">// returns boolean</span></span><br><span class="line">simplemde.clearAutosavedValue(); <span class="comment">// no returned value</span></span><br></pre></td></tr></table></figure>
+<h2 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h2><p>SimpleMDE began as an improvement of lepture’s Editor project, but has now taken on an identity of its own. It is bundled with CodeMirror and depends on Font Awesome.</p>
+<p><strong>CodeMirror</strong> is the <em>backbone</em> of the project and parses much of the Markdown syntax as it’s being written. This allows us to add styles to the Markdown that’s being written. Additionally, a toolbar and status bar have been added to the top and bottom, respectively. Previews are rendered by Marked using GFM.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/markdown/" rel="tag"># markdown</a>
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+            <a href="/tags/simplemde/" rel="tag"># simplemde</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/06/marked一个简易markdown功能实现模块/" rel="next" title="marked一个简易markdown功能实现模块">
+                <i class="fa fa-chevron-left"></i> marked一个简易markdown功能实现模块
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/07/md5使用MD5来hash/" rel="prev" title="md5使用MD5来hash">
+                md5使用MD5来hash <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SimpleMDE-is-a-simple-embeddable-and-beautiful-JS-markdown-editor"><span class="nav-number">1.</span> <span class="nav-text">SimpleMDE is a simple, embeddable, and beautiful JS markdown editor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速开始"><span class="nav-number">1.2.</span> <span class="nav-text">快速开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取-设置内容"><span class="nav-number">1.3.</span> <span class="nav-text">获取/设置内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置参数"><span class="nav-number">1.4.</span> <span class="nav-text">配置参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高度-2种都可以-在html中或css中"><span class="nav-number">1.5.</span> <span class="nav-text">高度(2种都可以,在html中或css中)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件绑定"><span class="nav-number">1.6.</span> <span class="nav-text">事件绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从textarea中移除simplemde"><span class="nav-number">1.7.</span> <span class="nav-text">从textarea中移除simplemde</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些常用方法"><span class="nav-number">1.8.</span> <span class="nav-text">一些常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-it-works"><span class="nav-number">1.9.</span> <span class="nav-text">How it works</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

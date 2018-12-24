@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="es6,promise,">
+
+
+<meta name="description" content="Promise是什么,使用Promise先看 async 和 await 吧,然后混入 promise 从Promise对象的方法和原型的方法上的返回和传入参数看 Promise 是什么, 主要介绍 Promise构造函数Promise 对象用于表示一个异步操作的最终状态（完成或失败），以及其返回的值。 具体描述看下面  下面主要内容是 Promise构造函数, 构造函数主要是用来包装还未支持pr">
+<meta name="keywords" content="es6,promise">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Promise">
+<meta property="og:url" content="http://yoursite.com/2018/11/21/使用Promise/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="Promise是什么,使用Promise先看 async 和 await 吧,然后混入 promise 从Promise对象的方法和原型的方法上的返回和传入参数看 Promise 是什么, 主要介绍 Promise构造函数Promise 对象用于表示一个异步操作的最终状态（完成或失败），以及其返回的值。 具体描述看下面  下面主要内容是 Promise构造函数, 构造函数主要是用来包装还未支持pr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/11/21/使用Promise/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/21/使用Promise/3.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/21/使用Promise/resolved.png">
+<meta property="og:updated_time" content="2018-12-09T11:27:30.693Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Promise">
+<meta name="twitter:description" content="Promise是什么,使用Promise先看 async 和 await 吧,然后混入 promise 从Promise对象的方法和原型的方法上的返回和传入参数看 Promise 是什么, 主要介绍 Promise构造函数Promise 对象用于表示一个异步操作的最终状态（完成或失败），以及其返回的值。 具体描述看下面  下面主要内容是 Promise构造函数, 构造函数主要是用来包装还未支持pr">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/21/使用Promise/2.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/21/使用Promise/">
+
+
+  <title>使用Promise | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/使用Promise/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用Promise</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T10:02:01+08:00">2018-11-21</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript教程/" itemprop="url" rel="index"><span itemprop="name">javascript教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Promise是什么-使用Promise"><a href="#Promise是什么-使用Promise" class="headerlink" title="Promise是什么,使用Promise"></a>Promise是什么,使用Promise</h1><p>先看 <code>async</code> 和 <code>await</code> 吧,然后混入 <code>promise</code></p>
+<p><strong>从<code>Promise</code>对象的方法和原型的方法上的返回和传入参数看</strong></p>
+<h2 id="Promise-是什么-主要介绍-Promise构造函数"><a href="#Promise-是什么-主要介绍-Promise构造函数" class="headerlink" title="Promise 是什么, 主要介绍 Promise构造函数"></a>Promise 是什么, 主要介绍 Promise构造函数</h2><p><strong>Promise</strong> 对象用于表示一个<code>异步操作</code>的最终<code>状态</code>（完成或失败），以及其<code>返回的值</code>。</p>
+<p>具体描述看下面</p>
+<blockquote>
+<p>下面主要内容是 Promise构造函数, 构造函数主要是用来包装还未支持promise的函数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> promise1 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    resolve(<span class="string">'foo'</span>);</span><br><span class="line">  &#125;, <span class="number">300</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">promise1.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">  <span class="comment">// expected output: "foo"</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(promise1);</span><br><span class="line"><span class="comment">// expected output: [object Promise]</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建Promise"><a href="#创建Promise" class="headerlink" title="创建Promise"></a>创建Promise</h2><p><code>Promise</code>对象是由关键字 <code>new</code> 及其<code>构造函数</code>来创建的。该构造函数会?把一个叫做“处理器函数”（<code>executor function</code>）的函数作为它的<code>参数</code>。这个“处理器函数”接受<code>两个函数</code>——<code>resolve</code> 和 <code>reject</code> ——作为其参数。当异步任务顺利完成且返回结果值时(异步操作在<code>executor</code>内)，会调用 <code>resolve</code> 函数；而当异步任务失败且返回失败原因（通常是一个错误对象）时，会调用<code>reject</code> 函数。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;...&#125; <span class="comment">/* executor */</span>  );</span><br></pre></td></tr></table></figure>
+<p>参数就是一个 <code>function(resolve, reject) {...}</code> 这个<code>executor</code></p>
+<p><code>executor</code>是带有 <code>resolve</code> 和 <code>reject</code> 两个参数的<strong>函数</strong> 。<strong>这两个参数也是函数</strong>. (<strong>回调函数哦</strong>)</p>
+<p><strong>Promise</strong>构造函数执行时立即调用 <code>executor</code> 函数（ <strong>executor 函数在Promise构造函数返回新建对象前被调用</strong>）， <code>resolve</code> 和 <code>reject</code> 两个<strong>函数</strong>作为参数传递给 <code>executor</code>。<code>executor 内部</code>通常会执行一些<strong>异步操作</strong>，<br>一旦完成，可以调用 <code>resolve</code> 函数来将 <code>promise</code> 状态改成  <code>fulfilled</code>，或者在发生错误时调用<code>reject</code>函数将它的状态改为 <code>rejected</code>。 从这里知道, <strong>Promise的状态是通过回调函数<code>resolve</code>和<code>reject</code>改的</strong></p>
+<p>即:<code>resolve</code> 和 <code>reject</code> 函数被调用时，分别将 <code>promise</code> 的状态改为 <code>fulfilled</code>（完成）或 <code>rejected</code>（失败）。</p>
+<p>如果在 <code>executor</code> 函数中抛出一个错误，那么该 <code>promise</code> 状态为 <code>rejected</code> 。 <code>executor</code> 函数的返回值被忽略。</p>
+<blockquote>
+<p>resolve函数的作用是，将Promise对象的状态从“未完成”变为“成功”（即从 pending 变为resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；<br>reject函数的作用是，将Promise对象的状态从“未完成”变为“失败”（即从 pending 变为rejected）， 在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</p>
+</blockquote>
+<h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p><code>Promise</code> 对象是一个代理对象（<strong>代理一个值</strong>），被代理的<strong>值</strong>在 <code>Promise</code> 对象<strong>创建时可能是未知的</strong>(比如可以是一个异步的操作,也可以直接是一个确定的值, 总之都用Promise包起来)。</p>
+<p>它<strong>允许你为异步操作的成功和失败分别绑定相应的处理方法</strong>（handlers）。 这让异步方法可以<strong>像同步方法</strong>那样返回值，但<strong>并不是立即返回</strong>最终执行结果，而是一个能<strong>代表未来出现的结果</strong>的 <code>promise</code> 对象</p>
+<p>一个 <code>Promise</code> 有以下3种状态: <strong>Promise的状态是通过回调函数<code>resolve</code>和<code>reject</code>改的</strong></p>
+<ul>
+<li><code>pending</code>: 初始状态，既不是成功，也不是失败状态。</li>
+<li><code>fulfilled</code>: 意味着操作成功完成。对应从调用<code>resolve</code>函数</li>
+<li><code>rejected</code>: 意味着操作失败。  对应从调用<code>reject</code>函数</li>
+</ul>
+<blockquote>
+<p>注意： 如果一个promise对象处在fulfilled或rejected状态而不是pending状态，那么它也可以被称为<code>settled</code>状态。</p>
+</blockquote>
+<p><code>pending</code> 状态的 <code>Promise</code> 对象可能触发 <code>fulfilled</code> 状态并传递一个值给相应的状态处理方法 <code>resolve</code> ，也可能触发失败状态（<code>rejected</code>）并传递失败信息给 <code>reject</code>方法 。</p>
+<blockquote>
+<p>从这里看出, 先是执行第一个<code>Promise</code>对象,然后触发回调的方法<code>resolve</code> <code>reject</code>, 产生一个新的<code>Promise</code>对象.<br>然后👇下面是<code>Promise</code>对象原型上的方法来处理(就会被触发调用),用到<code>then</code> <code>catch</code></p>
+</blockquote>
+<p>当其中任一种情况出现时，<code>Promise</code> 对象的 <code>then</code> 方法(<strong>这个方法是在Promise的原型上的, 并返回一个Promise对象</strong>)绑定的处理方法（handlers ）就会<strong>被调用</strong><br>（ <code>then</code> 方法包含<strong>两个参数,也都是函数</strong>：<code>onfulfilled</code> 和 <code>onrejected</code>，它们都是 <code>Function</code> 类型。当 <code>Promise</code> 状态为 <code>fulfilled</code> 时，调用 <code>then</code> 的 <code>onfulfilled</code> 方法，当 <code>Promise</code> 状态为 <code>rejected</code> 时，调用 <code>then</code> 的 <code>onrejected</code> 方法， 所以在异步操作的完成和绑定处理方法之间不存在竞争）。</p>
+<blockquote>
+<p>这里搞懂, 第一个<code>Promise</code>通过执行<code>executor</code>的回调函数<code>resolve</code> <code>reject</code>变为相应的<code>fulfilled</code>或<code>rejected</code>状态, 返回一个<code>新的Promise</code>对象.<br>然后<code>then</code>方法根据返回的<code>新的Promise</code>对象的<strong>状态</strong>, 调用相应的<code>onfulfilled</code>或<code>onrejected</code>方法.</p>
+</blockquote>
+<p>所以状态是3种, Promise的回调函数2种, then方法的回调也是2种</p>
+<p><code>pending</code> <code>fulfilled</code> <code>rejected</code><br><code>resolve</code> <code>reject</code><br><code>onfulfilled</code> <code>onrejected</code></p>
+<p>平时见到的 <code>then</code>和 <code>catch</code> 可以<strong>链式调用</strong>的原因是因为 <code>Promise.prototype.then</code> 和  <code>Promise.prototype.catch</code> 方法返回  <code>promise</code> 对象</p>
+<blockquote>
+<p><strong>注意</strong>: <code>then</code>方法是在 <code>Promise</code>对象的原型上<code>prototype</code>的, <code>Promise</code>对象本身就4个方法<code>resolve</code> <code>reject</code> <code>all</code> <code>race</code><br>原型上3个 <code>then</code> <code>catch</code> <code>finally</code></p>
+</blockquote>
+<p><img src="2.png" alt="2.png"></p>
+<h2 id="属性和方法-上面涉及了Promise的方法和Promise原型上的方法-具体介绍下"><a href="#属性和方法-上面涉及了Promise的方法和Promise原型上的方法-具体介绍下" class="headerlink" title="属性和方法(上面涉及了Promise的方法和Promise原型上的方法, 具体介绍下)"></a>属性和方法(上面涉及了Promise的方法和Promise原型上的方法, 具体介绍下)</h2><p>看完方法和原型的返回, 在回顾去看下描述就更好</p>
+<h3 id="属性-不常用-2个"><a href="#属性-不常用-2个" class="headerlink" title="属性 不常用 2个"></a>属性 不常用 2个</h3><p><code>Promise.length</code> length属性，其值总是为 1 (构造器参数的数目).</p>
+<p><code>Promise.prototype</code> 表示 Promise 构造器的原型.</p>
+<h3 id="方法和原型"><a href="#方法和原型" class="headerlink" title="方法和原型"></a>方法和原型</h3><p><code>Promise</code>的方法 4个, 都返回<code>Promise</code>对象</p>
+<ol>
+<li><code>Promise.resolve(value)</code>:   返回一个状态由给定<code>value</code>决定的<code>Promise对象</code>。<br>如果该<code>value</code>是一个<code>Promise</code>对象，则直接返回该<code>Promise</code>对象；<br>如果该值是<code>thenable</code>(即，带有<code>then</code>方法的对象)，返回的<code>Promise</code>对象的最终状态由<code>then</code>方法执行决定；(<strong>注意</strong>: 应该是<code>Promise.resolve</code>方法会将这个对象转为 <code>Promise</code> 对象，然后就立即执行<code>thenable</code>对象的<code>then</code>方法。)<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是一个滴啊有then方法的对象, 所以</span></span><br><span class="line"><span class="keyword">let</span> thenable = &#123;</span><br><span class="line">  then: <span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    resolve(<span class="number">42</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p1 = <span class="built_in">Promise</span>.resolve(thenable);  <span class="comment">// 这里先包装thenable</span></span><br><span class="line">p1.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;           <span class="comment">// 这里执行, 最终结果.</span></span><br><span class="line">  <span class="built_in">console</span>.log(value);  <span class="comment">// 42</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>否则的话(该<code>value</code>为<code>空</code>，<code>基本类型</code>或者不带<code>then</code>方法的对象),返回的<code>Promise</code>对象状态为<code>fulfilled</code>，并且将该<code>value</code>传递给对应的<code>then</code>方法。<br><strong>通常而言</strong>，如果你不知道一个值是否是<code>Promise</code>对象，使用<code>Promise.resolve(value)</code> 来返回一个<code>Promise</code>对象,这样就能将该<code>value</code>以<code>Promise</code>对象形式使用。</p>
+<ol>
+<li><code>Promise.reject(reason)</code>:   返回一个状态为失败的<code>Promise对象</code>，并将给定的失败信息<code>reason</code>传递给对应的处理方法<code>catch</code>住.(实际上只是 <code>then(null, ...)</code> 的语法糖)</li>
+<li><code>Promise.all(iterable)</code>:    这个方法返回一个新的<code>promise</code>对象(<strong>成功对应返回resolve一个Promise包装的所有成功value的数组, 失败就返回reject第一个失败的那个的reason信息</strong>)，该<code>promise</code>对象在<code>iterable</code>参数对象里(不是说是<code>数组</code>,而是说要具有<code>iterable</code>接口)<code>所有的promise</code>对象都成功的时候才会触发成功，一旦有任何一个<code>iterable</code>里面的<code>promise</code>对象<code>失败</code>则立即触发该<code>promise</code>对象的失败。<blockquote>
+<p>这个<code>新的promise</code>对象在触发成功状态以后，会把一个包含<code>iterable</code>里<code>所有promise</code>返回值的<code>数组</code>作为成功回调的返回值，顺序跟<code>iterable</code>的顺序保持一致；如果这个新的<code>promise</code>对象触发了<code>失败状态</code>，它会把iterable里第一个触发失败的<code>promise</code>对象的错误信息作为它的失败错误信息。<code>Promise.all</code>方法常被用于处理<code>多个promise</code>对象的状态集合。</p>
+</blockquote>
+</li>
+<li><code>Promise.race(iterable)</code>:   当<code>iterable</code>参数里的任意一个<code>子promise</code>被成功或失败后(就是看最快的那个, <code>all</code>相当于是看最慢的)，<code>父promise</code>马上也会用<code>子promise</code>的成功返回值或失败详情作为参数调用<code>父promise</code>绑定的相应句柄，并返回该<code>promise</code>对象。(<strong>注意</strong>:  <code>Promise.race</code> 在第一个<code>promise</code>对象变为<code>Fulfilled</code>之后，并不会取消其他<code>promise</code>对象的执行。)</li>
+</ol>
+<p><img src="3.png" alt="3.png"></p>
+<p><code>Promise</code>原型, 1个属性, 3个方法</p>
+<p>属性就是原型都有的<code>romise.prototype.constructor</code> 返回被创建的实例函数.  默认为 <code>Promise 函数</code></p>
+<p>方法就是常见的3个, <code>then</code> <code>catch</code> <code>finally</code></p>
+<ol>
+<li><p><code>Promise.prototype.then(onFulfilled, onRejected)</code>:  添加解决(<code>fulfillment</code>)和拒绝(<code>rejection</code>)回调到当前 <code>promise</code>, 返回一个<code>新的 promise</code>, 将以回调的返回值来<code>resolve</code>. (<code>catch</code>只是<code>then</code>的一个特例)</p>
+</li>
+<li><p><code>Promise.prototype.catch(onRejected)</code>:  添加一个拒绝(<code>rejection</code>) 回调到当前 <code>promise</code>, 返回一个<code>新的promise</code>。当这个回调函数被调用，<code>新 promise</code> 将以它的返回值来<code>resolve</code>，否则如果当前<code>promise</code> 进入<code>fulfilled</code>状态，则以当前<code>promise</code>的完成结果作为新<code>promise</code>的完成结果.<strong>注意这个也是返回一个Promise, 当成<code>then</code>只有第2个参数时呗</strong></p>
+</li>
+<li><p><code>Promise.prototype.finally(onFinally)</code>: 添加一个事件处理回调于当前<code>promise</code>对象，并且在<code>原promise</code>对象解析完毕后，返回一个<code>新的promise</code>对象。回调会在当前<code>promise</code>运行完毕后被调用，无论<code>当前promise</code>的状态是完成(<code>fulfilled</code>)还是失败(<code>rejected</code>)</p>
+</li>
+</ol>
+<p><img src="resolved.png" alt="resolved.png"></p>
+<p>关于<code>Symbol(Symbol.toStringTag): &quot;Promise&quot;</code>的知识, 看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag" target="_blank" rel="noopener">Symbol.toStringTag</a></p>
+<h2 id="总结-看你真的完全掌握了promise么？"><a href="#总结-看你真的完全掌握了promise么？" class="headerlink" title="总结 : 看你真的完全掌握了promise么？"></a>总结 : 看<a href="https://juejin.im/post/5af29a62f265da0b8f628973" target="_blank" rel="noopener">你真的完全掌握了promise么？</a></h2><p><strong>Promise</strong> 对象用于表示一个<code>异步操作</code>的最终<code>状态</code>（完成或失败），以及其<code>返回的值</code>。</p>
+<p><code>Promise</code>编程的核心思想是如果数据就绪(<code>settled</code>)，那么(<code>then</code>)做点什么。</p>
+<p><code>Promise</code>构造函数接受一个函数作为参数，该函数的两个参数分别是<code>resolve</code>和<code>reject</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ... some code</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 异步操作成功 */</span>)&#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>resolve</code>函数的作用是，将<code>Promise</code>对象的状态从“未完成”变为“成功”（即从 <code>pending</code> 变为<code>fulfilled</code>），在异步操作成功时调用，并将异步操作的结果，作为<code>参数</code>传递出去；</li>
+<li><code>reject</code>函数的作用是，将<code>Promise</code>对象的状态从“未完成”变为“失败”（即从 <code>pending</code> 变为<code>rejected</code>）， 在异步操作失败时调用，并将异步操作报出的错误，作为<code>参数</code>传递出去。</li>
+</ol>
+<p><code>Promise</code>实例生成以后，可以用<code>then</code>方法分别指定<code>resolved</code>状态和<code>rejected</code>状态的<code>回调函数</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>立即<code>resolve</code>的 <code>Promise</code> 对象，是在<strong>本轮</strong>“事件循环”（<code>event loop</code>）的结束时，而不是在下一轮“事件循环”的开始时。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'three'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'two'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'one'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// one</span></span><br><span class="line"><span class="comment">// two</span></span><br><span class="line"><span class="comment">// three</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，<code>setTimeout(fn, 0)</code>在<strong>下一轮</strong>“事件循环”开始时执行，<code>Promise. resolve()</code>在<strong>本轮</strong>“事件循环”结束时执行，<code>console.log(&#39;one&#39;)</code>则是<strong>立即执行</strong>，因此最先输出。</p>
+<p><strong>特别说明</strong>：如果需要<code>resolve()</code>往后传递<strong>多个</strong>参数，不能直接写<code>resolve(a1,a2,a3)</code>，这样只能拿到第一个要传的参数，需要以数组或对象去传递</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;<span class="attr">a1</span>:a1,<span class="attr">a2</span>:a2,<span class="attr">a3</span>:a3&#125;;</span><br><span class="line">resolve(obj)</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line"><span class="keyword">let</span> arr =[a1,a2,a3];</span><br><span class="line">resolve(arr);</span><br></pre></td></tr></table></figure>
+<p>Promise的链还停不了诶<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里是返回一个pending状态的Promise</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>虽然上面可以停住, 但会导致内存泄漏,毕竟一直停住了, 不释放内存.</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promise</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises" target="_blank" rel="noopener">使用 Promises</a><br><a href="http://es6.ruanyifeng.com/?search=import&amp;x=0&amp;y=0#docs/promise" target="_blank" rel="noopener">阮一峰es6 Promise 对象</a></p>
+<p>进阶<br><a href="https://juejin.im/post/5af29a62f265da0b8f628973" target="_blank" rel="noopener">你真的完全掌握了promise么？</a><br><a href="https://juejin.im/post/5a58551ef265da3e51330a8e" target="_blank" rel="noopener">对Promise状态的理解和基本用法</a><br><a href="https://github.com/xieranmaya/blog/issues/5" target="_blank" rel="noopener">从如何停掉 Promise 链说起</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/es6/" rel="tag"># es6</a>
+          
+            <a href="/tags/promise/" rel="tag"># promise</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/05/CSS实现水平垂直居中的第10种方式吗/" rel="next" title="CSS实现水平垂直居中的第10种方式">
+                <i class="fa fa-chevron-left"></i> CSS实现水平垂直居中的第10种方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/23/统一代码风格editorconfig/" rel="prev" title="统一代码风格editorconfig">
+                统一代码风格editorconfig <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise是什么-使用Promise"><span class="nav-number">1.</span> <span class="nav-text">Promise是什么,使用Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-是什么-主要介绍-Promise构造函数"><span class="nav-number">1.1.</span> <span class="nav-text">Promise 是什么, 主要介绍 Promise构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Promise"><span class="nav-number">1.2.</span> <span class="nav-text">创建Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.3.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#描述"><span class="nav-number">1.4.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性和方法-上面涉及了Promise的方法和Promise原型上的方法-具体介绍下"><span class="nav-number">1.5.</span> <span class="nav-text">属性和方法(上面涉及了Promise的方法和Promise原型上的方法, 具体介绍下)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#属性-不常用-2个"><span class="nav-number">1.5.1.</span> <span class="nav-text">属性 不常用 2个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法和原型"><span class="nav-number">1.5.2.</span> <span class="nav-text">方法和原型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-看你真的完全掌握了promise么？"><span class="nav-number">1.6.</span> <span class="nav-text">总结 : 看你真的完全掌握了promise么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

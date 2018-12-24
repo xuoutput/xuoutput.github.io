@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="vue,markdown,marked,">
+
+
+<meta name="description" content="marked模块-简易markdown功能实现Markdown不是HTML，目前还不能被浏览器解析，所以我们需要Markdown的解析器(不是编辑器,编辑器另选simplemde)，把Markdown翻译成浏览器认识的HTML文档展示出来。Marked就是一个基于Nodejs的Markdown解析引擎！ markdown.js简易手册 安装使用 123npm isntall marked --sa">
+<meta name="keywords" content="vue,markdown,marked">
+<meta property="og:type" content="article">
+<meta property="og:title" content="marked一个简易markdown功能实现模块">
+<meta property="og:url" content="http://yoursite.com/2018/03/06/marked一个简易markdown功能实现模块/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="marked模块-简易markdown功能实现Markdown不是HTML，目前还不能被浏览器解析，所以我们需要Markdown的解析器(不是编辑器,编辑器另选simplemde)，把Markdown翻译成浏览器认识的HTML文档展示出来。Marked就是一个基于Nodejs的Markdown解析引擎！ markdown.js简易手册 安装使用 123npm isntall marked --sa">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="marked一个简易markdown功能实现模块">
+<meta name="twitter:description" content="marked模块-简易markdown功能实现Markdown不是HTML，目前还不能被浏览器解析，所以我们需要Markdown的解析器(不是编辑器,编辑器另选simplemde)，把Markdown翻译成浏览器认识的HTML文档展示出来。Marked就是一个基于Nodejs的Markdown解析引擎！ markdown.js简易手册 安装使用 123npm isntall marked --sa">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/06/marked一个简易markdown功能实现模块/">
+
+
+  <title>marked一个简易markdown功能实现模块 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/06/marked一个简易markdown功能实现模块/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">marked一个简易markdown功能实现模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T19:15:39+08:00">2018-03-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="marked模块-简易markdown功能实现"><a href="#marked模块-简易markdown功能实现" class="headerlink" title="marked模块-简易markdown功能实现"></a>marked模块-简易markdown功能实现</h1><p>Markdown不是HTML，目前还不能被浏览器解析，所以我们需要Markdown的<strong>解析器(不是编辑器,编辑器另选simplemde)</strong>，把Markdown翻译成浏览器认识的HTML文档展示出来。Marked就是一个基于Nodejs的Markdown解析引擎！</p>
+<p><a href="https://www.cnblogs.com/djtao/p/6224399.html" target="_blank" rel="noopener">markdown.js简易手册</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm isntall marked --sava</span><br><span class="line"></span><br><span class="line">或者用cdn</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>使用就很简单了，直接用div或者textarea都行，id指明后用innerHTML插入</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Marked in the browser<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/path/to/marked.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementById(<span class="string">'content'</span>).innerHTML =</span></span><br><span class="line"><span class="javascript">      marked(<span class="string">'# Marked in browser\n\nRendered by **marked**.'</span>);</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="详细说明marked-方法"><a href="#详细说明marked-方法" class="headerlink" title="详细说明marked()方法"></a>详细说明marked()方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">marked(markdownString [,options] [,callback])</span><br></pre></td></tr></table></figure>
+<p><code>markdownString</code>是你渲染的内容，必须是字符串。<br><code>options</code>是你渲染的设置——它是一个对象。当然，你用<code>marked.setOptions</code>也是不错的。<br><code>callback</code>是回调函数。如果 <code>options</code> 参数没有定义，它就是第二个参数。</p>
+<h3 id="关于Options-详细解说，毕竟配合highlight-js一起用"><a href="#关于Options-详细解说，毕竟配合highlight-js一起用" class="headerlink" title="关于Options(详细解说，毕竟配合highlight.js一起用)"></a>关于Options(详细解说，毕竟配合highlight.js一起用)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rendererMD = <span class="keyword">new</span> marked.Renderer();</span><br><span class="line">marked.setOptions(&#123;</span><br><span class="line">  renderer: rendererMD,</span><br><span class="line">  gfm: <span class="literal">true</span>,</span><br><span class="line">  tables: <span class="literal">true</span>,</span><br><span class="line">  breaks: <span class="literal">false</span>,</span><br><span class="line">  pedantic: <span class="literal">false</span>,</span><br><span class="line">  sanitize: <span class="literal">false</span>,</span><br><span class="line">  smartLists: <span class="literal">true</span>,</span><br><span class="line">  smartypants: <span class="literal">false</span></span><br><span class="line">&#125;);<span class="comment">//基本设置</span></span><br></pre></td></tr></table></figure>
+<p>当然首先highlight.js要引入</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">hljs.initHighlightingOnLoad();</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因为highlight.js不能渲染接口返回的代码，所以需要node中的marked配合options</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rendererMD = <span class="keyword">new</span> marked.Renderer();</span><br><span class="line">marked.setOptions(&#123;</span><br><span class="line">    renderer: rendererMD, <span class="comment">//当然可以renderer: new marked.Renderer()</span></span><br><span class="line">    gfm: <span class="literal">true</span>,</span><br><span class="line">    tables: <span class="literal">true</span>,</span><br><span class="line">    breaks: <span class="literal">false</span>,</span><br><span class="line">    pedantic: <span class="literal">false</span>,</span><br><span class="line">    sanitize: <span class="literal">false</span>,</span><br><span class="line">    smartLists: <span class="literal">true</span>,</span><br><span class="line">    smartypants: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//要显示的markdown内容</span></span><br><span class="line"><span class="keyword">var</span> markdownString = <span class="string">'```js\n console.log("hello"); \n```'</span>;</span><br><span class="line"><span class="comment">//这是设置highlight.js的,当然也可以拿到前面的setOptions中</span></span><br><span class="line">marked.setOptions(&#123;</span><br><span class="line">    highlight: <span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;    <span class="comment">//这个code后还有2个参数lang,callback</span></span><br><span class="line">    <span class="keyword">return</span> hljs.highlightAuto(code).value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//这是在HTML中使用</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'content'</span>).innerHTML = marked(markdownString);</span><br></pre></td></tr></table></figure>
+<p>所以以上有两点参数说明</p>
+<h4 id="highlight中-高亮的参数"><a href="#highlight中-高亮的参数" class="headerlink" title="highlight中 高亮的参数"></a>highlight中 高亮的参数</h4><p>完整的highlight方法包含三个参数：<strong>code，lang和callback</strong></p>
+<p><strong>code</strong>——代码内容——是一个字符串。<br><strong>lang</strong>——编程语言的种类——也是字符串。</p>
+<blockquote>
+<p>这个需要在highlight.registerLanguage中设置</p>
+</blockquote>
+<p><strong>callback</strong>就是回调函数。</p>
+<h4 id="renderer（渲染）"><a href="#renderer（渲染）" class="headerlink" title="renderer（渲染）"></a>renderer（渲染）</h4><p>render存放的是一个对象，不声明时默认为<code>new Renderer()</code>。</p>
+<p><strong>自定义渲染方式(这个略过吧)</strong><br>渲染选项允许你以自定义的方式渲染内容，并把之前的规则设置覆盖掉。——这是<strong>比较底层</strong>的方法了。</p>
+<p>比如，我想渲染<code># heading+</code>，但是默认的规则是：<code>&lt;h1&gt;&lt;/h1&gt;</code>，我想改为更为复杂的结构——</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rendererMD = <span class="keyword">new</span> marked.Renderer();</span><br><span class="line">rendererMD.heading = <span class="function"><span class="keyword">function</span> (<span class="params">text, level</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> escapedText = text.toLowerCase().replace(<span class="regexp">/[^\w]+/g</span>, <span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h'</span> + level + <span class="string">'&gt;&lt;a name="'</span> +</span><br><span class="line">            escapedText +</span><br><span class="line">                <span class="string">'" class="anchor" href="#'</span> +</span><br><span class="line">                escapedText +</span><br><span class="line">                <span class="string">'"&gt;&lt;span class="header-link"&gt;&lt;/span&gt;&lt;/a&gt;'</span> +</span><br><span class="line">                text + <span class="string">'&lt;/h'</span> + level + <span class="string">'&gt;'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//显示</span></span><br><span class="line"><span class="built_in">console</span>.log(marked(<span class="string">'# heading+'</span>, &#123; <span class="attr">renderer</span>: rendererMD &#125;));</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'content'</span>).innerHTML = marked(<span class="string">'# heading+'</span>, &#123; <span class="attr">renderer</span>: rendererMD &#125;);</span><br></pre></td></tr></table></figure>
+<p>渲染结果</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">name</span>=<span class="string">"heading-"</span> <span class="attr">class</span>=<span class="string">"anchor"</span> <span class="attr">href</span>=<span class="string">"#heading-"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"header-link"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  heading+</span><br><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>以上就用了heading的渲染。</p>
+<p><strong>块级支持以下渲染</strong></p>
+<ul>
+<li>code(string code, string language)</li>
+<li>blockquote(string quote)</li>
+<li>html(string html)</li>
+<li>heading(string text, number level)</li>
+<li>hr()</li>
+<li>list(string body, boolean ordered)</li>
+<li>listitem(string text)</li>
+<li>paragraph(string text)</li>
+<li>table(string header, string body)</li>
+<li>tablerow(string content)</li>
+<li>tablecell(string content, object flags)</li>
+</ul>
+<p><code>flags</code> 拥有以下属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    header: <span class="literal">true</span> || <span class="literal">false</span>,</span><br><span class="line">    align: <span class="string">'center'</span> || <span class="string">'left'</span> || <span class="string">'right'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>行级支持以下渲染</strong>：</p>
+<ul>
+<li>strong(string text)</li>
+<li>em(string text)</li>
+<li>codespan(string code)</li>
+<li>br()</li>
+<li>del(string text)</li>
+<li>link(string href, string title, string text)</li>
+<li>image(string href, string title, string text)</li>
+</ul>
+<h4 id="其它渲染参数-都是boolean"><a href="#其它渲染参数-都是boolean" class="headerlink" title="其它渲染参数(都是boolean)"></a>其它渲染参数(都是boolean)</h4><p><strong>gfm</strong><br>它是一个布尔值，默认为true。<br>允许 GitHub标准的markdown.</p>
+<p><strong>tables</strong><br>它是一个布尔值，默认为true。<br>支持<strong>支持github表格语法</strong>。该选项要求 gfm 为true。</p>
+<p><strong>breaks</strong><br>它是一个布尔值，默认为false。<br>支持<strong>github回车换行</strong>。该选项要求 gfm 为true。</p>
+<p><strong>pedantic</strong><br>它是一个布尔值，默认为false。<br><strong>尽可能地兼容 markdown.pl</strong>的晦涩部分。不纠正原始模型任何的不良行为和错误。</p>
+<p><strong>sanitize</strong><br>它是一个布尔值，默认为false。<br>对输出进行过滤（清理），将<strong>忽略任何已经输入的html代码</strong>（标签）</p>
+<p><strong>smartLists</strong><br>它是一个布尔值，默认为false。<br><strong>使用比原生markdown更时髦的列表</strong>。 旧的列表将可能被作为pedantic的处理内容过滤掉.</p>
+<p><strong>smartypants</strong><br>它是一个布尔值，默认为false。<br>使用更为<strong>时髦的标点</strong>，比如在引用语法中加入破折号。</p>
+<h4 id="使用lexer和parser"><a href="#使用lexer和parser" class="headerlink" title="使用lexer和parser"></a>使用lexer和parser</h4><p>如果你想，还可以使用词法分析器。通过它可以追加规则：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tokens = marked.lexer(<span class="string">'text'</span>);<span class="comment">//把text解析为一个marked.js的内部对象</span></span><br><span class="line"><span class="built_in">console</span>.log(marked.parser(tokens));<span class="comment">//又把这个对象转化为html字符串。（&lt;p&gt;text&lt;/p&gt;）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lexer = <span class="keyword">new</span> marked.Lexer(&#123;<span class="attr">sanitize</span>: <span class="literal">true</span>&#125;);<span class="comment">//放option信息</span></span><br><span class="line"><span class="keyword">var</span> tokens = lexer.lex(<span class="string">'&lt;h1&gt;hello&lt;/h1&gt;'</span>);<span class="comment">//&lt;p&gt;&amp;lt;h1&amp;gt;hello&amp;lt;/h1&amp;gt;&lt;/p&gt;</span></span><br><span class="line"><span class="built_in">console</span>.log(marked.parser(tokens));</span><br><span class="line"><span class="built_in">console</span>.log(lexer.rules);<span class="comment">//打出正则信息</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/markdown/" rel="tag"># markdown</a>
+          
+            <a href="/tags/marked/" rel="tag"># marked</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/06/highlight-js高亮你的代码/" rel="next" title="highlight.js高亮你的代码">
+                <i class="fa fa-chevron-left"></i> highlight.js高亮你的代码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/06/simplemde一款markdown编辑器/" rel="prev" title="simplemde一款markdown编辑器">
+                simplemde一款markdown编辑器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#marked模块-简易markdown功能实现"><span class="nav-number">1.</span> <span class="nav-text">marked模块-简易markdown功能实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细说明marked-方法"><span class="nav-number">1.3.</span> <span class="nav-text">详细说明marked()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于Options-详细解说，毕竟配合highlight-js一起用"><span class="nav-number">1.3.1.</span> <span class="nav-text">关于Options(详细解说，毕竟配合highlight.js一起用)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#highlight中-高亮的参数"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">highlight中 高亮的参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#renderer（渲染）"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">renderer（渲染）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其它渲染参数-都是boolean"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">其它渲染参数(都是boolean)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用lexer和parser"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">使用lexer和parser</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

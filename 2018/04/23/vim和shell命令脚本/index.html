@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="linux,ubuntu,">
+
+
+<meta name="description" content="vim和shell命令脚本本章首先讲解如何使用Vim编辑器来编写、修改文档，然后通过逐个配置主机名称、系统网卡以及Yum软件仓库参数文件等实验，帮助读者加深Vim编辑器中诸多命令、快捷键、模式切换方法的理解。然后把前面章节中讲解的Linux命令、命令语法与Shell脚本中的各种流程控制语句通过Vim编辑器写到Shell脚本中结合到一起，实现最终能够自动化工作的脚本文件。本章最后演示了怎样通过at命">
+<meta name="keywords" content="linux,ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim和shell命令脚本">
+<meta property="og:url" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="vim和shell命令脚本本章首先讲解如何使用Vim编辑器来编写、修改文档，然后通过逐个配置主机名称、系统网卡以及Yum软件仓库参数文件等实验，帮助读者加深Vim编辑器中诸多命令、快捷键、模式切换方法的理解。然后把前面章节中讲解的Linux命令、命令语法与Shell脚本中的各种流程控制语句通过Vim编辑器写到Shell脚本中结合到一起，实现最终能够自动化工作的脚本文件。本章最后演示了怎样通过at命">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/vim不同模式间的切换.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/第1步：创建文档.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/第5步：敲击“：wq”，保存并退出.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/Shell脚本程序中的参数位置变量.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/测试语句格式.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/单分支结构-2.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/双分支结构-1.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/多分支结构-2.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/for条件语句-1.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/while条件语句-1.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/case条件语句-1.png">
+<meta property="og:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/cron计划任务的参数.png">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.537Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim和shell命令脚本">
+<meta name="twitter:description" content="vim和shell命令脚本本章首先讲解如何使用Vim编辑器来编写、修改文档，然后通过逐个配置主机名称、系统网卡以及Yum软件仓库参数文件等实验，帮助读者加深Vim编辑器中诸多命令、快捷键、模式切换方法的理解。然后把前面章节中讲解的Linux命令、命令语法与Shell脚本中的各种流程控制语句通过Vim编辑器写到Shell脚本中结合到一起，实现最终能够自动化工作的脚本文件。本章最后演示了怎样通过at命">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/23/vim和shell命令脚本/vim不同模式间的切换.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/23/vim和shell命令脚本/">
+
+
+  <title>vim和shell命令脚本 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/23/vim和shell命令脚本/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vim和shell命令脚本</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-23T13:42:14+08:00">2018-04-23</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="vim和shell命令脚本"><a href="#vim和shell命令脚本" class="headerlink" title="vim和shell命令脚本"></a>vim和shell命令脚本</h1><p>本章首先讲解如何使用<code>Vim编辑器</code>来编写、修改文档，然后通过逐个配置主机名称、系统网卡以及Yum软件仓库参数文件等实验，帮助读者加深Vim编辑器中诸多命令、快捷键、模式切换方法的理解。<strong>然后把前面章节中讲解的Linux命令、命令语法与Shell脚本中的各种流程控制语句通过Vim编辑器写到Shell脚本中结合到一起</strong>，实现最终能够自动化工作的脚本文件。本章最后演示了怎样通过at命令与crond计划任务服务来分别实现一次性的系统任务设置和长期性的系统任务设置，从而让日常的工作更加高效，更自动化。</p>
+<h2 id="Vim文本编辑器"><a href="#Vim文本编辑器" class="headerlink" title="Vim文本编辑器"></a>Vim文本编辑器</h2><p>“在Linux系统中一切都是文件，而配置一个服务就是在修改其配置文件的参数”。而且在日常工作中大家也肯定免不了要编写文档，这些工作都是通过文本编辑器来完成的。<br>Vim之所以能得到广大厂商与用户的认可，原因在于Vim编辑器中设置了<strong>三种模式</strong>—命令模式、末行模式和编辑模式，每种模式分别又支持多种不同的命令快捷键，这大大提高了工作效率，而且用户在习惯之后也会觉得相当顺手。要想高效率地操作文本，就必须先搞清这三种模式的操作区别以及模式之间的切换方法</p>
+<blockquote>
+<p>命令模式：控制光标移动，可对文本进行复制、粘贴、删除和查找等工作。</p>
+<p>输入模式：正常的文本录入。</p>
+<p>末行模式：保存或退出文档，以及设置编辑环境。</p>
+</blockquote>
+<p><img src="vim不同模式间的切换.png" alt="vim不同模式间的切换.png"></p>
+<p>在每次运行Vim编辑器时，<strong>默认进入命令模式</strong>，此时需要先切换到输入模式后再进行文档编写工作，而每次在编写完文档后需要先返回命令模式，然后再进入末行模式，执行文档的保存或退出操作。在Vim中，无法直接从输入模式切换到末行模式。Vim编辑器中内置的命令有成百上千种用法，为了能够帮助读者更快地掌握Vim编辑器，</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dd</td>
+<td>删除（剪切）光标所在整行</td>
+</tr>
+<tr>
+<td>5dd</td>
+<td>删除（剪切）从光标处开始的5行 往下删除5行</td>
+</tr>
+<tr>
+<td>yy</td>
+<td>复制光标所在整行</td>
+</tr>
+<tr>
+<td>5yy</td>
+<td>复制从光标处开始的5行</td>
+</tr>
+<tr>
+<td>n</td>
+<td>显示搜索命令定位到的下一个字符串</td>
+</tr>
+<tr>
+<td>N</td>
+<td>显示搜索命令定位到的上一个字符串</td>
+</tr>
+<tr>
+<td>u</td>
+<td>撤销上一步的操作   那么回去呢?</td>
+</tr>
+<tr>
+<td>p</td>
+<td>将之前<strong>删除</strong>（dd）或复制（yy）过的数据粘贴到光标后面</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>末行模式主要用于保存或退出文件</strong>，以及设置Vim编辑器的工作环境，还可以让用户执行外部的Linux命令或跳转到所编写文档的特定行数。要想切换到末行模式，在命令模式中输入一个冒号就可以了。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:w</td>
+<td>保存</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>退出</td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>强制退出（放弃对文档的修改内容）</td>
+</tr>
+<tr>
+<td>:wq!</td>
+<td>强制保存退出</td>
+</tr>
+<tr>
+<td>:set nu</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>:set nonu</td>
+<td>不显示行号</td>
+</tr>
+<tr>
+<td>:命令</td>
+<td>执行该命令</td>
+</tr>
+<tr>
+<td>:整数</td>
+<td>跳转到该行</td>
+</tr>
+<tr>
+<td>:s/one/two</td>
+<td>将当前光标所在行的第一个one替换成two</td>
+</tr>
+<tr>
+<td>:s/one/two/g</td>
+<td>将当前光标所在行的所有one替换成two</td>
+</tr>
+<tr>
+<td>:%s/one/two/g</td>
+<td>将全文中的所有one替换成two</td>
+</tr>
+<tr>
+<td>?字符串</td>
+<td>在文本中从下至上搜索该字符串</td>
+</tr>
+<tr>
+<td>/字符串</td>
+<td>在文本中从上至下搜索该字符串</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="编写简单文档"><a href="#编写简单文档" class="headerlink" title="编写简单文档"></a>编写简单文档</h2><p>编写脚本文档的第1步就是给文档取个名字，这里将其命名为practice.txt。如果存在该文档，则是打开它。如果不存在，则是创建一个临时的输入文件，如图所示。</p>
+<p><img src="第1步：创建文档.png" alt="第1步：创建文档.png"></p>
+<p>打开practice.txt文档后，默认进入的是Vim编辑器的<strong>命令模式</strong>。此时只能执行该模式下的命令，而不能随意输入文本内容，我们需要<strong>切换到输入模式</strong>才可以编写文档。</p>
+<p>在图4-1中提到，可以分别使用<code>a、i、o</code>三个键从命令模式切换到输入模式。其中，a键与i键分别是在<strong>光标后面一位</strong>和<strong>光标当前位置</strong>切换到输入模式，而o键则是在<strong>光标的下面再创建一个空行</strong>，此时可敲击a键进入到编辑器的输入模式.<br>进入输入模式后，可以随意输入文本内容，Vim编辑器不会把您输入的文本内容当作命令而执行<br>在编写完之后，想要保存并退出，必须先敲击键盘Esc键从输入模式返回命令模式，如图所示。然后再输入:wq!切换到末行模式才能完成保存退出操作</p>
+<p><img src="第5步：敲击“：wq”，保存并退出.png" alt="第5步：敲击“：wq”，保存并退出.png"></p>
+<p>当在末行模式中输入:wq!命令时，就意味着强制保存并退出文档。然后便可以用cat命令查看保存后的文档内容了.</p>
+<p>是不是很简单？！继续编辑这个文档。因为要在原有文本内容的下面追加内容，所以在命令模式中敲击o键进入输入模式更会高效.</p>
+<p>因为此时已经修改了文本内容，所以Vim编辑器在我们尝试直接退出文档而不保存的时候就会拒绝我们的操作了。此时只能强制退出才可以结束本次输入操作，</p>
+<p>大家在学完了理论知识之后又自己动手编写了一个文本，现在是否感觉成就满满呢？接下来将会由浅入深为读者安排三个小任务。为了彻底掌握Vim编辑器的使用，大家一定要逐个完成不许偷懒，如果在完成这三个任务期间忘记了相关命令，可返回前文进一步复习掌握。</p>
+<h2 id="配置主机名称"><a href="#配置主机名称" class="headerlink" title="配置主机名称"></a>配置主机名称</h2><p>为了便于在局域网中查找某台特定的主机，或者对主机进行区分，除了要有IP地址外，还要为主机配置一个主机名，主机之间可以通过这个类似于域名的名称来相互访问。在Linux系统中，主机名大多保存在/etc/hostname文件中，接下来将/etc/hostname文件的内容修改为“linuxprobe.com”</p>
+<blockquote>
+<p>第1步：使用Vim编辑器修改“<code>/etc/hostname</code>”主机名称文件。</p>
+<p>第2步：把原始主机名称删除后<strong>追加</strong>“linuxprobe.com”。注意，使用Vim编辑器修改主机名称文件后，要在末行模式下执行:wq!命令才能保存并退出文档。</p>
+<p>第3步：保存并退出文档，然后使用<strong>hostname</strong>命令检查是否修改成功。</p>
+</blockquote>
+<h2 id="配置网卡信息"><a href="#配置网卡信息" class="headerlink" title="配置网卡信息"></a>配置网卡信息</h2><p>网卡IP地址配置的是否正确是两台服务器是否可以<strong>相互通信的前提</strong>。在Linux系统中，一切都是文件，因此配置网络服务的工作其实就是在编辑网卡配置文件，因此这个小任务不仅可以帮助您练习使用Vim编辑器，而且也为您后面学习Linux中的各种服务配置打下了坚实的基础。当您认真学习完本书后，一定会特别有成就感，因为本书前面的基础部分非常扎实，而后面内容则具有几乎一致的网卡IP地址和运行环境，从而确保您全身心地投入到各类服务程序的学习上，而不用操心系统环境的问题。</p>
+<p>现在有一个名称为ifcfg-eno16777736的网卡设备，我们将其配置为开机自启动，并且IP地址、子网、网关等信息由人工指定，其步骤应该如下所示。</p>
+<p><strong>第1步：</strong>首先切换到<code>/etc/sysconfig/network-scripts</code>目录中（存放着网卡的配置文件）。</p>
+<p><strong>第2步：</strong>使用Vim编辑器修改网卡文件ifcfg-eno16777736，逐项写入下面的配置参数并保存退出。由于每台设备的硬件及架构是不一样的，因此请读者使用ifconfig命令自行确认各自网卡的默认名称。</p>
+<blockquote>
+<p>设备类型：TYPE=Ethernet</p>
+<p>地址分配模式：BOOTPROTO=static</p>
+<p>网卡名称：NAME=eno16777736</p>
+<p>是否启动：ONBOOT=yes</p>
+<p>IP地址：IPADDR=192.168.10.10</p>
+<p>子网掩码：NETMASK=255.255.255.0</p>
+<p>网关地址：GATEWAY=192.168.10.1</p>
+<p>DNS地址：DNS1=192.168.10.1</p>
+</blockquote>
+<p><strong>第3步：</strong>重启网络服务并测试网络是否联通。</p>
+<p>进入到网卡配置文件所在的目录，然后编辑网卡配置文件，在其中填入下面的信息：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># cd /etc/sysconfig/network-scripts/</span></span><br><span class="line">[root@linuxprobe network-scripts]<span class="meta"># vim ifcfg-eno16777736</span></span><br><span class="line">TYPE=Ethernet</span><br><span class="line">BOOTPROTO=<span class="keyword">static</span></span><br><span class="line">NAME=eno16777736</span><br><span class="line">ONBOOT=yes</span><br><span class="line">IPADDR=<span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span></span><br><span class="line">NETMASK=<span class="number">255.255</span><span class="number">.255</span><span class="number">.0</span></span><br><span class="line">GATEWAY=<span class="number">192.168</span><span class="number">.10</span><span class="number">.1</span></span><br><span class="line">DNS1=<span class="number">192.168</span><span class="number">.10</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
+<p>执行重启网卡设备的命令（在正常情况下不会有提示信息），然后通过ping命令测试网络能否联通。由于在Linux系统中ping命令不会自动终止，因此需要手动按下Ctrl-c键来强行结束进程。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe network-scripts]<span class="meta"># systemctl restart network</span></span><br><span class="line">[root@linuxprobe network-scripts]<span class="meta"># ping 192.168.10.10</span></span><br><span class="line">PING <span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span> (<span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span>) <span class="number">56</span>(<span class="number">84</span>) bytes of data.</span><br><span class="line"><span class="number">64</span> bytes from <span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span>: icmp_seq=<span class="number">1</span> ttl=<span class="number">64</span> time=<span class="number">0.081</span> ms</span><br><span class="line"><span class="number">64</span> bytes from <span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span>: icmp_seq=<span class="number">2</span> ttl=<span class="number">64</span> time=<span class="number">0.083</span> ms</span><br><span class="line"><span class="number">64</span> bytes from <span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span>: icmp_seq=<span class="number">3</span> ttl=<span class="number">64</span> time=<span class="number">0.059</span> ms</span><br><span class="line"><span class="number">64</span> bytes from <span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span>: icmp_seq=<span class="number">4</span> ttl=<span class="number">64</span> time=<span class="number">0.097</span> ms</span><br><span class="line">^C</span><br><span class="line">--- <span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span> ping statistics ---</span><br><span class="line"><span class="number">4</span> packets transmitted, <span class="number">4</span> received, <span class="number">0</span>% packet loss, time <span class="number">2999</span>ms</span><br><span class="line">rtt min/avg/max/mdev = <span class="number">0.059</span>/<span class="number">0.080</span>/<span class="number">0.097</span>/<span class="number">0.013</span> ms</span><br></pre></td></tr></table></figure>
+<h2 id="配置Yum仓库"><a href="#配置Yum仓库" class="headerlink" title="配置Yum仓库"></a>配置Yum仓库</h2><p>本书前面讲到，Yum软件仓库的作用是为了进一步简化RPM管理软件的难度以及自动分析所需软件包及其依赖关系的技术。可以把Yum想象成是一个硕大的软件仓库，里面保存有几乎所有常用的工具，而且只需要说出所需的软件包名称，系统就会自动为您搞定一切。</p>
+<p>既然要使用Yum软件仓库，就要先把它搭建起来，然后将其配置规则确定好才行。鉴于第6章才会讲解Linux的存储结构和设备挂载操作，所以我们当前还是将重心放到Vim编辑器的学习上。如果遇到看不懂的参数也不要紧，后面章节会单独讲解。搭建并配置Yum软件仓库的大致步骤如下所示</p>
+<h2 id="编写Shell脚本"><a href="#编写Shell脚本" class="headerlink" title="编写Shell脚本"></a>编写Shell脚本</h2><p>可以将Shell终端解释器当作<strong>人与计算机硬件之间</strong>的“翻译官”，它作为用户与Linux系统内部的通信媒介，除了能够支持各种变量与参数外，还提供了诸如<strong>循环、分支</strong>等高级编程语言才有的控制结构特性。要想正确使用Shell中的这些功能特性，准确下达命令尤为重要。Shell脚本命令的工作方式有两种：交互式和批处理。</p>
+<blockquote>
+<p>交互式（Interactive）：用户每输入一条命令就立即执行。</p>
+<p>批处理（Batch）：由用户事先编写好一个完整的Shell脚本，Shell会一次性执行脚本中诸多的命令。</p>
+</blockquote>
+<p>在Shell脚本中不仅会用到前面学习过的很多Linux命令以及<strong>正则表达式、管道符、数据流重定向等语法规则</strong>，还需要把内部功能模块化后通过逻辑语句进行处理，最终形成日常所见的Shell脚本。</p>
+<p>查看SHELL变量可以发现当前系统已经默认使用Bash作为命令行终端解释器了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo $SHELL</span><br><span class="line">/bin/bash</span><br></pre></td></tr></table></figure>
+<h2 id="编写简单的脚本"><a href="#编写简单的脚本" class="headerlink" title="编写简单的脚本"></a>编写简单的脚本</h2><p>估计读者在看完上文中有关Shell脚本的复杂描述后，会累觉不爱吧。但是，上文指的是一个高级Shell脚本的编写原则，其实使用Vim编辑器把Linux命令按照顺序依次写入到一个文件中，这就是一个简单的脚本了。</p>
+<p>例如，如果想查看当前所在工作路径并列出当前目录下所有的文件及属性信息，实现这个功能的脚本应该类似于下面这样</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ vim example.sh</span><br><span class="line">#!/bin/bash </span><br><span class="line">#For Example BY linuxprobe.com </span><br><span class="line">pwd </span><br><span class="line">ls -al</span><br></pre></td></tr></table></figure>
+<p>Shell脚本文件的名称可以任意，<strong>但为了避免被误以为是普通文件</strong>，建议将<code>.sh</code>后缀加上，以表示是一个脚本文件。在上面的这个example.sh脚本中实际上出现了<strong>三种</strong>不同的元素：<br>第一行的脚本声明（<code>#!</code>）用来告诉系统使用哪种Shell解释器来执行该脚本；<br>第二行的注释信息（<code>#</code>）是对脚本功能和某些命令的介绍信息，使得自己或他人在日后看到这个脚本内容时，可以快速知道该脚本的作用或一些警告信息；<br>第三、四行的可执行语句也就是我们平时执行的Linux命令了。什么？！你们不相信这么简单就编写出来了一个脚本程序，那我们来执行一下看看结果：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ bash example.sh</span><br><span class="line">/root/Desktop</span><br><span class="line">total <span class="number">8</span></span><br><span class="line">drwxr-xr-x. <span class="number">2</span> root root <span class="number">23</span> Jul <span class="number">23</span> <span class="number">17</span>:<span class="number">31</span> .</span><br><span class="line">dr-xr-x---. <span class="number">14</span> root root <span class="number">4096</span> Jul <span class="number">23</span> <span class="number">17</span>:<span class="number">31</span> ..</span><br><span class="line">-rwxr--r--. <span class="number">1</span> root root <span class="number">55</span> Jul <span class="number">23</span> <span class="number">17</span>:<span class="number">31</span> example.sh</span><br></pre></td></tr></table></figure>
+<p>除了上面<strong>用bash解释器命令直接运行Shell脚本文件外</strong>，第二种运行脚本程序的方法是通过<strong>输入完整路径</strong>的方式来执行。但默认会因为权限不足而提示报错信息，此时只需要为脚本文件<strong>增加执行权限即可</strong>（详见第5章）。初次学习Linux系统的读者不用心急，等下一章学完用户身份和权限后再来做这个实验也不迟：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]# ./example.sh</span><br><span class="line">bash: ./Example.sh: Permission denied</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># chmod u+x example.sh</span></span><br><span class="line">[root@linuxprobe ~]# ./example.sh</span><br><span class="line">/root/Desktop</span><br><span class="line">total <span class="number">8</span></span><br><span class="line">drwxr-xr-x. <span class="number">2</span> root root <span class="number">23</span> Jul <span class="number">23</span> <span class="number">17</span>:<span class="number">31</span> .</span><br><span class="line">dr-xr-x---. <span class="number">14</span> root root <span class="number">4096</span> Jul <span class="number">23</span> <span class="number">17</span>:<span class="number">31</span> ..</span><br><span class="line">-rwxr--r--. <span class="number">1</span> root root <span class="number">55</span> Jul <span class="number">23</span> <span class="number">17</span>:<span class="number">31</span> example.sh</span><br></pre></td></tr></table></figure>
+<h2 id="接收用户的参数"><a href="#接收用户的参数" class="headerlink" title="接收用户的参数"></a>接收用户的参数</h2><p>但是，像上面这样的脚本程序只能执行一些预先定义好的功能，未免太过死板了。为了让Shell脚本程序更好地满足用户的一些实时需求，以便<strong>灵活</strong>完成工作，必须要让脚本程序能够像之前执行命令时那样，接收用户输入的参数。<br>其实，Linux系统中的Shell脚本语言早就考虑到了这些，已经内设了<strong>用于接收参数的变量</strong>，变量之间可以使用<strong>空格间隔</strong>。例如$0对应的是当前Shell脚本程序的名称，<code>$#</code>对应的是总共有几个参数，<code>$*</code>对应的是所有位置的参数值，<code>$?</code>对应的是显示上一次命令的执行返回值，而$1、$2、$3……则分别对应着第N个位置的参数值，如图4-15所示。</p>
+<p><img src="Shell脚本程序中的参数位置变量.png" alt="Shell脚本程序中的参数位置变量.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim example.sh</span></span><br><span class="line">#!/bin/bash</span><br><span class="line">echo <span class="string">"当前脚本名称为$0"</span></span><br><span class="line">echo <span class="string">"总共有$#个参数，分别是$*。"</span></span><br><span class="line">echo <span class="string">"第1个参数为$1，第5个为$5。"</span></span><br><span class="line">[root@linuxprobe ~]<span class="meta"># sh example.sh one two three four five six</span></span><br><span class="line">当前脚本名称为example.sh</span><br><span class="line">总共有<span class="number">6</span>个参数，分别是one two three four five six。</span><br><span class="line">第<span class="number">1</span>个参数为one，第<span class="number">5</span>个为five。</span><br></pre></td></tr></table></figure>
+<h2 id="判断用户的参数"><a href="#判断用户的参数" class="headerlink" title="判断用户的参数"></a>判断用户的参数</h2><p>学习是一个登堂入室、由浅入深的过程。在学习完Linux命令、掌握Shell脚本语法变量和接收用户输入的信息之后，就要踏上新的高度—能够进一步处理接收到的用户参数。</p>
+<p>在本书前面章节中讲到，系统在执行mkdir命令时会判断用户输入的信息，即判断用户指定的文件夹名称是否已经存在，如果存在则提示报错；反之则自动创建。Shell脚本中的<strong>条件测试语法</strong>可以判断表达式是否成立，<strong>若条件成立则返回数字0，否则便返回其他随机数值</strong>。条件测试语法的执行格式如图4-16所示。切记，条件表达式两边均应有一个空格。</p>
+<p><img src="测试语句格式.png" alt="测试语句格式.png"></p>
+<p>按照测试对象来划分，条件测试语句可以分为4种：</p>
+<blockquote>
+<p>文件测试语句；</p>
+<p>逻辑测试语句；</p>
+<p>整数值比较语句；</p>
+<p>字符串比较语句。</p>
+</blockquote>
+<p>文件测试即使用指定条件来判断文件是否存在或权限是否满足等情况的运算符，具体的参数如表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-e</td>
+<td>测试文件是否存在</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>判断是否为一般文件</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>测试文件是否为目录类型</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>测试当前用户是否有权限读取</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>测试当前用户是否有权限写入</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>测试当前用户是否有权限执行</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>下面使用文件测试语句来判断/etc/fstab是否为一个<strong>目录类型</strong>的文件，然后通过Shell解释器的内设$?变量显示上一条命令执行后的返回值。如果返回值为0，则目录存在；如果返回值为非零的值，则意味着目录不存在：(2步)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]# [ -d /etc/fstab ]</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># echo $?</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>再使用文件测试语句来判断/etc/fstab是否为一般文件，如果返回值为0，则代表文件存在，且为一般文件：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]# [ -f /etc/fstab ]</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># echo $?</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p><strong>逻辑语句</strong>用于对测试结果进行逻辑分析，根据测试结果可实现不同的效果。例如在Shell终端中逻辑“与”的运算符号是<code>&amp;&amp;</code>，<strong>它表示当前面的命令执行成功后才会执行它后面的命令</strong>，因此可以用来判断/dev/cdrom文件是否存在，若存在则输出Exist字样。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]# [ -e /dev/cdrom ] &amp;&amp; echo <span class="string">"Exist"</span></span><br><span class="line">Exist</span><br></pre></td></tr></table></figure>
+<p>除了逻辑“与”外，还有逻辑“或”，它在Linux系统中的运算符号为<code>||</code>，<strong>表示当前面的命令执行失败后才会执行它后面的命令</strong>，因此可以用来结合系统环境变量USER来判断当前登录的用户是否为非管理员身份</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># echo $USER</span></span><br><span class="line">root</span><br><span class="line">[root@linuxprobe ~]# [ $USER = root ] || echo <span class="string">"user"</span></span><br><span class="line">[root@linuxprobe ~]# su - linuxprobe </span><br><span class="line">[linuxprobe@linuxprobe ~]$ [ $USER = root ] || echo <span class="string">"user"</span></span><br><span class="line">user</span><br></pre></td></tr></table></figure>
+<p>第三种逻辑语句是“非”，在Linux系统中的运算符号是一个叹号（<code>！</code>），它表示把条件测试中的判断结果取相反值。也就是说，如果原本测试的结果是正确的，则将其变成错误的；原本测试错误的结果则将其变成正确的。</p>
+<p>我们现在切换回到root管理员身份，再判断当前用户是否为一个非管理员的用户。由于判断结果因为两次否定而变成正确，因此会正常地输出预设信息：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[linuxprobe@linuxprobe ~]$ <span class="built_in">exit</span></span><br><span class="line">logout</span><br><span class="line">[root@linuxprobe root]# [ $USER != root ] || echo <span class="string">"administrator"</span></span><br><span class="line">administrator</span><br></pre></td></tr></table></figure>
+<p>当前我们正在登录的即为管理员用户—root。下面这个示例的执行顺序是，先判断当前登录用户的USER变量名称是否等于root，然后用逻辑运算符“非”进行取反操作，效果就变成了判断当前登录的用户是否为非管理员用户了。最后若条件成立则会根据逻辑“与”运算符输出user字样；或条件不满足则会通过逻辑“或”运算符输出root字样，而如果前面的&amp;&amp;不成立才会执行后面的||符号。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]# [ $USER != root ] &amp;&amp; echo <span class="string">"user"</span> || echo <span class="string">"root"</span></span><br><span class="line">root</span><br></pre></td></tr></table></figure>
+<p>整数比较运算符仅是对数字的操作，不能将数字与字符串、文件等内容一起操作，而且不能想当然地使用日常生活中的<strong>等号、大于号、小于号</strong>等来判断。<strong>因为等号与赋值命令符冲突，大于号和小于号分别与输出重定向命令符和输入重定向命令符冲突</strong>。因此一定要使用规范的整数比较运算符来进行操作。可用的整数比较运算符如表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-eq</td>
+<td>是否等于</td>
+</tr>
+<tr>
+<td>-ne</td>
+<td>是否不等于</td>
+</tr>
+<tr>
+<td>-gt</td>
+<td>是否大于</td>
+</tr>
+<tr>
+<td>-lt</td>
+<td>是否小于</td>
+</tr>
+<tr>
+<td>-le</td>
+<td>是否等于或小于</td>
+</tr>
+<tr>
+<td>-ge</td>
+<td>是否大于或等于</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>接下来小试牛刀。我们先测试一下10是否大于10以及10是否等于10（通过输出的返回值内容来判断）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]# [ <span class="number">10</span> -gt <span class="number">10</span> ]</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># echo $?</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">[root@linuxprobe ~]# [ <span class="number">10</span> -eq <span class="number">10</span> ]</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># echo $?</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>在2.4节曾经讲过<code>free</code>命令，它可以用来获取当前系统正在使用及可用的内存量信息。接下来先使用<code>free -m</code>命令查看内存使用量情况（单位为MB），然后通过<code>grep Mem</code>:命令过滤出剩余内存量的行，再用<code>awk &#39;{print $4}&#39;</code>命令只保留第四列，最后用<code>FreeMem=\</code>语句``的方式把语句内执行的结果赋值给变量。</p>
+<p>这个演示确实有些难度，但看懂后会觉得很有意思，没准在运维工作中也会用得上。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># free -m</span></span><br><span class="line">            total     used     <span class="built_in">free</span>     shared     buffers     cached</span><br><span class="line">Mem:        <span class="number">1826</span>      <span class="number">1244</span>     <span class="number">582</span>      <span class="number">9</span>          <span class="number">1</span>           <span class="number">413</span></span><br><span class="line">-/+ buffers/cache:    <span class="number">830</span> <span class="number">996</span></span><br><span class="line">Swap:       <span class="number">2047</span>      <span class="number">0</span>        <span class="number">2047</span></span><br><span class="line">[root@linuxprobe ~]<span class="meta"># free -m | grep Mem:</span></span><br><span class="line">Mem:        <span class="number">1826</span>      <span class="number">1244</span>     <span class="number">582</span>      <span class="number">9</span> </span><br><span class="line">[root@linuxprobe ~]# free -m | grep Mem: | awk '&#123;print $4&#125;'</span><br><span class="line"><span class="number">582</span></span><br><span class="line">[root@linuxprobe ~]# FreeMem=`free -m | grep Mem: | awk '&#123;print $4&#125;'`</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># echo $FreeMem </span></span><br><span class="line"><span class="number">582</span></span><br></pre></td></tr></table></figure>
+<p>上面用于获取内存可用量的命令以及步骤可能有些“超纲”了，如果不能理解领会也不用担心，接下来才是重点。我们使用整数运算符来判断内存可用量的值是否小于1024，若小于则会提示“Insufficient Memory”（内存不足）的字样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]# [ $FreeMem -lt <span class="number">1024</span> ] &amp;&amp; echo <span class="string">"Insufficient Memory"</span></span><br><span class="line">Insufficient Memory</span><br></pre></td></tr></table></figure>
+<p><strong>字符串比较语句用于判断测试字符串是否为空值</strong>，或两个字符串是否相同。它经常用来判断某个变量是否未被定义（即内容为空值），理解起来也比较简单。字符串比较中常见的运算符如表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>比较字符串内容是否相同</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>比较字符串内容是否不同</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>判断字符串内容是否为空</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>接下来通过判断String变量是否为空值，进而判断是否定义了这个变量：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]# [ -z $String ]</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># echo $?</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>再尝试引入逻辑运算符来试一下。当用于保存当前语系的环境变量值LANG不是英语（en.US）时，则会满足逻辑测试条件并输出“Not en.US”（非英语）的字样</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># echo $LANG</span></span><br><span class="line">en_US.UTF<span class="number">-8</span></span><br><span class="line">[root@linuxprobe ~]# [ $LANG != <span class="string">"en.US"</span> ] &amp;&amp; echo <span class="string">"Not en.US"</span></span><br><span class="line">Not en.US</span><br></pre></td></tr></table></figure>
+<h2 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h2><p>尽管此时可以通过使用Linux命令、管道符、重定向以及条件测试语句来编写最基本的Shell脚本，但是这种脚本并不适用于生产环境。原因是它不能根据真实的工作需求来调整具体的执行命令，也不能根据某些条件实现自动循环执行。例如，我们需要批量创建1000位用户，首先要判断这些用户是否已经存在；若不存在，则通过循环语句让脚本自动且依次创建他们。</p>
+<p>接下来我们通过<code>if、for、while、case</code>这4种流程控制语句来学习编写难度更大、功能更强的Shell脚本。为了保证下文的实用性和趣味性，做到寓教于乐，我会尽可能多地讲解各种不同功能的Shell脚本示例，而不是逮住一个脚本不放，在它原有内容的基础上修修补补。尽管这种修补式的示例教学也可以让读者明白理论知识，但是却无法开放思路，不利于日后的工作</p>
+<h3 id="if条件测试语句"><a href="#if条件测试语句" class="headerlink" title="if条件测试语句"></a>if条件测试语句</h3><p>if条件测试语句可以让脚本根据实际情况自动执行相应的命令。从技术角度来讲，if语句分为<strong>单分支结构、双分支结构、多分支结构</strong>；其复杂度随着灵活度一起逐级上升。</p>
+<p>if条件语句的单分支结构由<code>if、then、fi</code>关键词组成，而且只在条件成立后才执行预设的命令，相当于口语的“如果……那么……”。单分支的if语句属于最简单的一种条件判断结构，语法格式如图</p>
+<p><img src="单分支结构-2.png" alt="单分支结构-2.png"></p>
+<p>下面使用单分支的if条件语句来判断/media/cdrom文件是否存在，若存在就结束条件判断和整个Shell脚本，反之则去创建这个目录：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim mkcdrom.sh</span></span><br><span class="line">#!/bin/bash</span><br><span class="line">DIR=<span class="string">"/media/cdrom"</span></span><br><span class="line"><span class="keyword">if</span> [ ! -e $DIR ]</span><br><span class="line">then</span><br><span class="line">mkdir -p $DIR</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>由于第5章才讲解用户身份与权限，因此这里继续用“bash 脚本名称”的方式来执行脚本。在正常情况下，顺利执行完脚本文件后没有任何输出信息，但是可以使用<code>ls命令验证/media/cdrom</code>目录是否已经成功创建：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># bash mkcdrom.sh</span></span><br><span class="line">[root@linuxprobe ~]<span class="meta"># ls -d /media/cdrom</span></span><br><span class="line">/media/cdrom</span><br></pre></td></tr></table></figure>
+<p>if条件语句的双分支结构由<code>if、then、else、fi</code>关键词组成，它进行一次条件匹配判断，如果与条件匹配，则去执行相应的预设命令；反之则去执行不匹配时的预设命令，相当于口语的“如果……那么……或者……那么……”。if条件语句的双分支结构也是一种很简单的判断结构，语法格式如图</p>
+<p><img src="双分支结构-1.png" alt="双分支结构-1.png"></p>
+<p>下面使用<strong>双分支的if条件语句来验证某台主机是否在线</strong>，然后根据返回值的结果，要么显示主机在线信息，要么显示主机不在线信息。这里的脚本主要使用<code>ping</code>命令来测试与对方主机的网络联通性，而Linux系统中的ping命令不像Windows一样尝试4次就结束，因此为了避免用户等待时间过长，需要通过<code>-c</code>参数来规定尝试的次数，并使用<code>-i</code>参数定义每个数据包的发送间隔，以及使用<code>-W</code>参数定义等待超时时间。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim chkhost.sh</span></span><br><span class="line">#!/bin/bash</span><br><span class="line">ping -c <span class="number">3</span> -i <span class="number">0.2</span> -W <span class="number">3</span> $<span class="number">1</span> &amp;&gt; /dev/null</span><br><span class="line"><span class="keyword">if</span> [ $? -eq <span class="number">0</span> ]</span><br><span class="line">then</span><br><span class="line">echo <span class="string">"Host $1 is On-line."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">echo <span class="string">"Host $1 is Off-line."</span></span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>我们在4.2.3小节中用过<code>$?</code>变量，作用是<strong>显示上一次命令的执行返回值</strong>。若前面的那条语句成功执行，则$?变量会显示数字0，反之则显示一个非零的数字（可能为1，也可能为2，取决于系统版本）。因此可以使用整数比较运算符来判断$?变量是否为0，从而获知那条语句的最终判断情况。这里的服务器IP地址为192.168.10.10，我们来验证一下脚本的效果：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># bash chkhost.sh 192.168.10.10</span></span><br><span class="line">Host <span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span> is On-line.</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># bash chkhost.sh 192.168.10.20</span></span><br><span class="line">Host <span class="number">192.168</span><span class="number">.10</span><span class="number">.20</span> is Off-line.</span><br></pre></td></tr></table></figure>
+<p>if条件语句的<code>多分支结构由if、then、else、elif、fi</code>关键词组成，它进行多次条件匹配判断，这多次判断中的任何一项在匹配成功后都会执行相应的预设命令，相当于口语的“如果……那么……如果……那么……”。if条件语句的多分支结构是工作中最常使用的一种条件判断结构，尽管相对复杂但是更加灵活，语法格式如图</p>
+<p><img src="多分支结构-2.png" alt="多分支结构-2.png"></p>
+<p>下面使用多分支的if条件语句来判断用户输入的分数在哪个成绩区间内，然后输出如Excellent、Pass、Fail等提示信息。在Linux系统中，<code>read</code>是用来读取用户输入信息的命令，能够把接收到的用户输入信息赋值给后面的指定变量，<code>-p</code>参数用于向用户显示一定的提示信息。在下面的脚本示例中，只有当用户输入的分数大于等于85分且小于等于100分，才输出Excellent字样；若分数不满足该条件（即匹配不成功），则继续判断分数是否大于等于70分且小于等于84分，如果是，则输出Pass字样；若两次都落空（即两次的匹配操作都失败了），则输出Fail字样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim chkscore.sh</span></span><br><span class="line">#!/bin/bash</span><br><span class="line">read -p <span class="string">"Enter your score（0-100）："</span> GRADE</span><br><span class="line"><span class="keyword">if</span> [ $GRADE -ge <span class="number">85</span> ] &amp;&amp; [ $GRADE -le <span class="number">100</span> ] ; then</span><br><span class="line">echo <span class="string">"$GRADE is Excellent"</span></span><br><span class="line">elif [ $GRADE -ge <span class="number">70</span> ] &amp;&amp; [ $GRADE -le <span class="number">84</span> ] ; then</span><br><span class="line">echo <span class="string">"$GRADE is Pass"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">echo <span class="string">"$GRADE is Fail"</span> </span><br><span class="line">fi</span><br><span class="line">[root@linuxprobe ~]# bash chkscore.sh</span><br><span class="line">Enter your score（<span class="number">0</span><span class="number">-100</span>）：<span class="number">88</span></span><br><span class="line"><span class="number">88</span> is Excellent</span><br><span class="line">[root@linuxprobe ~]# bash chkscore.sh </span><br><span class="line">Enter your score（<span class="number">0</span><span class="number">-100</span>）：<span class="number">80</span></span><br><span class="line"><span class="number">80</span> is Pass</span><br></pre></td></tr></table></figure>
+<p>下面执行该脚本。当用户输入的分数分别为30和200时，其结果如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># bash chkscore.sh  </span></span><br><span class="line">Enter your score（<span class="number">0</span><span class="number">-100</span>）：<span class="number">30</span></span><br><span class="line"><span class="number">30</span> is Fail</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># bash chkscore.sh</span></span><br><span class="line">Enter your score（<span class="number">0</span><span class="number">-100</span>）：<span class="number">200</span> </span><br><span class="line"><span class="number">200</span> is Fail</span><br></pre></td></tr></table></figure>
+<p>为什么输入的分数为200时，依然显示Fail呢？原因很简单—没有成功匹配脚本中的两个条件判断语句，因此自动执行了<strong>最终的兜底策略</strong>。可见，这个脚本还不是很完美，建议读者自行完善这个脚本，使得用户在输入大于100或小于0的分数时，给予Error报错字样的提示。</p>
+<h3 id="for条件循环语句"><a href="#for条件循环语句" class="headerlink" title="for条件循环语句"></a>for条件循环语句</h3><p>for循环语句允许脚本一次性读取多个信息，然后逐一对信息进行操作处理，当要处理的数据有范围时，使用for循环语句再适合不过了。for循环语句的语法格式如图</p>
+<p><img src="for条件语句-1.png" alt="for条件语句-1.png"></p>
+<p>下面使用for循环语句从列表文件中<strong>读取多个用户名</strong>，然后为其逐一创建用户账户并设置密码。首先创建用户名称的列表文件users.txt，每个用户名称单独一行。读者可以自行决定具体的用户名称和个数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim users.txt</span></span><br><span class="line">andy</span><br><span class="line">barry</span><br><span class="line">carl</span><br><span class="line">duke</span><br><span class="line">eric</span><br><span class="line">george</span><br></pre></td></tr></table></figure>
+<p>接下来编写Shell脚本<strong>Example.sh</strong>。在脚本中使用<code>read</code>命令读取用户输入的密码值，然后赋值给PASSWD变量，并通过<code>-p</code>参数向用户显示一段提示信息，告诉用户正在输入的内容即将作为账户密码。在执行该脚本后，会自动使用从列表文件users.txt中获取到所有的用户名称，然后逐一使用“id 用户名”命令查看用户的信息，并使用<code>$?</code>判断这条命令是否执行成功，也就是判断该用户是否已经存在。</p>
+<p>需要多说一句，<strong>/dev/null是一个被称作Linux黑洞的文件</strong>，把输出信息重定向到这个文件<strong>等同于删除数据</strong>（类似于没有回收功能的垃圾箱），可以让用户的屏幕窗口保持简洁。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim Example.sh</span></span><br><span class="line">#!/bin/bash</span><br><span class="line">read -p <span class="string">"Enter The Users Password : "</span> PASSWD</span><br><span class="line"><span class="keyword">for</span> UNAME in `cat users.txt`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">id $UNAME &amp;&gt; /dev/null</span><br><span class="line"><span class="keyword">if</span> [ $? -eq <span class="number">0</span> ]</span><br><span class="line">then</span><br><span class="line">echo <span class="string">"Already exists"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">useradd $UNAME &amp;&gt; /dev/null</span><br><span class="line">echo <span class="string">"$PASSWD"</span> | passwd --<span class="built_in">stdin</span> $UNAME &amp;&gt; /dev/null</span><br><span class="line"><span class="keyword">if</span> [ $? -eq <span class="number">0</span> ]</span><br><span class="line">then</span><br><span class="line">echo <span class="string">"$UNAME , Create success"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">echo <span class="string">"$UNAME , Create failure"</span></span><br><span class="line">fi</span><br><span class="line">fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>执行批量创建用户的Shell脚本Example.sh，在输入为账户设定的密码后将由脚本自动检查并创建这些账户。由于已经将多余的信息通过输出重定向符转移到了/dev/null黑洞文件中，因此在正常情况下屏幕窗口除了“用户账户创建成功”（Create success）的提示后不会有其他内容。</p>
+<p>在Linux系统中，<strong>/etc/passwd是用来保存用户账户信息的文件</strong>。如果想确认这个脚本是否成功创建了用户账户，可以打开这个文件，看其中是否有这些新创建的用户信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># bash Example.sh</span></span><br><span class="line">Enter The Users Password : linuxprobe</span><br><span class="line">andy , Create success</span><br><span class="line">barry , Create success</span><br><span class="line">carl , Create success</span><br><span class="line">duke , Create success</span><br><span class="line">eric , Create success</span><br><span class="line">george , Create success</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># tail -6 /etc/passwd</span></span><br><span class="line">andy:x:<span class="number">1001</span>:<span class="number">1001</span>::/home/andy:/bin/bash</span><br><span class="line">barry:x:<span class="number">1002</span>:<span class="number">1002</span>::/home/barry:/bin/bash</span><br><span class="line">carl:x:<span class="number">1003</span>:<span class="number">1003</span>::/home/carl:/bin/bash</span><br><span class="line">duke:x:<span class="number">1004</span>:<span class="number">1004</span>::/home/duke:/bin/bash</span><br><span class="line">eric:x:<span class="number">1005</span>:<span class="number">1005</span>::/home/eric:/bin/bash</span><br><span class="line">george:x:<span class="number">1006</span>:<span class="number">1006</span>::/home/george:/bin/bash</span><br></pre></td></tr></table></figure>
+<p>您还记得在学习双分支if条件语句时，用到的那个<strong>测试主机是否在线的脚本么</strong>？既然我们现在已经掌握了for循环语句，不妨做些更酷的事情，比如尝试让脚本从文本中自动读取主机列表，然后自动逐个测试这些主机是否在线。</p>
+<p>首先创建一个主机列表文件ipadds.txt：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim ipadds.txt</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.10</span><span class="number">.11</span></span><br><span class="line"><span class="number">192.168</span><span class="number">.10</span><span class="number">.12</span></span><br></pre></td></tr></table></figure>
+<p>然后前面的双分支if条件语句与for循环语句相结合，让脚本从主机列表文件ipadds.txt中自动读取IP地址（用来表示主机）并将其赋值给HLIST变量，从而通过判断ping命令执行后的返回值来逐个测试主机是否在线。脚本中出现的$（命令）是一种完全类似于第3章的转义字符中反引号<code>命令</code>的Shell操作符，效果同样是执行括号或双引号括起来的字符串中的命令。大家在编写脚本时，多学习几种类似的新方法，可在工作中大显身手：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim CheckHosts.sh</span></span><br><span class="line">#!/bin/bash</span><br><span class="line">HLIST=$(cat ~/ipadds.txt)</span><br><span class="line"><span class="keyword">for</span> IP in $HLIST</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">ping -c <span class="number">3</span> -i <span class="number">0.2</span> -W <span class="number">3</span> $IP &amp;&gt; /dev/null</span><br><span class="line"><span class="keyword">if</span> [ $? -eq <span class="number">0</span> ] ; then</span><br><span class="line">echo <span class="string">"Host $IP is On-line."</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">echo <span class="string">"Host $IP is Off-line."</span></span><br><span class="line">fi</span><br><span class="line">done</span><br><span class="line">[root@linuxprobe ~]# ./CheckHosts.sh</span><br><span class="line">Host <span class="number">192.168</span><span class="number">.10</span><span class="number">.10</span> is On-line.</span><br><span class="line">Host <span class="number">192.168</span><span class="number">.10</span><span class="number">.11</span> is Off-line.</span><br><span class="line">Host <span class="number">192.168</span><span class="number">.10</span><span class="number">.12</span> is Off-line.</span><br></pre></td></tr></table></figure>
+<h3 id="while条件循环语句"><a href="#while条件循环语句" class="headerlink" title="while条件循环语句"></a>while条件循环语句</h3><p>while条件循环语句是一种让脚本根据某些条件来重复执行命令的语句，它的循环结构往往在执行前并<strong>不确定最终执行的次数</strong>，完全不同于for循环语句中有目标、有范围的使用场景。while循环语句通过判断条件测试的真假来决定是否继续执行命令，若条件为真就继续执行，为假就结束循环。while语句的语法格式如图4-21所示。</p>
+<p><img src="while条件语句-1.png" alt="while条件语句-1.png"></p>
+<p>接下来结合使用多分支的if条件测试语句与while条件循环语句，编写一个用来猜测数值大小的脚本Guess.sh。该脚本使用$RANDOM变量来调取出一个随机的数值（范围为0～32767），将这个随机数对1000进行取余操作，并使用expr命令取得其结果，再用这个数值与用户通过read命令输入的数值进行比较判断。这个判断语句分为三种情况，分别是判断用户输入的数值是等于、大于还是小于使用expr命令取得的数值。当前，现在这些内容不是重点，我们当前要关注的是while条件循环语句中的条件测试始终为true，因此判断语句会无限执行下去，直到用户输入的数值等于expr命令取得的数值后，这两者相等之后才运行exit 0命令，终止脚本的执行。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim Guess.sh</span></span><br><span class="line">#!/bin/bash</span><br><span class="line">PRICE=$(expr $RANDOM % <span class="number">1000</span>)</span><br><span class="line">TIMES=<span class="number">0</span></span><br><span class="line">echo <span class="string">"商品实际价格为0-999之间，猜猜看是多少？"</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">read -p <span class="string">"请输入您猜测的价格数目："</span> INT</span><br><span class="line">let TIMES++</span><br><span class="line"><span class="keyword">if</span> [ $INT -eq $PRICE ] ; then</span><br><span class="line">echo <span class="string">"恭喜您答对了，实际价格是 $PRICE"</span></span><br><span class="line">echo <span class="string">"您总共猜测了 $TIMES 次"</span></span><br><span class="line"><span class="built_in">exit</span> <span class="number">0</span></span><br><span class="line">elif [ $INT -gt $PRICE ] ; then</span><br><span class="line">echo <span class="string">"太高了！"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">echo <span class="string">"太低了！"</span></span><br><span class="line">fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>在这个Guess.sh脚本中，我们添加了一些交互式的信息，从而使得用户与系统的互动性得以增强。而且每当循环到let TIMES++命令时都会让TIMES变量内的数值加1，用来统计循环总计执行了多少次。<strong>这可以让用户得知总共猜测了多少次之后，才猜对价格</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># bash Guess.sh</span></span><br><span class="line">商品实际价格为<span class="number">0</span><span class="number">-999</span>之间，猜猜看是多少？</span><br><span class="line">请输入您猜测的价格数目：<span class="number">500</span></span><br><span class="line">太低了！</span><br><span class="line">请输入您猜测的价格数目：<span class="number">800</span></span><br><span class="line">太高了！</span><br><span class="line">请输入您猜测的价格数目：<span class="number">650</span></span><br><span class="line">太低了！</span><br><span class="line">请输入您猜测的价格数目：<span class="number">720</span></span><br><span class="line">太高了！</span><br><span class="line">请输入您猜测的价格数目：<span class="number">690</span></span><br><span class="line">太低了！</span><br><span class="line">请输入您猜测的价格数目：<span class="number">700</span></span><br><span class="line">太高了！</span><br><span class="line">请输入您猜测的价格数目：<span class="number">695</span></span><br><span class="line">太高了！</span><br><span class="line">请输入您猜测的价格数目：<span class="number">692</span></span><br><span class="line">太高了！</span><br><span class="line">请输入您猜测的价格数目：<span class="number">691</span></span><br><span class="line">恭喜您答对了，实际价格是 <span class="number">691</span></span><br><span class="line">您总共猜测了 <span class="number">9</span> 次</span><br></pre></td></tr></table></figure>
+<h3 id="case条件测试语句"><a href="#case条件测试语句" class="headerlink" title="case条件测试语句"></a>case条件测试语句</h3><p>如果您之前学习过C语言，看到这一小节的标题肯定会会心一笑“这不就是switch语句嘛！”是的，case条件测试语句和switch语句的功能非常相似！case语句是在多个范围内匹配数据，若匹配成功则执行相关命令并结束整个条件测试；而如果数据不在所列出的范围内，则会去执行星号（*）中所定义的默认命令。case语句的语法结构如图</p>
+<p><img src="case条件语句-1.png" alt="case条件语句-1.png"></p>
+<p>在前文介绍的<strong>Guess.sh脚本中有一个致命的弱点—只能接受数字！</strong>您可以尝试输入一个字母，会发现脚本立即就崩溃了。原因是字母无法与数字进行大小比较，例如，“a是否大于等于3”这样的命题是完全错误的。我们必须有一定的措施来判断用户的输入内容，当用户输入的内容不是数字时，脚本能予以提示，从而免于崩溃。</p>
+<p>通过在脚本中组合使用case条件测试语句和<strong>通配符</strong>（详见第3章），完全可以满足这里的需求。接下来我们编写脚本Checkkeys.sh，提示用户输入一个字符并将其赋值给变量KEY，然后根据变量KEY的值向用户显示其值是字母、数字还是其他字符。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># vim Checkkeys.sh</span></span><br><span class="line">#!/bin/bash</span><br><span class="line">read -p <span class="string">"请输入一个字符，并按Enter键确认："</span> KEY</span><br><span class="line"><span class="keyword">case</span> <span class="string">"$KEY"</span> in</span><br><span class="line">[a-z]|[A-Z])</span><br><span class="line">echo <span class="string">"您输入的是 字母。"</span></span><br><span class="line">;;</span><br><span class="line">[<span class="number">0</span><span class="number">-9</span>])</span><br><span class="line">echo <span class="string">"您输入的是 数字。"</span></span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">echo <span class="string">"您输入的是 空格、功能键或其他控制字符。"</span></span><br><span class="line">esac</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># bash Checkkeys.sh</span></span><br><span class="line">请输入一个字符，并按Enter键确认：<span class="number">6</span></span><br><span class="line">您输入的是 数字。</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># bash Checkkeys.sh</span></span><br><span class="line">请输入一个字符，并按Enter键确认：p</span><br><span class="line">您输入的是 字母。</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># bash Checkkeys.sh</span></span><br><span class="line">请输入一个字符，并按Enter键确认：^[[<span class="number">15</span>~</span><br><span class="line">您输入的是 空格、功能键或其他控制字符。</span><br></pre></td></tr></table></figure>
+<h2 id="计划任务服务程序"><a href="#计划任务服务程序" class="headerlink" title="计划任务服务程序"></a>计划任务服务程序</h2><p>经验丰富的系统运维工程师可以使得Linux在<strong>无需人为介入</strong>的情况下，在指定的时间段自动启用或停止某些服务或命令，从而实现运维的自动化。尽管我们现在已经有了功能彪悍的脚本程序来执行一些批处理工作，但是，如果仍然需要在每天凌晨两点敲击键盘回车键来执行这个脚本程序，这简直太痛苦了（当然，也可以训练您的小猫在半夜按下回车键）。接下来，刘遄老师将向大家讲解如何设置服务器的计划任务服务，把<strong>周期性、规律性</strong>的工作交给系统自动完成。</p>
+<p><strong>计划任务分为一次性计划任务与长期性计划任务，大家可以按照如下方式理解。</strong></p>
+<blockquote>
+<p>一次性计划任务：今晚11点30分开启网站服务。</p>
+<p>长期性计划任务：每周一的凌晨3点25分把/home/wwwroot目录打包备份为backup.tar.gz。</p>
+</blockquote>
+<p>顾名思义，<strong>一次性计划任务只执行一次</strong>，一般用于满足临时的工作需求。我们可以用<code>at</code>命令实现这种功能，只需要写成“<code>at 时间</code>”的形式就可以。如果想要查看已设置好但还未执行的一次性计划任务，可以使用“<code>at -l</code>”命令；要想将其删除，可以用“<code>atrm 任务序号</code>”。在使用at命令来设置一次性计划任务时，<strong>默认采用的是交互式方法</strong>。例如，使用下述命令将系统设置为在今晚23:30分自动重启网站服务</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># at 23:30</span></span><br><span class="line">at &gt; systemctl restart httpd</span><br><span class="line">at &gt; 此处请同时按下Ctrl+d来结束编写计划任务</span><br><span class="line">job <span class="number">3</span> at Mon Apr <span class="number">27</span> <span class="number">23</span>:<span class="number">30</span>:<span class="number">00</span> <span class="number">2015</span></span><br><span class="line">[root@linuxprobe ~]<span class="meta"># at -l</span></span><br><span class="line"><span class="number">3</span> Mon Apr <span class="number">27</span> <span class="number">23</span>:<span class="number">30</span>:<span class="number">00</span> <span class="number">2016</span> a root</span><br></pre></td></tr></table></figure>
+<p>如果读者想挑战一下难度更大但简捷性更高的方式，可以把前面学习的管道符（任意门）放到两条命令之间，让at命令接收前面echo命令的输出信息，以达到通过非交互式的方式创建计划一次性任务的目的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># echo <span class="meta-string">"systemctl restart httpd"</span> | at 23:30</span></span><br><span class="line">job <span class="number">4</span> at Mon Apr <span class="number">27</span> <span class="number">23</span>:<span class="number">30</span>:<span class="number">00</span> <span class="number">2015</span></span><br><span class="line">[root@linuxprobe ~]<span class="meta"># at -l</span></span><br><span class="line"><span class="number">3</span> Mon Apr <span class="number">27</span> <span class="number">23</span>:<span class="number">30</span>:<span class="number">00</span> <span class="number">2016</span> a root</span><br><span class="line"><span class="number">4</span> Mon Apr <span class="number">27</span> <span class="number">23</span>:<span class="number">30</span>:<span class="number">00</span> <span class="number">2016</span> a root</span><br></pre></td></tr></table></figure>
+<p>如果我们不小心设置了两个一次性计划任务，可以使用下面的命令轻松删除其中一个：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># atrm 3</span></span><br><span class="line">[root@linuxprobe ~]<span class="meta"># at -l</span></span><br><span class="line"><span class="number">4</span> Mon Apr <span class="number">27</span> <span class="number">23</span>:<span class="number">30</span>:<span class="number">00</span> <span class="number">2016</span> a root</span><br></pre></td></tr></table></figure>
+<p>如果我们希望Linux系统能够周期性地、有规律地执行某些具体的任务，那么Linux系统中默认启用的<code>crond</code>服务简直再适合不过了。创建、编辑计划任务的命令为“<code>crontab -e</code>”，查看当前计划任务的命令为“<code>crontab -l</code>”，删除某条计划任务的命令为“<code>crontab -r</code>”。另外，如果您是以管理员的身份登录的系统，还可以在crontab命令中加上<code>-u</code>参数来编辑他人的计划任务。</p>
+<p>在正式部署计划任务前，请先跟刘遄老师念一下口诀“<strong>分、时、日、月、星期 命令</strong>”。这是使用crond服务设置任务的参数格式（其格式见表4-6）。需要注意的是，如果有些字段没有设置，则需要使用星号（*）占位，如图</p>
+<p><img src="cron计划任务的参数.png" alt="cron计划任务的参数.png"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分钟</td>
+<td>取值为0～59的整数</td>
+</tr>
+<tr>
+<td>小时</td>
+<td>取值为0～23的任意整数</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>取值为1～31的任意整数</td>
+</tr>
+<tr>
+<td>月份</td>
+<td>取值为1～12的任意整数</td>
+</tr>
+<tr>
+<td>星期</td>
+<td>取值为0～7的任意整数，其中0与7均为星期日</td>
+</tr>
+<tr>
+<td>命令</td>
+<td>要执行的命令或程序脚本</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>假设在每周一、三、五的凌晨3点25分，都需要使用tar命令把某个网站的数据目录进行打包处理，使其作为一个备份文件。我们可以使用crontab -e命令来创建计划任务。为自己创建计划任务无需使用-u参数，具体的实现效果的参数如crontab -l命令结果所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># crontab -e</span></span><br><span class="line">no crontab <span class="keyword">for</span> root - <span class="keyword">using</span> an empty one</span><br><span class="line">crontab: installing <span class="keyword">new</span> crontab</span><br><span class="line">[root@linuxprobe ~]# crontab -l</span><br><span class="line"><span class="number">25</span> <span class="number">3</span> * * <span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span> /usr/bin/tar -czvf backup.tar.gz /home/wwwroot</span><br></pre></td></tr></table></figure>
+<p>需要说明的是，除了用<strong>逗号（,）</strong>来分别表示多个时间段，例如“8,9,12”表示8月、9月和12月。还可以用<strong>减号（-）</strong>来表示一段连续的时间周期（例如字段“日”的取值为“12-15”，则表示每月的12～15日）。以及用<strong>除号（/）</strong>表示执行任务的间隔时间（例如“*/2”表示每隔2分钟执行一次任务）。</p>
+<p>如果在crond服务中需要同时包含多条计划任务的命令语句，应每行仅写一条。例如我们再添加一条计划任务，它的功能是每周一至周五的凌晨1点钟自动清空/tmp目录内的所有文件。尤其需要注意的是，在crond服务的计划任务参数中，所有命令一定要用绝对路径的方式来写，如果不知道绝对路径，请用whereis命令进行查询，rm命令路径为下面输出信息中加粗部分。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@linuxprobe ~]<span class="meta"># whereis rm</span></span><br><span class="line">rm: /usr/bin/rm /usr/share/man/man1/rm<span class="number">.1</span>.gz /usr/share/man/man1p/rm<span class="number">.1</span>p.gz</span><br><span class="line">[root@linuxprobe ~]<span class="meta"># crontab -e</span></span><br><span class="line">crontab: installing <span class="keyword">new</span> crontab</span><br><span class="line">[root@linuxprobe ~]# crontab -l</span><br><span class="line"><span class="number">25</span> <span class="number">3</span> * * <span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span> /usr/bin/tar -czvf backup.tar.gz /home/wwwroot</span><br><span class="line"><span class="number">0</span> <span class="number">1</span> * * <span class="number">1</span><span class="number">-5</span> /usr/bin/rm -rf /tmp<span class="comment">/*</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在crond服务的配置参数中，可以像Shell脚本那样以<strong>#号开头写上注释信息</strong>，这样在日后回顾这段命令代码时可以快速了解其功能、需求以及编写人员等重要信息。</p>
+<p>计划任务中的<strong>“分”字段必须有数值，绝对不能为空或是*号，而“日”和“星期”字段不能同时使用</strong>，否则就会发生冲突。</p>
+</blockquote>
+<p>最后再啰嗦一句，想必读者也已经发现了，<strong>诸如crond在内的很多服务默认调用的是Vim编辑器</strong>，相信大家现在能进一步体会到在Linux系统中掌握Vim文本编辑器的好处了吧。所以请大家一定要在彻底掌握Vim编码器之后再学习下一章</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/22/管道符-重定向与环境变量/" rel="next" title="管道符,重定向与环境变量">
+                <i class="fa fa-chevron-left"></i> 管道符,重定向与环境变量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/30/牛客JS能力评测/" rel="prev" title="牛客JS能力评测">
+                牛客JS能力评测 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vim和shell命令脚本"><span class="nav-number">1.</span> <span class="nav-text">vim和shell命令脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim文本编辑器"><span class="nav-number">1.1.</span> <span class="nav-text">Vim文本编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写简单文档"><span class="nav-number">1.2.</span> <span class="nav-text">编写简单文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置主机名称"><span class="nav-number">1.3.</span> <span class="nav-text">配置主机名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置网卡信息"><span class="nav-number">1.4.</span> <span class="nav-text">配置网卡信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Yum仓库"><span class="nav-number">1.5.</span> <span class="nav-text">配置Yum仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写Shell脚本"><span class="nav-number">1.6.</span> <span class="nav-text">编写Shell脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写简单的脚本"><span class="nav-number">1.7.</span> <span class="nav-text">编写简单的脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接收用户的参数"><span class="nav-number">1.8.</span> <span class="nav-text">接收用户的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断用户的参数"><span class="nav-number">1.9.</span> <span class="nav-text">判断用户的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程控制语句"><span class="nav-number">1.10.</span> <span class="nav-text">流程控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if条件测试语句"><span class="nav-number">1.10.1.</span> <span class="nav-text">if条件测试语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#for条件循环语句"><span class="nav-number">1.10.2.</span> <span class="nav-text">for条件循环语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while条件循环语句"><span class="nav-number">1.10.3.</span> <span class="nav-text">while条件循环语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case条件测试语句"><span class="nav-number">1.10.4.</span> <span class="nav-text">case条件测试语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计划任务服务程序"><span class="nav-number">1.11.</span> <span class="nav-text">计划任务服务程序</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

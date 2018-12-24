@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="mongodb,数据库,">
+
+
+<meta name="description" content="参考文档，菜鸟mongoDB入门 mongodb使用下载及安装按window上的来，下载并安装好到默认路径，并配置好环境变量(这样才能在cmd命令行中打入mongo就能运行) 要用到的命令也就那几个mongod 打开或创建数据库mongo   连接数据库才能继续其他操作mongoimport 导入数据库 创建数据库目录并在命令行下运行 MongoDB 服务器MongoDB将数据目录存储在 db 目">
+<meta name="keywords" content="mongodb,数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongodb使用">
+<meta property="og:url" content="http://yoursite.com/2018/02/09/mongodb使用/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="参考文档，菜鸟mongoDB入门 mongodb使用下载及安装按window上的来，下载并安装好到默认路径，并配置好环境变量(这样才能在cmd命令行中打入mongo就能运行) 要用到的命令也就那几个mongod 打开或创建数据库mongo   连接数据库才能继续其他操作mongoimport 导入数据库 创建数据库目录并在命令行下运行 MongoDB 服务器MongoDB将数据目录存储在 db 目">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/02/09/mongodb使用/path.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/09/mongodb使用/mongo.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/09/mongodb使用/showdbs1.png">
+<meta property="og:image" content="http://yoursite.com/2018/02/09/mongodb使用/showdbs2.png">
+<meta property="og:updated_time" content="2018-11-16T12:50:23.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mongodb使用">
+<meta name="twitter:description" content="参考文档，菜鸟mongoDB入门 mongodb使用下载及安装按window上的来，下载并安装好到默认路径，并配置好环境变量(这样才能在cmd命令行中打入mongo就能运行) 要用到的命令也就那几个mongod 打开或创建数据库mongo   连接数据库才能继续其他操作mongoimport 导入数据库 创建数据库目录并在命令行下运行 MongoDB 服务器MongoDB将数据目录存储在 db 目">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/09/mongodb使用/path.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/09/mongodb使用/">
+
+
+  <title>mongodb使用 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/09/mongodb使用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mongodb使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-09T15:06:37+08:00">2018-02-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考文档，菜鸟<br><a href="http://www.runoob.com/mongodb/mongodb-window-install.html" target="_blank" rel="noopener">mongoDB入门</a></p>
+<h1 id="mongodb使用"><a href="#mongodb使用" class="headerlink" title="mongodb使用"></a>mongodb使用</h1><h2 id="下载及安装"><a href="#下载及安装" class="headerlink" title="下载及安装"></a>下载及安装</h2><p>按window上的来，下载并安装好到默认路径，<strong>并配置好环境变量(这样才能在cmd命令行中打入mongo就能运行)</strong><br><img src="path.png" alt="path"></p>
+<p><strong>要用到的命令也就那几个</strong><br>mongod 打开或创建数据库<br>mongo   连接数据库才能继续其他操作<br>mongoimport 导入数据库<br><img src="mongo.png" alt="mongo"></p>
+<h2 id="创建数据库目录并在命令行下运行-MongoDB-服务器"><a href="#创建数据库目录并在命令行下运行-MongoDB-服务器" class="headerlink" title="创建数据库目录并在命令行下运行 MongoDB 服务器"></a>创建数据库目录并在命令行下运行 MongoDB 服务器</h2><p>MongoDB将数据目录存储在 db 目录下。但是这个数据目录不会主动创建，我们在安装完成后需要创建它<br>名字随便取，就建个db，<strong>注意不要放在C:\Program Files\MongoDB下</strong></p>
+<p>会提示Invalid command: FilesMongoDBdb<br>毕竟路径中有空格<br>换一个位置，换到C:\Users\db下也不行，说是<strong>只读</strong> 不允许<br><strong>那就干脆放到D盘下</strong></p>
+<p>为了从命令提示符下运行 MongoDB 服务器，你必须从 MongoDB 目录的 bin 目录中执行 <code>mongod.exe</code> 文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//改到D:\db</span><br><span class="line">mongod --dbpath D:\db</span><br></pre></td></tr></table></figure>
+<h2 id="连接MongoDB-这个是在上面打开服务器的基础上"><a href="#连接MongoDB-这个是在上面打开服务器的基础上" class="headerlink" title="连接MongoDB(这个是在上面打开服务器的基础上)"></a>连接MongoDB(这个是在上面打开服务器的基础上)</h2><p>我们可以在命令窗口中运行 mongo.exe 命令即可连接上 MongoDB，执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mongo</span><br></pre></td></tr></table></figure>
+<p><strong>感觉这个用git bash来操作不好</strong><br>因为看下图比较, 就是没有提示符了<br><img src="showdbs1.png" alt="showdbs1"><br><img src="showdbs2.png" alt="showdbs2"></p>
+<h2 id="配置-MongoDB-服务-跳过"><a href="#配置-MongoDB-服务-跳过" class="headerlink" title="配置 MongoDB 服务(跳过)"></a>配置 MongoDB 服务(跳过)</h2><p>管理员模式打开命令行窗口</p>
+<p>创建目录，执行下面的语句来创建数据库和日志文件的目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir c:\data\db</span><br><span class="line">mkdir c:\data\log</span><br></pre></td></tr></table></figure>
+<p>主要一个log日志文件，db前面已将创建了</p>
+<h2 id="一些常用命令-连接Mongo后"><a href="#一些常用命令-连接Mongo后" class="headerlink" title="一些常用命令(连接Mongo后)"></a>一些常用命令(连接Mongo后)</h2><p>总结下前面的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">mongod:</span><br><span class="line">    mongod --dbpath &lt;path&gt;</span><br><span class="line">mongo:</span><br><span class="line">    show dbs            //查看所有数据库(空的数据库不显示，注意insert(&#123;&#125;) 这个也是插入了东西，会显示的。和remove(&#123;&#125;)一样哦 )</span><br><span class="line">    db                  //db 命令查看当前数据库名,也表示当前数据库</span><br><span class="line">    show collections    //查看当前库的所有集合</span><br><span class="line">    show users          //查看当前库有哪些用户</span><br><span class="line">        show profile</span><br><span class="line">        show log</span><br><span class="line"></span><br><span class="line">增  use &lt;dbname&gt;        //使用或创建数据库</span><br><span class="line">        db               //查看当前是哪个数据库 show dbs看不到，因为test中没有数据</span><br><span class="line">删  db.dropDatabase()    //删除当前数据库(要进到删除的数据库中么？先use到，在drop)，默认为 test，你可以使用 db 命令查看当前数据库名。删除后db下还是在被删除掉的数据库中，不过show dbs已经看不到了，和use创建那会一样</span><br><span class="line"></span><br><span class="line">改   </span><br><span class="line">查   db / show dbs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //collections都是BSON格式 当JSON好了   BSON是一种类json的一种二进制形式的存储格式,简称Binary JSON。</span><br><span class="line">增   db.collectionName.insert(&#123;&quot;name&quot;:&quot;pipi&quot;&#125;)   //用json格式写入就好了，可以show dbs可以看到，当然可以定一个变量咯，然后插入。这个插入就只是插入，即使同名也插入，不会替换/合并等。都当做那条集合中的记录</span><br><span class="line"></span><br><span class="line">删   db.collectionName.drop()                    //删了当前数据库所有集合中叫collectionName的一个集合</span><br><span class="line"></span><br><span class="line">    db.collection.remove(                   //这个是移除某个集合中的一条记录</span><br><span class="line">    &lt;query&gt;,</span><br><span class="line">    &#123;</span><br><span class="line">        justOne: &lt;boolean&gt;,</span><br><span class="line">        writeConcern: &lt;document&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    db.col.remove(&#123;&#125;)   //删除一个collection中所有记录，这不就是drop么？不对。drop后是在show collections中也看不到了</span><br><span class="line">    db.col.remove(&#123;&apos;age&apos;: 1&#125;)   //删除所有age=1的</span><br><span class="line">    db.col.remove(&#123;&apos;age&apos;: 1&#125;, &#123;justOne: true&#125;)   //删除所有age=1的中第一条匹配的</span><br><span class="line">    //remove drop dropDatabase</span><br><span class="line"></span><br><span class="line">查   db.collectionName.find()        //查找当前数据库中collectionName这个集合的所有记录</span><br><span class="line">        find(&#123;k: v&#125;)                  //查一个对象，age=3的就是&#123;k:v&#125;还是个模糊查询</span><br><span class="line">        find(&#123;k: &#123;$ne: v&#125;&#125;)                  //查一个对象，age!=3的就是&#123;k:v&#125;还是个模糊查询</span><br><span class="line">        find(&#123;k: v&#125;,&#123;k: v&#125;)           //查多个对象，多个条件用逗号，AND隔开</span><br><span class="line">        find($or: [&#123;k: v&#125;,&#123;k: v&#125;])          //这是OR,当然AND和OR也能一起用</span><br><span class="line">        //条件查询 &gt; &lt;</span><br><span class="line">        find(&#123; k: &#123;$gt: v&#125; &#125;)   gte</span><br><span class="line">        find(&#123; k: &#123;$lt: v&#125; &#125;)   lte</span><br><span class="line">        find(&#123; k: &#123;$gt: v, $lt: v&#125;, k: &#123;$gt: v, $lt: v&#125; &#125;)  //合起来</span><br><span class="line">        find().limit(5)             //查出来了结果过滤，取前5条</span><br><span class="line">        find().skip()               //这是跳过几条</span><br><span class="line">        find().pretty()             //格式更好点</span><br><span class="line">排序      find().sort(&#123;k1: 1&#125;, &#123;k2, -1&#125;)  //按k1排序，k1相同就按k2, 1表正序，-1逆序</span><br><span class="line"></span><br><span class="line">改   //使用 update() 和 save() 方法来更新集合中的文档. 一个是更新，个是替换</span><br><span class="line">    //update() 方法用于更新已存在的文档</span><br><span class="line">    //save() 方法通过传入的文档来替换已有文档</span><br><span class="line"></span><br><span class="line">    db.collection.update(</span><br><span class="line">    &lt;query&gt;,</span><br><span class="line">    &lt;update&gt;,</span><br><span class="line">    &#123;</span><br><span class="line">        upsert: &lt;boolean&gt;,</span><br><span class="line">        multi: &lt;boolean&gt;,           //默认查询第一条匹配的，true之后是所有的</span><br><span class="line">        writeConcern: &lt;document&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">    //用到了$set: db.col.update(&#123;&apos;title&apos;:&apos;MongoDB 教程&apos;&#125;,&#123;$set:&#123;&apos;title&apos;:&apos;MongoDB&apos;&#125;&#125;)</span><br><span class="line">    //以上语句只会修改第一条发现的文档，如果你要修改多条相同的文档，则需要设置 multi 参数为 true。</span><br><span class="line">    //$ db.col.update(&#123;&apos;title&apos;:&apos;MongoDB 教程&apos;&#125;,&#123;$set:&#123;&apos;title&apos;:&apos;MongoDB&apos;&#125;&#125;,&#123;multi:true&#125;)</span><br><span class="line"></span><br><span class="line">    db.collection.update(&#123;</span><br><span class="line">        &#123;k, v&#125;,</span><br><span class="line">        &#123;$set: &#123;k, v2&#125;      修改</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    db.collection.update(&#123;</span><br><span class="line">        &#123;k, v&#125;,</span><br><span class="line">        &#123;k1, v1, k2, v2&#125;    替换</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    db.collection.save(</span><br><span class="line">    &lt;document&gt;,</span><br><span class="line">    &#123;</span><br><span class="line">        writeConcern: &lt;document&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">mongoimport:    导入一个BSON</span><br><span class="line">    mongoimport --db test --collection user --drop --file D:\db\1.json</span><br></pre></td></tr></table></figure>
+<p>最后说下nodejs连接MongoDB</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mongodb/" rel="tag"># mongodb</a>
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/08/基于-PotPlayer-和-madVR-的播放器教程/" rel="next" title="基于 PotPlayer 和 madVR 的播放器教程">
+                <i class="fa fa-chevron-left"></i> 基于 PotPlayer 和 madVR 的播放器教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/14/ubuntu上优化/" rel="prev" title="ubuntu上优化">
+                ubuntu上优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mongodb使用"><span class="nav-number">1.</span> <span class="nav-text">mongodb使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载及安装"><span class="nav-number">1.1.</span> <span class="nav-text">下载及安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建数据库目录并在命令行下运行-MongoDB-服务器"><span class="nav-number">1.2.</span> <span class="nav-text">创建数据库目录并在命令行下运行 MongoDB 服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接MongoDB-这个是在上面打开服务器的基础上"><span class="nav-number">1.3.</span> <span class="nav-text">连接MongoDB(这个是在上面打开服务器的基础上)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-MongoDB-服务-跳过"><span class="nav-number">1.4.</span> <span class="nav-text">配置 MongoDB 服务(跳过)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些常用命令-连接Mongo后"><span class="nav-number">1.5.</span> <span class="nav-text">一些常用命令(连接Mongo后)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
