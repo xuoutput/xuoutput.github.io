@@ -414,6 +414,298 @@ function f(x, y, z) {
 
 ### 8.7.2 prototye属性
 
+每个函数都有一个`prototype`属性, 这个属性是指向一个对象引用, 这个对象称作原型对象(`prototype object`). 每一个函数都包含不同的原型对象, 当将函数用作构造函数的时候, 新创建的对象会从原型对象上继承属性.
+
+### 8.7.3 call()方法和apply()方法
+
+> [深入浅出 妙用Javascript中apply、call、bind](http://www.admin10000.com/document/6711.html)
+
+我们可以将`call()`和`apply()`看做某个对象的方法, 通过调用方法的形式来简介调用函数. `call()`和`apply()`的第一个实参是要调用函数的母对象, 他是调用上下文, 在函数体内通过`this`来获得对他的引用. 想要以对象`o`的方法来调用函数`f()`, 可以这样使用过`call()`和`apply()`
+
+```javascript
+f.call(o)
+f.apply(o)
+```
+
+每行代码和下面代码的功能类似(假设对象o中预先不存在名为m的属性)
+
+```javascript
+o.m = f;        // 将f存储为o的零临时方法
+o.m();          // 调用它, 不传入参数
+delete o.m;     // 将临时方法删除
+```
+
+在ECMAScript5的严格模式中, `call()`和`apply()`的第一个实参都会变为`this`值, 哪怕传入的实参是原始值甚至是`null`或`undefined`. 在ECMASceipt3和费严格模式中, 传入的`null`或`undefined`都会被全局对象代替, 而其他原始值则会被相应的包装对象所替代.
+
+对于`call()`来说, 第一个调用上下文实参之后的所有实参就是要传入待调用函数的值. 比如, 以对象o的方法的形式来调用函数`f()`, 并传入两个参数, 可以使用这样的代码:
+
+```javascript
+f.call(o, 1, 2)
+```
+
+`apply()`方法和`call()`类似, 但传入实参的形式和`call()`有所不同, 它的实参都放入一个数组中
+
+```javascript
+f.apply(o, [1, 2])
+```
+
+如果一个函数的实可以是任意数量, 给`apply()`传入的参数数组可以是任意长度的. 比如, 为了找出数组中最大的数组元素, 调用`Math.max()`方法的时候可以给`apply()`传入一个包含任意个元素的数组:
+
+```javascript
+var biggest = Math.max.apply(Math, array_of_numbers);
+```
+
+需要注意的事, 传入`apply()`的参数数组可以是类数组对象, 也可以是真实数组. 实际上, 可以将当前函数的`arguments`数组直接传入(另一个函数的)`apply()`来调用另一个函数参数
+
+```javascript
+// 将对象o中名为m()的方法替换为另一个方法
+// 可以砸调用原始的方法之前和之后记录日志消息
+function trace(o, m) {
+    var original = o[m]
+    o[m] = function() {
+        console.log(new Date(), "Entering:", m)
+        var result = original.apply(this, arguments)
+        console.log(new Date(), "Exiting:", m)
+        return result
+    }
+}
+
+```
+
+`trace()`这个函数接收两个参数, 一个对象和一个方法名, 他将执行的方法替换为一个新方法, 这个新方法是"包裹"原始方法的另一个泛函数. 这种动态修改已有方法的做法有时称作"monkey-patching"
+
+### 8.7.4 bind()方法
+
+`bind()`在ECMAScript5中新增的方法,但在ECMAScript3中可以轻易模拟`bind()`. 从名字上就可以看出, 这个方法的主要作用就是**将函数绑定至某个对象**. 当在函数`f()`上调用`bind()`方法并传入一个对象o作为参数, 这个方法将返回一个新的函数, (已函数调用的方式)调用新的函数将会把原始的函数`f()`当做o的方法来调用. 传入新函数的任何实参都将传入原始函数.
+
+```javascript
+function f(y) { return this.x + y } // 待绑定的函数
+var o = { x : 1}                    // 将要绑定的对象
+var g = f.bind(o)                   // 通过调用g(x)来调用o.f(x)
+g(2)    // => 3
+
+```
+
+可以通过如下代码轻易地实现这种绑定
+
+```javascript
+// 返回一个函数, 通过调用它来调用o中的方法f(), 传递它所有的实参
+function bind(f, o) {
+    if (f.bind) return f.bind(o)        // 如果bind()方法存在的话, 就使用bind()方法
+    else return function() {
+        return f.apply(o, arguments)
+    }
+}
+```
+
+EMCAScript 5中的`bind()`不仅仅是讲函数绑定至一个对象, 他还附带一些其他应用: 除了第一个实参之外, 传入`bind()`的实参也会绑定至`this`, 这个附带的应用是一种常见的函数式编程技术, 有时也被称为"柯里化"(currying)
+
+```javascript
+var sum = function(x, y) { return x + y }   // 返回两个实参的和值
+// 创建一个类似sum的新函数, 但this的值绑定到null
+// 并且第一个参数绑定到1, 这个新的函数期望只传入一个实参
+var succ = sum.bind(null, 1)
+succ(2)         // => 3  x绑定到1, 并传入2作为实参y
+
+function f(y, z) { return this.x + y + z }  // 另外一个做累加计算的函数
+var g = f.bind({ x:1 }, 2)                  // 绑定this和y
+g(3)        // => 6  this.x绑定到1, y绑定到2, z绑定到3
+
+```
+
+我们可以绑定`this`的值并在ECMAScript 3 中实现这个附带的应用.
+
+ES3的bind写法
+
+### 8.7.5 toString()方法
+
+和所有js对象一样, 函数也有toString()方法, 返回一个字符串, 这个字符串和函数声明语句的语法相关. 大部分的toString()方法都返回函数的完整源码. 内置函数往往返回一个类似 "[native code]" 的字符串作为函数体.
+
+### 8.7.6 Function()构造函数
+
+不管是通过函数定义语句还是函数直接量表达式, 函数的定义都要使用`function`关键字. 但函数还可以通过`Function`构造函数来定义, 
+
+```javascript
+var f = new Function("x", "y", "return x*y")
+```
+
+这一行代码创建一个新的函数, 这个函数和通过下面代码定义的函数几乎等价: 
+
+```javascript
+var f = function(x, y) { return x*y }
+```
+
+`Function()`构造函数可以传入任意数量的字符串实参, 最后一个是实参所表示的文本就是函数体, 他可以是包含任意的js语句, 每两条语句之间用分号隔开. 传入构造函数的其他所有的实参字符串是指定函数的形参名字的字符串. 如果定义的函数不包含任何参数, 只需给构造函数简单地传入一个字符串-函数体-即可.
+
+注意: `Function()`构造函数并不需要通过传入实参以指定函数名. 就想函数直接量一样, `Function()`构造函数穿件一个匿名函数.
+
+几点注意:
+
+* `Function()`构造函数语序js在运行时动态地创建并编译函数
+* 每次调用`Function()`构造函数都会解析函数体, 并创建新的函数对象. 如果实在一个循环或多次调用的函数中执行这个构造函数, 执行效率会受影响. 相比之下, 循环中的嵌套函数和函数定义表达式则不会每次执行时都重新编译.
+* 最后一点, 也就是`Function()`构造函数, 他所创建的函数并不是使用词法作用域, 相反, 函数体代码的编译总是会在顶层函数执行(全局作用域)
+
+我们可以将`Function()`构造函数认为是在全局作用域中执行的`eval()`, `eval()`可以在自己的私有作用域内定义新变量和函数, `Function()`构造函数在实际编程过程中很少会用到.
+
+### 8.7.7 可调用的对象
+
+"类数组对象:并不是真正的数组, 但大部分场景下可以将其当做数组来对待. 对于函数也存在类似的情况, "可调用的对象"(callable object)是一个对象, 可以在函数调用表达式中调用这个对象. **所有的函数都是可调用的额, 但并非所有的可调用对象都是函数.**
+
+可调用对象在2个jd实现中不能算作函数. 首先IE Web浏览器实现了客户端方法(诸如`Window.alert()`和`Document.getElementById()`), 使用了可调用的宿主对象, 而不是内置函数对象. IE中的这些方法在其他浏览器中也都存在, 但他们本质上不是`Function()`对象. IE9件=将他们是吸纳为真正的函数, 因此这类可调用的对象将越来越罕见.
+
+另一个常见的可调用对象是`RegExp`对象(在众多浏览器中均有实现), 可以直接调用`RegExp`对象, 这比调用它的`exec()`方法更快捷一些. 在js中这是一个彻头彻尾的非标准特性. 所以代码最好不要对可调用的`RegExp`对象有太多依赖, 这个特性在不久的将来可能会废弃并删除. 对`RegExp`执行`typeof`运算的结果并不统一, 有些是`function`, 有些返回`object`
+
+想检测一个对象是否是真正的函数对象(并且具有函数方法), 可以参照代码检测它的`class`属性
+
+```javascript
+function isFunction(x) {
+    return Object.prototype.toString.call(x) === "[object Function]"
+}
+```
+
+## 8.8 函数式编程
+
+js并非函数时编程语言, 但js中可以像操控对象一样操控函数, 也就是说可以在就是中应用函数式编程技术. **ES5中的数组方法**就可以非常适合用于函数式编程风格.
+
+### 8.8.1 使用函数处理数组
+
+比如计算平均值和标准差. 不使用函数式编程风格是这样:
+
+```javascript
+var data = [1, 1, 3, 5, 5];
+
+// 平均数是所有元素的累加和值除以元素个数
+var total = 0;
+for(var i = 0; i < data.length; i++) {
+    total += data[i];
+}
+var mean = total/data.length;
+
+// 计算标准差, 首先计算每个数据减去平均数之后偏差的平方然后求和
+total = 0;
+for(var i = 0; i < data.length; i++) {
+    var deviation = data[i] - mean;
+    total += deviation * deviation;
+}
+var stddev = Math.sqrt(total/(data.length-1))
+
+```
+
+可以使用数组方法`map()`和`reduce()`来实现同样的计算, 这种实现及其简介
+
+```javascript
+// 首先定义两个简单的函数
+var sum = function(x, y) { return x+y };
+var square = function(x) { return x*x };
+
+// 然后将这些函数和数组方法配合使用个计算出平均值和标准差
+var data = [1, 1, 3, 5, 5];
+var mean = data.reduce(sum)/data.length;
+var deviations = data.map(function(x) { return x-mean })
+var stddev = Math.sqrt(deviations.map(square).reduce(sum)/(data.length-1))
+
+```
+
+如果用ES3呢, 要自定义`map()`和`reduce()`函数.
+
+```javascript
+// 对于每个数组元素调用函数f(), 并返回一个结果数组
+// 如果Array/prototype.map定义了话, 就使用这个方法
+var map = Array.prototype.map
+    ? function(a, f) { return a.map(f) }
+    : function(a, f) {
+        var results = []
+        for(var i = 0, length = a.length; i < len; i++) {
+            if (i in a) results[i] = f.call(null, a[i], i, a)
+        }
+        return results;
+    }
+
+// 使用函数f()和可选的初始值将数组a减至一个值
+```
+
+### 8.8.2 高阶函数
+
+指操作函数的函数, 他接受一个或多个函数作为参数, 并返回一个新函数.
+
+```javascript
+// 这个高阶函数返回一个新的函数, 这个新函数将他的实参传入f()
+// 并返回f的返回值的逻辑非
+function not(f) {
+    return functin() {                          // 返回一个新函数
+        var result = f.apply(this, arguments)   // 调用f()
+        return !result                          // 对结果求反
+    }
+}
+
+var enen = function(x) {
+    return x%2 === 0
+}
+
+var odd = not(even)     // 一个新函数, 所做的事情和even相反
+[1, 1, 3, 5, 5].every(odd)
+```
+
+上面的`not()`函数就是一个高阶函数, 因为他接受一个函数作为参数, 并返回一个新函数. 
+
+```javascript
+// 所返回的函数的参数应当是一个实参数组, 并对每个数组元素执行函数f()
+// 并返回所有计算结果组成的数组
+// 可以对比一下这个函数和上下文提到的map()函数
+function mapper(f) {
+    return function(a) { return map(a, f) }
+}
+
+var increment = function(x) { return x+1 }
+var incrementer = mapper(increment)
+incrementer([1, 2, 3])
+```
+
+后面还有`partial()`和`memoize()`都挺重要的高阶函数.
+
+### 8.8.3 不完全函数
+
+这里讨论的是一种函数变换技巧, 即把一次完整的函数调用拆成多次函数调用, 每次传入的实参都是完整实参拿得一部分, 每个拆分开的函数叫做不完全函数(`partial function`), 每次函数调用叫做不完全调用(`partial application`), 这种函数变换的特点是每次调用都返回一个函数, 知道得到最终运行结果为止. 比如对函数f(1,2,3,4,5,6)的调用修改为等价的f(1,2)(3,4)(5,6), 后者包含三次调用, 和每次调用相关的函数就是"不完全函数"
+
+函数`f()`的`bind`方法返回一个新函数, 给新函数传入特定的上下文和一组指定的参数, 然后调用函数`f()`. 我们说它把函数"`绑定至`"对象并传入一部分参数. `bind()`方法只是将实参放在(完整实参列表的)左侧, 也就是说传入`bind()`的实参都是放在传入原始函数的实参列表开始的位置, 但有时候我们期望将传入`bind()`的实参放在(完整实参列表的)右侧:
+
+### 8.8.4记忆memorization
+
+比如阶乘函数, 他可以将上次的计算结果缓存起来. 在函数式编程当中, 这种缓存技巧叫做 **记忆**, 下面的代码展示一个高阶函数, `memorize()`节后一个函数作为实参, 并返回带有记忆能力的函数.
+
+记忆只是一种编程技巧, 本质上是牺牲算法的空间复杂度以换取更优的时间复杂度, 在客户端js中代码的执行时间复杂度往往成为瓶颈, 因此大多说场景下, 牺牲空间换时间是非常可取.
+
+```javascript
+// 返回f()的带有记忆功能的版本
+// 只有当f()的实参的字符串表示都不相同时他才会工作
+function memorize(f) {
+    var cache = {}      // 将值保存在闭包内
+    return function() {
+        // 将实参转换为字符串形式, 并将其用作缓存的键
+        var key = arguments.length + Array.prototype.join.call(arguments, ",")
+        if (key in cache) return cache[key]
+        else return cache[key] = f.apply(this, arguments)
+    }
+}
+```
+
+`memorize()`函数创建一个新的对象, 这个对象被当做缓存(的宿主)并赋值给一个局部变量, 因此对于返回的函数来说他是私有(在闭包中). 所返回的函数将他的实参数组转换成字符串, 并将字符串用作缓存对象的数组名, 如果在缓存中存在这个值, 则直接返回它.
+
+否则, 就调用既定函数对实参进行计算, 将计算结果缓存起来并返回.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## 参考

@@ -410,3 +410,10 @@ and the repository exists.
 还有关于git库的，不需要删了库中的内容重新提交，只要你直接提交，那个库就按你最新的文件内容更改。
 比如原来库中是文件abc，你要改成文件456，不需要删了abc，直接本地工作区删了abc，commit文件456，库中就没有abc了，这个库中哦不是append，
 
+## stash 存储和清理
+
+```git
+// 全部清空
+git stash clear
+```
+
