@@ -417,3 +417,29 @@ and the repository exists.
 git stash clear
 ```
 
+## 参考
+
+[Git 和 Pager 的那点事](http://icyleaf.com/2013/10/about-pager-on-git/)
+
+## 配置参考
+
+```git
+  1 [user]
+  2         name = xuheng
+  3         email = xuheng@qiniu.com
+  4 [core]
+  5         pager = less -FXR
+  6         excludesfile = /Users/xuheng/.gitignore_global
+  7 [difftool "sourcetree"]
+  8         cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  9         path =
+ 10 [mergetool "sourcetree"]
+ 11         cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \    "$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+ 12         trustExitCode = true
+ 13 [commit]
+ 14         template = /Users/xuheng/.stCommitMsg
+ 15 [color]
+ 16         ui = true
+```
+
+alias用的多的是用oh-my-zsh的自带的 `~/.oh-my-zsh/plugins/git/git.plugin.zsh`
