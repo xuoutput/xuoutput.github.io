@@ -420,6 +420,7 @@ git stash clear
 ## 参考
 
 [Git 和 Pager 的那点事](http://icyleaf.com/2013/10/about-pager-on-git/)
+[猴子](https://backlog.com/git-tutorial/cn/intro/intro1_1.html)
 
 ## 配置参考
 
