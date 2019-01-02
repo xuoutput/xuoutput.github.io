@@ -192,6 +192,7 @@ HTTP 协议中有一个特殊的返回状态：302。在 HTTP 服务器返回 30
 [CDN加速原理](https://zhuanlan.zhihu.com/p/44966787)
 [深度剖析：CDN内容分发网络技术原理](https://my.oschina.net/pooz/blog/95654)
 [CDN的基本原理和基础架构](https://yq.aliyun.com/articles/104041)
+[图解基于 HTTPS 的 DNS, 安全性](https://www.infoq.cn/article/a-cartoon-intro-to-dns-over-https)
 [CDN工作原理](https://segmentfault.com/a/1190000000538796)
 [《CDN 之我见》系列一：原理篇（由来、调度）666](https://yq.aliyun.com/articles/577708?spm=a2c41.11181499.0.0)
 [《CDN 之我见》系列二：原理篇（缓存、安全）](https://yq.aliyun.com/articles/599253?spm=a2c4e.11153940.blogcont577708.18.7267abafHQI0IF)

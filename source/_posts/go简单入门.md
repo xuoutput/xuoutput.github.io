@@ -204,3 +204,6 @@ import (
 所以那个`import _ "fmt"`只是用来执行init的
 
 `GOBIN`设置后用`go install`生成`pkg  bin`文件夹，一个放依赖，一个命令可执行程序。
+
+
+

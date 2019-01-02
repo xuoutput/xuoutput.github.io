@@ -28,3 +28,4 @@ permalink:
 [在浏览器地址栏输入一个URL后回车，背后会进行哪些技术步骤？](https://www.zhihu.com/question/34873227)
 [前端经典面试题: 从输入URL到页面加载发生了什么？](https://segmentfault.com/a/1190000006879700)
 [当···时发生了什么？](https://github.com/skyline75489/what-happens-when-zh_CN)
+[what happens when you type in a URL in browser [closed]](https://stackoverflow.com/questions/2092527/what-happens-when-you-type-in-a-url-in-browser)
