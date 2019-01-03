@@ -377,6 +377,113 @@ css新出的网格布局，由于兼容性不太好，一直没太关注，通�
 * PC端无兼容性要求，推荐flex
 * 移动端推荐使用flex
 
+## 扩展
+
+在 CSS 中对元素进行**水平居中**是非常简单的：如果它是一个行内`inline`元素， 就对它的父元素应用 `text-align: center;` 如果它是一个块级`block`元素，就对它自身应用 `margin: auto`。然而如果要对一个元素进行垂直居中，可能光是想想就令人头皮发麻了。
+
+### 基于绝对定位
+
+```css
+main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -3em; /* 6/2 = 3 */
+    margin-left: -9em; /* 18/2 = 9 */
+    width: 18em;
+    height: 6em;
+}
+```
+
+借助强大的 `calc()` 函数，这段代码还可以省掉两行声明:
+
+```css
+main {
+    position: absolute;
+    top: calc(50% - 3em);
+    left: calc(50% - 9em);
+    width: 18em;
+    height: 6em;
+}
+```
+
+只要换用基于百分比的 `CSS` 变形来对元素进行偏移，就不需要在偏移量中把元素的尺寸写死。这样我们就可以彻底解除对固定尺寸的依赖:
+
+```css
+main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+```
+
+### 基于 viewport
+
+假设我们不想使用绝对定位，仍然可以采用 `translate()` 技巧来把这 个元素以其自身宽高的一半为距离进行移动；但是在缺少 `left` 和 `top` 的情况下，如何把**这个元素的左上角**放置在容器的正中心呢?
+
+我们的第一反应很可能是用 `margin` 属性的百分比值来实现，就像这样:
+
+```css
+main {
+    width: 18em;
+    padding: 1em 1.5em;
+    margin: 50% auto 0; 
+    transform: translateY(-50%);
+}
+```
+
+原因在于 `margin` 的百分比值是以**父元素的宽度**作为解析基准的(不是高度) 。没错，即使对于 `margin-top` 和 `margin-bottom` 来说也是这样!
+
+* vw ：1% of viewport’s width
+* vh ：1% of viewport’s height
+* vmin ：1% of viewport’s smaller dimension
+* vmax ：1% of viewport’s larger dimension
+
+```css
+main {
+    width: 18em;
+    padding: 1em 1.5em;
+    margin: 50vh auto 0;
+    transform: translateY(-50%);
+}
+```
+
+可以看到，其效果堪称完美。当然，这个技巧的实用性是相当有限的，因为它**只适用于在视口中居中的场景**。
+
+### 基于 Flexbox
+
+我们只需写两行声明即可：
+
+* 先给这个待居中元素的父元素设置 `display: flex` (在这个例子中是 `<body>` 元素)
+* 再给这个元素自身设置我们再熟悉不过的 `margin: auto`(在这个例子中是 `<main>` 元素):
+
+```css
+body {
+    display: flex;
+    min-height: 100vh;
+    margin: 0; 
+}
+main {
+    margin: auto;
+}
+```
+
+请注意，当我们使用 `Flexbox` 时，`margin: auto` 不仅在水平方向上将元素居中，垂直方向上也是如此。
 
 
+
+
+
+
+
+
+
+
+
+
+## 参考
+
+[参考来源](https://segmentfault.com/a/1190000016389031)
+[老生常谈之CSS的垂直居中666](https://segmentfault.com/a/1190000017539123?utm_source=weekly&utm_medium=email&utm_campaign=email_weekly)
 
