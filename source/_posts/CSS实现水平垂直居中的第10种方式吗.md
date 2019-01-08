@@ -462,7 +462,7 @@ main {
 body {
     display: flex;
     min-height: 100vh;
-    margin: 0; 
+    margin: 0;
 }
 main {
     margin: auto;
