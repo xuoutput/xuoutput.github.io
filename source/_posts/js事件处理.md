@@ -104,8 +104,81 @@ window事件是指事件的发生于**浏览器窗口本身**而非窗口中显�
 
 #### 3.鼠标事件
 
-当
+当用户在文档上移动或单击鼠标时都会产生鼠标事件. 这些事件在鼠标指针所对应的最深嵌套元素上触发, 但他们会冒泡直到文档最顶层. 传递给鼠标事件处理程序的事件对象有属性集, 它们描述了当事件发生时鼠标的位置和按键状态, 也指明了当时是否有任何辅助键按下. `clientX`和`clientY`属性制定了鼠标在窗口坐标中的位置. `button`和`which`属性指定了按下的鼠标键是哪个.(无论如何请看`Event`参考页, 因为这些属性难以简单使用.) 当键盘辅助键按下时, 对应的属性`altkey`, `ctrlKey`, `metaKey`和`shiftKey`会设置为`true`. 而对于`click`事件, `detail`事件指定了其是单击, 双击还是三击.
 
+用户每次移动或拖动鼠标时, 会触发`mousemove`事件. 这些事件的发生非常繁琐, 所以`mousemove`事件处理程序一定不能触发计算密集型任务. 当用户按下或释放鼠标按键时, 会触发`mousedown`和`mousemove`事件. 通过注册`mousedown`和`mousemove`事件处理程序, 可以探测和响应鼠标的拖动. 合理地这样做能捕获鼠标事件, 甚至当鼠标从开始元素移出时我们都能持续地接收到`mousemove`事件.
 
+在`mousedown`和`mouseup`事件队列之后, 浏览器也会触发`click`事件. 之前介绍过`click`事件是独立于设备的表单事件, 但实际上他不仅仅在表单元素上触发, 他可以在任何文档元素上触发, 同时传递拥有之前介绍的所有鼠标相关额外字段的事件对象. 如果用户在相当短的时间内连续两次单击鼠标按键, 跟在第二个`click`事件之后是`dblick`事件. 当单击鼠标右键时, 浏览器通常会显示上下文菜单(`context menu`). 在显示菜单之前, 他们通常会触发`contextmenu`事件, 而取消这个事件就可以阻止菜单的显示. 这个事件也是获得鼠标右击通知的简单方法.
 
+当用户移动鼠标指针从而使他悬停到新元素上时, 浏览器就会在该元素上触发`mouseover`事件. 当鼠标移动指针从而使他不在悬停在某个元素上时, 李兰器就会在该元素上触发`mouseout`事件. 对于这些事件, 事件对象将有`relatedTarget`属性指明这个过程设计的其他元素. (到`Event`参考页查看`relatedTarget`属性的IE等效属性) `mouseover`和`mouseout`事件和这里介绍的素有鼠标事件一样会冒泡. 但这通常不方便, 因为当触发`mouseout`事件处理程序时, 你不得不检查鼠标是否真的离开目标元素还是仅仅是从这个元素的一个子元素移动到另一个. 正因为如此, IE提供了这些事件的不冒泡版本`mouseenter`和`mouseleave`, JQuery模拟非IE的浏览器中这些事件的支持, 同时3级DOM事件规范把它们标准化了.
 
+当用户滚动鼠标滚轮时, 浏览器触发`mousewheel`事件(或在firefox中是`DOMMouseScroll`事件). 传递的时间对象属性指定滚轮转动的大小和方向. 3级DOM事件规范正在标准化一个更通用的多维`wheel`事件, 一旦实现将取代`mousewheel`和`DOMMouseScroll`事件.
+
+#### 4.键盘事件
+
+当键盘聚焦到Web浏览器时, 用户每次按下或释放键盘上的按键时都会产生事件. 键盘快捷键对于操作系统和浏览器本身有特殊意义, 他们经常被操作系统或浏览器"吃掉", 并对JavaScript事件处理程序不可见. 无论任何文档元素获取键盘焦点都会触发键盘事件, 并且他们会冒泡到`Document`和`Window`对象. 如果没有元素获取焦点, 可以直接在文档上触发事件. 传递给键盘事件处理程序的事件对象有`keyCode`字段, 他指定按下或释放的键是哪个. 除了`keyCode`, 键盘事件对象也有`altKey`, `ctrlKey`, `metaKey`和`shiftKey`, 描述键盘辅助键的状态.
+
+`keydown`和`keyup`事件是低级键盘事件, 无论何时按下或释放按键(甚至是辅助键)都会触发他们.
+当`keydown`事件产生可打印字符时, 在`keydown`和`keyup`之间会触发另外一个`keypress`事件.
+当按下键重复产生字符时, 在`keyup`事件之前可能产生很多`keypress`事件. `keypress`是较高级的文本事件, 其事件对象指定产生的字符而非按下的键.
+
+所有浏览器都支持`keydown`, `keyup`和`keypress`事件, 但有一些互用性问题, 因为事件对象的`keyCode`属性值从未标准化过. 3级DOM事件规范尝试解决之前的互用性问题, 但尚未实施.
+
+### 17.1.2 DOM事件
+
+W3C开发3级DOM事件规范已经长达十年之久. 现在终于处于标准化的"最后征集工作草案"阶段, 它标准化了前面介绍的许多传统事件, 同时增加了这里介绍的一些新事件. 这些新事件类型尚未得到广泛支持, 一旦标准确定, 我们就期望浏览器厂商能实现他们.
+
+如上所述, 3级DOM事件规范标准化了不冒泡的`focusin`和`focusout`事件来取代冒泡的`focus`和`blur`事件. 此版本的标准也弃用了大量由2级DOM事件规范定义但未得到广泛实现的事件类型. 浏览器依旧允许产生像`DOMActive`, `DOMFocusIn`和`DOMNodeInserted`这样的事件, 但他们不在必要, 同时本书的文档也不会列出他们(在名字中使用"DOM"的唯一常用事件就是`DOMContentLoaded`, 这个事件由`Mozilla`引入, 但绝不属于DOM事件标准的一部分).
+
+3级DOM事件规范中新增内容有通过`wheel`事件对二维鼠标滚轮提供标准支持, 通过`textinput`事件和传递新`KeyboardEvent`对象作为参数给`keydown`, `keyup`和`keypress`的事件处理程序来给文本输入事件提供更好的支持.
+
+`wheel`事件的处理程序接收到的事件对象除了所以普通鼠标事件属性, 还有`delatX`, `delatY`和`delatZ`属性来报告三个不同的鼠标滚轴. 大多数鼠标滚轮是一维或二维的, 并不使用`delatZ`. 更多关于`mousewheel`事件的内容请参见17.6节.
+
+如上所述, 3级DOM事件规范定义了`keypress`事件, 但不赞成使用它而使用称为`textinput`的新事件. 传递给`textinput`事件处理程序的时间对象不再有难以使用的数字`keyCode`属性值, 而有指定输入文本字符串的`data`属性. `textinput`事件不是键盘特定事件, 无论通过键盘, 剪切和粘贴, 拖放方式, 每当发生文本输入时就会触发它. 规范定义了时间对象的`inputMethod`属性和一组代表各种文本输入种类的常量(键盘, 粘贴, 拖放,手写和语音识别等). 在写本章时, Safari和Chrome使用混合大小写的`textInput`来支持这个事件版本, 其事件对象有`data`属性但没有`inputMethod`属性.
+
+新DOM标准通过在事件对象中加入新的`key`和`char`属性来简化`keydown`, `keyup`和`keypress`事件, 这些属性都是字符串. 对于产生可打印字符的键盘事件, `key`和`char`值将等于生成的文本. 对于控制键, `key`属性将会是像标识键的"`Enter`", "`Delete`"和"`Left`"这样的字符串, 而`char`属性将是`null`, 或对于像`Tab`这样的控制键有一个字符编码, 它将是按键产生的字符串. 在写本章时, 尚未有浏览器支持`key`和`char`属性.
+
+### 17.1.3 HTML5事件
+
+HTML5及相关标准定义了大量新的web应用API(第22章), 其中许多API都定义了事件. 本节列出并简要介绍这些HTML5和web应用事件. 其中一些事件现在已经可以开始使用.
+
+广泛推广的HTML特性之一是加入用于播放音频和视频的`<audio>`和`<video>`元素. 这些元素有长长的事件列表, 他们触发各种关于网络事件, 数据缓冲状况和播放状态的通知:
+
+```
+canplay         loadeddata      playing     stalled
+canplaythrough  loadedmetadata  progress    suspend
+durationchange  loadstart       ratechange  timeupdate
+emptied         pause           seeked      volumechange
+ended           play            seeking     waiting
+```
+
+传递给美体时间处理程序的事件对象普通且没有特殊属性, `target`属性用于识别`<audio>`和`<video>`元素, 然而这些元素有多相关的属性和方法. 21.2节有更多关于这些元素及其属性和事件的详细内容.
+
+HTML5的拖放API允许JavaScript应用参与基于操作系统的拖放操作, 实现web和原生应用间的数据传输. 该API定义了如下7个事件类型:
+
+```
+dragstart       drag        dragend
+dragenter       dragover    dragleave
+drop
+```
+
+触发拖放事件的事件对象和通过鼠标事件发送的对象类似, 其附加属性`dataTransfer`持有`DataTransfer`对象, 它包含关于传输的数据和其中可用的格式信息.
+
+HTML5定义了历史管理机制, 它允许web应用同浏览器的返回和前进按钮交互. 这个机制涉及的事件是`hashchange`和`popstate`, 这些事件是类似`load`和`unload`的生命周期通知事件, 他在`Window`对象上触发而非任何单独的文档元素.
+
+HTML5为HTML表单定义了大量的新特性. 除了标准化前面介绍的表单输入事件外, HTML5也定义了表单验证机制, 包括当验证失败时在表单元素上会触发`invalid`事件. 除`Opera`外的浏览器厂商已经慢慢实现HTML5的新表单特性和事件, 但本书没有涵盖他们.
+
+HTML5包含了对离线web应用的支持, 他们可以安装到本地应用缓存中, 所以即使路蓝旗离线时它们依旧能运行, 比如当移动设备不在网络范围内时. 相关的两个最重要的事件是`offline`和`online`, 无论何时浏览器失去或得到网络连接都会在`Window`对象上触发它们. 标准还定义了大量其他事件来通知应用下载进度和应用缓存更新:
+
+```
+cached      checking        downloading     error
+noupdate    obsolete        progress        upateready
+```
+
+很多新web应用API都使用`message`事件进行异步通信. 跨文档通信API允许一台服务器上的文档脚本能和另一台服务器上的文档脚本交换信息. 其工作受限于同源策略这一安全方式. 发送的每一条消息都会在接受文档的Window上触发`message`事件. 传递给处理程序的事件对象包含`data`属性, 它有保存信息内容以及用于识别消息发送者的`source`属性和`origin`策略. `message`事件的使用方式与使用`Web Worker`通信, 通过`Server-Sent`事件和`WebSocket`进行网络通信相似.
+
+HTML5及相关标准定义了一些不在窗口, 文档和文档元素的对象上触发的事件. `XMLHttpRequest`规范第2版和`File API`规范都定义了一系列事件来跟踪异步I/O的进度. 它们在`XMLHttpRequest`或`FileReader`对象上触发事件. 每次读取操作都是以`loadstart`事件开始, 接着是`progress`和`loadend`事件. 此外, 每个操作仅在最终`loadend`事件之前会有`load`,`error`或`abort`事件.
+
+最后, HTML5及相关标准定义了少量庞杂的事件类型. 在Window对象上发生的web存储API定义了`storage`事件用于通知存储数据的改变. HTML5页标准化了最早由Microsoft在IE中引入的`beforeprint`和`afterprint`事件. 顾名思义, 当文档打印之前或之后立即在`Window`对象触发这些事件, 它提供了打印文档时添加或删除类似日期或事件等内容的机会. (这些事件不应该用于处理打印文档的样式, 因为CSS媒体类型更适合这个用途.)
+
+### 17.1.4 触摸屏和移动设备事件
