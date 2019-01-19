@@ -15,6 +15,11 @@ permalink:
 
 ## JS篇
 
+### 专题
+
+[预计写四个系列：JavaScript深入系列、JavaScript专题系列、ES6系列、React系列。666](https://github.com/mqyqingfeng/Blog)
+[前端基础进阶系列 666](https://www.jianshu.com/p/cd3fee40ef59)
+
 ### 数据类型
 
 [JS基本数据类型和引用数据类型的区别及深浅拷贝](https://www.cnblogs.com/c2016c/articles/9328725.html)
@@ -34,9 +39,18 @@ permalink:
 
 ### 作用域链与闭包
 
-[JavaScript中作用域和作用域链的简单理解（变量提升）](https://www.cnblogs.com/buchongming/p/5858026.html)
-[JavaScript作用域、上下文、执行期上下文、作用域链、闭包](https://blog.csdn.net/qq_27626333/article/details/78463565)
-[前端基础进阶（四）：详细图解作用域链与闭包](https://www.jianshu.com/p/21a16d44f150)
+[我所认识的 JavaScript 作用域链和原型链 666](https://cnodejs.org/topic/59662f6dbda29e0f7480235b)
+[浅谈JavaScript闭包](https://github.com/MrErHu/blog/issues/11)
+[JavaScript中作用域和作用域链的简单理解（变量提升） nonono](https://www.cnblogs.com/buchongming/p/5858026.html)
+[JavaScript作用域、上下文、执行期上下文、作用域链、闭包 666](https://blog.csdn.net/qq_27626333/article/details/78463565)
+
+4连套
+[JavaScript 核心概念之作用域和闭包 666](https://www.css88.com/archives/7262)
+[深入理解JavaScript中的作用域和上下文 666](https://www.css88.com/archives/7255)
+[实例分析 JavaScript 作用域](https://www.css88.com/archives/7300)
+[JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.css88.com/archives/7924)
+
+[前端基础进阶（四）：详细图解作用域链与闭包 666 还带基础进阶的](https://www.jianshu.com/p/21a16d44f150)
 [JavaScript 闭包入门（译文）](https://juejin.im/post/58832fe72f301e00697b672d)
 [JavaScript深入之闭包](https://juejin.im/post/590159d8a22b9d0065c2d918)
 [JavaScript 闭包](https://segmentfault.com/a/1190000006875662)
