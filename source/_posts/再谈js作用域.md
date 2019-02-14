@@ -26,9 +26,9 @@ permalink:
 
 ### 作用域scope
 
-作用域是你的代码在**运行时(不运行时也是可以产生的静态作用域链, 是非自己部分的哦)**，各个变量、函数和对象的可访问性。换句话说，作用域决定了你的代码里的变量和其他资源在各个区域中的可见性。
+作用域是你的代码在**运行时(不运行时的预处理阶段也是可以产生的静态作用域链, 是非自己部分的哦)**，各个变量、函数和对象的可访问性。换句话说，作用域决定了你的代码里的变量和其他资源在各个区域中的可见性。
 
-js有3种作用域, 全局作用域, 局部作用域(函数内), 块级作用域`{}`和`const let`
+js有3种作用域, 全局作用域(`Global context： window/global`), 局部作用域(`Local Scope` , 又称为函数作用域 `Function context`), 块级作用域`{}`和`const let`
 
 ### 上下文 context
 
@@ -246,7 +246,7 @@ executionContextObj = {
      - 扫描该执行上下文中声明的函数： (其实就是`host提升`, 看{% post_link js作用域链和闭包 js作用域链和闭包 %}中的提升)
        - 对于声明的函数，`variable object`中创建对应的变量名，其值指向该函数（函数是存在`heap`中的）
        - 如果函数名已经存在，用新的引用值**覆盖**已有的
-     - 扫描上下文中声明的变量：
+     - 扫描上下文中声明的变量：(即:**变量声明不会干扰`VO`中已经存在的同名函数声明或形式参数声明**)
        - 对于变量的声明，同样在`variable object`中创建对应的变量名，其值初始化`为undefined`
        - 如果变量的名字已经存在，则直接略过继续扫描
    - 决定上下文`this`的指向
@@ -410,13 +410,15 @@ windowEC = {
 
 除此之外，全局上下文的生命周期，与程序的生命周期一致，只要程序运行不结束，比如关掉浏览器窗口，全局上下文就会一直存在。其他所有的上下文环境，都能直接访问全局上下文的属性。
 
-### 另一种`VO`不是`this`
+### 另一种VO不是this
 
 [js中 执行环境(execution context) 和 作用域(scope) 的区别在哪里?](https://www.zhihu.com/question/51336888)
 
 执行环境（`Execution Context`，简称`Context`）只是一个**抽象概念**，在具体`JS Engine`实现中，**它对应很多内容**，变量对象（`Variable Object`，简写`VO`）是其一，还有`Scope Chain`，`this`等，这些**共同组成**了执行环境这个概念。
 
 `VO`不是指具体某个`Object`，而是**指一类`Object`**，所以也具有一定程度的**抽象**。
+
+> `VO`是`JS Engine`**内部实现**，用于`identifier resolution`，**JS代码层面是接触不到的**, **但`this`是执行环境的一部分**，所以不要与`VO`搞混.
 
 ```JavaScript
 var color = "blue";
@@ -442,7 +444,7 @@ changeColor();
 
 书上（《Javascript高级程序设计(第三版)》）的代码（如下）说得很清楚：**`global context`对应一个`VO`（就是`window`!!）**, `changeColor`的`local context`对应一个`VO`，`swapColors`的`local context`对应一个`VO`。所以每个context都对应了一个`VO`。
 
-如上所说，**`this`也是执行环境的一部分**，所以不要与`VO`搞混，`VO`是`JS Engine`**内部实现**，用于`identifier resolution`，**JS代码层面是接触不到的**。参见ES2016规范：
+如上所说，**`this`也是执行环境的一部分**，所以不要与`VO`搞混，`VO`是`JS Engine`**内部实现**，用于`identifier resolution`，**JS代码层面是接触不到的**。参见ES2016规范：(**而我们这里要访问到`VO`是通过`this`或者`window`来, 而不是直接访问`VO`**)
 
 > Lexical Environments and Environment Record values are purely specification mechanisms and need not correspond to any specific artefact of an ECMAScript implementation. It is impossible for an ECMAScript program to directly access or manipulate such values.
 
@@ -481,6 +483,258 @@ o.changeColor(); // Output: false, true, undefined, red
 
 `swapColors`里的`this`，和`swapColors`的`context`对应的`VO`没什么关系，而是指向`window`。
 
+### 说下全局上下文
+
+[深入理解JavaScript系列（12）：变量对象（Variable Object）66666 看全局上下文中的变量对象这段](https://www.cnblogs.com/TomXu/archive/2012/01/16/2309728.html)
+
+首先，我们要**给`全局对象`一个明确的定义**：
+
+- 全局对象(`Global object`) 是在**进入任何执行上下文**之前就已经创建了的对象；
+- 这个对象只存在一份，它的属性在程序中任何地方都可以访问，全局对象的生命周期终止于程序退出那一刻。
+
+全局对象**初始创建阶段**将`Math、String、Date、parseInt`作为自身**属性**，等属性初始化，同样也可以有额外创建的其它对象作为属性（其可以指向到全局对象自身）。例如，在`DOM`中，全局对象的`window属性`就可以**引用全局对象自身**(当然，并不是所有的具体实现都是这样)：
+
+```JavaScript
+global = {
+  Math: <...>,
+  String: <...>
+  ...
+  ...
+  window: global //引用自身, 就是上面的那个例如
+};
+```
+
+当访问**全局对象的属性时**通常会**忽略掉前缀**(`global`)，这是因为全局对象是**不能通过名称直接访问**的。不过我们依然可以通过**全局上下文**的`this`来访问全局对象，同样**也可以递归引用自身**。例如，`DOM`中的`window`。综上所述，代码可以简写为：
+
+```JavaScript
+String(10); // 就是global.String(10);
+
+// 带有前缀
+this.b = 20; // global.b = 20;  //通过this
+window.a = 10; // === global.window.a = 10 === global.a = 10; // 通过递归引用自身
+```
+
+因此，回到全局上下文中的变量对象——在这里，变量对象就是全局对象自己：
+
+```JavaScript
+VO(globalContext) === global;
+```
+
+**非常有必要要理解上述结论**，基于这个原理，在全局上下文中声明的对应，我们才可以**间接通过**`全局对象的属性`来访问它（例如，事先不知道变量名称）。
+
+```JavaScript
+var a = new String('test');
+
+alert(a); // 直接访问，在VO(globalContext)里找到："test"
+
+alert(window['a']); // 间接通过global访问：global === VO(globalContext): "test"
+alert(a === this.a); // true
+
+var aKey = 'a';
+alert(window[aKey]); // 间接通过动态属性名称访问："test"
+```
+
+### 函数上下文中的变量对象
+
+在函数执行上下文中，`VO`是**不能直接访问的**，此时由活动对象(`activation object`,缩写为AO)扮演`VO`的角色。
+
+```JavaScript
+VO(functionContext) === AO;
+```
+
+活动对象是在**进入函数上下文时**刻被**创建**的，它通过函数的`arguments`属性**初始化**。`arguments`属性的值是`Arguments`对象：
+
+```JavaScript
+AO = {
+  arguments: <ArgO>
+};
+```
+
+`Arguments`对象是活动对象的一个**属性**，它包括如下属性：
+
+1. `callee` — 指向当前函数的引用
+2. `length` — 真正传递的参数个数
+3. `properties-indexes` (字符串类型的整数) 属性的值就是函数的参数值(按参数列表从左到右排列)。 `properties-indexes`内部元素的个数等于`arguments.length`. `properties-indexes` 的值和实际传递进来的参数之间是共享的。
+例如：
+
+```JavaScript
+function foo(x, y, z) {
+
+  // 形参, 声明的函数参数数量arguments (x, y, z)
+  console.log(foo.length); // 3
+
+  // 实参, 真正传进来的参数个数(only x, y)
+  console.log(arguments.length); // 2
+
+  // 参数的callee是函数自身
+  console.log(arguments.callee === foo); // true
+
+  // 形参实参, 参数共享. 还有同名形参和函数内变量这个看变量提升, 就是忽略
+  console.log(x === arguments[0]); // true
+  console.log(x); // 10
+
+  arguments[0] = 20;
+  console.log(x); // 20
+
+  x = 30;
+  console.log(arguments[0]); // 30
+
+  // 不过，没有传进来的参数z，和参数的第3个索引值是不共享的
+  z = 40;
+  console.log(arguments[2]); // undefined
+
+  arguments[2] = 50;
+  console.log(z); // 40
+
+}
+
+foo(10, 20);
+```
+
+这个例子的代码，在当前版本(71.0.3578.98 (Official Build) (64-bit))的`Google Chrome`浏览器里有一个bug  — 即使没有传递参数`z`，`z`和`arguments[2]`仍然是共享的。
+
+### 处理上下文代码的2个阶段
+
+现在我们终于到了本文的核心点了。执行上下文的代码被分成两个基本的阶段来处理：
+
+ 1. 进入执行上下文
+ 2. 执行代码
+
+**变量对象**的修改变化与这两个阶段紧密相关。
+
+注：这2个阶段的处理是一般行为，和上下文的类型无关（也就是说，**在全局上下文和函数上下文中的表现是一样的**）。
+
+### 这里说下变量(以前认知中有个错误概念)
+
+通常，各类文章和JavaScript相关的书籍都声称：“不管是使用`var`关键字(在全局上下文)**还是不使用`var`关键字(在任何地方)**，都可以声明一个变量”。请记住，**这是错误的概念**：
+
+**任何时候，`变量`只能通过使用`var`关键字才能声明**。
+
+赋值语句：
+
+```JavaScript
+a = 10;
+```
+
+这仅仅是给`全局对象`创建了一个**新属性(但它不是变量)**。“不是变量”并不是说它不能被改变，而是**指它不符合`ECMAScript`规范中的变量概念**，所以它“不是变量”(它**之所以能成为全局对象的属性**，完全是因为`VO(globalContext) === global`，大家还记得这个吧？, 忽略了前缀)。
+
+让我们通过下面的实例看看具体的区别吧：
+
+```JavaScript
+console.log(a); // undefined
+console.log(b); // Uncaught ReferenceError: b is not defined
+
+b = 10;
+var a = 20;
+```
+
+所有根源仍然是`VO`和**进入上下文阶段**和**代码执行阶段**：
+
+进入上下文阶段：是这样的, 如果`b`是变量的话那么它也应该在`VO`中
+
+```JavaScript
+VO = {
+  a: undefined
+  // 如果b是变量  那么也会存在 b: undefined, 但实际上报错, 所以并不存在这个变量b
+};
+```
+
+我们可以看到，因为“`b`”不是一个变量，所以在这个阶段根本就没有“`b`”，“`b`”将只在**代码执行阶段**才会出现(但是在我们这个例子里，还没有到那就已经出错了)。
+
+让我们改变一下例子代码：
+
+```javascript
+console.log(a); // undefined, 这个大家都知道，
+
+b = 10;
+console.log(b); // 10, 代码执行阶段创建
+
+var a = 20;
+console.log(a); // 20, 代码执行阶段修改
+```
+
+关于变量，还有一个重要的知识点。**变量相对于简单属性来说**，变量有一个特性(`attribute`)：{`DontDelete`},这个特性的含义就是不能用`delete`操作符直接删除变量属性。
+
+```javascript
+a = 10;
+console.log(window.a); // 10
+
+console.log(delete a); // true
+
+console.log(window.a); // undefined
+
+var b = 20;
+console.log(window.b); // 20
+
+console.log(delete b); // false
+
+console.log(window.b); // still 20
+```
+
+但是这个规则在**有个上下文里不起**作用，那就是`eval`上下文，变量没有{`DontDelete`}特性。
+
+```JavaScript
+eval('var a = 10;');
+console.log(window.a); // 10
+
+console.log(delete a); // true
+
+console.log(window.a); // undefined
+```
+
+使用一些调试工具(例如：`Firebug`)的控制台测试该实例时，请注意，`Firebug`同样是使用`eval`来执行控制台里你的代码。因此，变量属性同样没有{`DontDelete`}特性，可以被删除。
+
+### 特殊实现: `__parent__` 属性
+
+前面已经提到过，**按标准规范，活动对象是不可能被直接访问到的**。但是，`一些具体实现`并没有完全遵守这个规定，例如`SpiderMonkey`和`Rhino`；的实现中，函数有一个特殊的属性 `__parent__`，通过这个属性**可以直接引用到活动对象**（或全局变量对象），在此对象里创建了函数。
+
+例如 (`SpiderMonkey`, `Rhino`)：
+
+```javascript
+var global = this;
+var a = 10;
+
+function foo() {}
+
+console.log(foo.__parent__); // global
+
+var VO = foo.__parent__;
+
+console.log(VO.a); // 10
+console.log(VO === global); // true
+```
+
+在上面的例子中我们可以看到，函数`foo`是在全局上下文中创建的，所以属性`__parent__` 指向全局上下文的变量对象，即全局对象。
+
+然而，在`SpiderMonkey`中用同样的方式访问活动对象是不可能的：在不同版本的`SpiderMonkey`中，内部函数的`__parent__` 有时指向`null` ，有时指向`全局对象`。
+
+在`Rhino`中，用同样的方式访问活动对象是完全可以的。
+
+例如 (`Rhino`)：
+
+```JavaScript
+var global = this;
+var x = 10;
+
+(function foo() {
+
+  var y = 20;
+
+  // "foo"上下文里的活动对象
+  var AO = (function () {}).__parent__;
+
+  print(AO.y); // 20
+
+  // 当前活动对象的__parent__ 是已经存在的全局对象
+  // 变量对象的特殊链形成了
+  // 所以我们叫做作用域链
+  print(AO.__parent__ === global); // true
+
+  print(AO.__parent__.x); // 10
+
+})();
+```
+
 ### 再说下作用域与执行上下文
 
 JavaScript代码的整个执行过程，分为两个阶段，**代码编译阶段与代码执行阶段**。
@@ -492,6 +746,39 @@ JavaScript代码的整个执行过程，分为两个阶段，**代码编译阶�
 然后是前面说的`执行上下文`的**生命周期**
 
 ![execution_context.webp](execution_context.webp)
+
+下面的链接更详细分为4个阶段, 整合了从`global context`开始
+
+[图解JS闭包形成的原因 666](https://segmentfault.com/a/1190000011504517)
+
+#### 程序执行的四个阶段
+
+我以下面一段代码解释一下程序执行的几个阶段
+
+```JavaScript
+var age = "21";
+function myAge(){
+    var age = 0;
+    age++;
+    console.log(age);
+}
+myAge();
+console.log(age);
+```
+
+**第一阶段**：在内存中创建执行执行环境栈、把全局对象`window`压入栈底、在`window`中声明变量
+
+![step1.jpeg](step1.jpeg)
+
+**第二阶段：函数调用时**
+在执行环境中添加当前函数调用、为本次函数调用创建`活动对象AO`、根据`scope`指定运行期活动对象AO的`上下文内部对象`
+
+![step2.jpeg](step2.jpeg)
+
+**第三阶段：函数调用后**
+函数调用从执行环境栈中出栈、函数作用域AO释放、函数作用域AO中的局部变量也一同被释放
+
+![step3.jpeg](step3.jpeg)
 
 ### 函数调用栈与作用域链
 
@@ -535,6 +822,7 @@ bar();
 [js中 执行环境(execution context) 和 作用域(scope) 的区别在哪里?](https://www.zhihu.com/question/51336888)
 [js 中的活动对象 与 变量对象 什么区别？](https://www.zhihu.com/question/36393048)
 
-[讲清楚之javascript作用域](https://segmentfault.com/a/1190000014980841)
+[讲清楚之javascript作用域 6](https://segmentfault.com/a/1190000014980841)
 [深入理解JS中声明提升、作用域（链）和`this`关键字](https://github.com/creeperyang/blog/issues/16)
-[图解JS闭包形成的原因](https://segmentfault.com/a/1190000011504517)
+[图解JS闭包形成的原因 666](https://segmentfault.com/a/1190000011504517)
+[深入理解JavaScript系列（12）：变量对象（Variable Object）666666](https://www.cnblogs.com/TomXu/archive/2012/01/16/2309728.html)
