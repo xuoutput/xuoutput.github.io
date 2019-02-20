@@ -285,7 +285,7 @@ MDN的官方解释是：
 
 #### load事件与DOMContentLoaded事件的先后
 
-上面提到，渲染完毕后会触发`load`事件，那么你能分清楚`load`事件与``DOMContentLoaded``事件的**先后**么？
+上面提到，渲染完毕后会触发`load`事件，那么你能分清楚`load`事件与`DOMContentLoaded`事件的**先后**么？
 
 很简单，知道它们的定义就可以了：
 
@@ -297,7 +297,14 @@ MDN的官方解释是：
 
 所以，顺序是：`DOMContentLoaded` -> `load`
 
+[css加载会造成阻塞吗](https://segmentfault.com/a/1190000018130499?utm_source=weekly&utm_medium=email&utm_campaign=email_weekly) 看这个链接里的`DOMContentLoaded`, **css会阻塞Dom渲染和js执行，而js会阻塞Dom解析。**
+
+1. 如果页面中同时存在`css`和`js`，并且存在`js`在`css`后面，则`DOMContentLoaded`事件会在`css`加载完后才执行。(加载完全部css么?)
+2. 其他情况下，`DOMContentLoaded`都不会等待`css`加载，并且`DOMContentLoaded`事件也不会等待图片、视频等其他资源加载。
+
 #### css加载是否会阻塞dom树渲染？
+
+[css加载会造成阻塞吗](https://segmentfault.com/a/1190000018130499?utm_source=weekly&utm_medium=email&utm_campaign=email_weekly)
 
 这里说的是**头部引入css的情况**
 
@@ -686,3 +693,4 @@ MessageChannel属于宏任务，优先级是：MessageChannel->setTimeout，
 [一篇文章说清浏览器解析和CSS（GPU）动画优化 666](https://segmentfault.com/a/1190000008015671)
 
 [预加载系列一：DNS Prefetching 的正确使用姿势](https://segmentfault.com/a/1190000003944417)
+[css加载会造成阻塞吗 666](https://segmentfault.com/a/1190000018130499?utm_source=weekly&utm_medium=email&utm_campaign=email_weekly)

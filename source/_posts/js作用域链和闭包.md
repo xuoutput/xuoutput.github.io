@@ -492,3 +492,4 @@ var func2 = new Function("para1","para2",...,"function body");
 [3]:https://www.jianshu.com/p/330b1505e41d
 
 [《高性能JavaScript》第2章](http://www.menvscode.com/detail/599fd4673bb2bd430d7a7e01)
+[闭包，是真的美 666](https://juejin.im/entry/5aca253e5188255c5668b7bb)

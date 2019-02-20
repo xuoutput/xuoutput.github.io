@@ -95,6 +95,43 @@ var total = add(5, 10);
 
 这个看{% post_link js作用域链和闭包 js作用域链和闭包 %}中的闭包
 
+再说下一道经典的题啊, **涉及闭包, 作用域, 内核线程, 事件队列**, 进一步还可以考`this`
+
+```JavaScript
+var obj = {
+    a: 20,
+    getA: function() {
+  for(let i =1 ; i < 5; i++) {    // let变为var的话是4个5
+        setTimeout(function() {
+            console.log(i)
+        }, 1000*i)    // 注意这里不是1000, 改成1000的话会一秒后直接输出4个5
+    }
+  }
+}
+
+obj.getA();
+
+输出
+1
+2
+3
+4
+```
+
+这道题我觉得应该首先看{% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %} 中多**进程浏览器**,和**多线程内核**, `event loop`. {% post_link js立即执行函数 js立即执行函数 %}(来形成作用域块)
+
+
+尤其是内核和`event loop`, js引擎和计时器是不同的线程, js引擎是单线程的哦. 这样你就懂了为啥会这么输出.
+
+在4个循环下, 在js栈中就会触发4次计时器, 等同步的执行完, 再会执行事件队列中的, 而各个计时器线程又不打扰. 所以栈中for执行完后, 等事件队列, 事件队列都是1秒后执行完. 然而这时的i就是5, 所以大家都输出5
+
+解法是用
+[setTimeout 循环闭包的经典面试题 解法与探究](https://blog.csdn.net/X_Jagger/article/details/64584335)
+
+[setTimeout函数之循环和闭包 6还可以](https://www.jianshu.com/p/e5225ba4a025)
+[图例详解那道setTimeout与循环闭包的经典面试题 666](https://www.jianshu.com/p/9b4a54a98660)
+[你所不知道的setTimeout](https://www.jeffjade.com/2016/01/10/2016-01-10-javacript-setTimeout/#2-setTimeout%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6)
+
 ## JavaScript 的词法作用域
 
 看完闭包后要看这个链接巩固, 在整体回顾.
@@ -217,7 +254,7 @@ DoSomething( 1 );
 1. **创建阶段**【当函数被调用，但未执行任何其内部代码之前】：
    - 创建作用域链（`Scope Chain`）
    - 创建变量对象`VO`，内对应的variables, functions和arguments。
-   - 求”`this`“的值。
+   - 求”`this`“的值。 {% post_link javascript中this指向由函数调用方式决定 javascript中this指向由函数调用方式决定 %}
 2. 激活/**代码执行**阶段：
    - 重新扫描一次代码，给变量赋值，然后执行代码。。
 
@@ -249,9 +286,30 @@ executionContextObj = {
      - 扫描上下文中声明的变量：(即:**变量声明不会干扰`VO`中已经存在的同名函数声明或形式参数声明**)
        - 对于变量的声明，同样在`variable object`中创建对应的变量名，其值初始化`为undefined`
        - 如果变量的名字已经存在，则直接略过继续扫描
-   - 决定上下文`this`的指向
+   - **决定**上下文`this`的指向, **不要和作用域链, `VO`搞混**
+     - > 用`this`的时候下一步就是用`VO`或`scope chain`中的变量咯
+     - > 调用的时候才确定`this` {% post_link javascript中this指向由函数调用方式决定 javascript中this指向由函数调用方式决定 %}
+     - > 4种: 直接调用(`window`或`global`), 方法调用(那个`obj`, 注意指向全局的那种调用方式, 从作用域链来看没错), `new`调用(就是创建的那个), 箭头(没有绑定`this`, 但使用`this`的话就是包含它的那个函数或表达式, 外面的父的`this`)
+     - > 即: `this` 永远指向最后调用它的那个对象
 4. 代码执行阶段：
    - 执行函数内的代码并给对应变量进行赋值（创建阶段为`undefined`的变量）
+
+`this`结合上下文接着看
+[深入理解JavaScript系列（13）：This? Yes,this! 666666](http://www.cnblogs.com/TomXu/archive/2012/01/17/2310479.html)
+[前端基础进阶（五）：全方位解读this 666](https://www.jianshu.com/p/d647aa6d1ae6)
+
+[深入浅出 妙用Javascript中apply、call、bind 6666](http://www.admin10000.com/document/6711.html)
+
+JavaScript 的一大特点是，函数存在「**定义时上下文**」和「**运行时上下文**」以及「**上下文是可以改变的**」这样的概念。
+
+JavaScript 中，某些函数的参数数量是不固定的，因此要说适用条件的话，
+当你的参数是**明确知道**数量时用 `call` 。而**不确定**的时候用 `apply`，然后把参数 `push` 进数组传递进去。当参数数量不确定时，函数内部也可以通过 `arguments` 这个数组来遍历所有的参数。
+
+常用来转化为数组:
+
+```JavaScript
+var args = Array.prototype.slice.call(arguments);
+```
 
 **一个简单例子如下**：
 
@@ -504,7 +562,7 @@ global = {
 };
 ```
 
-当访问**全局对象的属性时**通常会**忽略掉前缀**(`global`)，这是因为全局对象是**不能通过名称直接访问**的。不过我们依然可以通过**全局上下文**的`this`来访问全局对象，同样**也可以递归引用自身**。例如，`DOM`中的`window`。综上所述，代码可以简写为：
+当访问**全局对象的属性时**通常会**忽略掉前缀**(`global`)，这是因为全局对象是**不能通过名称直接访问**的。不过我们依然可以通过**全局上下文**的`this`来访问全局对象，同样**也可以递归引用自身**。例如，`DOM`中的`window`, `nodejs`中的`global`。综上所述，代码可以简写为：
 
 ```JavaScript
 String(10); // 就是global.String(10);
@@ -826,3 +884,6 @@ bar();
 [深入理解JS中声明提升、作用域（链）和`this`关键字](https://github.com/creeperyang/blog/issues/16)
 [图解JS闭包形成的原因 666](https://segmentfault.com/a/1190000011504517)
 [深入理解JavaScript系列（12）：变量对象（Variable Object）666666](https://www.cnblogs.com/TomXu/archive/2012/01/16/2309728.html)
+[深入理解JavaScript系列（13）：This? Yes,this! 666666](http://www.cnblogs.com/TomXu/archive/2012/01/17/2310479.html)
+[深入浅出 妙用Javascript中apply、call、bind 6666](http://www.admin10000.com/document/6711.html)
+[闭包，是真的美 666](https://juejin.im/entry/5aca253e5188255c5668b7bb)

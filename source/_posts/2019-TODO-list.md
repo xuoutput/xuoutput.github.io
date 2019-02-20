@@ -20,6 +20,7 @@ permalink:
 [预计写四个系列：JavaScript深入系列、JavaScript专题系列、ES6系列、React系列。666](https://github.com/mqyqingfeng/Blog)
 [前端基础进阶系列 666](https://www.jianshu.com/p/cd3fee40ef59)
 [深入理解JavaScript系列 666666](http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html)
+[给前端好文多一首歌的时间（九）](https://www.jianshu.com/p/dd35aa1472b3)
 
 ### 数据类型
 
