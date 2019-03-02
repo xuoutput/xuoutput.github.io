@@ -5,6 +5,14 @@
   "hexo": {
     "version": "3.4.4"
   },
+  "scripts": {
+    "prettier-js": "prettier -l --write 'per/**/*.js' --single-quote",
+    "prettier-check-js": "prettier -l 'per/**/*.js' --single-quote",
+    "prettier-ts":
+      "prettier -l --write 'per/**/*.{ts,tsx,less,css}' --no-semi --single-quote",
+    "prettier-check-ts":
+      "prettier -l 'per/**/*.{ts,tsx,less,css}' --no-semi --single-quote"
+  },
   "dependencies": {
     "hexo": "^3.2.0",
     "hexo-deployer-git": "^0.3.1",
@@ -16,5 +24,8 @@
     "hexo-renderer-kramed": "^0.1.4",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.16.4"
   }
 }
