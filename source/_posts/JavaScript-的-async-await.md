@@ -13,6 +13,11 @@ permalink:
 
 # JavaScript 的 async/await
 
+第一阶段, 知道await当异步为同步,
+第二阶段, 知道了event loop后知道await是promsie的语法糖.
+第三阶段, 竟然再执行await下面的语句之前, 会执行async外的同步语句
+第四阶段, 竟然导致微队列先执行了
+
 ## 结论放开头
 
 1. `async function`只是用来**返回**一个`Promise`对象或者要执行`await`时包上为了达到`async function`不阻塞的效果.(并是不说`async`里面一定要有`await`),**绝不会阻塞后面的语句,整个一个`async function`** 不会阻塞哦, 且返回的是`Promise`.(不要和里面的`await`遇到`Promise`阻塞搞混),而且`await`不会包装值为`Promise`
@@ -22,6 +27,107 @@ permalink:
 4. 优化点, 处理`await`的时候最好用`try...catch`住,或者用`.catch` 防止`Promise`变为`reject`
 5. 处理多个的时候用`Promise.all()`,并且传入`数组[]` , 切记不要用`forEach`,虽然`forEach`**可能让他们并发执行**
 6. **至于`await`用不用, 看这一步的`await`会不会对后面的产生影响. 并不是说子的函数就搞定了. 他还是`promise,pending`的**
+
+> 建议再看下多进程浏览器, 多线程渲染进程这个 event loop {% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %}
+
+看了event loop后知道宏任务和微任务, 再然后是await和promise的关系
+
+> 实际上，async/await 在底层转换成了 promise 和 then 回调函数。也就是说，这是 promise 的**语法糖**。每次我们使用 await, 解释器都创建一个 promise 对象，**然后把剩下的 async 函数中的操作放到 then 回调函数中(这不就是先`new promise`中的'同步' 这个同步指伪的,, 然后`then`中的微队列么)**。 **这个我觉得就是重点, 理解语法糖结构**
+
+[从event loop到async await来了解事件循环机制 6666669](https://juejin.im/post/5c148ec8e51d4576e83fd836)
+
+重点以前的误解(**注意右边, 下面, 外面的措辞**)
+
+在`async`函数中遇到`await`关键字，`await`**右边的语句会被立即执行**然后`await`下面的代码进入等待状态，等待`await`得到结果。接着执行`async`函数外的同步代码, 然后再回到`await`右边的语句(如果有`then`(是个promise)就执行完当前宏任务后的微队列), 最后才往`await`下面执行.
+
+- `await`后面如果不是 `promise` 对象, `await`会阻塞下面的代码，先执行`await`右边表达式中的同步代码. 再执行当前`async`函数外面的同步代码，同步代码执行完，再回到`async`内部，把这个非`promise`的东西，**作为 `await`表达式的结果**, 然后执行`await`下面的代码, (**后面存在微队列的话, 再去执行微队列的**)。
+- `await`后面如果是 `promise` 对象，`await` 也会暂停`async`函数中后面的代码(`await`下面的语句)，**但要先执行当前`async`函数外面的同步代码**，(这里注意哦, 如果`await`后的表达式有同步的代码, 先执行这个, 再执行外面的同步代码. 外面的同步代码可能会有**推入微队列**)
+  - **这里重点记忆下**: 然后等着`await`右边的 `Promise` 对象 `fulfilled`，再把 `resolve` 的参数作为 `await` 右边表达式的运算结果。(**如果`async`函数外面的同步代码存在`then`这种微队列中的, 那么微队列会提前执行了.**), 最后再执行`await`下面的代码
+  - 先执行`await`右边表达式同步代码, 然后执行`async`外面同步代码, 然后执行`then`微队列, 最后返回data
+  - 这样就导致微队列中的代码提前执行了
+
+> 1. 就是注意 **执行`await`后面的表达式后, 不会立即执行`await`下面的, 而是先执行`async`外面的同步代码**
+> 2. 一般上面没啥问题, 就是注**意如果执行`await`后面的表达式后面是一个`promise`, 那么这个会把微队列也先执行掉**
+> 如果`await`后面是是`Promise`的, 那么**会提前执行微队列**, 注意再提前也是要先执行完`async`外的同步代码哦
+
+还要注意
+
+```JavaScript
+setTimeout(function () {
+  console.log('6')
+}, 0)
+console.log('1')
+async function async1() {
+  console.log('2')
+  await async2()
+  console.log('5')
+}
+async function async2() {
+  console.log('3')
+}
+async1()
+console.log('4')
+```
+
+1. 6是宏任务在下一轮事件循环执行
+2. 先同步输出1，然后调用了async1()，输出2。
+3. await async2() 会先运行async2()，5进入等待状态。
+4. 输出3，这个时候先执行async函数外的同步代码输出4。
+5. 最后await拿到等待的结果继续往下执行输出5。
+6. 进入第二轮事件循环输出6。
+
+上面没啥问题, 下面的第一个例子也没啥问题, `await`右边不是promise,  重点看第二个例子`await`右边是promise, 然后`async`函数外的同步代码**又会推入微队列**
+
+```JavaScript
+async function async1() {
+  console.log("2");
+  await async2();
+  console.log("7");
+}
+
+async function async2() {
+  console.log("3");
+}
+
+console.log("1");
+async1();
+
+new Promise(function(resolve) {
+  console.log("4");
+  resolve();
+}).then(function() {
+  console.log("6");
+});
+console.log("5");
+// 1 2 3 4 5 7 6
+
+
+async function async1() {
+  console.log("2");
+  await async2();
+  console.log("8");
+}
+async function async2() {   // 这个函数不同, 导致比上一个例子中,7比8先出.  本来then的7是微队列, 要放到8后面才输出, DNA因为这里是这个await要等到所有promise的then也执行完才能执行打印8 , 所以这个导致后面的7页输出了
+  return new Promise(function(resolve) {
+    console.log("3");
+    resolve();
+  }).then(function() {
+    console.log("6");
+  });
+}
+
+console.log("1");
+async1();
+
+new Promise(function(resolve) {
+  console.log("4");
+  resolve();
+}).then(function() {
+  console.log("7");
+});
+console.log("5");
+// 1 2 3 4 5 6 7 8
+```
 
 ## 说下async起的作用
 
@@ -383,9 +489,10 @@ async function myFunction() {
 }
 ```
 
-
 ## 参考文档
 
 [1. 理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
 [2. 阮一峰的async](http://es6.ruanyifeng.com/#docs/async)只是看怎么用
 [2. 阮一峰async 函数的含义和用法](http://www.ruanyifeng.com/blog/2015/05/async.html)
+[从event loop到async await来了解事件循环机制 666](https://juejin.im/post/5c148ec8e51d4576e83fd836)
+[Event Loop 原来是这么回事 66](https://juejin.im/post/5c36b3b0f265da611f07e409)

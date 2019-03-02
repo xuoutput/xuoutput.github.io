@@ -116,6 +116,7 @@ permalink:
 
 打开mac的monitor可以看到一个进程中有多少线程, 系统按进程来分配资源. 点开详情可以看到父进程是什么
 ![process1.png](process1.png)
+![process2.png](process2.png)
 
 对于chrome这个程序而言, 他有一个主进程`Google Chrome`, 以及对应tab页的`Google Chrome Helper`
 [mac下chrome浏览器的标签页、进程和内存分配](https://juejin.im/post/5c00c469f265da616413bdb8)
@@ -422,6 +423,8 @@ render树可能又得重新重绘或者回流了，这就造成了一些没有�
 > `one thread == one call stack == one thing at a time`
 > `执行栈`就是`task`, `任务队列`就是`task queue`, 然后进行`event loop`
 
+也有是 Event Table 和 Event Queue
+
 上图大致描述就是：
 
 - **主线程**运行时会产生**执行栈**，
@@ -578,6 +581,32 @@ __补充：在node环境下，`process.nextTick`的优先级高于`Promise`__，
 
 ![tasks.png](tasks.png)
 
+再来一个例子, 里面还有3个例子
+[从event loop到async await来了解事件循环机制 666666](https://juejin.im/post/5c148ec8e51d4576e83fd836)
+
+```JavaScript
+setTimeout(function() {
+    console.log('4')
+})
+
+new Promise(function(resolve) {
+    console.log('1') // 同步任务
+    resolve()
+}).then(function() {
+    console.log('3')
+})
+console.log('2')
+```
+
+1. 这段代码作为宏任务，进入主线程。
+2. 先遇到setTimeout，那么将其回调函数注册后分发到宏任务Event Queue。
+3. 接下来遇到了Promise，new Promise立即执行，then函数分发到微任务Event Queue。
+4. 遇到console.log()，立即执行。
+5. 整体代码script作为第一个宏任务执行结束。查看当前有没有可执行的微任务，执行then的回调。
+（第一轮事件循环结束了，我们开始第二轮循环。）
+6. 从宏任务Event Queue开始。我们发现了宏任务Event Queue中setTimeout对应的回调函数，立即执行。
+执行结果：1 - 2 - 3 - 4
+
 另外，请注意下`Promise`的`polyfill`与官方版本的区别：
 
 - 官方版本中，是标准的`microtask`形式
@@ -694,3 +723,4 @@ MessageChannel属于宏任务，优先级是：MessageChannel->setTimeout，
 
 [预加载系列一：DNS Prefetching 的正确使用姿势](https://segmentfault.com/a/1190000003944417)
 [css加载会造成阻塞吗 666](https://segmentfault.com/a/1190000018130499?utm_source=weekly&utm_medium=email&utm_campaign=email_weekly)
+[从event loop到async await来了解事件循环机制 666666](https://juejin.im/post/5c148ec8e51d4576e83fd836)
