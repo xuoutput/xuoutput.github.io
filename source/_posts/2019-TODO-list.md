@@ -15,6 +15,10 @@ permalink:
 
 ## JS篇
 
+### 导引
+
+[给2019前端的5个建议](https://zhuanlan.zhihu.com/p/55357377)
+
 ### 专题
 
 [预计写四个系列：JavaScript深入系列、JavaScript专题系列、ES6系列、React系列。666](https://github.com/mqyqingfeng/Blog)
@@ -75,6 +79,7 @@ permalink:
 
 [8张图让你一步步看清 async/await 和 promise 的执行顺序](https://segmentfault.com/a/1190000017224799)
 [理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
+{% post_link JavaScript-的-async-await JavaScript-的-async-await %}
 
 ### fetch
 
@@ -101,6 +106,7 @@ permalink:
 [深拷贝的终极探索（90%的人都不知道）](https://juejin.im/post/5bc1ae9be51d450e8b140b0c)
 [理解 async/await](https://juejin.im/post/596e142d5188254b532ce2da)
 [ES6 系列之我们来聊聊 Async](https://juejin.im/post/5bcf3e3f6fb9a05cd53b3e3d)
+[近一万字的ES6语法知识点补充](https://juejin.im/post/5c6234f16fb9a049a81fcca5)
 
 除此之外强烈推荐[冴羽老师的ES6系列](https://juejin.im/user/58e4b9b261ff4b006b3227f4/posts))文章，深入骨髓的理解ES6中的核心
 

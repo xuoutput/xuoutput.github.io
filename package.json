@@ -3,15 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "hexo": {
-    "version": "3.4.4"
+    "version": "3.8.0"
   },
   "scripts": {
     "prettier-js": "prettier -l --write 'per/**/*.js' --single-quote",
     "prettier-check-js": "prettier -l 'per/**/*.js' --single-quote",
-    "prettier-ts":
-      "prettier -l --write 'per/**/*.{ts,tsx,less,css}' --no-semi --single-quote",
-    "prettier-check-ts":
-      "prettier -l 'per/**/*.{ts,tsx,less,css}' --no-semi --single-quote"
+    "prettier-ts": "prettier -l --write 'per/**/*.{ts,tsx,less,css}' --no-semi --single-quote",
+    "prettier-check-ts": "prettier -l 'per/**/*.{ts,tsx,less,css}' --no-semi --single-quote"
   },
   "dependencies": {
     "hexo": "^3.2.0",
