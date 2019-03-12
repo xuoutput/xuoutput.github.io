@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Little H title">
 <meta property="og:description" content="go简单入门go简介go4个好处:  不依赖别的库, 拿来就可以跑. 静态语言, 又有动态语言的特性. 并发 GC  用在: 服务器, 分布式, 云平台, 网络平台, 内存数据库cache 语法变量声明/常量声明 12345678910111213141516// 变量var a int = 5var (    a int = 5    b float64 = 9.9)// 多一个:=a := 5">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-23T12:04:49.469Z">
+<meta property="og:updated_time" content="2019-01-13T06:46:17.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="go简单入门">
 <meta name="twitter:description" content="go简单入门go简介go4个好处:  不依赖别的库, 拿来就可以跑. 静态语言, 又有动态语言的特性. 并发 GC  用在: 服务器, 分布式, 云平台, 网络平台, 内存数据库cache 语法变量声明/常量声明 12345678910111213141516// 变量var a int = 5var (    a int = 5    b float64 = 9.9)// 多一个:=a := 5">
@@ -391,6 +391,74 @@
 <p>for 初始条件; 判断条件; 条件变化  同c 就是少个括号()</p>
 <p>range 迭代</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回一个元素位置和一个元素本身</span></span><br><span class="line"><span class="keyword">for</span> i, data := <span class="keyword">range</span> str &#123;</span><br><span class="line">    fmt()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> str &#123; <span class="comment">// 只要下标</span></span><br><span class="line">    fmt()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>go的不定参数,  (a …int)  而(a…)是展开,<br>更高级的是指定从哪个下标开始到结束用<code>[)</code></p>
+<p>比如 <code>(a[2:]...)</code>  从下标2开始包括2到最后<br>比如 <code>(a[:2]...)</code>  到下标为2不包括2</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">a</span><span class="params">()</span><span class="params">(res <span class="keyword">int</span>)</span></span> &#123;     <span class="comment">// 定义了返回的类型</span></span><br><span class="line">    <span class="keyword">return</span>              <span class="comment">// 这里只写return表示返回前面的定义的格式吗但建议还是写全好了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数名首字母是大写表示私有, 大写表示公有的函数.</p>
+<p>函数类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> FFF <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span> <span class="title">int</span>     // 输入2个, 输出1个</span></span><br></pre></td></tr></table></figure>
+<p>格式对好就行, 然后相同参数返回值的函数, 到时候调用. 先声明赋值后, 直接就可以像原来的函数调用一样. 更具有普遍性.</p>
+<p><code>t=add t(1,2)</code></p>
+<p>涉及多态, 就是不写死. 比如<code>sort()</code></p>
+<p>闭包, 匿名函数, 立即调用<br><code>func () {}</code></p>
+<p>闭包以引用的方式捕获外部变量,</p>
+<p>传统的局部变量是调用时才分配空间，然后调用完就回收了</p>
+<p><code>defer</code> 延时调用，在调用完前处理东西，只能用在函数内部。<br>类似异步后放最后用，然后多个<code>defer</code>是按照后进先出，的顺序的！！就是入栈了先！</p>
+<p>然后<code>defer</code>是肯定能执行，发生错误也能。就是栈。</p>
+<p><code>defer func()</code>  这种个匿名函数一起用。</p>
+<p>注意传入的参数是那个时候的。</p>
+<hr>
+<p>命令行参数，用导入os的包<code>import &#39;os&#39;</code>，然后<code>os.Args</code>  。字符数组。</p>
+<p>局部变量和全局变量<br>在<code>{}</code>中就是局部，块</p>
+<p>工作区<code>src</code>  <code>GOPATH</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"os"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><code>import .  &quot;fmt&quot;</code>   不建议，这个调用就不用包名了, 直接用比如<code>println</code></p>
+<p>别名  <code>import lll &quot;fmt&quot;</code></p>
+<p>忽略包  <code>import _ &quot;fmt&quot;</code>  一般使用这个包的<code>init</code>函数</p>
+<p>工程文件下要有<code>src</code> ,<code>GOPATH</code>就是工程的路径，不进去<code>src</code><br>同一个路径下<code>package &lt;nane&gt;</code>这个<code>&lt;name&gt;</code>要一样。<strong>同一个目录下</strong>调用别的文件的，不需导入包名，直接调用好了。</p>
+<p><strong>不同目录包名</strong>不一样，同fmt一样导入好了，然后使用，但要注意，<strong>函数名要大写开头</strong>。私有公有的问题。</p>
+<p><code>init</code>函数，会在那个包的所有函数之前运行，<strong>执行一次好了，就是每个包运行前会执行</strong><code>init</code><br>所以那个<code>import _ &quot;fmt&quot;</code>只是用来执行init的</p>
+<p><code>GOBIN</code>设置后用<code>go install</code>生成<code>pkg  bin</code>文件夹，一个放依赖，一个命令可执行程序。</p>
+<hr>
+<p>复合结构 </p>
+<p>point array slice map struct</p>
+<p>指针point不支持<code>-&gt;</code>这种算法<br>go中的是nil,不是null</p>
+<ul>
+<li>&amp;  这种和c语言一样(只是没有<code>-&gt;</code>)</li>
+</ul>
+<p><code>new(int)</code>分一个int大小的空间, 操作内存.</p>
+<p>数组, 同一个类型的, 要固定长(常量 ), 不能变, 同c   <code>len()</code>  初始化不同 <code>{}</code><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [<span class="number">12</span>]<span class="keyword">int</span></span><br></pre></td></tr></table></figure></p>
+<p>数组声明同时赋值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a [<span class="number">5</span>]<span class="keyword">int</span> = [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 部分</span></span><br><span class="line">c := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="comment">// 指定下标</span></span><br><span class="line">d := [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">2</span>:<span class="number">10</span>, <span class="number">4</span>:<span class="number">20</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>二维数组(了解), 看有多少个<code>[]</code> 多少维 多少循环</p>
+<p>同一维 <code></code>是用来初始化, 和c不同</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表示下标1的行那4个</span></span><br><span class="line">e := [<span class="number">3</span>][<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>: &#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>数组比较<code>==</code> 和 <code>!=</code> 比较的事每个数组元素是不是一样</p>
+<hr>
+<p>随机数</p>
+<ol>
+<li>设置种子     <code>rand.Seed(666)</code>        如果种子一样, 每次的随机数就一样, 所以用时间来做随机种子<code>time.Now().UnixNano()</code></li>
+<li>产生随机数   <code>rand.Int()</code>        <code>rand.Intn(100)</code>限制在100内</li>
+</ol>
+<p>数组做函数参数, 是值传递, 不是引用哦, 相当于copy一份, 注意哦. 当然可以用指针的方式去</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">a</span><span class="params">(p [5]<span class="keyword">int</span>)</span></span></span><br><span class="line"><span class="function">// 按引用</span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">a</span><span class="params">(p *[5]<span class="keyword">int</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>slice 弥补数组缺点, 通过内部指针和相关属性引用数组片段, 以实现变长方案.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array := [...]<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">0</span>, <span class="number">0</span>&#125;</span><br><span class="line"><span class="comment">// 起始指针位置low, 终止位置high, 切完后要的总容量max</span></span><br><span class="line">slice := array[<span class="number">0</span>:<span class="number">3</span>:<span class="number">5</span>]   <span class="comment">//[low: high: max]</span></span><br><span class="line">[)  起点,终点, 长度</span><br><span class="line"><span class="built_in">len</span>长度是high - low</span><br><span class="line"><span class="built_in">cap</span>容量是max - low</span><br></pre></td></tr></table></figure>
+<p>切片和数组的区别: 数组的len是固定常量, 不能修改. 切片 方括号里面是空或…</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">6</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">[]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">[...]<span class="keyword">int</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>切片创建<br>// 自动推导</p>
+<p>// 用make</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 类型, 长度, 容量</span></span><br><span class="line">s2 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">5</span>, <span class="number">10</span>)</span><br><span class="line"><span class="comment">// len和max一样</span></span><br><span class="line">s3 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">len</span>()  <span class="built_in">cap</span>()</span><br></pre></td></tr></table></figure>
+<p>截取: </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[low:high:max]</span><br><span class="line">就是<span class="built_in">len</span>是high-low</span><br><span class="line"><span class="built_in">cap</span>是max-low</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[:<span class="number">6</span>]  <span class="comment">// 长度是6 但容量是原来的数组容量, 不是len = max</span></span><br></pre></td></tr></table></figure>
+<p>切片会改变原来的数组</p>
+<p><code>append</code>在slice末尾加一个元素, 会扩容的, 超过cap会以2倍扩容.</p>
+<p>copy</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">copy</span>(dst, src)</span><br><span class="line">是替换过去覆盖相应位置元素</span><br></pre></td></tr></table></figure>
+<p>当函数参数的话, slice是引用传递, 不是值传递. 不用加&amp;, 直接变量传过去.</p>
+<p>map就是无序key-value</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// map[keyType] valueType  只有len没有cap, 用make的话那个是指定容量了, 还会扩容</span></span><br><span class="line"><span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">    <span class="number">110</span>: <span class="string">'mike'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -429,6 +497,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/26/CDN原理/" rel="prev" title="CDN原理">
+                CDN原理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -500,7 +572,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -511,7 +583,7 @@
                 
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -522,7 +594,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">92</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -605,7 +677,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

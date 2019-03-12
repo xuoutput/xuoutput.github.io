@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="travis,">
+
+
+<meta name="description" content="travis配置文件的编写介绍1234567891011121314151617181920212223242526272829303132333435language: node_jsdist: trustysudo: requiredmatrix:  include:    - language: node_js      node_js:        - 8.15.0      env:">
+<meta name="keywords" content="travis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="travis配置文件的编写">
+<meta property="og:url" content="http://yoursite.com/2019/03/05/travis配置文件的编写/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="travis配置文件的编写介绍1234567891011121314151617181920212223242526272829303132333435language: node_jsdist: trustysudo: requiredmatrix:  include:    - language: node_js      node_js:        - 8.15.0      env:">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-05T06:53:06.194Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="travis配置文件的编写">
+<meta name="twitter:description" content="travis配置文件的编写介绍1234567891011121314151617181920212223242526272829303132333435language: node_jsdist: trustysudo: requiredmatrix:  include:    - language: node_js      node_js:        - 8.15.0      env:">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/05/travis配置文件的编写/">
+
+
+  <title>travis配置文件的编写 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/05/travis配置文件的编写/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">travis配置文件的编写</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-05T14:08:21+08:00">2019-03-05</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端教程/" itemprop="url" rel="index"><span itemprop="name">前端教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="travis配置文件的编写"><a href="#travis配置文件的编写" class="headerlink" title="travis配置文件的编写"></a>travis配置文件的编写</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">node_js</span></span><br><span class="line"><span class="attr">dist:</span> <span class="string">trusty</span></span><br><span class="line"><span class="attr">sudo:</span> <span class="string">required</span></span><br><span class="line"><span class="attr">matrix:</span></span><br><span class="line"><span class="attr">  include:</span></span><br><span class="line"><span class="attr">    - language:</span> <span class="string">node_js</span></span><br><span class="line"><span class="attr">      node_js:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="number">8.15</span><span class="number">.0</span></span><br><span class="line"><span class="attr">      env:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">TRAVIS_SECURE_ENV_VARS=false</span></span><br><span class="line"><span class="attr">      addons:</span></span><br><span class="line"><span class="attr">        apt:</span></span><br><span class="line"><span class="attr">          sources:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">ubuntu-toolchain-r-test</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">mysql-5.7-trusty</span></span><br><span class="line"><span class="attr">          packages:</span></span><br><span class="line"><span class="attr">      branches:</span></span><br><span class="line"><span class="attr">        only:</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">master</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">dev</span></span><br><span class="line"><span class="attr">      before_install:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">echo</span> <span class="bullet">-e</span> <span class="string">"machine github.com\n login $CI_USER_TOKEN\n password x-oauth-basic"</span> <span class="string">&gt;&gt;</span> <span class="string">~/.netrc</span></span><br><span class="line">        <span class="comment"># Repo for Yarn</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">sudo</span> <span class="string">apt-key</span> <span class="string">adv</span> <span class="bullet">--fetch-keys</span> <span class="attr">http://dl.yarnpkg.com/debian/pubkey.gpg</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">echo</span> <span class="string">"deb http://dl.yarnpkg.com/debian/ stable main"</span> <span class="string">| sudo tee /etc/apt/sources.list.d/yarn.list</span></span><br><span class="line"><span class="string">        - sudo apt-get update -qq</span></span><br><span class="line"><span class="string">        - sudo apt-get install -y -qq yarn=1.12.3-1</span></span><br><span class="line"><span class="string"></span><span class="attr">      script:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">node</span> <span class="bullet">-v</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">yarn</span> <span class="bullet">-v</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">./travis-script.sh</span></span><br><span class="line"><span class="attr">      cache:</span></span><br><span class="line"><span class="attr">        yarn:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">        directories:</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">$TRAVIS_BUILD_DIR/project-template/client/node_modules</span></span><br></pre></td></tr></table></figure>
+<h3 id="sudo"><a href="#sudo" class="headerlink" title="sudo"></a>sudo</h3><p>需不需要<code>sudo</code>权限 一般是要的<code>require</code></p>
+<h3 id="matrix"><a href="#matrix" class="headerlink" title="matrix"></a>matrix</h3><p>相当于就是一个几乘几的各种情况, 自动给你跑, 也可以<code>include</code>, 也可以<code>exclude</code>下.</p>
+<p>exclude的要精确匹配 env 这种</p>
+<h3 id="addons"><a href="#addons" class="headerlink" title="addons"></a>addons</h3><p>额外的软件包</p>
+<h3 id="env"><a href="#env" class="headerlink" title="env"></a>env</h3><p>就是环境咯, <code>TRAVIS_SECURE_ENV_VARS=false</code>不加密</p>
+<h3 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h3><p>要进行CI的分支, 可以写safelist<code>only</code>和blocklist<code>except</code></p>
+<h3 id="在before-install下"><a href="#在before-install下" class="headerlink" title="在before_install下"></a>在<code>before_install</code>下</h3><p>第一条命令: <code>echo -e &quot;machine github.com\n  login $CI_USER_TOKEN&quot; &gt; ~/.netrc</code>, 用来将登陆配置信息追加写入<code>~/.netrc</code>中, 方便以后登录不用填用户名密码.<br><a href="https://docs.travis-ci.com/user/private-dependencies/#api-token" target="_blank" rel="noopener">travis API Token machine github.com\n</a></p>
+<p>第二条命令: <code>apt-key adv --fetch-keys</code> will only fetch one key from the URL, and if the URL contains multiple keys, please use <code>wget | apt-key add instead</code>.</p>
+<p>第三条命令: <code>tee</code>用来从标准输入中读, 然后便准输出. 就是一个复制粘贴的功能. 所以后面就是将 <code>deb http://dl.yarnpkg.com/debian/ stable main</code> 写入 <code>yarn.list</code> 中</p>
+<p>第四第五条命令: 就是更新软件库表, 然后安装上 <code>yarn</code></p>
+<blockquote>
+<p>整个第2-5条命令就是在安装<code>yarn</code> <a href="https://yarnpkg.com/en/docs/install#debian-stable" target="_blank" rel="noopener">https://yarnpkg.com/en/docs/install#debian-stable</a></p>
+</blockquote>
+<h3 id="script"><a href="#script" class="headerlink" title="script"></a><code>script</code></h3><p>就是这个travis要跑的脚本.</p>
+<h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h3><p>就是cache, 看教程就是这么写的, <code>$TRAVIS_BUILD_DIR</code>就是当前<code>.travis.yml</code>所在的目录.</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html" target="_blank" rel="noopener">持续集成服务 Travis CI 教程 阮一峰 666</a></p>
+<p><a href="https://docs.travis-ci.com/user/languages/javascript-with-nodejs/" target="_blank" rel="noopener">Building a JavaScript and Node.js project</a></p>
+<p><a href="https://docs.travis-ci.com/user/private-dependencies/#api-token" target="_blank" rel="noopener">travis API Token machine github.com\n</a><br><a href="https://blog.csdn.net/du_chao_qun/article/details/53464454" target="_blank" rel="noopener">.netrc文件简单使用</a><br><a href="http://lujun9972.github.io/blog/2017/05/25/%E4%BD%BF%E7%94%A8auth-source%E5%BA%93%E8%AF%BB%E5%8F%96netrc%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81/" target="_blank" rel="noopener">使用auth-source库读取Netrc文件中的用户名和密码</a><br><a href="https://blog.csdn.net/wenxuechaozhe/article/details/52564394" target="_blank" rel="noopener">linux &gt;和&gt;&gt;的区别</a></p>
+<p><a href="http://blog.51yip.com/linux/1176.html" target="_blank" rel="noopener">apt-get 命令详解(中文),以及实例</a><br><a href="https://yarnpkg.com/en/docs/install#debian-stable" target="_blank" rel="noopener">https://yarnpkg.com/en/docs/install#debian-stable</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/travis/" rel="tag"># travis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/20/preiiter代码格式美化/" rel="next" title="preiiter代码格式美化">
+                <i class="fa fa-chevron-left"></i> preiiter代码格式美化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/05/yarn的使用/" rel="prev" title="yarn的使用">
+                yarn的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">92</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#travis配置文件的编写"><span class="nav-number">1.</span> <span class="nav-text">travis配置文件的编写</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sudo"><span class="nav-number">1.1.1.</span> <span class="nav-text">sudo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#matrix"><span class="nav-number">1.1.2.</span> <span class="nav-text">matrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addons"><span class="nav-number">1.1.3.</span> <span class="nav-text">addons</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#env"><span class="nav-number">1.1.4.</span> <span class="nav-text">env</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#branch"><span class="nav-number">1.1.5.</span> <span class="nav-text">branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在before-install下"><span class="nav-number">1.1.6.</span> <span class="nav-text">在before_install下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#script"><span class="nav-number">1.1.7.</span> <span class="nav-text">script</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cache"><span class="nav-number">1.1.8.</span> <span class="nav-text">cache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

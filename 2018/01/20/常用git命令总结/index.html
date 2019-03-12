@@ -110,7 +110,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/01/20/常用git命令总结/localOperations.png">
 <meta property="og:image" content="http://yoursite.com/2018/01/20/常用git命令总结/fileStatus.png">
-<meta property="og:updated_time" content="2018-12-24T03:37:01.717Z">
+<meta property="og:updated_time" content="2018-12-27T01:04:33.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用git命令总结">
 <meta name="twitter:description" content="首先推荐廖雪峰的Git教程图解GitGit官网Git重要概念与常用命令 在线动画git Git命令行使用，不是desktop123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737">
@@ -500,6 +500,10 @@
 <hr>
 <h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><hr>
 <p>还有关于git库的，不需要删了库中的内容重新提交，只要你直接提交，那个库就按你最新的文件内容更改。<br>比如原来库中是文件abc，你要改成文件456，不需要删了abc，直接本地工作区删了abc，commit文件456，库中就没有abc了，这个库中哦不是append，</p>
+<h2 id="stash-存储和清理"><a href="#stash-存储和清理" class="headerlink" title="stash 存储和清理"></a>stash 存储和清理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 全部清空</span><br><span class="line">git stash clear</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://icyleaf.com/2013/10/about-pager-on-git/" target="_blank" rel="noopener">Git 和 Pager 的那点事</a><br><a href="https://backlog.com/git-tutorial/cn/intro/intro1_1.html" target="_blank" rel="noopener">猴子</a></p>
+<h2 id="配置参考"><a href="#配置参考" class="headerlink" title="配置参考"></a>配置参考</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> 1 [user]</span><br><span class="line"> 2         name = xuheng</span><br><span class="line"> 3         email = xuheng@qiniu.com</span><br><span class="line"> 4 [core]</span><br><span class="line"> 5         pager = less -FXR</span><br><span class="line"> 6         excludesfile = /Users/xuheng/.gitignore_global</span><br><span class="line"> 7 [difftool &quot;sourcetree&quot;]</span><br><span class="line"> 8         cmd = opendiff \&quot;$LOCAL\&quot; \&quot;$REMOTE\&quot;</span><br><span class="line"> 9         path =</span><br><span class="line">10 [mergetool &quot;sourcetree&quot;]</span><br><span class="line">11         cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \&quot;$LOCAL\&quot; \    &quot;$REMOTE\&quot; -ancestor \&quot;$BASE\&quot; -merge \&quot;$MERGED\&quot;</span><br><span class="line">12         trustExitCode = true</span><br><span class="line">13 [commit]</span><br><span class="line">14         template = /Users/xuheng/.stCommitMsg</span><br><span class="line">15 [color]</span><br><span class="line">16         ui = true</span><br></pre></td></tr></table></figure>
+<p>alias用的多的是用oh-my-zsh的自带的 <code>~/.oh-my-zsh/plugins/git/git.plugin.zsh</code></p>
 
       
     </div>
@@ -620,7 +624,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -631,7 +635,7 @@
                 
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -642,7 +646,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">92</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -705,7 +709,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git命令行使用，不是desktop"><span class="nav-number">1.</span> <span class="nav-text">Git命令行使用，不是desktop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Git"><span class="nav-number">2.1.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Git仓库"><span class="nav-number">2.2.</span> <span class="nav-text">创建Git仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作区，暂存区"><span class="nav-number">2.2.1.</span> <span class="nav-text">工作区，暂存区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件状态"><span class="nav-number">2.3.</span> <span class="nav-text">文件状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitignore文件"><span class="nav-number">2.4.</span> <span class="nav-text">.gitignore文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看已暂存未暂存的更新"><span class="nav-number">2.5.</span> <span class="nav-text">查看已暂存未暂存的更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动文件或改名"><span class="nav-number">2.6.</span> <span class="nav-text">移动文件或改名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#穿越版本"><span class="nav-number">2.7.</span> <span class="nav-text">穿越版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件-（掌握working-tree状态）"><span class="nav-number">2.7.1.</span> <span class="nav-text">修改文件 （掌握working tree状态）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本回退"><span class="nav-number">2.7.2.</span> <span class="nav-text">版本回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理修改"><span class="nav-number">2.7.3.</span> <span class="nav-text">管理修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撤销修改-用版本库里的版本替换工作区的版本"><span class="nav-number">2.7.4.</span> <span class="nav-text">撤销修改 用版本库里的版本替换工作区的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件-（删除也是修改哦）"><span class="nav-number">2.7.5.</span> <span class="nav-text">删除文件 （删除也是修改哦）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程仓库"><span class="nav-number">2.8.</span> <span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加到远程仓库"><span class="nav-number">2.8.1.</span> <span class="nav-text">添加到远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#push过去还有个问题"><span class="nav-number">2.8.1.1.</span> <span class="nav-text">push过去还有个问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有个坑的，-hexo-d之后首页没有变化"><span class="nav-number">2.8.2.</span> <span class="nav-text">还有个坑的， hexo d之后首页没有变化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支管理"><span class="nav-number">2.9.</span> <span class="nav-text">分支管理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git命令行使用，不是desktop"><span class="nav-number">1.</span> <span class="nav-text">Git命令行使用，不是desktop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Git"><span class="nav-number">2.1.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Git仓库"><span class="nav-number">2.2.</span> <span class="nav-text">创建Git仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#工作区，暂存区"><span class="nav-number">2.2.1.</span> <span class="nav-text">工作区，暂存区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件状态"><span class="nav-number">2.3.</span> <span class="nav-text">文件状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitignore文件"><span class="nav-number">2.4.</span> <span class="nav-text">.gitignore文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看已暂存未暂存的更新"><span class="nav-number">2.5.</span> <span class="nav-text">查看已暂存未暂存的更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动文件或改名"><span class="nav-number">2.6.</span> <span class="nav-text">移动文件或改名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#穿越版本"><span class="nav-number">2.7.</span> <span class="nav-text">穿越版本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件-（掌握working-tree状态）"><span class="nav-number">2.7.1.</span> <span class="nav-text">修改文件 （掌握working tree状态）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本回退"><span class="nav-number">2.7.2.</span> <span class="nav-text">版本回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理修改"><span class="nav-number">2.7.3.</span> <span class="nav-text">管理修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#撤销修改-用版本库里的版本替换工作区的版本"><span class="nav-number">2.7.4.</span> <span class="nav-text">撤销修改 用版本库里的版本替换工作区的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文件-（删除也是修改哦）"><span class="nav-number">2.7.5.</span> <span class="nav-text">删除文件 （删除也是修改哦）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程仓库"><span class="nav-number">2.8.</span> <span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加到远程仓库"><span class="nav-number">2.8.1.</span> <span class="nav-text">添加到远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#push过去还有个问题"><span class="nav-number">2.8.1.1.</span> <span class="nav-text">push过去还有个问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有个坑的，-hexo-d之后首页没有变化"><span class="nav-number">2.8.2.</span> <span class="nav-text">还有个坑的， hexo d之后首页没有变化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支管理"><span class="nav-number">2.9.</span> <span class="nav-text">分支管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stash-存储和清理"><span class="nav-number">2.10.</span> <span class="nav-text">stash 存储和清理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.11.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置参考"><span class="nav-number">2.12.</span> <span class="nav-text">配置参考</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -725,7 +729,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

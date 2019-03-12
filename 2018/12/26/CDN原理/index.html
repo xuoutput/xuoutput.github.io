@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="CDN,">
+
+
+<meta name="description" content="CDN原理传统的网站访问过程为: 用户在浏览器中输入要访问的域名; 浏览器向域名解析服务器发出解析请求，获得此域名对应的IP 地址; 浏览器利用所得到的IP 地址，向该IP对应的服务器发出访问请求; 服务器对此响应，将数据回传至用户浏览器端显示出来。   例子🌰:  在chrome中输入www.qiniu.com chrome向 DNS server发请求, 解析www.qiniu.com为一个">
+<meta name="keywords" content="CDN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CDN原理">
+<meta property="og:url" content="http://yoursite.com/2018/12/26/CDN原理/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="CDN原理传统的网站访问过程为: 用户在浏览器中输入要访问的域名; 浏览器向域名解析服务器发出解析请求，获得此域名对应的IP 地址; 浏览器利用所得到的IP 地址，向该IP对应的服务器发出访问请求; 服务器对此响应，将数据回传至用户浏览器端显示出来。   例子🌰:  在chrome中输入www.qiniu.com chrome向 DNS server发请求, 解析www.qiniu.com为一个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/26/CDN原理/DNS.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/12/26/CDN原理/DNS2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/12/26/CDN原理/localDNS.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/26/CDN原理/DNS100.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/26/CDN原理/DNS8.8.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/26/CDN原理/router.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/26/CDN原理/DHCP.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/26/CDN原理/CDN.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/12/26/CDN原理/CDN2.jpeg">
+<meta property="og:updated_time" content="2019-02-21T00:32:18.704Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CDN原理">
+<meta name="twitter:description" content="CDN原理传统的网站访问过程为: 用户在浏览器中输入要访问的域名; 浏览器向域名解析服务器发出解析请求，获得此域名对应的IP 地址; 浏览器利用所得到的IP 地址，向该IP对应的服务器发出访问请求; 服务器对此响应，将数据回传至用户浏览器端显示出来。   例子🌰:  在chrome中输入www.qiniu.com chrome向 DNS server发请求, 解析www.qiniu.com为一个">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/26/CDN原理/DNS.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/26/CDN原理/">
+
+
+  <title>CDN原理 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/26/CDN原理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CDN原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-26T20:09:45+08:00">2018-12-26</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/网络/" itemprop="url" rel="index"><span itemprop="name">网络</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CDN原理"><a href="#CDN原理" class="headerlink" title="CDN原理"></a>CDN原理</h1><h2 id="传统的网站访问过程为"><a href="#传统的网站访问过程为" class="headerlink" title="传统的网站访问过程为:"></a>传统的网站访问过程为:</h2><ul>
+<li>用户在浏览器中输入要访问的域名;</li>
+<li>浏览器向域名解析服务器发出解析请求，获得此域名对应的IP 地址;</li>
+<li>浏览器利用所得到的IP 地址，向该IP对应的服务器发出访问请求;</li>
+<li>服务器对此响应，将数据回传至用户浏览器端显示出来。</li>
+</ul>
+<p><img src="DNS.jpg" alt="dns.jpg"><br><img src="DNS2.jpeg" alt="dns2.jpg"></p>
+<p>例子🌰:</p>
+<ol>
+<li>在chrome中输入www.qiniu.com</li>
+<li>chrome向 DNS server发请求, 解析www.qiniu.com为一个IP地址 (<strong>其实就是多了这步</strong>)</li>
+<li>chrome知道www.qiniu.com的IP地址后, 访问这个地址</li>
+<li>七牛 service 收到请求后, 处理完, 返回源IP地址.</li>
+</ol>
+<p>然后有几个问题呗:<br><a href="https://fed.renren.com/2018/01/01/chrome-dns-resolve/" target="_blank" rel="noopener">从Chrome源码看DNS解析过程</a></p>
+<p>（1）浏览器是怎么知道DNS解析服务器，如上图的8.8.8.8这台？</p>
+<p>（2）一个域名可以解析成多个IP地址吗，如果只有一个IP地址，在并发量很大的情况下，那台服务器可能会爆？</p>
+<p>（3）把域名绑了host之后，是不是就不用域名解析了直接用的本地host指定的IP地址？</p>
+<p>（4）域名解析的有效时间为多长，即过了多久后同一个域名需要再次进行解析？</p>
+<p>（5）什么是域名解析的A记录、AAAA记录、CNAME记录？</p>
+<p><strong>其实域名解析和Chrome没有直接关系</strong>,即使是最简单的<code>curl</code>命令也需要进行<strong>域名解析</strong><br>但是我们可以通过Chrome源码来看一下这个过程是怎么样的，并且回答上面的问题。</p>
+<hr>
+<p>首先第一个问题，<strong>浏览器是怎么知道DNS解析服务器</strong>的，在本机的网络设置里面可以看到当前的DNS服务器IP，如我电脑的：</p>
+<blockquote>
+<p>一句话, DHCP分配IP地址的时候就知道了</p>
+</blockquote>
+<p><img src="localDNS.png" alt="localDNS.png"></p>
+<p>这个DNS Server是某ISP宽带提供的：<br><img src="DNS100.png" alt="DNS100"></p>
+<p>一般宽带服务商都会提供DNS服务器，<strong>谷歌</strong>还为公众提供了两个免费的DNS服务，分别为<code>8.8.8.8</code>和<code>8.8.4.4</code>，取这两个IP地址是为了容易记住，当你的DNS服务不好用的时候，可以尝试改成这两个。</p>
+<p><img src="DNS8.8.png" alt="DNS8.8"></p>
+<p><strong>入网的设备(比如你的mac,前面是mac上的chrome)</strong>是怎么获取到这些IP地址的呢？是通过动态主机配置协议(<code>DHCP</code>)，当一台设备连到路由器之后，<strong>路由器</strong>通过DHCP给它分配一个IP地址，<strong>并告诉它DNS服务器</strong>，如下路由器的DHCP设置：</p>
+<p>这是个例子, 但不是本机的<br><img src="router.png" alt="router"></p>
+<p>通过<code>wireshark</code>抓包可以观察到这个过程:<br>打开wireshark后先断网, 然后再打开网络, 过滤<code>bootp</code>的就是</p>
+<p><img src="DHCP.png" alt="DHCP"></p>
+<p>当我的电脑连上wifi的时候，会发一个<code>DHCP Request</code>的广播，<strong>路由器</strong>收到这个广播后就会向我的电脑<strong>分配一个IP地址并告知DNS服务器</strong>。</p>
+<a href="/2018/12/27/DHCP原理/" title="DHCP原理">DHCP原理</a>
+<p>这个时候<strong>系统就有DNS服务器了</strong>，<code>Chrome</code>是调<code>res_ninit</code>这个系统函数(<code>Linux</code>)去获取系统的DNS服务器，这个函数是通过读取<code>/etc/resolve.conf</code>这个文件获取DNS：(总之到这里chrome是知道NDS服务器地址的)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> 1 <span class="comment">#</span></span><br><span class="line"> 2 <span class="comment"># macOS Notice</span></span><br><span class="line"> 3 <span class="comment">#</span></span><br><span class="line"> 4 <span class="comment"># This file is not consulted for DNS hostname resolution, address</span></span><br><span class="line"> 5 <span class="comment"># resolution, or the DNS query routing mechanism used by most</span></span><br><span class="line"> 6 <span class="comment"># processes on this system.</span></span><br><span class="line"> 7 <span class="comment">#</span></span><br><span class="line"> 8 <span class="comment"># To view the DNS configuration used by this system, use:</span></span><br><span class="line"> 9 <span class="comment">#   scutil --dns</span></span><br><span class="line">10 <span class="comment">#</span></span><br><span class="line">11 <span class="comment"># SEE ALSO</span></span><br><span class="line">12 <span class="comment">#   dns-sd(1), scutil(8)</span></span><br><span class="line">13 <span class="comment">#</span></span><br><span class="line">14 <span class="comment"># This file is automatically generated.</span></span><br><span class="line">15 <span class="comment">#</span></span><br><span class="line">   <span class="comment"># search DHCP HOST</span></span><br><span class="line">16 nameserver 100.100.61.1</span><br><span class="line">17 nameserver 8.8.8.8</span><br></pre></td></tr></table></figure>
+<p><code>search</code>选项的作用是当一个域名不可解析时，就会尝试在后面<strong>添加相应的后缀</strong>，如<code>ping hello</code>，无法解析就会分别<code>ping hello.DHCP/hello.HOST</code>，结果最后都无法解析。</p>
+<p>Chrome在启动的时候<strong>根据不同的操作系统</strong>去获取DNS服务器配置，然后把它放到<code>DNSConfig</code>的<code>nameservers</code>：</p>
+<p>偏题了, 总之懂DHCP就行</p>
+<hr>
+<p>那本地域名服务器是个啥???,路由器给你设的DNS是哪个的??(<strong>最终值你的ISP,比如电信, 移动</strong>)</p>
+<p>第一个问题：<strong>本地DNS一般是指你电脑上网时IPv4或者IPv6设置中填写的那个DNS</strong>。这个有可能是手工指定的或者是DHCP自动分配的。如果你的电脑是<strong>直连</strong>运营商网络，一般默认设置情况下DNS为DHCP分配到的运营商的服务器地址。如果你的电脑和运营商之间还<strong>加了无线或者有线路由</strong>，那极有可能<strong>路由器本身还内置了一个DNS转发器</strong>，这玩意的作用是将发往他所有的DNS请求转发到上层DNS。此时由于路由器本身也接管了下挂电脑的DHCP服务，所以它分配给下面电脑的DNS地址就是它自身，所以你能看到电脑的DNS分配到的可能是<code>192.168.1.1</code>。实际上就是路由器自身，而<strong>路由器的DNS转发器</strong>将请求转发到上层ISP的DNS。所以这里说DNS是局域网或者是运营商的都可以（因为<strong>最终都是转发到运营商</strong>，小细节不用纠结）。</p>
+<p><a href="https://www.zhihu.com/question/48085305/answer/109256904" target="_blank" rel="noopener">知乎韩晓答案</a></p>
+<p>再说下DNS的递归和迭代查询:<br>（1）递归查询<br>递归查询是一种DNS 服务器的查询模式，在该模式下DNS 服务器接收到客户机请求，必须使用一个准确的查询结果回复客户机。如果DNS 服务器本地没有存储查询DNS 信息，那么该服务器会询问其他服务器，并将返回的查询结果提交给客户机。<br>（2）迭代查询<br>DNS 服务器另外一种查询方式为迭代查询，DNS 服务器会向客户机提供其他能够解析查询请求的DNS 服务器地址，当客户机发送查询请求时，DNS 服务器并不直接回复查询结果，而是告诉客户机另一台DNS 服务器地址，客户机再向这台DNS 服务器提交请求，依次循环直到返回查询的结果<br>为止。<br><a href="https://www.cnblogs.com/qingdaofu/p/7399670.html" target="_blank" rel="noopener">DNS递归查询与迭代查询</a><br><a href="http://blog.51cto.com/hxw168/1409219" target="_blank" rel="noopener">【基础服务】简单理解DNS的递归、迭代查询 - DNS（一</a></p>
+<hr>
+<p>与传统访问方式不同，CDN 网络则是在用户和服务器之间<strong>增加 <code>Cache</code> 层</strong>，将用户的访问请求引导到 <code>Cache</code> 节点而不是服务器源站点，要实现这一目的，主要是通过<strong>接管DNS</strong> 实现。</p>
+<h2 id="使用CDN-缓存后的网站访问过程演变为："><a href="#使用CDN-缓存后的网站访问过程演变为：" class="headerlink" title="使用CDN 缓存后的网站访问过程演变为："></a>使用CDN 缓存后的网站访问过程演变为：</h2><p><img src="CDN.jpg" alt="CDN.jpg"></p>
+<ol>
+<li>用户在浏览器中输入要访问的域名;</li>
+<li>浏览器向域名解析服务器发出解析请求，由于CDN 对域名解析过程进行了调整，所以用户端一般得到的是该域名对应的 <strong>CNAME 记录</strong>，此时浏览器需要再次对获得的 <code>CNAME</code> 域名进行解析才能得到缓存服务器实际的IP 地址。(这里有2次)<ol>
+<li><strong>注</strong>：在此过程中 得到<code>CNAME</code>后,指向的是<strong>全局负载均衡DNS解析服务器</strong>(第二次解析得到这个服务器IP地址)，然后全局负载均衡DNS 解析服务器会根据用户端的源IP 地址，如地理位置(北京还是上海)、接入网类型(电信还是网通)将用户的访问请求定位到离用户路由最短、位置最近、负载最轻的Cache 节点(缓存服务器)上，实现就近定位。定位优先原则可按位置、可按路由、也可按负载等。这种技术也被称为<strong>DNS 重定向</strong></li>
+</ol>
+</li>
+<li>再次解析后浏览器得到该域名CDN 缓存服务器的实际IP 地址，向缓存服务器发出访问请求;</li>
+<li>缓存服务器根据浏览器提供的域名，通过Cache 内部专用DNS 解析得到此域名源服务器的真实IP 地址，再由缓存服务器向此真实IP 地址提交访问请求;</li>
+<li>缓存服务器从真实IP 地址得到内容后，一方面在本地进行保存，以备以后使用，另一方面把得到的数据发送到客户端浏览器，完成访问的响应过程;</li>
+<li>用户端得到由缓存服务器传回的数据后显示出来，至此完成整个域名访问过程。</li>
+</ol>
+<p>通过以上分析可以看到，不论是否使用CDN 网络，普通用户客户端设置不需做任何改变，直接使用被加速网站原有域名访问即可。对于要加速的网站，只需修改整个访问过程中的域名解析部分，便能实现透明的网络加速服务。</p>
+<p><img src="CDN2.jpeg" alt="CDN2.jpg"></p>
+<p>CDN客户使用CDN的方法：<br>对于CDN客户来说，不需要改动网站架构，只需要修改自己的DNS解析，设置一个CNAME指向CDN服务商即可。原理在下面会解释</p>
+<p>通过上图，我们可以了解到，使用了CDN缓存后的网站的访问过程变为：</p>
+<ul>
+<li>用户向浏览器提供要访问的域名；</li>
+<li>浏览器调用域名解析库对域名进行解析，由于CDN对域名解析过程进行了调整，所以解析函数库得到的是该域名对应的CNAME记录（由于现在已经是使用了CDN服务，CNAME为CDN服务商域名），为了得到实际IP地址，浏览器需要再次对获得的CNAME域名进行解析以得到实际的IP地址；在此过程中，使用的全局负载均衡DNS解析，如根据地理位置信息解析对应的IP地址，使得用户能就近访问。（CDN服务来提供最近的机器）</li>
+<li>此次解析得到CDN缓存服务器的IP地址，浏览器在得到实际的IP地址以后，向缓存服务器发出访问请求；</li>
+<li>缓存服务器根据浏览器提供的要访问的域名，通过Cache内部专用DNS解析得到此域名的实际IP地址，再由缓存服务器向此实际IP地址提交访问请求；</li>
+<li>缓存服务器从实际IP地址得得到内容以后，一方面在本地进行保存，以备以后使用，二方面把获取的数据返回给客户端，完成数据服务过程；</li>
+<li>客户端得到由缓存服务器返回的数据以后显示出来并完成整个浏览的数据请求过程。</li>
+</ul>
+<h2 id="除了CND外有啥技术呢-就是是如何进行调度和进行定位的"><a href="#除了CND外有啥技术呢-就是是如何进行调度和进行定位的" class="headerlink" title="除了CND外有啥技术呢,就是是如何进行调度和进行定位的?"></a>除了CND外有啥技术呢,就是是如何进行调度和进行定位的?</h2><p>3种:  <strong>DNS 调度、HTTP 302 调度，还有一种使用 HTTP 进行的 DNS 调度策略。</strong></p>
+<h3 id="DNS-调度"><a href="#DNS-调度" class="headerlink" title="DNS 调度"></a>DNS 调度</h3><p>肯定很多人好奇是如何进行调度和进行定位的？其实也是通过 <code>LDNS</code>(local DNS) 的具体地址来进行的，如上图所示。</p>
+<p>假设网民是一个北京客户，那他所使用的 DNS 服务器去做递归的时会访问到CDN厂商的 <code>GLB（Global Load Balance）</code>，它可以看到所访问的域名请求是来自于哪个 LDNS，<strong>根据一般人的使用习惯</strong>，网民所在位置和 <code>LDNS</code> 所在位置是一样的，因此 GLB 可以间接知道网民来自什么位置。</p>
+<p>以上图为例，假如网民是一个北京联通的用户，它使用的 <code>LDNS</code> 地址也是北京联通的，而 <code>LDNS</code> 访问 GLB 也是北京联通的，则 GLB 则认为网民的位置在北京联通，那么会分配一个北京联通的 CDN 服务器地址给 LDNS，LDNS 将http:www.a.com解析出的 IP 地址返回给最终网民，那么在以后网民浏览器发起请求的时候，都会直接与北京联通的 CDN 节点进行流量通信，从而达到了加速的目的。</p>
+<p>从这个调度理论上看，我们可以不难发现一个问题，就是重点标注出的“根据一般人的使用习惯”。假设网民所使用的 <code>LDNS</code> 地址和他自己在同一个区域，调度才有可能是准确的（后续篇章会重点描述为什么是“有可能”）。</p>
+<p>但是举个例子来说，如果网民是北京联通的用户，但他却偏要使用深圳电信的 <code>LDNS</code>，<code>LDNS</code> 出口也同样是深圳电信的 IP 地址，那么 GLB 会误判网民位于深圳电信，分配给网民的 CDN 服务器也都是深圳电信的，后续网民会从北京联通访问到深圳电信，不但没加速，可能反而降速了。</p>
+<h3 id="HTTP-302-调度"><a href="#HTTP-302-调度" class="headerlink" title="HTTP 302 调度"></a>HTTP 302 调度</h3><p>如前文所述，由于用户使用习惯或一些其他原因，通过 LDNS 调度有可能是不准确的，因此又出现了另一种调度方式，<code>HTTP 302 调度</code>。</p>
+<p>原理很简单，无论网民最初拿到的 IP 地址是否是正确的，但最终都是要和<strong>这个 IP 地址的 CDN 服务器通信</strong>的，因此 CDN 服务器可以在这时知道网民的<strong>真实地址</strong>（DNS 调度时只能间接知道网民地址，虽然 EDNS-Client-Subnet 技术可以解决问题，但尚未大规模使用）。</p>
+<p>HTTP 协议中有一个特殊的返回状态：302。在 HTTP 服务器返回 302 状态码时，可以携带一个新的 URL（使用的是正确 IP），<strong>浏览器在拿到 302 返回状态码时，会提取其中新的 URL 地址发起请求，这样就可以做到重新调度了</strong>。</p>
+<h3 id="使用-HTTP-进行的-DNS-调度策略"><a href="#使用-HTTP-进行的-DNS-调度策略" class="headerlink" title="使用 HTTP 进行的 DNS 调度策略"></a>使用 HTTP 进行的 DNS 调度策略</h3><h3 id="那-CDN-是如何将用户的流量引入到-CDN-网络中的呢？重点诶-怎么接管的"><a href="#那-CDN-是如何将用户的流量引入到-CDN-网络中的呢？重点诶-怎么接管的" class="headerlink" title="那 CDN 是如何将用户的流量引入到 CDN 网络中的呢？重点诶 怎么接管的"></a>那 CDN 是如何将用户的流量引入到 CDN 网络中的呢？<strong>重点诶 怎么接管的</strong></h3><p>在未做 CDN 时，我们<strong>访问某个域名</strong>，直接<strong>拿到的是一个真实的服务器 IP 地址</strong>，这个显示 IP 地址的 <strong>DNS 记录信息</strong>叫 <strong><code>A</code>记录</strong><br>当业务需要接入到 CDN 时，<strong>用户只需调整自己的 DNS 配置信息</strong>，将 A 记录改为 <code>CNAME</code> 记录，将内容改为 CDN 厂商所提供的接入域名即可。</p>
+<h2 id="cache服务器"><a href="#cache服务器" class="headerlink" title="cache服务器"></a>cache服务器</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/44966787" target="_blank" rel="noopener">CDN加速原理</a><br><a href="https://my.oschina.net/pooz/blog/95654" target="_blank" rel="noopener">深度剖析：CDN内容分发网络技术原理</a><br><a href="https://yq.aliyun.com/articles/104041" target="_blank" rel="noopener">CDN的基本原理和基础架构</a><br><a href="https://www.infoq.cn/article/a-cartoon-intro-to-dns-over-https" target="_blank" rel="noopener">图解基于 HTTPS 的 DNS, 安全性</a><br><a href="https://segmentfault.com/a/1190000000538796" target="_blank" rel="noopener">CDN工作原理</a><br><a href="https://yq.aliyun.com/articles/577708?spm=a2c41.11181499.0.0" target="_blank" rel="noopener">《CDN 之我见》系列一：原理篇（由来、调度）666</a><br><a href="https://yq.aliyun.com/articles/599253?spm=a2c4e.11153940.blogcont577708.18.7267abafHQI0IF" target="_blank" rel="noopener">《CDN 之我见》系列二：原理篇（缓存、安全）</a><br><a href="https://yq.aliyun.com/articles/604600?spm=a2c4e.11153940.blogcont577708.19.7267abafHQI0IF" target="_blank" rel="noopener">《CDN 之我见》系列三：详解篇（网络优化）</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CDN/" rel="tag"># CDN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/20/go简单入门/" rel="next" title="go简单入门">
+                <i class="fa fa-chevron-left"></i> go简单入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/27/DHCP原理/" rel="prev" title="DHCP原理">
+                DHCP原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">92</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CDN原理"><span class="nav-number">1.</span> <span class="nav-text">CDN原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统的网站访问过程为"><span class="nav-number">1.1.</span> <span class="nav-text">传统的网站访问过程为:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用CDN-缓存后的网站访问过程演变为："><span class="nav-number">1.2.</span> <span class="nav-text">使用CDN 缓存后的网站访问过程演变为：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#除了CND外有啥技术呢-就是是如何进行调度和进行定位的"><span class="nav-number">1.3.</span> <span class="nav-text">除了CND外有啥技术呢,就是是如何进行调度和进行定位的?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-调度"><span class="nav-number">1.3.1.</span> <span class="nav-text">DNS 调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-302-调度"><span class="nav-number">1.3.2.</span> <span class="nav-text">HTTP 302 调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-HTTP-进行的-DNS-调度策略"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用 HTTP 进行的 DNS 调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那-CDN-是如何将用户的流量引入到-CDN-网络中的呢？重点诶-怎么接管的"><span class="nav-number">1.3.4.</span> <span class="nav-text">那 CDN 是如何将用户的流量引入到 CDN 网络中的呢？重点诶 怎么接管的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache服务器"><span class="nav-number">1.4.</span> <span class="nav-text">cache服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.5.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

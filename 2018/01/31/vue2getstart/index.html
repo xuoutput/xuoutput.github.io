@@ -425,7 +425,7 @@
 <p>一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。</p>
 <p><strong>v-if 与 v-for 一起使用</strong><br>当 v-if 与 v-for 一起使用时，<strong>v-for</strong> 具有比 v-if 更高的<strong>优先级</strong></p>
 <hr>
-<h2 id="列表渲染-也就是v-for-优先级比v-if高"><a href="#列表渲染-也就是v-for-优先级比v-if高" class="headerlink" title="列表渲染 也就是v-for 优先级比v-if高"></a>列表渲染 也就是v-for 优先级比v-if高</h2><p>当然这个使用在对数组[] 以及对象的 \{\}</p>
+<h2 id="列表渲染-也就是v-for-优先级比v-if高"><a href="#列表渲染-也就是v-for-优先级比v-if高" class="headerlink" title="列表渲染 也就是v-for 优先级比v-if高"></a>列表渲染 也就是v-for 优先级比v-if高</h2><p>当然这个使用在对数组[] 以及对象的 {}</p>
 <h3 id="用-v-for-把一个数组对应为一组元素"><a href="#用-v-for-把一个数组对应为一组元素" class="headerlink" title="用 v-for 把一个数组对应为一组元素"></a>用 v-for 把一个数组对应为一组元素</h3><p>在 v-for 块中，我们拥有对父作用域属性的完全访问权限<br>2种方式。一个是v-for=”item in items”   items 是源数据数组并且 item 是数组元素迭代的别名<br>一个是v-for=”(item, index) in items”</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一种只有value</span></span><br><span class="line">&lt;ul id=<span class="string">"example-1"</span>&gt;</span><br><span class="line">  &lt;li v-<span class="keyword">for</span>=<span class="string">"item in items"</span>&gt;</span><br><span class="line">    &#123;&#123; item.message &#125;&#125;</span><br><span class="line">  &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">&lt;/u</span>l&gt;</span><br><span class="line"><span class="keyword">var</span> example1 = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#example-1'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    items: [</span><br><span class="line">      &#123; <span class="attr">message</span>: <span class="string">'Foo'</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">message</span>: <span class="string">'Bar'</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种有value和index</span></span><br><span class="line">&lt;ul id=<span class="string">"example-2"</span>&gt;</span><br><span class="line">  &lt;li v-<span class="keyword">for</span>=<span class="string">"(item, index) in items"</span>&gt;</span><br><span class="line">    &#123;&#123; parentMessage &#125;&#125; - &#123;&#123; index &#125;&#125; - &#123;&#123; item.message &#125;&#125;</span><br><span class="line">  &lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">&lt;/u</span>l&gt;</span><br><span class="line"><span class="keyword">var</span> example2 = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#example-2'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    parentMessage: <span class="string">'Parent'</span>,</span><br><span class="line">    items: [</span><br><span class="line">      &#123; <span class="attr">message</span>: <span class="string">'Foo'</span> &#125;,</span><br><span class="line">      &#123; <span class="attr">message</span>: <span class="string">'Bar'</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h3 id="一个对象对应为一组元素"><a href="#一个对象对应为一组元素" class="headerlink" title="一个对象对应为一组元素"></a>一个对象对应为一组元素</h3><p>这就有3种了 毕竟对象有key: value  不过这里按 value key index 理由当然也是先拿value咯,不过还是<strong>按key的顺序</strong>哦<br>在遍历对象时，是按<strong> Object.keys()</strong> 的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下是一致的。<br>第1种是v-for=”value in object”<br>第2种是v-for=”(value, key) in object”<br>第3种是v-for=”(value, key, index) in object”</p>
@@ -689,7 +689,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -700,7 +700,7 @@
                 
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -711,7 +711,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">92</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -794,7 +794,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

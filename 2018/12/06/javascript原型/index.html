@@ -100,13 +100,13 @@
   <meta name="keywords" content="javascript,prototype,">
 
 
-<meta name="description" content="javascript原型, 一文让你理解什么是 JS 原型对象创建有2种方式, 这里只看通过new+构造函数的方式. 如果是通过字面量{}创建的,那么原型就是Object.prototype 原型链图先把这张图过一遍 1. 原型1.1 传统构造函数的问题通过自定义构造函数的方式，创建小狗对象： 1234567891011121314function Dog(name, age) &amp;#123;">
+<meta name="description" content="javascript原型, 一文让你理解什么是 JS 原型对象创建有2种方式, 这里只看通过new+构造函数的方式. 如果是通过字面量{}创建的,那么原型就是Object.prototype 原型链图先把这张图过一遍 JavaScript深入之从原型到原型链上图说原型链是__proto__这条路 1. 原型1.1 传统构造函数的问题通过自定义构造函数的方式，创建小狗对象： 123456789101">
 <meta name="keywords" content="javascript,prototype">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript原型">
 <meta property="og:url" content="http://yoursite.com/2018/12/06/javascript原型/index.html">
 <meta property="og:site_name" content="Little H title">
-<meta property="og:description" content="javascript原型, 一文让你理解什么是 JS 原型对象创建有2种方式, 这里只看通过new+构造函数的方式. 如果是通过字面量{}创建的,那么原型就是Object.prototype 原型链图先把这张图过一遍 1. 原型1.1 传统构造函数的问题通过自定义构造函数的方式，创建小狗对象： 1234567891011121314function Dog(name, age) &amp;#123;">
+<meta property="og:description" content="javascript原型, 一文让你理解什么是 JS 原型对象创建有2种方式, 这里只看通过new+构造函数的方式. 如果是通过字面量{}创建的,那么原型就是Object.prototype 原型链图先把这张图过一遍 JavaScript深入之从原型到原型链上图说原型链是__proto__这条路 1. 原型1.1 传统构造函数的问题通过自定义构造函数的方式，创建小狗对象： 123456789101">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/prototype.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/dog1.jpeg">
@@ -120,10 +120,10 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p5.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p6.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/javascript原型/p7.png">
-<meta property="og:updated_time" content="2018-12-13T11:44:22.292Z">
+<meta property="og:updated_time" content="2019-01-17T01:14:29.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript原型">
-<meta name="twitter:description" content="javascript原型, 一文让你理解什么是 JS 原型对象创建有2种方式, 这里只看通过new+构造函数的方式. 如果是通过字面量{}创建的,那么原型就是Object.prototype 原型链图先把这张图过一遍 1. 原型1.1 传统构造函数的问题通过自定义构造函数的方式，创建小狗对象： 1234567891011121314function Dog(name, age) &amp;#123;">
+<meta name="twitter:description" content="javascript原型, 一文让你理解什么是 JS 原型对象创建有2种方式, 这里只看通过new+构造函数的方式. 如果是通过字面量{}创建的,那么原型就是Object.prototype 原型链图先把这张图过一遍 JavaScript深入之从原型到原型链上图说原型链是__proto__这条路 1. 原型1.1 传统构造函数的问题通过自定义构造函数的方式，创建小狗对象： 123456789101">
 <meta name="twitter:image" content="http://yoursite.com/2018/12/06/javascript原型/prototype.png">
 
 
@@ -375,6 +375,7 @@
         <h1 id="javascript原型-一文让你理解什么是-JS-原型"><a href="#javascript原型-一文让你理解什么是-JS-原型" class="headerlink" title="javascript原型, 一文让你理解什么是 JS 原型"></a>javascript原型, <a href="https://segmentfault.com/a/1190000017207055" target="_blank" rel="noopener">一文让你理解什么是 JS 原型</a></h1><p><strong>对象创建有2种方式, 这里只看通过new+构造函数的方式</strong>.</p>
 <p>如果是通过字面量<code>{}</code>创建的,那么原型就是<code>Object.prototype</code></p>
 <h2 id="原型链图"><a href="#原型链图" class="headerlink" title="原型链图"></a>原型链图</h2><p>先把这张图过一遍<br><img src="prototype.png" alt="prototype.png"></p>
+<p><a href="https://github.com/mqyqingfeng/Blog/issues/2" target="_blank" rel="noopener">JavaScript深入之从原型到原型链</a><br>上图说原型链是<code>__proto__</code>这条路</p>
 <h2 id="1-原型"><a href="#1-原型" class="headerlink" title="1. 原型"></a>1. 原型</h2><h3 id="1-1-传统构造函数的问题"><a href="#1-1-传统构造函数的问题" class="headerlink" title="1.1 传统构造函数的问题"></a>1.1 传统构造函数的问题</h3><p>通过自定义构造函数的方式，创建小狗对象：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Dog</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">    <span class="keyword">this</span>.say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'汪汪汪'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> dog1 = <span class="keyword">new</span> Dog(<span class="string">'哈士奇'</span>, <span class="number">1.5</span>);</span><br><span class="line"><span class="keyword">var</span> dog2 = <span class="keyword">new</span> Dog(<span class="string">'大黄狗'</span>, <span class="number">0.5</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dog1);</span><br><span class="line"><span class="built_in">console</span>.log(dog2);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(dog1.say == dog2.say); <span class="comment">//输出结果为false</span></span><br></pre></td></tr></table></figure>
 <p>画个图理解下：<br><img src="dog1.jpeg" alt="dog1.jpeg"></p>
@@ -430,6 +431,9 @@
 <p>在之前我们是无法通过构造函数<code>new</code>出来的对象访问原型的：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="comment">//以前不能直接通过p来访问原型对象</span></span><br></pre></td></tr></table></figure>
 <p>2、实例对象的 <code>__proto__</code> 属性</p>
+<blockquote>
+<p>其次是<code>__proto__</code> ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 <code>Person.prototype</code> 中，实际上，它是来自于 <code>Object.prototype</code> ，与其说是一个属性，不如说是一个 <code>getter/sette</code>r，当使用 <code>obj.__proto__</code> 时，可以理解成返回了 <code>Object.getPrototypeOf(obj)</code>。</p>
+</blockquote>
 <p><code>__proto__</code>属性最早是火狐浏览器引入的，<strong>用以通过实例对象来访问原型</strong>，这个属性在早期是非标准的属性，有了<code>__proto__</code>属性，就可以通过构造函数创建出来的<strong>对象直接访问原型</strong>。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line"><span class="comment">//实例对象的__proto__属性可以方便的访问到原型对象</span></span><br><span class="line">p.__proto__;</span><br><span class="line"></span><br><span class="line"><span class="comment">//既然使用构造函数的`prototype`和实例对象的`__proto__`属性都可以访问原型对象</span></span><br><span class="line"><span class="comment">//就有如下结论</span></span><br><span class="line">p.__proto__ === Person.prototype;</span><br></pre></td></tr></table></figure>
 <p><strong>如图所示</strong>: 也就是最开始的那张图中的从实例到原型那条<br><img src="proto.png" alt="proto.png"></p>
@@ -627,7 +631,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -638,7 +642,7 @@
                 
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -649,7 +653,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">92</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -732,7 +736,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

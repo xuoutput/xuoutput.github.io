@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="TODO,">
+
+
+<meta name="description" content="2019-TODO-list收集了一些github、掘金、segmentfault 等平台文章或小册中的内容，完成一些整理并总结! JS篇导引给2019前端的5个建议 专题预计写四个系列：JavaScript深入系列、JavaScript专题系列、ES6系列、React系列。666前端基础进阶系列 666深入理解JavaScript系列 666666给前端好文多一首歌的时间（九） 数据类型JS基本">
+<meta name="keywords" content="TODO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019-TODO-list">
+<meta property="og:url" content="http://yoursite.com/2019/01/04/2019-TODO-list/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="2019-TODO-list收集了一些github、掘金、segmentfault 等平台文章或小册中的内容，完成一些整理并总结! JS篇导引给2019前端的5个建议 专题预计写四个系列：JavaScript深入系列、JavaScript专题系列、ES6系列、React系列。666前端基础进阶系列 666深入理解JavaScript系列 666666给前端好文多一首歌的时间（九） 数据类型JS基本">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-05T01:30:55.341Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2019-TODO-list">
+<meta name="twitter:description" content="2019-TODO-list收集了一些github、掘金、segmentfault 等平台文章或小册中的内容，完成一些整理并总结! JS篇导引给2019前端的5个建议 专题预计写四个系列：JavaScript深入系列、JavaScript专题系列、ES6系列、React系列。666前端基础进阶系列 666深入理解JavaScript系列 666666给前端好文多一首歌的时间（九） 数据类型JS基本">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/04/2019-TODO-list/">
+
+
+  <title>2019-TODO-list | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/04/2019-TODO-list/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2019-TODO-list</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-04T08:29:57+08:00">2019-01-04</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/年计划/" itemprop="url" rel="index"><span itemprop="name">年计划</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="2019-TODO-list"><a href="#2019-TODO-list" class="headerlink" title="2019-TODO-list"></a>2019-TODO-list</h1><p>收集了一些github、掘金、segmentfault 等平台文章或小册中的内容，完成一些整理并总结!</p>
+<h2 id="JS篇"><a href="#JS篇" class="headerlink" title="JS篇"></a>JS篇</h2><h3 id="导引"><a href="#导引" class="headerlink" title="导引"></a>导引</h3><p><a href="https://zhuanlan.zhihu.com/p/55357377" target="_blank" rel="noopener">给2019前端的5个建议</a></p>
+<h3 id="专题"><a href="#专题" class="headerlink" title="专题"></a>专题</h3><p><a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">预计写四个系列：JavaScript深入系列、JavaScript专题系列、ES6系列、React系列。666</a><br><a href="https://www.jianshu.com/p/cd3fee40ef59" target="_blank" rel="noopener">前端基础进阶系列 666</a><br><a href="http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html" target="_blank" rel="noopener">深入理解JavaScript系列 666666</a><br><a href="https://www.jianshu.com/p/dd35aa1472b3" target="_blank" rel="noopener">给前端好文多一首歌的时间（九）</a></p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p><a href="https://www.cnblogs.com/c2016c/articles/9328725.html" target="_blank" rel="noopener">JS基本数据类型和引用数据类型的区别及深浅拷贝</a><br><a href="https://www.jianshu.com/p/eab46f1af003" target="_blank" rel="noopener">的第七种数据类型</a><br><a href="https://www.cnblogs.com/Trr-984688199/p/6180040.html" target="_blank" rel="noopener">JS中typeof与instanceof的区别</a><br><a href="https://www.cnblogs.com/wzybnzy/p/7232618.html?tdsourcetag=s_pcqq_aiomsg" target="_blank" rel="noopener">typeof null 为什么等于 object?</a><br><a href="https://www.cnblogs.com/youhong/p/6209054.html" target="_blank" rel="noopener">为什么用Object.prototype.toString.call(obj)检测对象类型?</a><br><a href="https://blog.csdn.net/gnail_oug/article/details/53135603" target="_blank" rel="noopener">JS显性数据类型转换和隐性数据类型转换</a><br><a href="https://segmentfault.com/a/1190000007434923" target="_blank" rel="noopener">理解Object.defineProperty的作用</a></p>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p><a href="https://segmentfault.com/a/1190000011194676#articleHeader13" target="_blank" rel="noopener">深入理解 js this 绑定 ( 无需死记硬背，尾部有总结和面试题解析 )</a><br><a href="https://www.jianshu.com/p/d647aa6d1ae6" target="_blank" rel="noopener">前端基础进阶（五）：全方位解读this</a><br><a href="https://juejin.im/post/59bfe84351882531b730bac2" target="_blank" rel="noopener">this、apply、call、bind</a><br><a href="https://www.jianshu.com/p/00dc4ad9b83f" target="_blank" rel="noopener">JavaScript中的call、apply、bind深入理解</a></p>
+<h3 id="作用域链与闭包"><a href="#作用域链与闭包" class="headerlink" title="作用域链与闭包"></a>作用域链与闭包</h3><p><a href="https://cnodejs.org/topic/59662f6dbda29e0f7480235b" target="_blank" rel="noopener">我所认识的 JavaScript 作用域链和原型链 666</a><br><a href="https://github.com/MrErHu/blog/issues/11" target="_blank" rel="noopener">浅谈JavaScript闭包</a><br><a href="https://www.cnblogs.com/buchongming/p/5858026.html" target="_blank" rel="noopener">JavaScript中作用域和作用域链的简单理解（变量提升） nonono</a><br><a href="https://blog.csdn.net/qq_27626333/article/details/78463565" target="_blank" rel="noopener">JavaScript作用域、上下文、执行期上下文、作用域链、闭包 666</a></p>
+<p>4连套<br><a href="https://www.css88.com/archives/7262" target="_blank" rel="noopener">JavaScript 核心概念之作用域和闭包 666</a><br><a href="https://www.css88.com/archives/7255" target="_blank" rel="noopener">深入理解JavaScript中的作用域和上下文 666</a><br><a href="https://www.css88.com/archives/7300" target="_blank" rel="noopener">实例分析 JavaScript 作用域</a><br><a href="https://www.css88.com/archives/7924" target="_blank" rel="noopener">JavaScript 中的 Hoisting (变量提升和函数声明提升) 666</a></p>
+<p><a href="https://www.jianshu.com/p/21a16d44f150" target="_blank" rel="noopener">前端基础进阶（四）：详细图解作用域链与闭包 666 还带基础进阶的</a><br><a href="https://juejin.im/post/58832fe72f301e00697b672d" target="_blank" rel="noopener">JavaScript 闭包入门（译文）</a><br><a href="https://juejin.im/post/590159d8a22b9d0065c2d918" target="_blank" rel="noopener">JavaScript深入之闭包</a><br><a href="https://segmentfault.com/a/1190000006875662" target="_blank" rel="noopener">JavaScript 闭包</a><br><a href="https://juejin.im/post/5979b5755188253df1067397" target="_blank" rel="noopener">浏览器是怎么看闭包的。</a></p>
+<h3 id="原型与原型链"><a href="#原型与原型链" class="headerlink" title="原型与原型链"></a>原型与原型链</h3><p><a href="https://github.com/dreamapplehappy/blog/blob/master/2018/12/30/README.md" target="_blank" rel="noopener">JavaScript原型与继承的秘密</a><br><a href="https://juejin.im/post/599d69fc6fb9a0248f4a7b31" target="_blank" rel="noopener">白话原型和原型链</a><br><a href="https://www.jianshu.com/p/15ac7393bc1f" target="_blank" rel="noopener">前端基础进阶（九）：详解面向对象、构造函数、原型与原型链</a><br><a href="https://www.jianshu.com/p/dee9f8b14771" target="_blank" rel="noopener">最详尽的 JS 原型与原型链终极详解，没有「可能是」。（一）</a><br><a href="https://www.jianshu.com/p/652991a67186" target="_blank" rel="noopener">最详尽的 JS 原型与原型链终极详解，没有「可能是」。（二）</a><br><a href="https://www.jianshu.com/p/a4e1e7b6f4f8" target="_blank" rel="noopener">最详尽的 JS 原型与原型链终极详解，没有「可能是」。（三）</a></p>
+<h2 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h2><p><a href="https://segmentfault.com/a/1190000016848192" target="_blank" rel="noopener">关于 ES6 中 Promise 的面试题</a></p>
+<h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><p><a href="https://segmentfault.com/a/1190000017224799" target="_blank" rel="noopener">8张图让你一步步看清 async/await 和 promise 的执行顺序</a><br><a href="https://segmentfault.com/a/1190000007535316" target="_blank" rel="noopener">理解 JavaScript 的 async/await</a><br><a href="/2018/11/25/JavaScript-的-async-await/" title="JavaScript-的-async-await">JavaScript-的-async-await</a></p>
+<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h3><p><a href="https://segmentfault.com/a/1190000017742993" target="_blank" rel="noopener">深度介绍：也许你对 Fetch 了解得不是那么多</a></p>
+<h3 id="JS执行底层"><a href="#JS执行底层" class="headerlink" title="JS执行底层"></a>JS执行底层</h3><p><a href="https://www.jianshu.com/p/996671d4dcc4" target="_blank" rel="noopener">前端基础进阶（一）：内存空间详细图解</a><br><a href="https://www.jianshu.com/p/a6d37c77e8db" target="_blank" rel="noopener">前端基础进阶（二）：执行上下文详细图解</a><br><a href="https://www.jianshu.com/p/12b9f73c5a4f" target="_blank" rel="noopener">前端基础进阶（十二）：深入核心，详解事件循环机制</a><br><a href="https://www.cnblogs.com/liugang-vip/p/5616484.html" target="_blank" rel="noopener">js中的事件委托或是事件代理详解</a></p>
+<h3 id="ES6-ES7"><a href="#ES6-ES7" class="headerlink" title="ES6/ES7.."></a>ES6/ES7..</h3><p><a href="https://juejin.im/post/5b0238f66fb9a07aca7a74ba" target="_blank" rel="noopener">ES6 系列之 let 和 const</a><br><a href="https://www.jianshu.com/p/cfb0893c34f1" target="_blank" rel="noopener">前端基础进阶（十四）：es6常用基础合集</a><br><a href="https://juejin.im/post/5b14d0b4f265da6e60393680" target="_blank" rel="noopener">ES6 系列之箭头函数</a><br><a href="https://juejin.im/post/59327a58a0bb9f0058c8caae" target="_blank" rel="noopener">JavaScript初学者必看“箭头函数”</a><br><a href="https://juejin.im/post/5b32f552f265da59991155f0" target="_blank" rel="noopener">Promise之你看得懂的Promise</a><br><a href="https://juejin.im/post/5bc5e114e51d450e632277aa" target="_blank" rel="noopener">ES6 系列之我们来聊聊 Promise</a><br><a href="https://juejin.im/post/5aa7868b6fb9a028dd4de672" target="_blank" rel="noopener">Promise原理讲解 &amp;&amp; 实现一个Promise对象 (遵循Promise/A+规范)</a><br><a href="https://www.jianshu.com/p/1016160e91fe" target="_blank" rel="noopener">web前端-js继承的理解</a><br><a href="https://juejin.im/post/59ac1c4ef265da248e75892b" target="_blank" rel="noopener">js 深拷贝 vs 浅拷贝</a><br><a href="https://juejin.im/post/5bc1ae9be51d450e8b140b0c" target="_blank" rel="noopener">深拷贝的终极探索（90%的人都不知道）</a><br><a href="https://juejin.im/post/596e142d5188254b532ce2da" target="_blank" rel="noopener">理解 async/await</a><br><a href="https://juejin.im/post/5bcf3e3f6fb9a05cd53b3e3d" target="_blank" rel="noopener">ES6 系列之我们来聊聊 Async</a><br><a href="https://juejin.im/post/5c6234f16fb9a049a81fcca5" target="_blank" rel="noopener">近一万字的ES6语法知识点补充</a></p>
+<p>除此之外强烈推荐<a href="https://juejin.im/user/58e4b9b261ff4b006b3227f4/posts" target="_blank" rel="noopener">冴羽老师的ES6系列</a>)文章，深入骨髓的理解ES6中的核心</p>
+<h3 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h3><p><a href="https://jkchao.github.io/typescript-book-chinese/" target="_blank" rel="noopener">深入理解 TypeScript</a><br><a href="https://juejin.im/post/59c46bc86fb9a00a4636f939" target="_blank" rel="noopener">TypeScript体系调研报告</a><br><a href="https://juejin.im/post/5a9c004a6fb9a028b92c9e91" target="_blank" rel="noopener">TypeScript 实践</a></p>
+<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p><a href="https://www.nodebeginner.org/index-zh-cn.html" target="_blank" rel="noopener">Node入门</a><br><a href="https://juejin.im/post/5a8e44ea5188257a8929bf9b" target="_blank" rel="noopener">谈谈Node中的常见概念</a><br><a href="https://github.com/xitu/gold-miner/blob/master/TODO/introduction-to-node-express.md" target="_blank" rel="noopener">Node &amp; Express 入门指南</a><br><a href="https://juejin.im/post/5902973eb123db3ee46a0107" target="_blank" rel="noopener">Express使用手记：核心入门</a><br><a href="https://juejin.im/post/5ba48fc4e51d450e704277fa" target="_blank" rel="noopener">node进阶——之事无巨细手写koa源码</a><br><a href="https://juejin.im/post/5914fdce44d904006c44dfac" target="_blank" rel="noopener">带你走进 koa2 的世界（koa2 源码浅谈）</a><br><a href="https://juejin.im/post/59f6ec44f265da43252895be" target="_blank" rel="noopener">fly.js—Node下增强的API</a></p>
+<h2 id="HTML-CSS篇"><a href="#HTML-CSS篇" class="headerlink" title="HTML/CSS篇"></a>HTML/CSS篇</h2><p><a href="https://juejin.im/post/599970f4518825243a78b9d5" target="_blank" rel="noopener">CSS 常见布局方式</a><br><a href="https://segmentfault.com/a/1190000010989110" target="_blank" rel="noopener">【整理】CSS布局方案</a><br><a href="https://segmentfault.com/a/1190000006242814" target="_blank" rel="noopener">CSS查漏补缺</a><br><a href="https://juejin.im/post/5909db2fda2f60005d2093db" target="_blank" rel="noopener">[布局概念] 关于CSS-BFC深入理解</a><br><a href="https://juejin.im/post/5a6c5881518825733201daf7" target="_blank" rel="noopener">[译]这些 CSS 命名规范将省下你大把调试时间</a><br><a href="https://juejin.im/post/5a954add6fb9a06348538c0d" target="_blank" rel="noopener">CSS知识总结</a><br><a href="https://juejin.im/post/592d4a5b0ce463006b43b6da" target="_blank" rel="noopener">前端开发规范：命名规范、html规范、css规范、js规范</a></p>
+<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p><a href="HTTP状态码（HTTP Status Code）">HTTP状态码（HTTP Status Code）</a></p>
+<p><a href="https://juejin.im/post/5872309261ff4b005c4580d4" target="_blank" rel="noopener">面试 — 网络 HTTP</a><br><a href="https://juejin.im/post/58ddb636ac502e0063992865" target="_blank" rel="noopener">HTTP最强资料大全</a><br><a href="https://juejin.im/post/5a757d2f5188254e5c6c404a" target="_blank" rel="noopener">我知道的HTTP请求</a></p>
+<h2 id="性能-amp-优化篇"><a href="#性能-amp-优化篇" class="headerlink" title="性能&amp;优化篇"></a>性能&amp;优化篇</h2><p><a href="https://blog.fundebug.com/2019/01/03/understand-browser-rendering/" target="_blank" rel="noopener">深入浅出浏览器渲染原理</a><br><a href="https://juejin.im/post/5a9923e9518825558251c96a" target="_blank" rel="noopener">浏览器的回流与重绘 (Reflow &amp; Repaint)</a><br><a href="https://segmentfault.com/a/1190000008377508" target="_blank" rel="noopener">浏览器缓存</a><br><a href="https://zcfy.cc/article/optimising-the-front-end-for-the-browser-hacker-noon-2847.html" target="_blank" rel="noopener">浏览器前端优化</a><br><a href="https://juejin.im/post/5ac45882518825558723c4fd" target="_blank" rel="noopener">浏览器渲染引擎</a><br><a href="https://zhuanlan.zhihu.com/p/22718822" target="_blank" rel="noopener">JavaScript 浏览器事件解析</a><br><a href="http://www.cnblogs.com/chuaWeb/p/PerformanceMonitoring.html" target="_blank" rel="noopener">前端性能——监控起步</a><br><a href="https://juejin.im/post/5b89274de51d4538c17e0f7d" target="_blank" rel="noopener">javascript性能优化</a><br><a href="https://juejin.im/post/59da456951882525ed2b706d" target="_blank" rel="noopener">浏览器性能优化-渲染性能</a><br><a href="https://juejin.im/post/59d489156fb9a00a571d6509" target="_blank" rel="noopener">浏览器渲染过程与性能优化</a><br><a href="https://juejin.im/post/5a461f006fb9a0450408358f" target="_blank" rel="noopener">现代浏览器性能优化-CSS篇</a><br><a href="https://juejin.im/post/5b721656f265da28140e53ba" target="_blank" rel="noopener">浏览器工作原理及web 性能优化</a></p>
+<h2 id="Webpack篇"><a href="#Webpack篇" class="headerlink" title="Webpack篇"></a>Webpack篇</h2><p><a href="https://juejin.im/post/5aa3d2056fb9a028c36868aa" target="_blank" rel="noopener">webpack详解</a><br><a href="https://juejin.im/post/5ac42d5c6fb9a028b617b851" target="_blank" rel="noopener">Webpack4优化之路</a><br><a href="https://juejin.im/post/5ab7c222f265da237f1e4434" target="_blank" rel="noopener">webpack4之高级篇</a><br><a href="https://juejin.im/post/5adea0106fb9a07a9d6ff6de" target="_blank" rel="noopener">webpack4-用之初体验，一起敲它十一遍</a><br><a href="https://juejin.im/post/5c25b76ef265da614b120ed0" target="_blank" rel="noopener">📚免费的渐进式教程：Webpack4的16篇讲解和16份代码</a><br><a href="https://juejin.im/post/5b4609f5e51d4519596b66a7" target="_blank" rel="noopener">手写一个webpack4.0配置</a></p>
+<h2 id="React篇"><a href="#React篇" class="headerlink" title="React篇"></a>React篇</h2><p><a href="https://juejin.im/post/5c1f01fef265da61587723f4" target="_blank" rel="noopener">五星推荐的系列文章清单</a><br><a href="https://www.cnblogs.com/huzidaha/p/6603658.html" target="_blank" rel="noopener">胡子大哈React.js 小书</a><br><a href="https://juejin.im/post/5b07caf16fb9a07aa83f2977" target="_blank" rel="noopener">TypeScript 2.8下的终极React组件模式</a></p>
+<h2 id="面试篇"><a href="#面试篇" class="headerlink" title="面试篇"></a>面试篇</h2><p><a href="https://www.cnblogs.com/DCL1314/p/7903102.html" target="_blank" rel="noopener">HTML&amp;&amp;css面试题</a><br><a href="https://zhuanlan.zhihu.com/p/25407758" target="_blank" rel="noopener">Excuse me？这个前端面试在搞事！</a><br><a href="https://juejin.im/post/58cf180b0ce4630057d6727c" target="_blank" rel="noopener">80% 应聘者都不及格的 JS 面试题</a><br><a href="https://juejin.im/post/5bf5610be51d452a1353b08d" target="_blank" rel="noopener">2019年前端面试都聊啥？一起来看看</a><br><a href="https://juejin.im/post/5bbaa549e51d450e827b6b13" target="_blank" rel="noopener">一篇文章搞定前端面试</a><br><a href="https://juejin.im/post/5bbc54a2e51d450e5a7445b4" target="_blank" rel="noopener">如何轻松拿到淘宝前端 offer | 掘金技术征文</a><br><a href="https://juejin.im/post/5c19c1b6e51d451d1e06c163" target="_blank" rel="noopener">腾讯前端面试篇（一）</a><br><a href="https://juejin.im/post/5c1869ab6fb9a049f154207a" target="_blank" rel="noopener">腾讯前端面试篇（二）</a><br><a href="https://30secondsofinterviews.org/" target="_blank" rel="noopener">30secondsofinterviews</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TODO/" rel="tag"># TODO</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/28/js事件处理/" rel="next" title="js事件处理">
+                <i class="fa fa-chevron-left"></i> js事件处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/04/react-router/" rel="prev" title="react-router">
+                react-router <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">92</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2019-TODO-list"><span class="nav-number">1.</span> <span class="nav-text">2019-TODO-list</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS篇"><span class="nav-number">1.1.</span> <span class="nav-text">JS篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导引"><span class="nav-number">1.1.1.</span> <span class="nav-text">导引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#专题"><span class="nav-number">1.1.2.</span> <span class="nav-text">专题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">1.1.3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this"><span class="nav-number">1.1.4.</span> <span class="nav-text">this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链与闭包"><span class="nav-number">1.1.5.</span> <span class="nav-text">作用域链与闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型与原型链"><span class="nav-number">1.1.6.</span> <span class="nav-text">原型与原型链</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise"><span class="nav-number">1.2.</span> <span class="nav-text">Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异步"><span class="nav-number">1.2.1.</span> <span class="nav-text">异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch"><span class="nav-number">1.2.2.</span> <span class="nav-text">fetch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS执行底层"><span class="nav-number">1.2.3.</span> <span class="nav-text">JS执行底层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-ES7"><span class="nav-number">1.2.4.</span> <span class="nav-text">ES6/ES7..</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TypeScript"><span class="nav-number">1.2.5.</span> <span class="nav-text">TypeScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node"><span class="nav-number">1.2.6.</span> <span class="nav-text">Node</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML-CSS篇"><span class="nav-number">1.3.</span> <span class="nav-text">HTML/CSS篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP"><span class="nav-number">1.4.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能-amp-优化篇"><span class="nav-number">1.5.</span> <span class="nav-text">性能&amp;优化篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Webpack篇"><span class="nav-number">1.6.</span> <span class="nav-text">Webpack篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React篇"><span class="nav-number">1.7.</span> <span class="nav-text">React篇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试篇"><span class="nav-number">1.8.</span> <span class="nav-text">面试篇</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

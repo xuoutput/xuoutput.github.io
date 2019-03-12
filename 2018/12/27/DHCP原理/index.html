@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="DHCP,">
+
+
+<meta name="description" content="DHCP原理DHCP，DNS和HTTP是3种常见的高层协议。 DHCP(Dynamic Host Configuration Protocol),动态主机配置协议，是一个应用层协议。当我们将客户主机ip地址设置为动态获取方式时，DHCP服务器就会根据DHCP协议给客户端分配IP，使得客户机能够利用这个IP上网。  首先client要设置为DHCP获取, server常见就是路由器咯  DHCP的前">
+<meta name="keywords" content="DHCP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DHCP原理">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/DHCP原理/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="DHCP原理DHCP，DNS和HTTP是3种常见的高层协议。 DHCP(Dynamic Host Configuration Protocol),动态主机配置协议，是一个应用层协议。当我们将客户主机ip地址设置为动态获取方式时，DHCP服务器就会根据DHCP协议给客户端分配IP，使得客户机能够利用这个IP上网。  首先client要设置为DHCP获取, server常见就是路由器咯  DHCP的前">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/DHCP原理/dhcp1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/DHCP原理/dhcp_client_server.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/DHCP原理/wireshark1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/DHCP原理/wireshark2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/DHCP原理/wireshark3.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/DHCP原理/wireshark3.1.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/DHCP原理/wireshark4.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/DHCP原理/wireshark5.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/27/DHCP原理/dhcp_client_server2.png">
+<meta property="og:updated_time" content="2018-12-28T01:05:33.178Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DHCP原理">
+<meta name="twitter:description" content="DHCP原理DHCP，DNS和HTTP是3种常见的高层协议。 DHCP(Dynamic Host Configuration Protocol),动态主机配置协议，是一个应用层协议。当我们将客户主机ip地址设置为动态获取方式时，DHCP服务器就会根据DHCP协议给客户端分配IP，使得客户机能够利用这个IP上网。  首先client要设置为DHCP获取, server常见就是路由器咯  DHCP的前">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/27/DHCP原理/dhcp1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/27/DHCP原理/">
+
+
+  <title>DHCP原理 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/DHCP原理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DHCP原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T20:02:48+08:00">2018-12-27</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/网络/" itemprop="url" rel="index"><span itemprop="name">网络</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="DHCP原理"><a href="#DHCP原理" class="headerlink" title="DHCP原理"></a>DHCP原理</h1><p>DHCP，DNS和HTTP是3种常见的高层协议。</p>
+<p><code>DHCP(Dynamic Host Configuration Protocol)</code>,动态主机配置协议，是一个应用层协议。当我们将<strong>客户主机</strong>ip地址设置为动态获取方式时，<strong>DHCP服务器就会根据DHCP协议给客户端分配IP</strong>，使得客户机能够利用这个IP上网。</p>
+<blockquote>
+<p>首先client要设置为DHCP获取, server常见就是路由器咯</p>
+</blockquote>
+<p><code>DHCP</code>的前身是<code>BOOTP</code>协议（<code>Bootstrap Protocol</code>）,<code>BOOTP</code>被创建出来为连接到网络中的设备自动分配地址，后来<code>被DHCP取代了</code>，DHCP比BOOTP更加复杂，功能更强大。后面可以看到，在用Wireshark过滤显示DHCP包，需要输入<strong>过滤条件BOOTP</strong>，而不是DHCP.</p>
+<p><img src="dhcp1.png" alt="dhcp1"></p>
+<p>DHCP的实现分为4步，分别是：<br>第一步：Client端在局域网内发起一个DHCP　Discover包，目的是想发现能够给它提供IP的DHCP Server。<br>第二步：可用的DHCP Server接收到Discover包之后，通过发送DHCP Offer包给予Client端应答，意在告诉Client端它可以提供IP地址。<br>第三步：Client端接收到Offer包之后，发送DHCP Request包请求分配IP。<br>第四步：DHCP Server发送ACK数据包，确认信息。</p>
+<p>加了DHCP relay</p>
+<p><img src="dhcp_client_server.png" alt="dhcp_client_server"></p>
+<h2 id="wireshark抓包"><a href="#wireshark抓包" class="headerlink" title="wireshark抓包"></a>wireshark抓包</h2><h2 id="具体看包再分析下每步"><a href="#具体看包再分析下每步" class="headerlink" title="具体看包再分析下每步"></a>具体看包再分析下每步</h2><hr>
+<p><img src="wireshark1.png" alt="wireshark1"></p>
+<h3 id="一、发现阶段：客户机寻找DHCP服务器"><a href="#一、发现阶段：客户机寻找DHCP服务器" class="headerlink" title="一、发现阶段：客户机寻找DHCP服务器"></a>一、发现阶段：客户机寻找DHCP服务器</h3><p>截图分析：</p>
+<ol>
+<li>客户端不知道自己的IP，以<code>0.0.0.0</code>标识，此时不知道DHCP服务器的IP地址，以<code>255.255.255.255</code>广播地址标识；MAC地址暂时不管.</li>
+<li>其他主机接收到此包，直接丢弃；DHCP服务器搜到后会响应此包，（<strong>注可以被多台DHCP服务器接收,所以才有DHCP Request</strong>）</li>
+<li>客户机端口为68，DHCP端口为67，为默认端口号；</li>
+</ol>
+<hr>
+<p><img src="wireshark2.png" alt="wireshark2"></p>
+<h3 id="二、提供阶段：DHCP服务器提供IP地址"><a href="#二、提供阶段：DHCP服务器提供IP地址" class="headerlink" title="二、提供阶段：DHCP服务器提供IP地址"></a>二、提供阶段：DHCP服务器提供IP地址</h3><ol>
+<li><p>此包从DHCP服务器到客户端路上，客户机并暂时还没有<code>100.100.57.222</code>的IP地址；</p>
+</li>
+<li><p>DHCP服务器优先基于<code>ARP</code>协议与之通信(单播返回)，如果失败，直接提供<strong>广播方式</strong>发送；</p>
+</li>
+</ol>
+<hr>
+<p><img src="wireshark3.png" alt="wireshark3"></p>
+<h3 id="三、请求阶段：客户机请求DHCP服务器之一确认提供的IP地址"><a href="#三、请求阶段：客户机请求DHCP服务器之一确认提供的IP地址" class="headerlink" title="三、请求阶段：客户机请求DHCP服务器之一确认提供的IP地址"></a>三、请求阶段：客户机请求DHCP服务器之一确认提供的IP地址</h3><p>若多台DHCP服务器为其提供Offer信息，则客户机只接收第一台DHCP服务器的IP地址，那么<strong>第一台DHCP服务器</strong>如何知道自己提供的IP地址被接收？<strong>其他DHCP服务器如何知道自己提供的IP地址没有被接收呢</strong>？(所以要告诉所有的)</p>
+<ol>
+<li><p>客户机虽然接收到分配的IP地址，但是没有与DHCP服务端进行确认，并不能开始使用；</p>
+</li>
+<li><p>这是一个与图1相同的<strong>广播形式<code>request</code></strong>的数据包，目的在于与第一个DHCP服务器进行确认，与其他DHCP服务器进行通信，告知其分配的IP地址并未采用，这是如何实现的呢？截图分析：</p>
+</li>
+</ol>
+<p><img src="wireshark3.1.png" alt="wireshark3.1"></p>
+<ol>
+<li>图3的数据包，相应网络范围内的DHCP服务器均会收到，每台DHCP服务器检查<code>DHCP Sever Identifier</code>字段，如果是本机IP，则确认其分配的即<code>Requested IP Address</code>有效；如果不是本机IP，则其分配的IP地址则无效；</li>
+</ol>
+<hr>
+<p><img src="wireshark4.png" alt="wireshark4"></p>
+<h3 id="四、确认阶段：DHCP服务器确认IP字段有效"><a href="#四、确认阶段：DHCP服务器确认IP字段有效" class="headerlink" title="四、确认阶段：DHCP服务器确认IP字段有效"></a>四、确认阶段：DHCP服务器确认IP字段有效</h3><ol>
+<li><p>仅图4中确认IP地址有效的DHCP服务器，返回Ack数据包；</p>
+</li>
+<li><p>此数据包包含在本文开头时强调的上网的基本信息，实现动态上网；</p>
+</li>
+</ol>
+<hr>
+<p>故事到这里是否就可以圆满结束了呢？那动态主机配置如何体现其动态过程呢？看官切勿着急，工程师们热爱的是全面的系统，怎么会置之不理呢？</p>
+<p><img src="wireshark5.png" alt="wireshark5"></p>
+<h3 id="五、重新登录与更新租约"><a href="#五、重新登录与更新租约" class="headerlink" title="五、重新登录与更新租约"></a>五、重新登录与更新租约</h3><ol>
+<li><strong>客户机重新启动后(或关闭WiFi再打开</strong>)，不再直接发送Discover信息，而是发送<code>Request</code>信息；DHCP服务器会优先尝试，允许其继续使用IP地址，发送Ack数据包；如果该IP不能再使用，返回<code>Nack</code>数据包，<strong>客户机重新开始Discover阶段</strong>；</li>
+<li>DHCP客户机启动时和IP租约期限过一半时，DHCP客户机都会自动向DHCP服务器发送更新其IP租约的信息，与1）中过程相同；</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="dhcp_client_server2.png" alt="dhcp_client_server2"></p>
+<p>DHCP协议简析就到这里啦，本次的内容简单实用，重点在于Request阶段的那个具备广播属性的数据包，作用有二，其一是与第一个DHCP服务器确认其IP地址的有效性，其二是与其他DHCP服务器说明其IP地址并未被采用。</p>
+<h2 id="包结构分析"><a href="#包结构分析" class="headerlink" title="包结构分析"></a>包结构分析</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/qq_24421591/article/details/50936469" target="_blank" rel="noopener">Wireshark分析DHCP</a><br><a href="https://blog.csdn.net/wuruixn/article/details/8282554" target="_blank" rel="noopener">DHCP协议原理及其实现流程(更详细)</a><br><a href="https://www.jianshu.com/p/8bf8c7d04baf" target="_blank" rel="noopener">DHCP协议简析</a><br><a href="https://my.oschina.net/xxjbs001/blog/861107" target="_blank" rel="noopener">dhcp 交互流程</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DHCP/" rel="tag"># DHCP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/26/CDN原理/" rel="next" title="CDN原理">
+                <i class="fa fa-chevron-left"></i> CDN原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/28/从输入URL到页面加载发生了什么/" rel="prev" title="从输入URL到页面加载发生了什么?">
+                从输入URL到页面加载发生了什么? <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">92</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DHCP原理"><span class="nav-number">1.</span> <span class="nav-text">DHCP原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#wireshark抓包"><span class="nav-number">1.1.</span> <span class="nav-text">wireshark抓包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体看包再分析下每步"><span class="nav-number">1.2.</span> <span class="nav-text">具体看包再分析下每步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、发现阶段：客户机寻找DHCP服务器"><span class="nav-number">1.2.1.</span> <span class="nav-text">一、发现阶段：客户机寻找DHCP服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、提供阶段：DHCP服务器提供IP地址"><span class="nav-number">1.2.2.</span> <span class="nav-text">二、提供阶段：DHCP服务器提供IP地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、请求阶段：客户机请求DHCP服务器之一确认提供的IP地址"><span class="nav-number">1.2.3.</span> <span class="nav-text">三、请求阶段：客户机请求DHCP服务器之一确认提供的IP地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、确认阶段：DHCP服务器确认IP字段有效"><span class="nav-number">1.2.4.</span> <span class="nav-text">四、确认阶段：DHCP服务器确认IP字段有效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、重新登录与更新租约"><span class="nav-number">1.2.5.</span> <span class="nav-text">五、重新登录与更新租约</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.2.6.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包结构分析"><span class="nav-number">1.3.</span> <span class="nav-text">包结构分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

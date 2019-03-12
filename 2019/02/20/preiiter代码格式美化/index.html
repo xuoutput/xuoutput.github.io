@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="prettier,vsc,">
+
+
+<meta name="description" content="preiiter代码格式美化从EditorConfig到各种***Lint, 再到 prettier。 其实就是一起用 为什么要用Prettier 用来替代*lint中的一些场景，比如说分号/tab缩进/空格/引号，这些在lint工具检查出问题之后还需要手动修改，而通常这样的错误都是空格或者符号之类的，这样相对来说不太优雅，利用格式化工具自动生成省时省力。 搞起在项目中为什么用Prettier 6">
+<meta name="keywords" content="prettier,vsc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="preiiter代码格式美化">
+<meta property="og:url" content="http://yoursite.com/2019/02/20/preiiter代码格式美化/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="preiiter代码格式美化从EditorConfig到各种***Lint, 再到 prettier。 其实就是一起用 为什么要用Prettier 用来替代*lint中的一些场景，比如说分号/tab缩进/空格/引号，这些在lint工具检查出问题之后还需要手动修改，而通常这样的错误都是空格或者符号之类的，这样相对来说不太优雅，利用格式化工具自动生成省时省力。 搞起在项目中为什么用Prettier 6">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-02T07:20:34.782Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="preiiter代码格式美化">
+<meta name="twitter:description" content="preiiter代码格式美化从EditorConfig到各种***Lint, 再到 prettier。 其实就是一起用 为什么要用Prettier 用来替代*lint中的一些场景，比如说分号/tab缩进/空格/引号，这些在lint工具检查出问题之后还需要手动修改，而通常这样的错误都是空格或者符号之类的，这样相对来说不太优雅，利用格式化工具自动生成省时省力。 搞起在项目中为什么用Prettier 6">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/20/preiiter代码格式美化/">
+
+
+  <title>preiiter代码格式美化 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/20/preiiter代码格式美化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">preiiter代码格式美化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T20:39:17+08:00">2019-02-20</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vsc插件/" itemprop="url" rel="index"><span itemprop="name">vsc插件</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="preiiter代码格式美化"><a href="#preiiter代码格式美化" class="headerlink" title="preiiter代码格式美化"></a>preiiter代码格式美化</h1><p>从<code>EditorConfig</code>到各种<code>***Lint</code>, 再到 <code>prettier</code>。 其实就是一起用</p>
+<p>为什么要用Prettier</p>
+<p>用来替代<code>*lint</code>中的一些场景，比如说分号/tab缩进/空格/引号，这些在lint工具检查出问题之后<strong>还需要手动修改</strong>，而通常这样的错误都是空格或者符号之类的，这样相对来说不太优雅，利用格式化工具自动生成省时省力。</p>
+<h2 id="搞起"><a href="#搞起" class="headerlink" title="搞起"></a>搞起</h2><h2 id="在项目中"><a href="#在项目中" class="headerlink" title="在项目中"></a>在项目中</h2><p><a href="https://juejin.im/post/59ddc2a751882578c17e9ccf" target="_blank" rel="noopener">为什么用Prettier 66</a></p>
+<p>安装完依赖, <code>npm install --save-dev prettier</code>后, 执行常见的.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">prettier --single-quote --trailing-comma es5 --write <span class="string">"&#123;app,__&#123;tests,mocks&#125;__&#125;/**/*.js"</span></span><br><span class="line">或</span><br><span class="line">prettier -l --write <span class="string">'src/**/*.&#123;ts,tsx,less,css&#125;'</span> --no-semi --single-quote</span><br></pre></td></tr></table></figure>
+<h3 id="在vscode中"><a href="#在vscode中" class="headerlink" title="在vscode中"></a>在vscode中</h3><p>首先安装<code>vscode</code>的插件<code>Prettier-Code formatter</code></p>
+<p>安装成功后，编辑器默认的格式化处理就会被<code>prettier</code>代替， 默认快捷键是<code>alt + shift + f</code></p>
+<p>插件安装成功后，按<code>cmd+,</code>调出编辑器的配置,会出现<code>prettier</code>插件的相关配置节点，同时也能看到一些默认的配置信息, 在<code>setting.json</code>中也可以自己定义。  </p>
+<p>更多的配置方式<br><a href="https://prettier.io/docs/en/configuration.html" target="_blank" rel="noopener">Configuration File</a></p>
+<h2 id="其他的prettier"><a href="#其他的prettier" class="headerlink" title="其他的prettier"></a>其他的prettier</h2><p>除了直接用<code>prettier</code>, 还有像<code>tslint-config-prettier</code>这种prettier</p>
+<h2 id="typescript配置prettier"><a href="#typescript配置prettier" class="headerlink" title="typescript配置prettier"></a>typescript配置prettier</h2><ul>
+<li>文件保存时执行一次格式化</li>
+<li>迁移已有代码的格式</li>
+<li>代码提交前进行一次格式化</li>
+</ul>
+<p>首先确认了 <code>Prettier</code> 对 <code>TypeScript</code> 有良好的支持.</p>
+<h3 id="保存时格式化"><a href="#保存时格式化" class="headerlink" title="保存时格式化"></a>保存时格式化</h3><p>但我更喜欢保存时只是做一点比如去掉多余的空格, 按<code>alt + shift + f</code>才进行格式化.</p>
+<p>在vsc中安装完插件后, 配置<code>prettierrc</code> 文件, 临时的配置比如:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"tabWidth"</span>: <span class="number">4</span>,</span><br><span class="line">  <span class="attr">"useTabs"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更多配置文件方式<br><a href="https://prettier.io/docs/en/configuration.html" target="_blank" rel="noopener">Configuration File</a></p>
+<p>然后<code>cmd+,</code>调出编辑器的配置, 设置<code>editor.formatOnSave</code> 选项.把值设置为 <code>true</code>.</p>
+<h3 id="代码提交前"><a href="#代码提交前" class="headerlink" title="代码提交前"></a>代码提交前</h3><p><a href="https://juejin.im/post/59ddc2a751882578c17e9ccf" target="_blank" rel="noopener">为什么用Prettier 66</a></p>
+<h2 id="已经有了ESlint下"><a href="#已经有了ESlint下" class="headerlink" title="已经有了ESlint下"></a>已经有了ESlint下</h2><p><a href="https://juejin.im/post/5ae91143f265da0ba60f97ea" target="_blank" rel="noopener">Prettier 介绍与基本用法 6</a></p>
+<h3 id="使用ESLint运行Prettier"><a href="#使用ESLint运行Prettier" class="headerlink" title="使用ESLint运行Prettier"></a>使用ESLint运行Prettier</h3><p>如果你已经在你的项目中使用<code>ESLint</code>并且想要只通过<strong>单独一条命令</strong>来执行你的所有的代码检查的话，你可以使用<code>ESLint</code>来为你运行<code>Prettier</code>。</p>
+<p>只需要使用<code>eslint-plugin-prettier</code>来添加<code>Prettier</code>作为<code>ESLint</code>的<strong>规则配置</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev prettier eslint-plugin-prettier</span><br></pre></td></tr></table></figure>
+<p><strong>.eslintrc.json</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"plugins"</span>: [<span class="string">"prettier"</span>],</span><br><span class="line">  <span class="string">"rules"</span>: &#123;</span><br><span class="line">    <span class="string">"prettier/prettier"</span>: <span class="string">"error"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关闭ESLint的格式规则"><a href="#关闭ESLint的格式规则" class="headerlink" title="关闭ESLint的格式规则"></a>关闭ESLint的格式规则</h3><p><strong>你是否通过<code>ESLint</code>来运行<code>Prettier</code>，又或者是单独运行两个工具</strong>，那你大概<strong>只想要每个格式问题只出现一次</strong>，而且你特别不想要<code>ESLint</code>仅仅是和<code>Prettier</code>有简单的不同和偏好而报出“问题”。</p>
+<p>所以你大概想要<strong>禁用冲突的规则</strong>（当保留其他<code>Prettier</code>不关心的规则时）最简单的方式是使用<code>eslint-config-prettier</code>。它可以添加到任何<code>ESLint</code>配置上面。</p>
+<h2 id="345345总"><a href="#345345总" class="headerlink" title="345345总"></a>345345总</h2><p>目标是有两个setting,<br>一个是user的setting, 设置好自己对常用的语言的一些代码规范<br>一个是workspace的setting, 是读取要工作的项目文件中的文件, 来保持项目的代码规范<br>(先设置自己的user, 在读取项目中的<code>setting</code>)</p>
+<p>然后自己对于<code>cmd+s</code>的情况是只去掉空格, 而不格式化,用<code>alt+shift+f</code>是来手动格式化, 然后<code>pre-commit</code>前会最好自动格式化下</p>
+<p>从EditorConfig到xxLint, 到prettier.  prettier只暴力格式化, xxlint是检查</p>
+<p>安装prettier的话有2种, 一种是在vsc中安装插件<code>prettier code format</code><br>一种是在项目中用<code>npm</code>或<code>yarn</code>安装dev依赖, <strong>依赖项目, 不依赖编辑器</strong><br>2者略有不同.</p>
+<h3 id="项目npm-yarn中后"><a href="#项目npm-yarn中后" class="headerlink" title="项目npm, yarn中后"></a>项目npm, yarn中后</h3><p>项目中的就是比如<code>npm</code>安装完后, 就可以在script中写个prettier的格式命令, 然后<code>yarn prettier</code>下</p>
+<p>常见的命令是<code>prettier --write --config .prettierrc src/*.ts</code> 当然还要一些prettier的参数等会看 比如<code>{}</code>, <code>[]</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 这个是对前端的, 后面不加分号</span><br><span class="line">prettier -l --write 'src/**/*.&#123;ts,tsx,less,css&#125;' --no-semi --single-quote</span><br><span class="line"># 这个是后端的js 加分号</span><br><span class="line">prettier -l --write 'app/**/*.js' --single-quote</span><br><span class="line"># 这个是按.prettierrc中的格式</span><br><span class="line">prettier --write --config .prettierrc src/*.ts</span><br></pre></td></tr></table></figure>
+<p>当然可以在<code>package.json</code>中的<code>script</code>写<code>prettier</code>搞定.<br>而在<code>package.json</code>中的<code>prettier</code>写是自定义格式选项. 一般不会用这个</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">"prettier": &#123;</span><br><span class="line">    "singleQuote": true,</span><br><span class="line">    "semi": false,</span><br><span class="line">    "printWidth": 120,</span><br><span class="line">    "proseWrap": "never"</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>查看prettier中内置的一些<code>formatter</code></p>
+<h3 id="vsc中"><a href="#vsc中" class="headerlink" title="vsc中"></a>vsc中</h3><p>在vsc中多说下, 首先vsc有自己的格式方式, 按<code>cmd+k m</code>可以查看到许多语言, 然后是你可以自己配置<code>Configure &#39;language_name&#39; language based settings.</code>, 跳转到<code>setting.json</code> 中写这种(和你用<code>cmd+shift+p</code>在输入<code>preferences: config</code>这种快多了)</p>
+<p>这里的保存后格式化是对当前文件吧, 而不是本项目中所有的.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// Set the default</span><br><span class="line">"editor.formatOnSave": false,</span><br><span class="line">// Enable per-language</span><br><span class="line">"[javascript]": &#123;</span><br><span class="line">    "editor.formatOnSave": true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 在<code>cmd+,</code>中看<code>setting.json</code> 中可以自己直接改</p>
+<p>vsc的配置, workspace setting在项目根目录<code>.vscode</code>中, 但我找不到. 一般我在里面写debug的文件, 比如egg的那个配置</p>
+<h3 id="各种不同的prettier"><a href="#各种不同的prettier" class="headerlink" title="各种不同的prettier"></a>各种不同的prettier</h3><p>常见的<a href="https://prettier.io/docs/en/configuration.html" target="_blank" rel="noopener">prettier文件</a></p>
+<ul>
+<li>A <code>.prettierrc</code> file, written in YAML or JSON, with optional extensions: <code>.yaml/.yml/.json</code>.</li>
+<li>A <code>.prettierrc.toml</code> file, written in TOML (the .toml extension is required).</li>
+<li>A <code>prettier.config.js</code> or <code>.prettierrc.js</code> file that exports an object.</li>
+<li>A <code>&quot;prettier&quot;</code> key in your <code>package.json</code> file.</li>
+</ul>
+<p>常见的4种吧, 首先是<code>.prettierrc</code>, 你可以在里面用<code>YAML or JSON</code>格式来写, 其次是<code>.prettierrc.toml</code>, 用<code>TOML</code>格式来写 算一类吧, 我们常见的事用<code>JSON</code>写<br>还有就是用<code>prettier.config.js</code> or <code>.prettierrc.js</code>这种导出一个对象来写<br>最后就是在<code>package.json</code>中的<code>&quot;prettier&quot;</code>, 一般就是在<code>script</code>中写呗, 不会单独搞一个属性</p>
+<p>当然<code>.editorconfig, .babelrc, .eslintrc, .prettierrc</code> 都挺常见的</p>
+<h3 id="对于我常用的配置"><a href="#对于我常用的配置" class="headerlink" title="对于我常用的配置"></a>对于我常用的配置</h3><p>ts, tsx, js, jsx, md这些文件, 在setting.json中可以单独配置user的, 还有css, less 都可以</p>
+<p>但是不能配合<code>prettier</code>用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  // js</span><br><span class="line">"[javascript]": &#123;</span><br><span class="line">  "editor.formatOnSave": true,</span><br><span class="line">  "editor.formatOnPaste": false</span><br><span class="line">&#125;,</span><br><span class="line">// jsx</span><br><span class="line">"[javascriptreact]": &#123;</span><br><span class="line">  "editor.formatOnSave": true,</span><br><span class="line">  "editor.formatOnPaste": false</span><br><span class="line">&#125;,</span><br><span class="line">// ts</span><br><span class="line">"[typescript]": &#123;</span><br><span class="line">  "editor.formatOnSave": true,</span><br><span class="line">  "editor.formatOnPaste": false</span><br><span class="line">&#125;,</span><br><span class="line">// tsx</span><br><span class="line">"[typescriptreact]": &#123;</span><br><span class="line">  "editor.formatOnSave": true,</span><br><span class="line">  "editor.formatOnPaste": false</span><br><span class="line">&#125;</span><br><span class="line">// md</span><br><span class="line">"[markdown]": &#123;&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="下面链接中讲了详细使用prettier"><a href="#下面链接中讲了详细使用prettier" class="headerlink" title="下面链接中讲了详细使用prettier"></a>下面链接中讲了详细使用prettier</h3><p><a href="https://survivejs.com/maintenance/code-quality/code-formatting/" target="_blank" rel="noopener">Code Formatting 6666 各种配置</a></p>
+<h3 id="读取顺序"><a href="#读取顺序" class="headerlink" title="读取顺序"></a>读取顺序</h3><p>先从vsc的市场中可以看到, setting会先从</p>
+<ol>
+<li>prettier 的配置文件读, 也就是前面说的4种</li>
+<li>没有的话从<code>.editorconfig</code>这个小老鼠读</li>
+<li>最后才是从默认的vsc的prettier setting</li>
+</ol>
+<p>再说下一下默认在vsc中插件prettier设置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">// 一行最大80个字符</span><br><span class="line">prettier.printWidth (default: 80)</span><br><span class="line"></span><br><span class="line">// 使用tab代表几个空格</span><br><span class="line">prettier.tabWidth (default: 2)</span><br><span class="line"></span><br><span class="line">// 是否使用单引号代替双引号</span><br><span class="line">prettier.singleQuote (default: false)</span><br><span class="line"></span><br><span class="line">// 末尾的逗号, 3个选项, "none"就是无, "es5"会在例如对象和数组, "all"是包括函数参数</span><br><span class="line">prettier.trailingComma (default: 'none')</span><br><span class="line"></span><br><span class="line">// 控制对象字面量里面的空格</span><br><span class="line">prettier.bracketSpacing (default: true)</span><br><span class="line"></span><br><span class="line">// 如果为true, 在多行的jsx元素中, 最后的 &gt; 单独一行,而不是跟在最后一样的末尾</span><br><span class="line">prettier.jsxBracketSameLine (default: false)</span><br><span class="line"></span><br><span class="line">// 用什么 parser .只有 'flow' 和 'babylon'.</span><br><span class="line">prettier.parser (default: 'babylon') - JavaScript only</span><br><span class="line"></span><br><span class="line">// 在每行的末尾加上分号 true. false就是用ASI, 看链接参考</span><br><span class="line">prettier.semi (default: true)</span><br><span class="line"></span><br><span class="line">// 缩进用不用tab</span><br><span class="line">prettier.useTabs (default: false)</span><br><span class="line"></span><br><span class="line">// (Markdown) wrap prose over multiple lines.</span><br><span class="line">prettier.proseWrap (default: 'preserve')</span><br><span class="line"></span><br><span class="line">// 对只有一个参数的箭头函数的这个参数, 用不用圆括号包上</span><br><span class="line">prettier.arrowParens (default: 'avoid')</span><br><span class="line"></span><br><span class="line">// 在jsx中用单引号而不是双引号</span><br><span class="line">prettier.jsxSingleQuote (default: false)</span><br><span class="line"></span><br><span class="line">// 对html文件空格敏感, 有更多选项</span><br><span class="line">prettier.htmlWhitespaceSensitivity (default: 'css')</span><br><span class="line"></span><br><span class="line">// 对每行末尾通过prettier自己设定, 有更多选项</span><br><span class="line">prettier.endOfLine (default: 'auto')</span><br></pre></td></tr></table></figure>
+<p>然后是vsc中特殊指定的, 通过<code>setting.json</code>可以改 <a href="https://code.visualstudio.com/docs/getstarted/settings" target="_blank" rel="noopener">User and Workspace Settings</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 使用 prettier-eslint 代替 prettier.</span><br><span class="line">prettier.eslintIntegration (default: false) - JavaScript and TypeScript only</span><br><span class="line"></span><br><span class="line">// 使用 prettier-tslint 代替 prettier.</span><br><span class="line">prettier.tslintIntegration (default: false) - JavaScript and TypeScript only</span><br><span class="line"></span><br><span class="line">// 使用 prettier-stylelint 代替 prettier.</span><br><span class="line">prettier.stylelintIntegration (default: false) - CSS, SCSS and LESS only</span><br><span class="line"></span><br><span class="line">// 需要一个 a 'prettierconfig' 文件来格式化</span><br><span class="line">prettier.requireConfig (default: false)</span><br><span class="line"></span><br><span class="line">// 支持写一个 .gitignore 或 .prettierignore 这样的文件来忽略项目中哪些路径下的不进行格式化. 需要重启下vsc</span><br><span class="line">prettier.ignorePath (default: .prettierignore)</span><br><span class="line"></span><br><span class="line">// 对一些特定语言不进行用prettier的格式化. 在父目录下设置也会组织所有子目录下的配置</span><br><span class="line">prettier.disableLanguages (default: ["vue"])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>vsc中的<code>prettier</code>插件也是会依赖项目中的本地依赖, 就是前面的优先级.</p>
+</blockquote>
+<h4 id="vsc中的setting"><a href="#vsc中的setting" class="headerlink" title="vsc中的setting"></a>vsc中的setting</h4><p>按<code>cmd+,</code>打开, 有两种不同的设定</p>
+<ul>
+<li>User Settings - 这是全局的设定</li>
+<li>Workspace Settings - 指定的workspace打开才会应用, 这个优先级高. 常用在小组中分享项目设定. 在<code>.vscode</code>文件中de <code>.settings.json</code>,  <code>launch.json</code>是用来debug的</li>
+</ul>
+<p>改变会需要重启下vsc, 也有不需要重启的, 自己点着试试, 先看Commonly Userd =&gt; workbench  看下去</p>
+<p>对于workspace setting在一个文件下当然可以加一个<code>.vacode</code>文件夹, 但当有一个根文件下有很多项目时呢. 比如ava<br>那就在根目录下写一个<code>Global Workspace settings</code> 叫<code>.code-workspace</code>文件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"folders"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"path"</span>: <span class="string">"vscode"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"path"</span>: <span class="string">"vscode-docs"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"path"</span>: <span class="string">"vscode-generator-code"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"settings"</span>: &#123;</span><br><span class="line">        <span class="attr">"window.zoomLevel"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">"files.autoSave"</span>: <span class="string">"afterDelay"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如debugging的东西就写在<code>.vscode</code>文件夹下的<code>lounch.json</code>中</p>
+<p>然后就是语言指定配置, 这个在前面讲过<code>cmd+k, m</code></p>
+<h3 id="prettier的默认配置"><a href="#prettier的默认配置" class="headerlink" title="prettier的默认配置"></a>prettier的默认配置</h3><p><a href="https://prettier.io/docs/en/options.html" target="_blank" rel="noopener">options.</a></p>
+<h3 id="prettierc常用命令参数"><a href="#prettierc常用命令参数" class="headerlink" title="prettierc常用命令参数"></a>prettierc常用命令参数</h3><p>基本命令就是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prettier [opts] [filename ...]</span><br></pre></td></tr></table></figure>
+<p>实际中常用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prettier --single-quote --trailing-comma es5 --write <span class="string">"&#123;app,__&#123;tests,mocks&#125;__&#125;/**/*.js"</span></span><br></pre></td></tr></table></figure>
+<p>默认是不会访问<code>node_modules</code>文件夹中的, 需要访问的话加参数<code>--with-node-modules</code></p>
+<h4 id="CLI的一些其他参数"><a href="#CLI的一些其他参数" class="headerlink" title="CLI的一些其他参数"></a>CLI的一些其他参数</h4><p>讲的主要是比<code>option</code>多一点的东西.</p>
+<h5 id="check或-c"><a href="#check或-c" class="headerlink" title="--check或-c"></a><code>--check</code>或<code>-c</code></h5><p>就是check下文件是否格式化了, 也经常配合在<code>pre-commit hook</code>前使用,<br>如果是想讲这些没格式化的文件输出给下一个命令, 就用<code>--list-different</code>. 两者还是有区别的</p>
+<h5 id="debug-check"><a href="#debug-check" class="headerlink" title="--debug-check"></a><code>--debug-check</code></h5><p>如果你怕<code>prettier</code>改变你正确的代码, 那么用这个. 当然<code>--write</code>是不能配合这个用了.</p>
+<h5 id="find-config-path-和-config"><a href="#find-config-path-和-config" class="headerlink" title="--find-config-path 和 --config"></a><code>--find-config-path</code> 和 <code>--config</code></h5><p>当你经常去格式化那些指定目录的文件时, <code>prettier</code>会先尝试读取配置文件的信息, <strong>造成性能有点缺失</strong>, 所以你可以用这个命令配置好, 先读第一次, 之后就重用第一次的配置.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prettier --find-config-path ./my/file.js</span><br><span class="line">./my/.prettierrc  <span class="comment">// 这是配置文件</span></span><br></pre></td></tr></table></figure>
+<p>而这里是, 直接提供一个配置文件路径<code>--config</code>, 当然可以任意指定配置文件在哪了.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prettier --config ./my/.prettierrc --write ./my/file.js</span><br></pre></td></tr></table></figure>
+<p>不想要配置文件用<code>--no-config</code>, 默认配置就是不查找.</p>
+<h5 id="ignore-path"><a href="#ignore-path" class="headerlink" title="--ignore-path"></a><code>--ignore-path</code></h5><p>用来忽略一些不需要格式化的目录中的文件, 比如 <code>./.prettierignore</code></p>
+<h5 id="require-pragma"><a href="#require-pragma" class="headerlink" title="--require-pragma"></a><code>--require-pragma</code></h5><p>pragma指需要一些特别的comment.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @prettier  // @prettier 或 @format</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<h5 id="insert-pragma"><a href="#insert-pragma" class="headerlink" title="--insert-pragma"></a><code>--insert-pragma</code></h5><p>在没有pragma的时候会插入<code>@format</code>这种pragma到格式化文件最顶端, 配合<code>--require-pragma</code>一起用</p>
+<h5 id="list-different或-l"><a href="#list-different或-l" class="headerlink" title="--list-different或-l"></a><code>--list-different</code>或<code>-l</code></h5><p>这是另一个常用的flag, 会打印出prettier格式化前后不同的文件名.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prettier --single-quote --list-different <span class="string">"src/**/*.js"</span></span><br></pre></td></tr></table></figure>
+<p>也可以用<code>--check</code>, 这个打印出跟人性化的信息</p>
+<h5 id="config-precedence"><a href="#config-precedence" class="headerlink" title="--config-precedence"></a><code>--config-precedence</code></h5><p>config file文件中的配置优先级高还是 CLI options中的高</p>
+<ul>
+<li>config file 指的是配置文件</li>
+<li><p>CLI options 指的是输入的命令参数</p>
+</li>
+<li><p>cli-override (default)</p>
+<ul>
+<li>默认cli中高, 也就是默认的prettier的配置高</li>
+</ul>
+</li>
+<li>file-override<ul>
+<li>config file中的高</li>
+</ul>
+</li>
+<li>prefer-file<ul>
+<li>如果配置文件找到了, 就按配置文件, 没找到就用CLI的</li>
+</ul>
+</li>
+</ul>
+<p>常用来整合编辑器中的, 比如用户定义了自己的配置, 但还是尊重项目的定的配置.</p>
+<h5 id="no-editorconfig"><a href="#no-editorconfig" class="headerlink" title="--no-editorconfig"></a><code>--no-editorconfig</code></h5><p>不考虑小老鼠了, 具体看<a href="https://prettier.io/docs/en/api.html" target="_blank" rel="noopener">API</a>中的信息</p>
+<h5 id="with-node-modules"><a href="#with-node-modules" class="headerlink" title="--with-node-modules"></a><code>--with-node-modules</code></h5><p>默认不会访问, 加了后就去访问格式化咯.</p>
+<h5 id="write"><a href="#write" class="headerlink" title="--write"></a><code>--write</code></h5><p>就地改正, 按prettier的格式</p>
+<h5 id="loglevel"><a href="#loglevel" class="headerlink" title="--loglevel"></a><code>--loglevel</code></h5><p>改一下CLI的log等级</p>
+<ul>
+<li>error</li>
+<li>warn</li>
+<li>log (default)</li>
+<li>debug</li>
+<li>silent</li>
+</ul>
+<h5 id="stdin-filepath"><a href="#stdin-filepath" class="headerlink" title="--stdin-filepath"></a><code>--stdin-filepath</code></h5><p>prettier CLI当做<code>stdin</code>的文件路径, 比如</p>
+<p>abc.css</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.name</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>shell</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat abc.css | prettier --stdin-filepath abc.css</span></span><br><span class="line">.name &#123;</span><br><span class="line">  display: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="API-用来setting-json中的"><a href="#API-用来setting-json中的" class="headerlink" title="API 用来setting.json中的"></a>API 用来setting.json中的</h4><p>不推荐, 就是直接在js中写</p>
+<h4 id="默认的option"><a href="#默认的option" class="headerlink" title="默认的option"></a>默认的option</h4><p><a href="https://segmentfault.com/a/1190000012909159" target="_blank" rel="noopener">prettier的配置选项（参数）官网直译</a></p>
+<p>总结下就是</p>
+<ul>
+<li>一行超过多少个字符换行, markdown也需要强制换行么. 末尾加不加分号, 换行后<code>&gt;</code>在哪</li>
+<li>对象字面量前后加空格么, 最后一个属性加逗号么, 单引号代替双引号么, 箭头寒素参数括号么.</li>
+<li>缩进用tab还是空格, 一个tab几个空格</li>
+<li>html默认, endOfLine默认, parser, filePath, pragma. range默认</li>
+<li><strong>关注点还是末尾js加分号, tsx不加,多一个—no-semi, 然后都用单引号</strong> 比vsc的配置多一点点</li>
+</ul>
+<h5 id="Print-Width"><a href="#Print-Width" class="headerlink" title="Print Width"></a>Print Width</h5><p>指定一行不能超过多少长, 长了换行, 报错是xxlint的事</p>
+<p>为了可读写, 建议不要超过80个字符的, 因为人阅读的时候一般不会超过100-120的, <code>prettier</code>的话倒是希望每行越长越好.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80</td>
+<td><code>--print-width &lt;int&gt;</code></td>
+<td><code>printWidth: &lt;int&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>如果你不想在<code>markdown</code>中限定换行, 可以用<code>Prose Wrap</code>来关闭它, 默认<code>preserve</code>是保持<code>markdown</code>的<code>as-is</code></p>
+</blockquote>
+<h5 id="Tab-Width"><a href="#Tab-Width" class="headerlink" title="Tab Width"></a>Tab Width</h5><p>一个缩进等级代表几个空格</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td><code>--tab-width &lt;int&gt;</code></td>
+<td><code>tabWidth: &lt;int&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Tabs"><a href="#Tabs" class="headerlink" title="Tabs"></a>Tabs</h5><p>缩进的行用tab而不是用空格</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>false</td>
+<td><code>--use-tabs</code></td>
+<td><code>useTabs: &lt;bool&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>tab常用来缩进,但在prettier中tab是用来align的</p>
+<h5 id="Semicolons"><a href="#Semicolons" class="headerlink" title="Semicolons"></a>Semicolons</h5><p>每行后面带不带分号</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true</td>
+<td><code>--no-semi</code></td>
+<td><code>semi: &lt;bool&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>true是在每行末尾加<br>false是在每行开头加,但会引入ASI问题.</p>
+<h5 id="Quotes"><a href="#Quotes" class="headerlink" title="Quotes"></a>Quotes</h5><p>使用单引号而不是双引号:</p>
+<p>注意:</p>
+<ul>
+<li>jsx的会忽略这个配置, 用的是<code>jsx-single-quote.</code></li>
+<li>如果在一个用字符串包上字符串的情况下, <code>&quot;I&#39;m double quoted&quot;</code>变<code>&quot;I&#39;m double quoted&quot;</code>. <code>&quot;This \&quot;example\&quot; is single quoted&quot;</code>变<code>&#39;This &quot;example&quot; is single quoted&#39;</code></li>
+<li>更多信息看<code>strings rationale</code></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>false</td>
+<td><code>--single-quote</code></td>
+<td><code>singleQuote: &lt;bool&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="JSX-Quotes"><a href="#JSX-Quotes" class="headerlink" title="JSX Quotes"></a>JSX Quotes</h5><p>在jsx中用单引号代替双引号</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>false</td>
+<td><code>--jsx-single-quote</code></td>
+<td><code>jsxSingleQuote: &lt;bool&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Trailing-Commas"><a href="#Trailing-Commas" class="headerlink" title="Trailing Commas"></a>Trailing Commas</h5><p>多行的时候在末尾打印逗号. 单行数组是不会有末尾逗号的.<br>尾逗号<code>[a,b,c,d,]</code> 数组项d后面的逗号就是尾逗号</p>
+<p>可选项:</p>
+<ul>
+<li><code>none</code>, 不加</li>
+<li><code>es5</code>: 在es5中某些加, 比如(objects, arrays, etc.)</li>
+<li><code>all</code>: 甚至在函数参数中也加</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“none”</td>
+<td>`—trailing-comma &lt;none</td>
+<td>es5</td>
+<td>all&gt;`</td>
+<td>`trailingComma: “&lt;none</td>
+<td>es5</td>
+<td>all&gt;”`</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Bracket-Spacing"><a href="#Bracket-Spacing" class="headerlink" title="Bracket Spacing"></a>Bracket Spacing</h5><p>在一个对象字面量中加空格</p>
+<p><code>true</code> - Example: <code>{ foo: bar }</code>.<br><code>false</code> - Example: <code>{foo: bar}</code>.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>true</td>
+<td><code>--no-bracket-spacing</code></td>
+<td><code>bracketSpacing: &lt;bool&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="JSX-Brackets"><a href="#JSX-Brackets" class="headerlink" title="JSX Brackets"></a>JSX Brackets</h5><p>对一个jsx元素而言,<code>&gt;</code>是加在最后一样还是换新行</p>
+<p>Valid options:</p>
+<p><code>true</code> - Example:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;button</span><br><span class="line">  className=<span class="string">"prettier-class"</span></span><br><span class="line">  id=<span class="string">"prettier-id"</span></span><br><span class="line">  onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;</span><br><span class="line">  Click Here</span><br><span class="line">&lt;<span class="regexp">/button&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>false</code> - Example:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;button</span><br><span class="line">  className=<span class="string">"prettier-class"</span></span><br><span class="line">  id=<span class="string">"prettier-id"</span></span><br><span class="line">  onClick=&#123;<span class="keyword">this</span>.handleClick&#125;</span><br><span class="line">&gt;</span><br><span class="line">  Click Here</span><br><span class="line">&lt;<span class="regexp">/button&gt;</span></span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>false</td>
+<td><code>--jsx-bracket-same-line</code></td>
+<td><code>jsxBracketSameLine: &lt;bool&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Arrow-Function-Parentheses"><a href="#Arrow-Function-Parentheses" class="headerlink" title="Arrow Function Parentheses"></a>Arrow Function Parentheses</h5><p>箭头函数的参数, 在只有一个的情况下加不加圆括号<code>()</code></p>
+<p>Valid options:</p>
+<p><code>&quot;avoid&quot;</code> - 忽略. Example: <code>x =&gt; x</code><br><code>&quot;always&quot;</code> - 加上. Example: <code>(x) =&gt; x</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“avoid”</td>
+<td>`—arrow-parens &lt;avoid</td>
+<td>always&gt;`</td>
+<td>`arrowParens: “&lt;avoid</td>
+<td>always&gt;”`</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Range"><a href="#Range" class="headerlink" title="Range"></a>Range</h5><p>只format文件中的一段, <code>[)</code> 选一个偏移范围</p>
+<p>不能和<code>cursorOffset</code>一起用</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>--range-start &lt;int&gt;</code></td>
+<td><code>rangeStart: &lt;int&gt;</code></td>
+</tr>
+<tr>
+<td>Infinity</td>
+<td><code>--range-end &lt;int&gt;</code></td>
+<td><code>rangeEnd: &lt;int&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Parser"><a href="#Parser" class="headerlink" title="Parser"></a>Parser</h5><p>指定用什么parse, <code>prettier</code>会自动从输入的文件目录中读取, 你不需要配置这个.</p>
+<p>但 <code>babel</code> 和 <code>flow</code>对一个js集来说是不同的两种, 所以可以选.</p>
+<p>当然还要其他选项.</p>
+<h5 id="File-Path"><a href="#File-Path" class="headerlink" title="File Path"></a>File Path</h5><p>指定前面parser的路径</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat foo | prettier --stdin-filepath foo.css</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td><code>--stdin-filepath &lt;string&gt;</code></td>
+<td><code>filepath: &quot;&lt;string&gt;&quot;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Require-pragma"><a href="#Require-pragma" class="headerlink" title="Require pragma"></a>Require pragma</h5><p><code>prettier</code>可以按照这个标志来严格指定format 文件, 只需要在每个文件前面加上<code>pramga</code></p>
+<p>例如文件中带上下面的参数后, 使用<code>--require-pragma</code>就会format</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @prettier</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @format</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>false</td>
+<td><code>--require-pragma</code></td>
+<td><code>requirePragma: &lt;bool&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Insert-Pragma"><a href="#Insert-Pragma" class="headerlink" title="Insert Pragma"></a>Insert Pragma</h5><p>prettier可以在用prettier进行format的时候在文件的开头插入<code>@format</code>, 如果已经有其他的<code>docblock</code>的时候会加入一行的</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>false</td>
+<td><code>--insert-pragma</code></td>
+<td><code>insertPragma: &lt;bool&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="Prose-Wrap"><a href="#Prose-Wrap" class="headerlink" title="Prose Wrap"></a>Prose Wrap</h5><p>换行问题, 最开始的是超过多少字符提示, 但不换行的.</p>
+<p>Valid options:</p>
+<ul>
+<li><code>&quot;always&quot;</code> - Wrap prose if it exceeds the <code>print width</code>.</li>
+<li><code>&quot;never&quot;</code> - Do not wrap prose.</li>
+<li><code>&quot;preserve&quot;</code> - Wrap prose as-is. First available in v1.9.0</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;preserve&quot;</code></td>
+<td>`—prose-wrap &lt;always</td>
+<td>never</td>
+<td>preserve&gt;</td>
+<td>`</td>
+<td>`proseWrap: “&lt;always</td>
+<td>never</td>
+<td>preserve&gt;”`</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="HTML-Whitespace-Sensitivity"><a href="#HTML-Whitespace-Sensitivity" class="headerlink" title="HTML Whitespace Sensitivity"></a>HTML Whitespace Sensitivity</h5><p>HTML文件全局空格敏感问题, 详细看<code>whitespace-sensitive formatting</code></p>
+<p>就是空格会影响布局, 就按css的display来</p>
+<p>Valid options:</p>
+<ul>
+<li><code>&quot;css&quot;</code> - Respect the default value of CSS <code>display</code> property.</li>
+<li><code>&quot;strict&quot;</code> - Whitespaces are considered sensitive.</li>
+<li><code>&quot;ignore&quot;</code> - Whitespaces are considered insensitive.</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Default</th>
+<th>CLI Override</th>
+<th>API Override</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;css&quot;</code></td>
+<td>`—html-whitespace-sensitivity &lt;css</td>
+<td>strict</td>
+<td>ignore&gt;`</td>
+<td>`htmlWhitespaceSensitivity: “&lt;css</td>
+<td>strict</td>
+<td>ignore&gt;”`</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="End-of-Line"><a href="#End-of-Line" class="headerlink" title="End of Line"></a>End of Line</h5><p>历史原因, 有两种, That is <code>\n</code> (or <code>LF</code> for Line Feed) and <code>\r\n</code> (or <code>CRLF</code> for Carriage Return + Line Feed).</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.jianshu.com/p/3dda4756eca5" target="_blank" rel="noopener">Visual Studio Code入门(译)</a><br><a href="https://blog.csdn.net/u013304372/article/details/78917536" target="_blank" rel="noopener">VS Code使用之基本设置与配置详解</a><br><a href="https://juejin.im/post/5b27a326e51d45588a7dac57" target="_blank" rel="noopener">使用ESLint+Prettier来统一前端代码风格</a><br><a href="https://www.jeffjade.com/2019/02/02/150-prettier-quickapp-plugin/" target="_blank" rel="noopener">Prettier 插件为更漂亮快应用代码</a><br><a href="http://www.valarvo.com/edwardvoon/587.html" target="_blank" rel="noopener">使用Prettier美化JavaScript代码，让编程更舒心</a><br><a href="https://juejin.im/post/5a791d566fb9a0634853400e" target="_blank" rel="noopener">vscode + prettier 专治代码洁癖（一）</a><br><a href="https://segmentfault.com/a/1190000011122443" target="_blank" rel="noopener">笔记, TypeScript 配置 Prettier 6</a><br><a href="https://juejin.im/post/5ae91143f265da0ba60f97ea" target="_blank" rel="noopener">Prettier 介绍与基本用法 6</a><br><a href="https://juejin.im/post/59ddc2a751882578c17e9ccf" target="_blank" rel="noopener">为什么用Prettier 66</a><br><a href="https://blog.fundebug.com/2017/10/23/format-code-use-Prettier/" target="_blank" rel="noopener">我为什么推荐Prettier来统一代码风格 6</a><br><a href="https://survivejs.com/maintenance/code-quality/code-formatting/" target="_blank" rel="noopener">Code Formatting 6666 各种配置</a><br><a href="https://stackoverflow.com/questions/2846283/what-are-the-rules-for-javascripts-automatic-semicolon-insertion-asi" target="_blank" rel="noopener">What are the rules for JavaScript’s automatic semicolon insertion (ASI)?</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/prettier/" rel="tag"># prettier</a>
+          
+            <a href="/tags/vsc/" rel="tag"># vsc</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/17/js立即执行函数/" rel="next" title="js立即执行函数">
+                <i class="fa fa-chevron-left"></i> js立即执行函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/05/travis配置文件的编写/" rel="prev" title="travis配置文件的编写">
+                travis配置文件的编写 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">92</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#preiiter代码格式美化"><span class="nav-number">1.</span> <span class="nav-text">preiiter代码格式美化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搞起"><span class="nav-number">1.1.</span> <span class="nav-text">搞起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在项目中"><span class="nav-number">1.2.</span> <span class="nav-text">在项目中</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在vscode中"><span class="nav-number">1.2.1.</span> <span class="nav-text">在vscode中</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他的prettier"><span class="nav-number">1.3.</span> <span class="nav-text">其他的prettier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#typescript配置prettier"><span class="nav-number">1.4.</span> <span class="nav-text">typescript配置prettier</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#保存时格式化"><span class="nav-number">1.4.1.</span> <span class="nav-text">保存时格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码提交前"><span class="nav-number">1.4.2.</span> <span class="nav-text">代码提交前</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#已经有了ESlint下"><span class="nav-number">1.5.</span> <span class="nav-text">已经有了ESlint下</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用ESLint运行Prettier"><span class="nav-number">1.5.1.</span> <span class="nav-text">使用ESLint运行Prettier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭ESLint的格式规则"><span class="nav-number">1.5.2.</span> <span class="nav-text">关闭ESLint的格式规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#345345总"><span class="nav-number">1.6.</span> <span class="nav-text">345345总</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目npm-yarn中后"><span class="nav-number">1.6.1.</span> <span class="nav-text">项目npm, yarn中后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vsc中"><span class="nav-number">1.6.2.</span> <span class="nav-text">vsc中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种不同的prettier"><span class="nav-number">1.6.3.</span> <span class="nav-text">各种不同的prettier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于我常用的配置"><span class="nav-number">1.6.4.</span> <span class="nav-text">对于我常用的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面链接中讲了详细使用prettier"><span class="nav-number">1.6.5.</span> <span class="nav-text">下面链接中讲了详细使用prettier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取顺序"><span class="nav-number">1.6.6.</span> <span class="nav-text">读取顺序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vsc中的setting"><span class="nav-number">1.6.6.1.</span> <span class="nav-text">vsc中的setting</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prettier的默认配置"><span class="nav-number">1.6.7.</span> <span class="nav-text">prettier的默认配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prettierc常用命令参数"><span class="nav-number">1.6.8.</span> <span class="nav-text">prettierc常用命令参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CLI的一些其他参数"><span class="nav-number">1.6.8.1.</span> <span class="nav-text">CLI的一些其他参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#check或-c"><span class="nav-number">1.6.8.1.1.</span> <span class="nav-text">--check或-c</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#debug-check"><span class="nav-number">1.6.8.1.2.</span> <span class="nav-text">--debug-check</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#find-config-path-和-config"><span class="nav-number">1.6.8.1.3.</span> <span class="nav-text">--find-config-path 和 --config</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ignore-path"><span class="nav-number">1.6.8.1.4.</span> <span class="nav-text">--ignore-path</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#require-pragma"><span class="nav-number">1.6.8.1.5.</span> <span class="nav-text">--require-pragma</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#insert-pragma"><span class="nav-number">1.6.8.1.6.</span> <span class="nav-text">--insert-pragma</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#list-different或-l"><span class="nav-number">1.6.8.1.7.</span> <span class="nav-text">--list-different或-l</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#config-precedence"><span class="nav-number">1.6.8.1.8.</span> <span class="nav-text">--config-precedence</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#no-editorconfig"><span class="nav-number">1.6.8.1.9.</span> <span class="nav-text">--no-editorconfig</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#with-node-modules"><span class="nav-number">1.6.8.1.10.</span> <span class="nav-text">--with-node-modules</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#write"><span class="nav-number">1.6.8.1.11.</span> <span class="nav-text">--write</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#loglevel"><span class="nav-number">1.6.8.1.12.</span> <span class="nav-text">--loglevel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#stdin-filepath"><span class="nav-number">1.6.8.1.13.</span> <span class="nav-text">--stdin-filepath</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API-用来setting-json中的"><span class="nav-number">1.6.8.2.</span> <span class="nav-text">API 用来setting.json中的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认的option"><span class="nav-number">1.6.8.3.</span> <span class="nav-text">默认的option</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Print-Width"><span class="nav-number">1.6.8.3.1.</span> <span class="nav-text">Print Width</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tab-Width"><span class="nav-number">1.6.8.3.2.</span> <span class="nav-text">Tab Width</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Tabs"><span class="nav-number">1.6.8.3.3.</span> <span class="nav-text">Tabs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Semicolons"><span class="nav-number">1.6.8.3.4.</span> <span class="nav-text">Semicolons</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Quotes"><span class="nav-number">1.6.8.3.5.</span> <span class="nav-text">Quotes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSX-Quotes"><span class="nav-number">1.6.8.3.6.</span> <span class="nav-text">JSX Quotes</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Trailing-Commas"><span class="nav-number">1.6.8.3.7.</span> <span class="nav-text">Trailing Commas</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bracket-Spacing"><span class="nav-number">1.6.8.3.8.</span> <span class="nav-text">Bracket Spacing</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSX-Brackets"><span class="nav-number">1.6.8.3.9.</span> <span class="nav-text">JSX Brackets</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Arrow-Function-Parentheses"><span class="nav-number">1.6.8.3.10.</span> <span class="nav-text">Arrow Function Parentheses</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Range"><span class="nav-number">1.6.8.3.11.</span> <span class="nav-text">Range</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Parser"><span class="nav-number">1.6.8.3.12.</span> <span class="nav-text">Parser</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#File-Path"><span class="nav-number">1.6.8.3.13.</span> <span class="nav-text">File Path</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Require-pragma"><span class="nav-number">1.6.8.3.14.</span> <span class="nav-text">Require pragma</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Insert-Pragma"><span class="nav-number">1.6.8.3.15.</span> <span class="nav-text">Insert Pragma</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Prose-Wrap"><span class="nav-number">1.6.8.3.16.</span> <span class="nav-text">Prose Wrap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTML-Whitespace-Sensitivity"><span class="nav-number">1.6.8.3.17.</span> <span class="nav-text">HTML Whitespace Sensitivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#End-of-Line"><span class="nav-number">1.6.8.3.18.</span> <span class="nav-text">End of Line</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

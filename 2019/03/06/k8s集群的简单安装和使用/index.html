@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="k8s,kubernetes,">
+
+
+<meta name="description" content="k8s集群的简单安装和使用什么是kubernetesKubernetes 是一个平台 Kubernetes 提供了很多的功能，它可以简化应用程序的工作流，加快开发速度。通常，一个成功的应用编排系统需要有较强的自动化能力，这也是为什么 Kubernetes 被设计作为构建组件和工具的生态系统平台，以便更轻松地部署、扩展和管理应用程序(Kubernetes 是一个容器编排平台)。 编排的艺术| K8S">
+<meta name="keywords" content="k8s,kubernetes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s集群的简单安装和使用">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="k8s集群的简单安装和使用什么是kubernetesKubernetes 是一个平台 Kubernetes 提供了很多的功能，它可以简化应用程序的工作流，加快开发速度。通常，一个成功的应用编排系统需要有较强的自动化能力，这也是为什么 Kubernetes 被设计作为构建组件和工具的生态系统平台，以便更轻松地部署、扩展和管理应用程序(Kubernetes 是一个容器编排平台)。 编排的艺术| K8S">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/controllers.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/example1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/service1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/example2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/framework2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/framework1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/framework2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/framework1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/enablek8s.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/dashboard1.webp">
+<meta property="og:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/home1.webp">
+<meta property="og:updated_time" content="2019-03-09T06:25:06.295Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="k8s集群的简单安装和使用">
+<meta name="twitter:description" content="k8s集群的简单安装和使用什么是kubernetesKubernetes 是一个平台 Kubernetes 提供了很多的功能，它可以简化应用程序的工作流，加快开发速度。通常，一个成功的应用编排系统需要有较强的自动化能力，这也是为什么 Kubernetes 被设计作为构建组件和工具的生态系统平台，以便更轻松地部署、扩展和管理应用程序(Kubernetes 是一个容器编排平台)。 编排的艺术| K8S">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/controllers.jpeg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/">
+
+
+  <title>k8s集群的简单安装和使用 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/k8s集群的简单安装和使用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">k8s集群的简单安装和使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-06T17:55:09+08:00">2019-03-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后端教程/" itemprop="url" rel="index"><span itemprop="name">后端教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="k8s集群的简单安装和使用"><a href="#k8s集群的简单安装和使用" class="headerlink" title="k8s集群的简单安装和使用"></a>k8s集群的简单安装和使用</h1><h2 id="什么是kubernetes"><a href="#什么是kubernetes" class="headerlink" title="什么是kubernetes"></a>什么是kubernetes</h2><p><a href="https://kubernetes.feisky.xyz/ji-chu-ru-men/index" target="_blank" rel="noopener">Kubernetes 是一个平台</a></p>
+<p>Kubernetes 提供了很多的功能，它可以<strong>简化应用程序的工作流</strong>，加快开发速度。通常，一个成功的<strong>应用编排系统</strong>需要有较强的自动化能力，这也是为什么 Kubernetes 被设计作为构建组件和工具的生态系统平台，以便更轻松地部署、扩展和管理应用程序(Kubernetes 是一个容器编排平台)。</p>
+<p><a href="https://caicloud.io/blog/5a90db21ea51874faccead25" target="_blank" rel="noopener">编排的艺术| K8S 中的容器编排和应用编排 6666</a></p>
+<p>在传统的单体式架构的应用中，我们开发、测试、交付、部署等都是针对单个组件，我们很少听到编排这个概念。而在云的时代，微服务和容器大行其道，除了为我们显示出了它们在敏捷性，可移植性等方面的巨大优势以外，也为我们的交付和运维带来了新的挑战：我们将单体式的架构拆分成越来越多细小的服务，运行在各自的容器中，那么该如何解决它们之间的依赖管理，服务发现，资源管理，高可用等问题呢？</p>
+<p>在容器环境中，编排通常涉及到三个方面:</p>
+<ul>
+<li>资源编排 - 负责资源的分配，如限制 <code>namespace</code> 的可用资源，<code>scheduler</code> 针对资源的不同调度策略；</li>
+<li>工作负载编排 - 负责在资源之间共享工作负载，如 Kubernetes 通过不同的 <code>controller</code> 将 <code>Pod</code> 调度到合适的 <code>node</code> 上，并且负责管理它们的生命周期；</li>
+<li>服务编排 - 负责服务发现和高可用等，如 Kubernetes 中可用通过 <code>Service</code> 来对内暴露服务，通过 <code>Ingress</code> 来对外暴露服务。</li>
+</ul>
+<p>在 Kubernetes 中有 5 种我们经常会用到的控制器来帮助我们进行容器编排，它们分别是 <code>Deployment</code>, <code>StatefulSet</code>, <code>DaemonSet</code>, <code>CronJob</code>, <code>Job</code>。</p>
+<p>在这 5 种常见资源中</p>
+<ul>
+<li><code>Deployment</code> 经常被作为无状态实例控制器使用;</li>
+<li><code>StatefulSet</code> 是一个有状态实例控制器;</li>
+<li><code>DaemonSet</code> 可以指定在选定的 <code>Node</code> 上跑，每个 <code>Node</code> 上会跑一个副本，它有一个特点是它的 <code>Pod</code> 的调度不经过调度器，在 <code>Pod</code> 创建的时候就直接绑定 <code>NodeName</code>；</li>
+<li>最后一个是<code>CronJob</code>定时任务，它是一个上级控制器，和 <code>Deployment</code> 有些类似，当一个定时任务触发的时候，它会去创建一个 <code>Job</code> ，具体的任务实际上是由 <code>Job</code> 来负责执行的。</li>
+</ul>
+<p>他们之间的关系如下图：</p>
+<p><img src="controllers.jpeg" alt="controllers.jpeg"></p>
+<p>一个简单的例子</p>
+<p>我们来考虑这么一个简单的例子，一<strong>个需要使用到数据库</strong>的 <code>API</code> 服务在 Kubernetes 中应该如何表示: </p>
+<p>客户端程序通过 <code>Ingress</code> 来访问到内部的 <code>API Service</code>, <code>API Service</code> 将流量导流到 <code>API Server Deployment</code> 管理的其中一个 <code>Pod</code> 中，这个 <code>Server</code> 还需要访问数据库服务，它通过 <code>DB Service</code> 来访问 <code>DataBase StatefulSet</code> 的有状态副本。由定时任务 <code>CronJob</code> 来定期备份数据库，通过 <code>DaemonSet</code> 的 <code>Logging</code> 来采集日志，<code>Monitoring</code> 来负责收集监控指标。</p>
+<p><img src="example1.jpeg" alt="example1.jpeg"></p>
+<h3 id="容器编排的困境"><a href="#容器编排的困境" class="headerlink" title="容器编排的困境"></a>容器编排的困境</h3><h4 id="Kubernetes-为我们带来了什么？"><a href="#Kubernetes-为我们带来了什么？" class="headerlink" title="Kubernetes 为我们带来了什么？"></a>Kubernetes 为我们带来了什么？</h4><p>通过上面的例子，我们发现 Kubernetes 已经为我们对大量常用的基础资源进行了<strong>抽象和封装</strong>，我们可以非常灵活地组合、使用这些资源来解决问题，同时它还提供了一系列自动化运维的机制:如 HPA, VPA, Rollback, Rolling Update 等帮助我们进行弹性伸缩和滚动更新，而且上述所有的功能都可以用 <code>YAML</code> 声明式进行部署。</p>
+<h4 id="困境"><a href="#困境" class="headerlink" title="困境"></a>困境</h4><p>但是这些抽象<strong>还是在容器层面</strong>的，对于一个大型的应用而言，需要组合大量的 Kubernetes 原生资源，需要非常多的 Services, Deployments, StatefulSets 等，这里面用起来就会比较繁琐，而且其中服务之间的依赖关系需要用户自己解决，<strong>缺乏统一的依赖管理机制</strong>。</p>
+<h3 id="应用编排"><a href="#应用编排" class="headerlink" title="应用编排"></a>应用编排</h3><h4 id="什么是应用？"><a href="#什么是应用？" class="headerlink" title="什么是应用？"></a>什么是应用？</h4><p>一个对外提供服务的应用，</p>
+<ul>
+<li>首先它需要一个能够与外部通讯的网络，</li>
+<li>其次还需要能运行这个服务的载体 (Pods)，</li>
+<li>如果这个应用需要存储数据，这还需要配套的存储，</li>
+</ul>
+<p>所以我们可以认为:</p>
+<p>应用单元 = 网络 + 服务载体 +存储 </p>
+<p><img src="service1.jpeg" alt="service1.jpeg"></p>
+<p>那么我们很容易地可以将 Kubernetes 的资源联系起来，然后将他们划分为 4 种类型的应用：</p>
+<ul>
+<li>无状态应用 = Services + Volumes + <code>Deployment</code></li>
+<li>有状态应用 = Services + Volumes + <code>StatefulSet</code></li>
+<li>守护型应用 = Services + Volumes + <code>DaemonSet</code></li>
+<li>批处理应用 = Services + Volumes + <code>CronJob/Job</code></li>
+</ul>
+<p>我们来重新审视一下之前的例子：</p>
+<p><img src="example2.jpeg" alt="example2.jpeg"></p>
+<h4 id="应用层面的四个问题"><a href="#应用层面的四个问题" class="headerlink" title="应用层面的四个问题"></a>应用层面的四个问题</h4><p>通过前面的探索，我们可以引出应用层面的<strong>四个问题</strong>：</p>
+<ol>
+<li>应用包的定义</li>
+<li>应用依赖管理</li>
+<li>包存储</li>
+<li>运行时管理</li>
+</ol>
+<p>在社区中，这四个方面的问题分别由<strong>三个组件</strong>或者项目来解决:</p>
+<ol>
+<li><code>Helm Charts</code>: 定义了应用包的结构以及依赖关系；</li>
+<li><code>Helm Registry</code>: 解决了包存储；</li>
+<li><code>HelmTiller</code>: 负责将包运行在 Kubernetes 集群中。</li>
+</ol>
+<p>Helm是一个kubernetes应用的包管理工具. 但有很多问题, 也有很多年代替的东西.</p>
+<h2 id="k8s核心架构介绍"><a href="#k8s核心架构介绍" class="headerlink" title="k8s核心架构介绍"></a>k8s核心架构介绍</h2><p><a href="https://clsn.io/clsn/lx8.html" target="_blank" rel="noopener">Kubernetes 编排系统 666</a></p>
+<p>下面是kubernetes的架构图, 核心组件, 可以看个大概, 记住的话很有用.</p>
+<p><img src="framework2.png" alt="framework2.png"><br><img src="framework1.png" alt="framework1.png"></p>
+<h3 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h3><p>Kubernetes的<strong>基本调度单元</strong>称为“pod”。它可以把更高级别的抽象内容增加到容器化组件。<strong>一个pod一般包含一个或多个容器</strong>，这样可以保证它们一直位于主机上，并且可以共享资源。Kubernetes中的每个pod都被分配一个唯一的（在集群内的）IP地址这样就可以允许应用程序使用端口，而不会有冲突的风险。</p>
+<p>Pod可以定义一个卷，例如本地磁盘目录或网络磁盘，并将其暴露在pod中的一个容器之中。pod可以通过Kubernetes API手动管理，也可以委托给控制器来管理。</p>
+<h3 id="标签和选择器"><a href="#标签和选择器" class="headerlink" title="标签和选择器"></a>标签和选择器</h3><p>标签和选择器是Kubernetes中的主要分组机制，用于确定操作适用的组件。</p>
+<h3 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h3><p>控制器是将实际集群状态转移到所需集群状态的对帐循环。它通过<strong>管理一组pod来实现</strong>。</p>
+<p>其它控制器，是核心Kubernetes系统的一部分包括一个“DaemonSet控制器”为每一台机器（或机器的一些子集）上运行的恰好一个pod，和一个“作业控制器”用于运行pod运行到完成，例如作为批处理作业的一部分。控制器管理的一组pod由作为控制器定义的一部分的标签选择器确定。</p>
+<h3 id="服务"><a href="#服务" class="headerlink" title="服务"></a>服务</h3><p>Kubernetes<strong>服务是一组协同工作的pod</strong>，就像多层架构应用中的一层。构成服务的pod组通过标签选择器来定义。</p>
+<h2 id="Kubernetes核心组件"><a href="#Kubernetes核心组件" class="headerlink" title="Kubernetes核心组件"></a>Kubernetes核心组件</h2><p>再重复一遍核心组件架构图.</p>
+<p><img src="framework2.png" alt="framework2.png"><br><img src="framework1.png" alt="framework1.png"></p>
+<p>Kubernetes遵循<code>master-slave architecture</code>。Kubernetes的组件可以分为管理单个的 node 组件和控制平面的一部分的组件。</p>
+<p>Kubernetes <code>Master</code>是集群的<strong>主要控制单元</strong>，用于管理其工作负载并指导整个系统的通信。<br>Kubernetes控制平面由各自的进程组成，每个组件都可以在<strong>单个主节点node</strong>上运行，也可以在支持high-availability clusters的多个主节点上运行。</p>
+<p>Kubernetes主要由以下几个核心组件组成：如上图</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>etcd</td>
+<td>保存了整个集群的状态；</td>
+</tr>
+<tr>
+<td>apiserver</td>
+<td>提供了资源操作的唯一入口，并提供认证、授权、访问控制、API注册和发现等机制；</td>
+</tr>
+<tr>
+<td>controller manager</td>
+<td>负责维护集群的状态，比如故障检测、自动扩展、滚动更新等；</td>
+</tr>
+<tr>
+<td>scheduler</td>
+<td>负责资源的调度，按照预定的调度策略将Pod调度到相应的机器上；</td>
+</tr>
+<tr>
+<td>kubelet</td>
+<td>负责维护容器的生命周期，同时也负责Volume（CVI）和网络（CNI）的管理；</td>
+</tr>
+<tr>
+<td>Container runtime</td>
+<td>负责镜像管理以及Pod和容器的真正运行（CRI）；</td>
+</tr>
+<tr>
+<td>kube-proxy</td>
+<td>负责为Service提供cluster内部的服务发现和负载均衡；</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>除了核心组件，还有一些推荐的<code>Add-ons</code>：addons</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kube-dns</td>
+<td>负责为整个集群提供DNS服务</td>
+</tr>
+<tr>
+<td>Ingress Controller</td>
+<td>为服务提供外网入口</td>
+<td>有看过</td>
+</tr>
+<tr>
+<td>Heapster</td>
+<td>提供资源监控</td>
+</tr>
+<tr>
+<td>Dashboard</td>
+<td>提供GUI</td>
+<td>有用到</td>
+</tr>
+<tr>
+<td>Federation</td>
+<td>提供跨可用区的集群</td>
+</tr>
+<tr>
+<td>Fluentd-elasticsearch</td>
+<td>提供集群日志采集、存储与查询</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="使用docker来安装单节点k8s集群"><a href="#使用docker来安装单节点k8s集群" class="headerlink" title="使用docker来安装单节点k8s集群"></a>使用docker来安装单节点k8s集群</h2><p>直接下载最新版的docker, 然后找到kubernetes选项, 勾上<code>enable kubernetes</code>等待安装上就好.</p>
+<p><img src="enablek8s.png" alt="enablek8s.png"></p>
+<p>安装完会顺便自动安装上<code>kubectl</code>控制命令</p>
+<p>运行<code>kubectl version</code>查看安装成功否.</p>
+<h3 id="部署kubernetes-dashboard服务-方便查看k8s的配置"><a href="#部署kubernetes-dashboard服务-方便查看k8s的配置" class="headerlink" title="部署kubernetes-dashboard服务, 方便查看k8s的配置"></a>部署kubernetes-dashboard服务, 方便查看k8s的配置</h3><p>要想启动 Kubernetes Dashboard，还得在集群中<strong>部署</strong>一下 <code>kubernetes-dashboard.yaml</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml</span><br></pre></td></tr></table></figure>
+<p>部署成功后，我们进行启动 <code>proxy</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl proxy</span><br><span class="line"></span><br><span class="line">Starting to serve on 127.0.0.1:8001</span><br></pre></td></tr></table></figure>
+<p>这时候，打开浏览器，访问 Kubernetes Dashboard</p>
+<p><img src="dashboard1.webp" alt="dashboard1.webp"></p>
+<p>通过以下脚本，填写 <code>kubeconfig</code> 的 <code>Token</code> 信息（如果不操作这一步，就会提示 config 信息不全）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">TOKEN=$(kubectl -n kube-system describe secret default| awk <span class="string">'$1=="token:"&#123;print $2&#125;'</span>)</span><br><span class="line">kubectl config <span class="built_in">set</span>-credentials docker-for-desktop --token=<span class="string">"<span class="variable">$&#123;TOKEN&#125;</span>"</span></span><br></pre></td></tr></table></figure>
+<p>选择 <code>kubeconfig</code> 文件，使用“<code>shift + command + .</code>”打开 <code>$HOME</code> 下隐藏目录文件 <code>./kube/config</code>，点击“登录”，就可以认证成功，进入首页了。</p>
+<p><img src="home1.webp" alt="home1.webp"></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ul>
+<li>第一部分: dockerhe k8s, 如何设置k8s集群,以及运行一个小程序</li>
+<li>第二部分: 在k8s中运行应用必须理解的关键技术</li>
+<li>第三部分: 深入研究k8s内部, 介绍一些额外的概念</li>
+</ul>
+<p>本来应用是开发给运维, 运维部署在监控.<br>微服务, 大型单体应用, 到微服务.大应用分解成小的, </p>
+<p>k8s使开发者可以自主部署应用, 并控制部署的频率<br>抽象数据中心的硬件基础设施.</p>
+<p>开发和运维在一起的一个团队中DevOps<br>kubernetes 使用linux容器技术来提供应用的隔离.</p>
+<p>Docker: </p>
+<ul>
+<li>镜像</li>
+<li>镜像仓库</li>
+<li>容器</li>
+</ul>
+<p>流程是:</p>
+<ol>
+<li>先开发者操作docker构建和推送镜像,</li>
+<li>开发机器上docker构建镜像</li>
+<li>然后推送到镜像仓库中,开发者可以在生产机器中拉取</li>
+<li>生产机器上拉取镜像中心的docker, 然后基于容器运行.</li>
+</ol>
+<p>kubernetes是一个软件系统, 允许你在其上很容易部署和管理容器化的应用.</p>
+<p>开发者开发开发了一个应用, 然后交给kubernetes master, 他会控制成为一个个工作节点.  架构</p>
+<p>kubernetes分2种节点,</p>
+<ul>
+<li>主节点master: 控制和管理</li>
+<li>工作节点node: 运行用户实际部署的应用.</li>
+</ul>
+<p>主节点中: </p>
+<ul>
+<li>kubernetes API: 控制和其他控制面板组件都要和他通信.</li>
+<li>scheduler: 调度应用</li>
+<li>controller manager: 执行集群级别的功能, 如复制组件, 持续跟踪node, 处理节点失败</li>
+<li>etcd开考的分布式数据存储, 持久化存储集群配置.</li>
+</ul>
+<p>工作节点中node:</p>
+<ul>
+<li>docker: 或其他容器</li>
+<li>kubelet: 和API通信, 并管理它所在节点的容器.</li>
+<li>kubernetes service proxy: 负责组件之间的负载均衡网络流量</li>
+</ul>
+<p>跑应用的话要先把应用大包进一个或多个容器镜像, 再把这些镜像推动到镜像仓库中, 然后把应用的<strong>描述</strong>发布到kubernetes API中.<br>图1.10很不错: </p>
+<p>APP descriptor描述了4个容器, 并分为3组(叫3个pod), 前2个pod中一个容器, 后一个2个容器.表示这两个容器要协同工作, 不要隔离.旁边的数字表示要运行每个pod的副本数量.</p>
+<blockquote>
+<p>pod在node中</p>
+</blockquote>
+<p>例子: 如何创建一个简单的应用, 并把它打包成容器镜像并在远端的kubernetes集群中或本地的单节点集群中运行</p>
+<ol>
+<li>安装docker并运行一个hello容器</li>
+<li>创建一个简单的node.js应用并部署在kubernetes中</li>
+<li>把应用打包成可以独立运行的容器镜像</li>
+<li>基于镜像运行容器</li>
+<li>把镜像推送到docker hub中.</li>
+</ol>
+<p>docker build看图2.2<br>镜像的构建不是在docker客户端而是在docker的守护进程daemon. 两者可以不要求在同一台机器上.<br>没有的镜像会从docker hub中下.<br>镜像是分层的, 只有本地没有的镜像才会去hub上下.<br>Dockerfile是每一条语句创建一个层.<br>最后一层也就是最上面一层标记为<code>kubia:latest</code><br>构建完成后, 新的镜像存储在本地.</p>
+<p>访问下<br>一些列docker操作后, 就可以push到docker hub了</p>
+<p>然后是一些kubernetes的操作. 设置一个完整的多节点的kubernetes集群是很麻烦的额, 暂时就用docker的自带enable kubernetes. 最简单的 比用<code>minikube</code>还方便.</p>
+<p>安装完后用<code>kubectl cluster-info</code>看集群状况. 下面还没有装<code>dashboard</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl cluster-info</span><br><span class="line">Kubernetes master is running at https:<span class="comment">//localhost:6443</span></span><br><span class="line">KubeDNS is running at https:<span class="comment">//localhost:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy</span></span><br><span class="line"></span><br><span class="line">To further debug and diagnose cluster problems, use <span class="string">'kubectl cluster-info dump'</span>.</span><br></pre></td></tr></table></figure>
+<p>使用GKE托管 kubernetes 集群</p>
+<p>暂时不用了, 自己看下好了</p>
+<p><code>kubectl get nodes</code>看节点的状况, <code>kubectl get</code>用来看kubernetes中对象情况</p>
+<p>更详细的是用<code>kubectl describe node docker-for-desktop</code> 看节点的详情.</p>
+<p>设置别名<code>kubectl</code>为<code>k</code></p>
+<p>超实用的不全, 在<code>bash</code>或<code>zsh shell</code>中</p>
+<p>在kubernetes上运行第一个应用.</p>
+<p><code>kubectl run</code>来部署<br>运行一个前面推到 docker hub 的上那个. 本地的那个kubia</p>
+<p><code>kubectl run kubia --image=ximage/kubia --port=8080 --generator=run/v1</code></p>
+<p>kubia是kubernetes中的名字,<br>—image= 指定要运行的image,<br>—port= 指定kubernete应用监听哪个端口<br>—generator= 创建一个<code>ReplicationController</code>而不是Deployment. 以后不会用到这个命令.</p>
+<p>pod的信息. 这里你会想是不是有一个kubectl的命令来看pod, 但是没有, kubernetes不是干这个活. 他不直接处理单个容器. 使用的是多容器共存的概念, 就是pod.</p>
+<p>每个pod类似一个独立逻辑机器, 有自己的ip, 主机名这种, 运行一个独立的应用程序.<br>应用程序可以是单进程, 运行在单容器中, 也可以是一个主应用进程或其他支持进程.</p>
+<p>容器, pod, node的关系看图2.5<br><code>kubectl get pods</code> 然后等status为running才行.</p>
+<p>ImagePullBackOff的情况会等一会才成功的. 具体就用describe看</p>
+<p>那么如何访问正在运行的pod的呢</p>
+<p>前面说过每个pod都有自己的IP地址, 但这个地址是集群内部的, 不能从外部访问, 所以为了能从外部访问, 需要用服务对象公开他. 需要创建一个特殊的<code>LoadBalancer</code>类型的服务. 如果是一个常规服务的话(一个<code>ClusterIP</code>服务)还是只能在内部访问.<br><code>LoadBalancer</code>将创建一个外部的负载均衡, 通过负载均衡的公共IP来访问pod</p>
+<h3 id="开始创建一个服务对象"><a href="#开始创建一个服务对象" class="headerlink" title="开始创建一个服务对象."></a>开始创建一个服务对象.</h3><p>告知kubernetes对外暴露之前创建的<code>ReplicationController</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl expose rc kubia --type=LoadBalancer --name kubia-http</span><br><span class="line">service &quot;kubia-http&quot; exposed</span><br></pre></td></tr></table></figure>
+<ul>
+<li>rc是名字<code>ReplicationController</code>的缩写, 不用写全称. pods是po, service是svc</li>
+<li>kubia是前面<code>kubectl run</code>的名字,</li>
+<li>—type=LoadBalancer是服务类型</li>
+<li>—name kubia-http一个新的名字</li>
+</ul>
+<h3 id="列出服务"><a href="#列出服务" class="headerlink" title="列出服务"></a>列出服务</h3><p>用<code>kubectl get</code> 到目前为止有<code>nodes pods services</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get services</span><br><span class="line">NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE</span><br><span class="line">kubernetes   ClusterIP      10.96.0.1       &lt;none&gt;        443/TCP          1d</span><br><span class="line">kubia-http   LoadBalancer   10.110.207.73   localhost     8080:32391/TCP   3m</span><br></pre></td></tr></table></figure>
+<p>可以看到新创建的<code>kubia-http</code>并没有外部IP,是<code>localhost</code>, 如果是<code>&lt;none&gt;</code>的话,这是因为kubernetes创建负载均衡是要一段时间的, 过一会看.</p>
+<p><code>kubectl get svc kubia-http</code> 看</p>
+<p>还是用<code>curl localhost:8080</code>来看, 其实在用<code>docker ps</code>可以看到运行的容器哦.</p>
+<p>仔细看应用将<code>pod</code>的名字当做主机名.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pods</span><br><span class="line">NAME          READY     STATUS    RESTARTS   AGE</span><br><span class="line">kubia-m9zfv   1/1       Running   0          32m</span><br><span class="line"></span><br><span class="line">$ curl localhost:8080</span><br><span class="line">You&apos;ve hit kubia-m9zfv</span><br></pre></td></tr></table></figure>
+<p>我们只需要记得, 我单点访问<code>master</code>节点就好了.</p>
+<p><code>ReplicationController</code>和<code>pod</code>和服务是如何组合在一起的.</p>
+<p>我们没有直接创建和使用容器, kubernetes的基本构建又是pod. 我们也没有真正直接创建pod, 是通过<code>kubectl run</code> 创建了一个<code>ReplicationController</code>, 这个是用来创建pod实例的. 为了能够外部访问, kubernetes将<code>ReplicationController</code>管理的所有pod有一个服务对外暴露.</p>
+<p>图2.7看看</p>
+<h3 id="最终要你的组件是pod和它的容器"><a href="#最终要你的组件是pod和它的容器" class="headerlink" title="最终要你的组件是pod和它的容器"></a>最终要你的组件是pod和它的容器</h3><p>第一个组件是: pod的的容器是node进程,</p>
+<p>第二个组件是: <code>ReplicationController</code>是用来确保始终存在一个运行中的pod实例, 通常<code>ReplicationController</code>用于复制pod并让他们保持运行.</p>
+<p>第三个组件是: <code>kubia-http</code>服务. 为什么要有服务, 因为pod是短暂存在的,  或故障, 或误操作. 虽然<code>ReplicationController</code>会复制一个新的, 但和原来的pod有个一区别就是<strong>IP地址不一样</strong>, 解决不断变化的IP问题, 这就是需要服务的地方. 还有就是搞定一个IP和端口对上对外暴露多个pod.<br>当一个服务创建时, 他会得到一个静态的IP, 服务生命周期内这个IP地址都不会发生改变. 客户端是通过固定IP地址来连接到服务. 而不是直接连接pod</p>
+<h3 id="水平伸缩应用"><a href="#水平伸缩应用" class="headerlink" title="水平伸缩应用"></a>水平伸缩应用</h3><p>有前面3个组件基础后, 搞事情咯</p>
+<p>用kubernetes一个主要好处就是可以简单扩展部署, 例子🌰</p>
+<p>把运行实例增加到3个.</p>
+<p>现在是一个</p>
+<figure class="highlight k"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl <span class="built_in">get</span> replicationcontrollers</span><br><span class="line">NAME      DESIRED   CURRENT   READY     AGE</span><br><span class="line">kubia     <span class="number">1</span>         <span class="number">1</span>         <span class="number">1</span>         <span class="number">1</span>h</span><br></pre></td></tr></table></figure>
+<p>名为kubia的单 <code>ReplicationControllers</code> . <code>DESIRED</code>表示希望保持的pod的副本数, <code>CURRENT</code>是当前的pod副本数.</p>
+<h4 id="增加期望副本数DESIRED"><a href="#增加期望副本数DESIRED" class="headerlink" title="增加期望副本数DESIRED"></a>增加期望副本数DESIRED</h4><figure class="highlight k"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl scale rc kubia --replicas=<span class="number">3</span></span><br><span class="line">replicationcontroller <span class="string">"kubia"</span> scaled</span><br></pre></td></tr></table></figure>
+<p>只是告诉kubernetes我期望的数量, kubernetes会自己去做.</p>
+<figure class="highlight k"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl <span class="built_in">get</span> rc</span><br><span class="line">NAME      DESIRED   CURRENT   READY     AGE</span><br><span class="line">kubia     <span class="number">3</span>         <span class="number">3</span>         <span class="number">3</span>         <span class="number">1</span>h</span><br></pre></td></tr></table></figure>
+<p>同时看下pod</p>
+<figure class="highlight k"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl <span class="built_in">get</span> po</span><br><span class="line">NAME          READY     STATUS    RESTARTS   AGE</span><br><span class="line">kubia-m9zfv   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">1</span>h</span><br><span class="line">kubia-q89qr   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">1</span>m</span><br><span class="line">kubia-w22k7   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">1</span>m</span><br></pre></td></tr></table></figure>
+<p>然后重新访问下哦,多试几次可以看到访问不同的主机, <code>pod</code></p>
+<figure class="highlight k"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ curl localhost:<span class="number">8080</span></span><br><span class="line">You've hit kubia-m9zfv</span><br><span class="line"></span><br><span class="line">$ curl localhost:<span class="number">8080</span></span><br><span class="line">You've hit kubia-q89qr</span><br><span class="line"></span><br><span class="line">$ curl localhost:<span class="number">8080</span></span><br><span class="line">You've hit kubia-w22k7</span><br></pre></td></tr></table></figure>
+<h3 id="查看应用运行在哪个节点上"><a href="#查看应用运行在哪个节点上" class="headerlink" title="查看应用运行在哪个节点上"></a>查看应用运行在哪个节点上</h3><p>kubernetes中不需要管这个.</p>
+<p>想要看就用加参数<code>-o wide</code> 多了2列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po -o wide</span><br><span class="line">NAME          READY     STATUS    RESTARTS   AGE       IP          NODE</span><br><span class="line">kubia-m9zfv   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">1</span>h        <span class="number">10.1</span><span class="number">.0</span><span class="number">.8</span>    docker-<span class="keyword">for</span>-desktop</span><br><span class="line">kubia-q89qr   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">6</span>m        <span class="number">10.1</span><span class="number">.0</span><span class="number">.10</span>   docker-<span class="keyword">for</span>-desktop</span><br><span class="line">kubia-w22k7   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">6</span>m        <span class="number">10.1</span><span class="number">.0</span><span class="number">.9</span>    docker-<span class="keyword">for</span>-desktop</span><br></pre></td></tr></table></figure>
+<h3 id="还有使用dashboard"><a href="#还有使用dashboard" class="headerlink" title="还有使用dashboard"></a>还有使用dashboard</h3><p>暂时不管了, 2步</p>
+<h2 id="pod这个kubernetes的核心"><a href="#pod这个kubernetes的核心" class="headerlink" title="pod这个kubernetes的核心"></a>pod这个kubernetes的核心</h2><p>其他对象只是在管理, 暴露pod或被pod使用.</p>
+<h3 id="pod"><a href="#pod" class="headerlink" title="pod"></a>pod</h3><p>pod是一组并置的容器, 代表kubernetes中基本构建模块. 实际应用中并不会单独部署容器, 而是针对一组pod中的容器进行部署和操作.<br>这并不意味这一个pod中总要包含多个容器.<br>pod也不会跨越多个工作节点.</p>
+<p>由于不能将多个进程都聚集在一个单独的容器中, 所以产生pod, 对他们当做一个单元进行管理.</p>
+<p><strong>在docker中 知道容器间是隔离的, 但在pod中我们要共享</strong>, 所以kubernetes是配置docker让一个pod中的容器都在一个namespace中. 而不是每一个容器都一个命名空间.<br>所以他们也共享相同的主机名和网络接口, 一个namespace的好处,<br>由于现在pod中容器都共享相同的IP和端口, 所以要注意容器中的进程不能绑定到相同的port中. 这个只涉及一个pod中. 不同的pod间不会冲突.<br>同时一个pod中的所有容器都具有相同的loopback网络接口, 因此容器可以通过localhost与同一个pod的其他容器进行通信.</p>
+<p><strong>集群中的所有pod都在一个共享网络地址空间</strong>, 意味着每个pod可以和其他pod进行相互访问, 包括不同node间的pod, 不用NAT</p>
+<p>通过pod合理管理容器, 就是前后端应用服务器, 数据库的都放不同的pod中.<br>还有 <strong>扩容是基于pod的</strong><br>何时在一个pod中用多个容器呢, 主要是主进程和辅进程.</p>
+<h4 id="何时在pod中放多个容器"><a href="#何时在pod中放多个容器" class="headerlink" title="何时在pod中放多个容器"></a>何时在pod中放多个容器</h4><ul>
+<li>他们需要一起运行还是可以在不同的主机上运行</li>
+<li>他们代表一个整体还是相互独立的组件</li>
+<li>他们必须一起进行扩容还是可以分别进行</li>
+</ul>
+<p>图3.4哈哈哈 </p>
+<ul>
+<li>前后端在一个容器,一个pod中</li>
+<li>前后端在不同容器, 但在一个pod中</li>
+<li>前后端不同容器, 不容pod中</li>
+</ul>
+<h4 id="以YAML或JSON格式描述文件来创建pod"><a href="#以YAML或JSON格式描述文件来创建pod" class="headerlink" title="以YAML或JSON格式描述文件来创建pod"></a>以YAML或JSON格式描述文件来创建pod</h4><p>前面的命令行只允许你配置一组有限的属性. 通过YAML可以利用版本控制系统哦.</p>
+<p>使用<code>kuberctl get po kubia-xxx -o yaml</code>来查看这个pod的YAML格式</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>                                  <span class="comment"># kubernetes API版本</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span>                                       <span class="comment"># kubernetes对象/资源</span></span><br><span class="line"><span class="attr">metadata:</span>                                       <span class="comment"># pod元数据(名称, 标签, 注解)</span></span><br><span class="line"><span class="attr">  creationTimestamp:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T08:39:21Z</span></span><br><span class="line"><span class="attr">  generateName:</span> <span class="string">kubia-</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    run:</span> <span class="string">kubia</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kubia-m9zfv</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">  ownerReferences:</span></span><br><span class="line"><span class="attr">  - apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">    blockOwnerDeletion:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    controller:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    kind:</span> <span class="string">ReplicationController</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span></span><br><span class="line"><span class="attr">    uid:</span> <span class="string">ab300f02-417d-11e9-ae46-025000000001</span></span><br><span class="line"><span class="attr">  resourceVersion:</span> <span class="string">"82915"</span></span><br><span class="line"><span class="attr">  selfLink:</span> <span class="string">/api/v1/namespaces/default/pods/kubia-m9zfv</span></span><br><span class="line"><span class="attr">  uid:</span> <span class="string">ab4e1d22-417d-11e9-ae46-025000000001</span></span><br><span class="line"><span class="attr">spec:</span>                                           <span class="comment"># pod规格 / 内容(pod的容器列表, volume等)</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">ximage/kubia</span></span><br><span class="line"><span class="attr">    imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">      protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    resources:</span> <span class="string">&#123;&#125;</span></span><br><span class="line"><span class="attr">    terminationMessagePath:</span> <span class="string">/dev/termination-log</span></span><br><span class="line"><span class="attr">    terminationMessagePolicy:</span> <span class="string">File</span></span><br><span class="line"><span class="attr">    volumeMounts:</span></span><br><span class="line"><span class="attr">    - mountPath:</span> <span class="string">/var/run/secrets/kubernetes.io/serviceaccount</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">default-token-xgtvp</span></span><br><span class="line"><span class="attr">      readOnly:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  dnsPolicy:</span> <span class="string">ClusterFirst</span></span><br><span class="line"><span class="attr">  nodeName:</span> <span class="string">docker-for-desktop</span></span><br><span class="line"><span class="attr">  restartPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">  schedulerName:</span> <span class="string">default-scheduler</span></span><br><span class="line"><span class="attr">  securityContext:</span> <span class="string">&#123;&#125;</span></span><br><span class="line"><span class="attr">  serviceAccount:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">  serviceAccountName:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">  terminationGracePeriodSeconds:</span> <span class="number">30</span></span><br><span class="line"><span class="attr">  tolerations:</span></span><br><span class="line"><span class="attr">  - effect:</span> <span class="string">NoExecute</span></span><br><span class="line"><span class="attr">    key:</span> <span class="string">node.kubernetes.io/not-ready</span></span><br><span class="line"><span class="attr">    operator:</span> <span class="string">Exists</span></span><br><span class="line"><span class="attr">    tolerationSeconds:</span> <span class="number">300</span></span><br><span class="line"><span class="attr">  - effect:</span> <span class="string">NoExecute</span></span><br><span class="line"><span class="attr">    key:</span> <span class="string">node.kubernetes.io/unreachable</span></span><br><span class="line"><span class="attr">    operator:</span> <span class="string">Exists</span></span><br><span class="line"><span class="attr">    tolerationSeconds:</span> <span class="number">300</span></span><br><span class="line"><span class="attr">  volumes:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">default-token-xgtvp</span></span><br><span class="line"><span class="attr">    secret:</span></span><br><span class="line"><span class="attr">      defaultMode:</span> <span class="number">420</span></span><br><span class="line"><span class="attr">      secretName:</span> <span class="string">default-token-xgtvp</span></span><br><span class="line"><span class="attr">status:</span>                                             <span class="comment"># pod及其内部容器的详细状态</span></span><br><span class="line"><span class="attr">  conditions:</span></span><br><span class="line"><span class="attr">  - lastProbeTime:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">    lastTransitionTime:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T08:39:21Z</span></span><br><span class="line"><span class="attr">    status:</span> <span class="string">"True"</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">Initialized</span></span><br><span class="line"><span class="attr">  - lastProbeTime:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">    lastTransitionTime:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T08:48:18Z</span></span><br><span class="line"><span class="attr">    status:</span> <span class="string">"True"</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">Ready</span></span><br><span class="line"><span class="attr">  - lastProbeTime:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">    lastTransitionTime:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T08:39:21Z</span></span><br><span class="line"><span class="attr">    status:</span> <span class="string">"True"</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">PodScheduled</span></span><br><span class="line"><span class="attr">  containerStatuses:</span></span><br><span class="line"><span class="attr">  - containerID:</span> <span class="attr">docker://14a88ed822997fea0d94d0a19366082c6cdaf648510f56b6221bd9bd7fc38c2e</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">kubia:latest</span></span><br><span class="line"><span class="attr">    imageID:</span> <span class="attr">docker-pullable://ximage/kubia@sha256:11b82b25e898ed75b9436654a243198d1c4e1e133d930f1c9dffed7c22a80aa4</span></span><br><span class="line"><span class="attr">    lastState:</span> <span class="string">&#123;&#125;</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span></span><br><span class="line"><span class="attr">    ready:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    restartCount:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">    state:</span></span><br><span class="line"><span class="attr">      running:</span></span><br><span class="line"><span class="attr">        startedAt:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T08:48:18Z</span></span><br><span class="line"><span class="attr">  hostIP:</span> <span class="number">192.168</span><span class="number">.65</span><span class="number">.3</span></span><br><span class="line"><span class="attr">  phase:</span> <span class="string">Running</span></span><br><span class="line"><span class="attr">  podIP:</span> <span class="number">10.1</span><span class="number">.0</span><span class="number">.8</span></span><br><span class="line"><span class="attr">  qosClass:</span> <span class="string">BestEffort</span></span><br><span class="line"><span class="attr">  startTime:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T08:39:21Z)</span></span><br></pre></td></tr></table></figure>
+<h5 id="介绍pod定义的主要部分"><a href="#介绍pod定义的主要部分" class="headerlink" title="介绍pod定义的主要部分"></a>介绍pod定义的主要部分</h5><ul>
+<li>首先是YAML中使用的kubernetes API 版本和 YAML中用来描述的资源类型</li>
+<li>其次是几乎在所有kubernetes资源中都可以找到的3大重要部分<ul>
+<li>metadata 包括名称, 命名空间, 标签和关于该容器的其他信息</li>
+<li>spec 包含pod内容的实际说明, 例如pod的容器, 卷和其他数据</li>
+<li>status 包含<strong>运行中</strong>的pod的当前信息(新建时不需要的), 例如pod所处的条件, 每个容器的描述状态, 以及内部IP和其他基本信息</li>
+</ul>
+</li>
+</ul>
+<h5 id="创建一个简答的pod的YAML描述文件"><a href="#创建一个简答的pod的YAML描述文件" class="headerlink" title="创建一个简答的pod的YAML描述文件"></a>创建一个简答的pod的YAML描述文件</h5><p>kubia-manual.yaml 可以在任意目录下哦</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>              <span class="comment"># kubernetes API v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span>                   <span class="comment"># 是一个pod</span></span><br><span class="line"><span class="attr">metadata:</span>                   <span class="comment"># </span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kubia-manual</span>        <span class="comment"># pod名称</span></span><br><span class="line"><span class="attr">spec:</span>                       <span class="comment"># pod规格 / 内容(pod的容器列表, volume等)</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">ximage/kubia</span>     <span class="comment"># 容器所用镜像</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span>             <span class="comment"># 容器名</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">8080</span>   <span class="comment"># 监听端口</span></span><br><span class="line"><span class="attr">      protocol:</span> <span class="string">TCP</span></span><br></pre></td></tr></table></figure>
+<p>上面在pod中指定port是展示性的, 客户端能否通过端口链接到pod和这个并没有多大关系, 只不过这个明确指定很有用, 后面还可以用来允许你为每个端口指定一个名称.</p>
+<p>可以用<code>kubectl explain pod</code>来查看怎么写. 对象含有那些属性. <code>kubectl explain pod.spec</code></p>
+<p>使用<code>kuberctl create</code>命令从YAML文件中创建pod</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create -f kubia-manual.yaml </span><br><span class="line">pod <span class="string">"kubia-manual"</span> created</span><br></pre></td></tr></table></figure>
+<p><code>kubectl create -f</code>用户从YAML或JSON中创建任何资源(不只是pod)</p>
+<p>然后再看创建好的pod的yaml格式</p>
+<p><code>kubectl get po kubia-manual -o yaml</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  creationTimestamp:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T12:13:05Z</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kubia-manual</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">  resourceVersion:</span> <span class="string">"95408"</span></span><br><span class="line"><span class="attr">  selfLink:</span> <span class="string">/api/v1/namespaces/default/pods/kubia-manual</span></span><br><span class="line"><span class="attr">  uid:</span> <span class="number">8767870</span><span class="string">d-419b-11e9-ae46-025000000001</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">ximage/kubia</span></span><br><span class="line"><span class="attr">    imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">      protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    resources:</span> <span class="string">&#123;&#125;</span></span><br><span class="line"><span class="attr">    terminationMessagePath:</span> <span class="string">/dev/termination-log</span></span><br><span class="line"><span class="attr">    terminationMessagePolicy:</span> <span class="string">File</span></span><br><span class="line"><span class="attr">    volumeMounts:</span></span><br><span class="line"><span class="attr">    - mountPath:</span> <span class="string">/var/run/secrets/kubernetes.io/serviceaccount</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">default-token-xgtvp</span></span><br><span class="line"><span class="attr">      readOnly:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  dnsPolicy:</span> <span class="string">ClusterFirst</span></span><br><span class="line"><span class="attr">  nodeName:</span> <span class="string">docker-for-desktop</span></span><br><span class="line"><span class="attr">  restartPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">  schedulerName:</span> <span class="string">default-scheduler</span></span><br><span class="line"><span class="attr">  securityContext:</span> <span class="string">&#123;&#125;</span></span><br><span class="line"><span class="attr">  serviceAccount:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">  serviceAccountName:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">  terminationGracePeriodSeconds:</span> <span class="number">30</span></span><br><span class="line"><span class="attr">  tolerations:</span></span><br><span class="line"><span class="attr">  - effect:</span> <span class="string">NoExecute</span></span><br><span class="line"><span class="attr">    key:</span> <span class="string">node.kubernetes.io/not-ready</span></span><br><span class="line"><span class="attr">    operator:</span> <span class="string">Exists</span></span><br><span class="line"><span class="attr">    tolerationSeconds:</span> <span class="number">300</span></span><br><span class="line"><span class="attr">  - effect:</span> <span class="string">NoExecute</span></span><br><span class="line"><span class="attr">    key:</span> <span class="string">node.kubernetes.io/unreachable</span></span><br><span class="line"><span class="attr">    operator:</span> <span class="string">Exists</span></span><br><span class="line"><span class="attr">    tolerationSeconds:</span> <span class="number">300</span></span><br><span class="line"><span class="attr">  volumes:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">default-token-xgtvp</span></span><br><span class="line"><span class="attr">    secret:</span></span><br><span class="line"><span class="attr">      defaultMode:</span> <span class="number">420</span></span><br><span class="line"><span class="attr">      secretName:</span> <span class="string">default-token-xgtvp</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">  conditions:</span></span><br><span class="line"><span class="attr">  - lastProbeTime:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">    lastTransitionTime:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T12:13:05Z</span></span><br><span class="line"><span class="attr">    status:</span> <span class="string">"True"</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">Initialized</span></span><br><span class="line"><span class="attr">  - lastProbeTime:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">    lastTransitionTime:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T12:13:09Z</span></span><br><span class="line"><span class="attr">    status:</span> <span class="string">"True"</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">Ready</span></span><br><span class="line"><span class="attr">  - lastProbeTime:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">    lastTransitionTime:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T12:13:05Z</span></span><br><span class="line"><span class="attr">    status:</span> <span class="string">"True"</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">PodScheduled</span></span><br><span class="line"><span class="attr">  containerStatuses:</span></span><br><span class="line"><span class="attr">  - containerID:</span> <span class="attr">docker://2c04c4f7551ac2e2e862722a780a4befe28d9037df0b74b8d0116c66ff4e1352</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">kubia:latest</span></span><br><span class="line"><span class="attr">    imageID:</span> <span class="attr">docker-pullable://ximage/kubia@sha256:11b82b25e898ed75b9436654a243198d1c4e1e133d930f1c9dffed7c22a80aa4</span></span><br><span class="line"><span class="attr">    lastState:</span> <span class="string">&#123;&#125;</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span></span><br><span class="line"><span class="attr">    ready:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    restartCount:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">    state:</span></span><br><span class="line"><span class="attr">      running:</span></span><br><span class="line"><span class="attr">        startedAt:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T12:13:08Z</span></span><br><span class="line"><span class="attr">  hostIP:</span> <span class="number">192.168</span><span class="number">.65</span><span class="number">.3</span></span><br><span class="line"><span class="attr">  phase:</span> <span class="string">Running</span></span><br><span class="line"><span class="attr">  podIP:</span> <span class="number">10.1</span><span class="number">.0</span><span class="number">.11</span></span><br><span class="line"><span class="attr">  qosClass:</span> <span class="string">BestEffort</span></span><br><span class="line"><span class="attr">  startTime:</span> <span class="number">2019</span><span class="bullet">-03</span><span class="bullet">-08</span><span class="attr">T12:13:05Z</span></span><br></pre></td></tr></table></figure>
+<p>虽然看<code>kubectl get po</code>可以知道pod运不运行, 但还有是需求, 通过与pod的时机通信来确定其正在运行. 后面讨论</p>
+<p>现在看下应用的日志来检查错误.</p>
+<h4 id="查看应用程序日志"><a href="#查看应用程序日志" class="headerlink" title="查看应用程序日志"></a>查看应用程序日志</h4><p>容器化的应用程序通常会把日志记录到标准输出和标准错误流, 而不是将其写入文件.</p>
+<p><code>docker logs &lt;cid&gt;</code> 这种可以用</p>
+<p>在kubernetes中可以用更方便的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl logs kubia-manual</span><br><span class="line">Kubia server starting ......</span><br><span class="line"></span><br><span class="line">$ kubectl logs kubia-m9zfv </span><br><span class="line">Kubia server starting ......</span><br><span class="line">Received request <span class="keyword">from</span>::ffff:<span class="number">192.168</span><span class="number">.65</span><span class="number">.3</span></span><br><span class="line">Received request <span class="keyword">from</span>::ffff:<span class="number">192.168</span><span class="number">.65</span><span class="number">.3</span></span><br><span class="line">Received request <span class="keyword">from</span>::ffff:<span class="number">192.168</span><span class="number">.65</span><span class="number">.3</span></span><br><span class="line">Received request <span class="keyword">from</span>::ffff:<span class="number">192.168</span><span class="number">.65</span><span class="number">.3</span></span><br><span class="line">Received request <span class="keyword">from</span>::ffff:<span class="number">192.168</span><span class="number">.65</span><span class="number">.3</span></span><br><span class="line">Received request <span class="keyword">from</span>::ffff:<span class="number">192.168</span><span class="number">.65</span><span class="number">.3</span></span><br></pre></td></tr></table></figure>
+<p>在我们向nodejs中的程序发送web请求前, 日志只显示一条<code>Kubia server starting ......</code></p>
+<p>获取多容器pod的日志时指定容器名称要加<code>-c &lt;容器名&gt;</code> 这个名称不能用<code>docker ps</code>看到, 而是你YAML文件中的<code>spec.containers.name</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl logs kubia-manual -c kubia       </span><br><span class="line">Kubia server starting ......</span><br></pre></td></tr></table></figure>
+<p><strong>注意我们只能获取到仍然存在的pod的日志</strong>, 当一个pod被删除时, 他的日志也会被删除. 如果希望pod在删除之后也能获取到日志, 那么我们需要设置中心化吗集群范围的日志系统.</p>
+<h4 id="向pod中发送请求"><a href="#向pod中发送请求" class="headerlink" title="向pod中发送请求"></a>向pod中发送请求</h4><p><code>kubectl get</code>和日志显示该pod正在运行, 但我们如何在实际操作用看到该状态呢.<br>前一章用<code>kubectl expose</code>创建一个service, 以便在外部访问pod.<br>还有其他链接到pod以进行测试和调试的方法. 其中之一就是<strong>端口转发</strong></p>
+<h5 id="将本地网络端口转发到pod中的端口"><a href="#将本地网络端口转发到pod中的端口" class="headerlink" title="将本地网络端口转发到pod中的端口"></a>将本地网络端口转发到pod中的端口</h5><p>不通过service, 用端口 <code>kubectl port-forward</code>来</p>
+<p><strong>如将本地端口8888转发到我们的kubia-manual pod中的8080端口</strong>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl port-forward kubia-manual <span class="number">8888</span>:<span class="number">8080</span></span><br><span class="line">Forwarding <span class="keyword">from</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8888</span> -&gt; <span class="number">8080</span></span><br><span class="line">Forwarding <span class="keyword">from</span> [::<span class="number">1</span>]:<span class="number">8888</span> -&gt; <span class="number">8080</span></span><br><span class="line"></span><br><span class="line">$ curl localhost:<span class="number">8888</span></span><br><span class="line">You<span class="string">'ve hit kubia-manual</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">$ kubectl port-forward kubia-manual 8888:8080</span></span><br><span class="line"><span class="string">Forwarding from 127.0.0.1:8888 -&gt; 8080</span></span><br><span class="line"><span class="string">Forwarding from [::1]:8888 -&gt; 8080</span></span><br><span class="line"><span class="string">Handling connection for 8888</span></span><br></pre></td></tr></table></figure>
+<p>图3.5</p>
+<p>是一种测试特定pod有效的方法.</p>
+<h4 id="用标签组织pod"><a href="#用标签组织pod" class="headerlink" title="用标签组织pod"></a>用标签组织pod</h4><p>在node中有很多pod的时候, 打标签分类就很有用了.</p>
+<p>标签不仅可以用来组织pod, 也可以组织kubernetes的其他资源,</p>
+<p>只要标签的key在资源内是唯一的, 一个资源就可以拥有多个标签. <strong>通常在我们创建资源的时候就会将标签附加到资源上</strong>, 后面也可以再打标签上去.</p>
+<p>比如每个pod有2个标签</p>
+<ul>
+<li>app: 指定pod属于哪个应用, 组件或微服务</li>
+<li>rel: 显示在pod中运行的应用程序版本是stable, beta还是canary</li>
+</ul>
+<p>这样就可以对原来的pod组织成2个维度, 从app角度和从版本角度.<br>图3.7</p>
+<p>例子 在创建yaml文件时给pod带上标签.</p>
+<p>一个<code>kubia-manual-with-labels.yaml</code></p>
+<p>只是多了label</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>              <span class="comment"># kubernetes API v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span>                   <span class="comment"># 是一个pod</span></span><br><span class="line"><span class="attr">metadata:</span>                   <span class="comment"># </span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kubia-manual-v2</span>     <span class="comment"># pod名称</span></span><br><span class="line"><span class="attr">  labels:</span>                     <span class="comment"># 这里是新增的labels</span></span><br><span class="line"><span class="attr">    creation_method:</span> <span class="string">manual</span></span><br><span class="line"><span class="attr">    env:</span> <span class="string">prod</span></span><br><span class="line"><span class="attr">spec:</span>                       <span class="comment"># pod规格 / 内容(pod的容器列表, volume等)</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">ximage/kubia</span>     <span class="comment"># 容器所用镜像</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span>             <span class="comment"># 容器名</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">8080</span>   <span class="comment"># 监听端口</span></span><br><span class="line"><span class="attr">      protocol:</span> <span class="string">TCP</span></span><br></pre></td></tr></table></figure>
+<p>使用命令创建后</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create -f kubia-manual-<span class="keyword">with</span>-labels.yaml</span><br><span class="line">pod <span class="string">"kubia-manual-v2"</span> created</span><br></pre></td></tr></table></figure>
+<p>使用带上标签的可以看pod各自标签</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po --show-labels</span><br><span class="line">NAME              READY     STATUS    RESTARTS   AGE       LABELS</span><br><span class="line">kubia-m9zfv       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">17</span>h       run=kubia</span><br><span class="line">kubia-manual      <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">14</span>h       &lt;none&gt;</span><br><span class="line">kubia-manual-v2   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">1</span>m        creation_method=manual,env=prod</span><br><span class="line">kubia-q89qr       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">16</span>h       run=kubia</span><br><span class="line">kubia-w22k7       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">16</span>h       run=kubia</span><br></pre></td></tr></table></figure>
+<p>用 -L 来显示指定标签列.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po -L creation_method,env</span><br><span class="line">NAME              READY     STATUS    RESTARTS   AGE       CREATION_METHOD   ENV</span><br><span class="line">kubia-m9zfv       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">17</span>h</span><br><span class="line">kubia-manual      <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">14</span>h</span><br><span class="line">kubia-manual-v2   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">3</span>m        manual            prod</span><br><span class="line">kubia-q89qr       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">16</span>h</span><br><span class="line">kubia-w22k7       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">16</span>h</span><br></pre></td></tr></table></figure>
+<h4 id="修改现有pod的标签"><a href="#修改现有pod的标签" class="headerlink" title="修改现有pod的标签"></a>修改现有pod的标签</h4><p>给原来的 kubia-manual 添加上一个标签.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl label po kubia-manual creation_method=manual</span><br><span class="line">pod <span class="string">"kubia-manual"</span> labeled</span><br></pre></td></tr></table></figure>
+<p>给 kubia-manual-v2 修改 env 的标签为 debug</p>
+<p>就是比前面加标签多一个 <code>--overwrite</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl label po kubia-manual-v2 end=debug --overwrite</span><br><span class="line">pod <span class="string">"kubia-manual-v2"</span> labeled</span><br><span class="line"></span><br><span class="line">$ kubectl get po -L creation_method,env</span><br><span class="line">NAME              READY     STATUS    RESTARTS   AGE       CREATION_METHOD   ENV</span><br><span class="line">kubia-m9zfv       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">17</span>h</span><br><span class="line">kubia-manual      <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">14</span>h       manual</span><br><span class="line">kubia-manual-v2   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">7</span>m        manual            prod</span><br><span class="line">kubia-q89qr       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">16</span>h</span><br><span class="line">kubia-w22k7       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">16</span>h</span><br></pre></td></tr></table></figure>
+<h3 id="前面只是看pod有啥标签-刷选具体标签的值-这里用标签选择器来过滤pod子集"><a href="#前面只是看pod有啥标签-刷选具体标签的值-这里用标签选择器来过滤pod子集" class="headerlink" title="前面只是看pod有啥标签, 刷选具体标签的值, 这里用标签选择器来过滤pod子集"></a>前面只是看pod有啥标签, 刷选具体标签的值, 这里用标签选择器来过滤pod子集</h3><p><strong>标签要和标签选择器一起用哦</strong>, 刷选的条件如下(就是key 和 value)</p>
+<ul>
+<li>包含或不包含使用特定键的标签  (in notin)</li>
+<li>包含具有特定键和值的标签  =</li>
+<li>包含有特定key的, 但value和我们指定的不同 !=</li>
+</ul>
+<h4 id="使用下-列出pod"><a href="#使用下-列出pod" class="headerlink" title="使用下 ,列出pod"></a>使用下 ,列出pod</h4><p>这里用<code>get</code> 的命令</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po -l creation_method=manual</span><br><span class="line">NAME              READY     STATUS    RESTARTS   AGE</span><br><span class="line">kubia-manual      <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">14</span>h</span><br><span class="line">kubia-manual-v2   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">12</span>m</span><br><span class="line"></span><br><span class="line">$ kubectl get po -l env</span><br><span class="line">NAME              READY     STATUS    RESTARTS   AGE</span><br><span class="line">kubia-manual-v2   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">13</span>m</span><br><span class="line"></span><br><span class="line">$ kubectl get po -l <span class="string">'!env'</span></span><br><span class="line">NAME           READY     STATUS    RESTARTS   AGE</span><br><span class="line">kubia-m9zfv    <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">17</span>h</span><br><span class="line">kubia-manual   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">14</span>h</span><br><span class="line">kubia-q89qr    <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">16</span>h</span><br><span class="line">kubia-w22k7    <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">16</span>h</span><br></pre></td></tr></table></figure>
+<p>就是 -l 后面的值</p>
+<ul>
+<li>creatin_method!=manual</li>
+<li>env in (prod, devel)</li>
+<li>env notin (prod, devel)</li>
+</ul>
+<h4 id="在标签中使用多个条件"><a href="#在标签中使用多个条件" class="headerlink" title="在标签中使用多个条件"></a>在标签中使用多个条件</h4><p>使用逗号, 来分隔多个条件. 这个标签还能用来一次性删除多个pod</p>
+<h3 id="使用标签来约束调度pod"><a href="#使用标签来约束调度pod" class="headerlink" title="使用标签来约束调度pod"></a>使用标签来约束调度pod</h3><p>不约束正是kubernetes的正确方式. 但某些情况下你想要约束下, 比如垃圾的机器上跑小应用, 高级的机器上跑大应用.<br>GPU, CPU机器区别对待. 但还是不会特别说明这个pod去哪个node上.</p>
+<h4 id="使用标签分类工作节点node"><a href="#使用标签分类工作节点node" class="headerlink" title="使用标签分类工作节点node"></a>使用标签分类工作节点node</h4><p>比如新建一个node, 这个node是一个计算节点. 所以我们可以打label</p>
+<p>用法还是同pod上打标签的.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl label node &lt;node name&gt; gpu=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>              <span class="comment"># kubernetes API v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span>                   <span class="comment"># 是一个pod</span></span><br><span class="line"><span class="attr">metadata:</span>                   <span class="comment">#</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kubia-gpu</span>           <span class="comment"># pod名称</span></span><br><span class="line"><span class="attr">spec:</span>                       <span class="comment"># pod规格 / 内容(pod的容器列表, volume等)</span></span><br><span class="line"><span class="attr">  nodeSelector:</span>   <span class="comment"># 添加节点选择器,</span></span><br><span class="line"><span class="attr">    gpu:</span> <span class="string">"true"</span>   <span class="comment"># 要求pod部署到包含标签gpu=true的节点上</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">ximage/kubia</span>     <span class="comment"># 容器所用镜像</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span>             <span class="comment"># 容器名</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">8080</span>   <span class="comment"># 监听端口</span></span><br><span class="line"><span class="attr">      protocol:</span> <span class="string">TCP</span></span><br></pre></td></tr></table></figure>
+<p>创建pod的时候, 调度器会只在包含标签gpu=true的节点node上找, 然后在里面部署pod</p>
+<h4 id="调度pod到某一个node"><a href="#调度pod到某一个node" class="headerlink" title="调度pod到某一个node"></a>调度pod到某一个node</h4><p>每一个node有一个唯一的标签, key是<code>kubernetes.io/hostname</code> value是节点的实际主机名</p>
+<p>但我们不考虑单节点, 而是考虑一个逻辑上的节点组, 保证能够pod调度成功</p>
+<h3 id="注解pod"><a href="#注解pod" class="headerlink" title="注解pod"></a>注解pod</h3><p>除了标签, 其他都可以注解. 也没有注解选择器哦.<br>kubernetes也会自动添加一些注解的, 比如新特性.</p>
+<h4 id="查看对象的注解"><a href="#查看对象的注解" class="headerlink" title="查看对象的注解"></a>查看对象的注解</h4><p>现在看不到了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get po kubia-manual -o yaml</span><br></pre></td></tr></table></figure>
+<h4 id="添加和修改注解"><a href="#添加和修改注解" class="headerlink" title="添加和修改注解"></a>添加和修改注解</h4><p>和标签一样的操作, 创建时可以添加, 也可以在之后对现有的pod进行操作.</p>
+<p>用<code>kubectl annotate</code> </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl annotate pod kubia-manual mycompany.com.someannotation=<span class="string">'foo bar'</span></span><br><span class="line">pod <span class="string">"kubia-manual"</span> annotated</span><br></pre></td></tr></table></figure>
+<p>mycompany.com.someannotation=’foo bar’ 是一个key: value</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">kubectl</span> <span class="string">describe</span> <span class="string">pod</span> <span class="string">kubia-manual</span></span><br><span class="line"><span class="attr">Name:</span>         <span class="string">kubia-manual</span></span><br><span class="line"><span class="attr">Namespace:</span>    <span class="string">default</span></span><br><span class="line"><span class="attr">Node:</span>         <span class="string">docker-for-desktop/192.168.65.3</span></span><br><span class="line"><span class="string">Start</span> <span class="attr">Time:</span>   <span class="string">Fri,</span> <span class="number">08</span> <span class="string">Mar</span> <span class="number">2019</span> <span class="number">20</span><span class="string">:13:05</span> <span class="string">+0800</span></span><br><span class="line"><span class="attr">Labels:</span>       <span class="string">creation_method=manual</span></span><br><span class="line"><span class="attr">Annotations:</span>  <span class="string">mycompany.com.someannotation=foo</span> <span class="string">bar</span>      <span class="comment"># 这条</span></span><br><span class="line"><span class="attr">Status:</span>       <span class="string">Running</span></span><br><span class="line"><span class="attr">IP:</span>           <span class="number">10.1</span><span class="number">.0</span><span class="number">.11</span></span><br><span class="line"><span class="attr">Containers:</span></span><br><span class="line"><span class="attr">  kubia:</span></span><br><span class="line">    <span class="string">Container</span> <span class="attr">ID:</span>   <span class="attr">docker://2c04c4f7551ac2e2e862722a780a4befe28d9037df0b74b8d0116c66ff4e1352</span></span><br><span class="line"><span class="attr">    Image:</span>          <span class="string">ximage/kubia</span></span><br><span class="line">    <span class="string">Image</span> <span class="attr">ID:</span>       <span class="attr">docker-pullable://ximage/kubia@sha256:11b82b25e898ed75b9436654a243198d1c4e1e133d930f1c9dffed7c22a80aa4</span></span><br><span class="line"><span class="attr">    Port:</span>           <span class="number">8080</span><span class="string">/TCP</span></span><br><span class="line">    <span class="string">Host</span> <span class="attr">Port:</span>      <span class="number">0</span><span class="string">/TCP</span></span><br><span class="line"><span class="attr">    State:</span>          <span class="string">Running</span></span><br><span class="line"><span class="attr">      Started:</span>      <span class="string">Fri,</span> <span class="number">08</span> <span class="string">Mar</span> <span class="number">2019</span> <span class="number">20</span><span class="string">:13:08</span> <span class="string">+0800</span></span><br><span class="line"><span class="attr">    Ready:</span>          <span class="literal">True</span></span><br><span class="line">    <span class="string">Restart</span> <span class="attr">Count:</span>  <span class="number">0</span></span><br><span class="line"><span class="attr">    Environment:</span>    <span class="string">&lt;none&gt;</span></span><br><span class="line"><span class="attr">    Mounts:</span></span><br><span class="line">      <span class="string">/var/run/secrets/kubernetes.io/serviceaccount</span> <span class="string">from</span> <span class="string">default-token-xgtvp</span> <span class="string">(ro)</span></span><br><span class="line"><span class="attr">Conditions:</span></span><br><span class="line">  <span class="string">Type</span>           <span class="string">Status</span></span><br><span class="line">  <span class="string">Initialized</span>    <span class="literal">True</span></span><br><span class="line">  <span class="string">Ready</span>          <span class="literal">True</span></span><br><span class="line">  <span class="string">PodScheduled</span>   <span class="literal">True</span></span><br><span class="line"><span class="attr">Volumes:</span></span><br><span class="line"><span class="attr">  default-token-xgtvp:</span></span><br><span class="line"><span class="attr">    Type:</span>        <span class="string">Secret</span> <span class="string">(a</span> <span class="string">volume</span> <span class="string">populated</span> <span class="string">by</span> <span class="string">a</span> <span class="string">Secret)</span></span><br><span class="line"><span class="attr">    SecretName:</span>  <span class="string">default-token-xgtvp</span></span><br><span class="line"><span class="attr">    Optional:</span>    <span class="literal">false</span></span><br><span class="line"><span class="string">QoS</span> <span class="attr">Class:</span>       <span class="string">BestEffort</span></span><br><span class="line"><span class="attr">Node-Selectors:</span>  <span class="string">&lt;none&gt;</span></span><br><span class="line"><span class="attr">Tolerations:</span>     <span class="string">node.kubernetes.io/not-ready:NoExecute</span> <span class="string">for</span> <span class="number">300</span><span class="string">s</span></span><br><span class="line">                 <span class="string">node.kubernetes.io/unreachable:NoExecute</span> <span class="string">for</span> <span class="number">300</span><span class="string">s</span></span><br><span class="line"><span class="attr">Events:</span>          <span class="string">&lt;none&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-7-使用命名空间对资源进行分组"><a href="#3-7-使用命名空间对资源进行分组" class="headerlink" title="3.7 使用命名空间对资源进行分组"></a>3.7 使用命名空间对资源进行分组</h3><p>回到标签. 看到标签是如何将pod和其他对象组织成组的, 每个对象可以有多个标签, 当然可以分成多个组. 在集群中, 如果我们没有明确指定标签选择器, 那么能够看到所有对象.</p>
+<p>当你想将对象分隔成完全独立但有不重叠的组时, kubernetes提供一个命名空间, 但这个和linux的命名空间不一样, kubernetes中的命名空间只是简单地为对象名称提供了一个作用域.</p>
+<p>所以我们不会讲所有的资源都放在一个命名空间中, 而是多个命名空间中, 这样可以允许我们多次使用相同的资源名称.跨不同的命名空间.</p>
+<h4 id="可以将大组件大系统接着拆"><a href="#可以将大组件大系统接着拆" class="headerlink" title="可以将大组件大系统接着拆"></a>可以将大组件大系统接着拆</h4><h4 id="列出集群中所有命名空间及其pod"><a href="#列出集群中所有命名空间及其pod" class="headerlink" title="列出集群中所有命名空间及其pod"></a>列出集群中所有命名空间及其pod</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get ns</span><br><span class="line">NAME          STATUS    AGE</span><br><span class="line"><span class="keyword">default</span>       Active    <span class="number">2</span>d</span><br><span class="line">docker        Active    <span class="number">2</span>d</span><br><span class="line">kube-public   Active    <span class="number">2</span>d</span><br><span class="line">kube-system   Active    <span class="number">2</span>d</span><br></pre></td></tr></table></figure>
+<p>目前为止只是在<code>default</code>命名空间中操作. 使用<code>kubectl get</code>的时候并没有明确指定命名空间, 所以默认是<code>default</code>命名空间</p>
+<p>看下其他命令空间的pod   <code>--namespace/-n</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po --namespace kube-system</span><br><span class="line">NAME                                         READY     STATUS    RESTARTS   AGE</span><br><span class="line">etcd-docker-<span class="keyword">for</span>-desktop                      <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">2</span>d</span><br><span class="line">kube-apiserver-docker-<span class="keyword">for</span>-desktop            <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">2</span>d</span><br><span class="line">kube-controller-manager-docker-<span class="keyword">for</span>-desktop   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">2</span>d</span><br><span class="line">kube-dns<span class="number">-86</span>f4d74b45<span class="number">-46</span>hx7                    <span class="number">3</span>/<span class="number">3</span>       Running   <span class="number">0</span>          <span class="number">2</span>d</span><br><span class="line">kube-proxy-ffc8d                             <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">2</span>d</span><br><span class="line">kube-scheduler-docker-<span class="keyword">for</span>-desktop            <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">2</span>d</span><br></pre></td></tr></table></figure>
+<p>保持区分不同的pod</p>
+<h4 id="创建一个命名空间"><a href="#创建一个命名空间" class="headerlink" title="创建一个命名空间"></a>创建一个命名空间</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>              <span class="comment"># kubernetes API v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Namespace</span>             <span class="comment"># 表示定义一个namespace</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">custom-namespace</span>    <span class="comment">#  命名空间的名字</span></span><br></pre></td></tr></table></figure>
+<p>还是用原来的命令</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create -f custom-namespace.yaml</span><br><span class="line">namespace <span class="string">"custom-namespace"</span> created</span><br></pre></td></tr></table></figure>
+<p>更方便的是使用命令咯 <code>kubectl create namespace custom-namespace</code></p>
+<blockquote>
+<p>只是要注意命名规范</p>
+</blockquote>
+<h4 id="管理其他命名空间中的对象"><a href="#管理其他命名空间中的对象" class="headerlink" title="管理其他命名空间中的对象"></a>管理其他命名空间中的对象</h4><p>如果想在刚创建的命名空间中创建资源, 可以选择在<code>yaml</code>文件的<code>metadata</code>字段添加一个<code>namespace: custom-namespace</code>属性, 也可以使用<code>kubectl create -f kubia-manual.yaml -n custom-namespace</code> 指定</p>
+<p>这事我们有两个pod, 一个在<code>default</code>命名空间, 一个在<code>custom-namespace</code>命名空间</p>
+<p><code>kubectl config</code>可以配置</p>
+<h4 id="命名空间的隔离"><a href="#命名空间的隔离" class="headerlink" title="命名空间的隔离"></a>命名空间的隔离</h4><p>不提供,至少不是开箱即用/ 尽管命名空间将对象分隔到不同的组, 只允许你对属于特定命名空间的对象进行操作, 但实际上命名空间之间并不提供对正在运行的对象的任何隔离.</p>
+<p>比如不同对象在不同命名空间中部署pod, 你觉得他们是隔离的, 但这个取决于kubernetes所使用的网络解决方案.</p>
+<h3 id="停止和移除pod"><a href="#停止和移除pod" class="headerlink" title="停止和移除pod"></a>停止和移除pod</h3><h4 id="按名称删除"><a href="#按名称删除" class="headerlink" title="按名称删除"></a>按名称删除</h4><p>实际上是告诉kubernetes终止该pod中的所有容器. </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl <span class="keyword">delete</span> po kubia-w22k7 <span class="comment">// 还能通过空格删多个</span></span><br><span class="line">pod <span class="string">"kubia-w22k7"</span> deleted</span><br></pre></td></tr></table></figure>
+<h4 id="使用标签选择器来删pod"><a href="#使用标签选择器来删pod" class="headerlink" title="使用标签选择器来删pod"></a>使用标签选择器来删pod</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po --show-labels</span><br><span class="line">NAME              READY     STATUS    RESTARTS   AGE       LABELS</span><br><span class="line">kubia-drw74       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">1</span>m        run=kubia</span><br><span class="line">kubia-m9zfv       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">19</span>h       run=kubia</span><br><span class="line">kubia-manual      <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">15</span>h       creation_method=manual</span><br><span class="line">kubia-manual-v2   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">1</span>h        creation_method=manual,end=debug,env=prod</span><br><span class="line">kubia-q89qr       <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">18</span>h       run=kubia</span><br><span class="line"></span><br><span class="line">$ kubectl <span class="keyword">delete</span> po -l creation_method</span><br><span class="line">pod <span class="string">"kubia-manual"</span> deleted</span><br><span class="line">pod <span class="string">"kubia-manual-v2"</span> deleted</span><br><span class="line"></span><br><span class="line">$ kubectl get po --show-labels      <span class="comment">// 状态变了, 正在停止</span></span><br><span class="line">NAME              READY     STATUS        RESTARTS   AGE       LABELS</span><br><span class="line">kubia-drw74       <span class="number">1</span>/<span class="number">1</span>       Running       <span class="number">0</span>          <span class="number">2</span>m        run=kubia</span><br><span class="line">kubia-m9zfv       <span class="number">1</span>/<span class="number">1</span>       Running       <span class="number">0</span>          <span class="number">19</span>h       run=kubia</span><br><span class="line">kubia-manual      <span class="number">1</span>/<span class="number">1</span>       Terminating   <span class="number">0</span>          <span class="number">15</span>h       creation_method=manual</span><br><span class="line">kubia-manual-v2   <span class="number">1</span>/<span class="number">1</span>       Terminating   <span class="number">0</span>          <span class="number">1</span>h        creation_method=manual,end=debug,env=prod</span><br><span class="line">kubia-q89qr       <span class="number">1</span>/<span class="number">1</span>       Running       <span class="number">0</span>          <span class="number">18</span>h       run=kubia</span><br></pre></td></tr></table></figure>
+<h4 id="通过删除整个命名空间删pod"><a href="#通过删除整个命名空间删pod" class="headerlink" title="通过删除整个命名空间删pod"></a>通过删除整个命名空间删pod</h4><p><code>kubectl delete ns custom-namespace</code></p>
+<h4 id="删除命名空间所有pod-但命名空间要留着"><a href="#删除命名空间所有pod-但命名空间要留着" class="headerlink" title="删除命名空间所有pod, 但命名空间要留着"></a>删除命名空间所有pod, 但命名空间要留着</h4><p>通过<code>--all</code>删除当前命名空间的素有pod</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po</span><br><span class="line">NAME          READY     STATUS    RESTARTS   AGE</span><br><span class="line">kubia-drw74   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">4</span>m</span><br><span class="line">kubia-m9zfv   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">19</span>h</span><br><span class="line">kubia-q89qr   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">18</span>h</span><br><span class="line"></span><br><span class="line">$ kubectl <span class="keyword">delete</span> po --all</span><br><span class="line">pod <span class="string">"kubia-drw74"</span> deleted</span><br><span class="line">pod <span class="string">"kubia-m9zfv"</span> deleted</span><br><span class="line">pod <span class="string">"kubia-q89qr"</span> deleted</span><br></pre></td></tr></table></figure>
+<p>但是鸡儿还有3个, 但不是原来的名字的pod, 看AGE还是新建的. 问题是一开始我们用<code>ReplicationController</code>的问题, 她会保持3个配额的. 所以删除整个<code>ReplicationController</code>先</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po</span><br><span class="line">NAME          READY     STATUS    RESTARTS   AGE</span><br><span class="line">kubia<span class="number">-7</span>xgdg   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">46</span>s</span><br><span class="line">kubia-rh2vj   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">46</span>s</span><br><span class="line">kubia-xkm76   <span class="number">1</span>/<span class="number">1</span>       Running   <span class="number">0</span>          <span class="number">46</span>s</span><br></pre></td></tr></table></figure>
+<h4 id="删除命名空间中几乎所有资源"><a href="#删除命名空间中几乎所有资源" class="headerlink" title="删除命名空间中几乎所有资源"></a>删除命名空间中几乎所有资源</h4><p>直接是<code>all -all</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl <span class="keyword">delete</span> all --all</span><br><span class="line">pod <span class="string">"kubia-7xgdg"</span> deleted</span><br><span class="line">pod <span class="string">"kubia-rh2vj"</span> deleted</span><br><span class="line">pod <span class="string">"kubia-xkm76"</span> deleted</span><br><span class="line">replicationcontroller <span class="string">"kubia"</span> deleted</span><br><span class="line">service <span class="string">"kubernetes"</span> deleted</span><br><span class="line">service <span class="string">"kubia-http"</span> deleted</span><br></pre></td></tr></table></figure>
+<p>第一个all是所有资源类型<br>第二个all是所有资源实例(并不是完全删, 还有一些会剩下)</p>
+<h3 id="4-章-副本机制和其他控制器"><a href="#4-章-副本机制和其他控制器" class="headerlink" title="4 章 副本机制和其他控制器"></a>4 章 副本机制和其他控制器</h3><p>kubernetes的主要好处就是可一个kubernetes一个容器列表来由其保持容器在集群中的运行.</p>
+<p>只要将pod调度到某个节点, 该节点上的kubelet就会运行pod的容器, 从此只要该pod存在, 就会保持运行.</p>
+<h4 id="4-1-存活探针"><a href="#4-1-存活探针" class="headerlink" title="4.1 存活探针"></a>4.1 存活探针</h4><p>kubernetes可以通过使用探针 liveness probe 检查容器是否还在运行. 可以为pod中的每个容器单独指定存活探针, 如果探测失败, kubernetes将定期执行探针并重新启动容器.</p>
+<blockquote>
+<p>还支持就绪探针 readiness probe 不要搞混.</p>
+</blockquote>
+<p>有3种探测容器的机制</p>
+<ul>
+<li>HTTP GET 探针对容器的IP地址(你指定的端口和路径)执行HTTP GET请求.</li>
+<li>TCP 套接字探针尝试与容器指定端口建立TCP连接.</li>
+<li>Exec 探针在容器内执行任意命令, 并检查命令的退出状态码.</li>
+</ul>
+<h5 id="创建HTTP的存活探针"><a href="#创建HTTP的存活探针" class="headerlink" title="创建HTTP的存活探针"></a>创建HTTP的存活探针</h5><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>              <span class="comment"># kubernetes API v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span>                   <span class="comment"># 是一个pod</span></span><br><span class="line"><span class="attr">metadata:</span>                   <span class="comment"># </span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kubia-liveness</span>     <span class="comment"># pod名称</span></span><br><span class="line"><span class="attr">spec:</span>                       <span class="comment"># pod规格 / 内容(pod的容器列表, volume等)</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">luksa/kubia-unhealthy</span>     <span class="comment"># 容器所用镜像</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span>             <span class="comment"># 容器名</span></span><br><span class="line"><span class="attr">    livenessProbe:</span>          <span class="comment"># 一个存活探针</span></span><br><span class="line"><span class="attr">      httpGet:</span></span><br><span class="line"><span class="attr">        path:</span> <span class="string">/</span>             <span class="comment"># http请求路径</span></span><br><span class="line"><span class="attr">        port:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<p>然后就是创建, 接着查看pod</p>
+<p>还有查看log, 加上—previous可以看前一个容器的日志.</p>
+<p>在用describe中可以看到错误码 Exit code 137这种. 还有附加信息显示. 在yaml中也可以配置<br>137是128+x</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span>              <span class="comment"># kubernetes API v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span>                   <span class="comment"># 是一个pod</span></span><br><span class="line"><span class="attr">metadata:</span>                   <span class="comment"># </span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kubia-liveness</span>     <span class="comment"># pod名称</span></span><br><span class="line"><span class="attr">spec:</span>                       <span class="comment"># pod规格 / 内容(pod的容器列表, volume等)</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">luksa/kubia-unhealthy</span>     <span class="comment"># 容器所用镜像</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">kubia</span>             <span class="comment"># 容器名</span></span><br><span class="line"><span class="attr">    livenessProbe:</span>          <span class="comment"># 一个存活探针</span></span><br><span class="line"><span class="attr">      httpGet:</span></span><br><span class="line"><span class="attr">        path:</span> <span class="string">/</span>             <span class="comment"># http请求路径</span></span><br><span class="line"><span class="attr">        port:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">      initialDelaySeconds:</span> <span class="number">15</span>   <span class="comment"># 会在第一次探测前等待15秒</span></span><br></pre></td></tr></table></figure>
+<p>一般都会设置延迟, 保证应用程序已经启动了running的状态</p>
+<h4 id="4-2-了解ReplicationController"><a href="#4-2-了解ReplicationController" class="headerlink" title="4.2 了解ReplicationController"></a>4.2 了解ReplicationController</h4><p>ReplicationController是一种 kubernetes 资源, 可确保它的pod始终保持运行.</p>
+<p>图4.1</p>
+<h5 id="ReplicationController的操作"><a href="#ReplicationController的操作" class="headerlink" title="ReplicationController的操作"></a>ReplicationController的操作</h5><p>ReplicationController不是根据pod类型来操作的, 而是根据pod是否匹配某个标签选择器<br>他的工作是确保pod的数量始终与其标签选择器匹配.</p>
+<p>有3个部分:</p>
+<ul>
+<li>label selector: 用于确定 ReplicationController 作用域中有哪些pod</li>
+<li>replica count: 指定运行的pod数量</li>
+<li>pod template: 用于创建新的pod副本模板</li>
+</ul>
+<p>图4.3</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://cloud.tencent.com/developer/article/1120412" target="_blank" rel="noopener">基于Docker for macOS的Kubernetes本地环境搭建与应用部署</a><br><a href="https://cloud.tencent.com/developer/article/1077486" target="_blank" rel="noopener">Docker集群编排工具之Kubernetes（K8s）介绍、安装及使用</a><br><a href="https://blog.docker.com/2018/01/docker-mac-kubernetes/" target="_blank" rel="noopener">DOCKER FOR MAC WITH KUBERNETES</a><br><a href="http://docs.kubernetes.org.cn/" target="_blank" rel="noopener">Kubernetes中文社区 | 中文文档</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
+          
+            <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/05/yarn的使用/" rel="next" title="yarn的使用">
+                <i class="fa fa-chevron-left"></i> yarn的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">92</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#k8s集群的简单安装和使用"><span class="nav-number">1.</span> <span class="nav-text">k8s集群的简单安装和使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是kubernetes"><span class="nav-number">1.1.</span> <span class="nav-text">什么是kubernetes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#容器编排的困境"><span class="nav-number">1.1.1.</span> <span class="nav-text">容器编排的困境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kubernetes-为我们带来了什么？"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">Kubernetes 为我们带来了什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#困境"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">困境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用编排"><span class="nav-number">1.1.2.</span> <span class="nav-text">应用编排</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是应用？"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">什么是应用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用层面的四个问题"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">应用层面的四个问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#k8s核心架构介绍"><span class="nav-number">1.2.</span> <span class="nav-text">k8s核心架构介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pod"><span class="nav-number">1.2.1.</span> <span class="nav-text">Pod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签和选择器"><span class="nav-number">1.2.2.</span> <span class="nav-text">标签和选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制器"><span class="nav-number">1.2.3.</span> <span class="nav-text">控制器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务"><span class="nav-number">1.2.4.</span> <span class="nav-text">服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes核心组件"><span class="nav-number">1.3.</span> <span class="nav-text">Kubernetes核心组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用docker来安装单节点k8s集群"><span class="nav-number">1.4.</span> <span class="nav-text">使用docker来安装单节点k8s集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#部署kubernetes-dashboard服务-方便查看k8s的配置"><span class="nav-number">1.4.1.</span> <span class="nav-text">部署kubernetes-dashboard服务, 方便查看k8s的配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.5.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开始创建一个服务对象"><span class="nav-number">1.5.1.</span> <span class="nav-text">开始创建一个服务对象.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出服务"><span class="nav-number">1.5.2.</span> <span class="nav-text">列出服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最终要你的组件是pod和它的容器"><span class="nav-number">1.5.3.</span> <span class="nav-text">最终要你的组件是pod和它的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#水平伸缩应用"><span class="nav-number">1.5.4.</span> <span class="nav-text">水平伸缩应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增加期望副本数DESIRED"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">增加期望副本数DESIRED</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看应用运行在哪个节点上"><span class="nav-number">1.5.5.</span> <span class="nav-text">查看应用运行在哪个节点上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#还有使用dashboard"><span class="nav-number">1.5.6.</span> <span class="nav-text">还有使用dashboard</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pod这个kubernetes的核心"><span class="nav-number">1.6.</span> <span class="nav-text">pod这个kubernetes的核心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pod"><span class="nav-number">1.6.1.</span> <span class="nav-text">pod</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#何时在pod中放多个容器"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">何时在pod中放多个容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以YAML或JSON格式描述文件来创建pod"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">以YAML或JSON格式描述文件来创建pod</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#介绍pod定义的主要部分"><span class="nav-number">1.6.1.2.1.</span> <span class="nav-text">介绍pod定义的主要部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建一个简答的pod的YAML描述文件"><span class="nav-number">1.6.1.2.2.</span> <span class="nav-text">创建一个简答的pod的YAML描述文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看应用程序日志"><span class="nav-number">1.6.1.3.</span> <span class="nav-text">查看应用程序日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#向pod中发送请求"><span class="nav-number">1.6.1.4.</span> <span class="nav-text">向pod中发送请求</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#将本地网络端口转发到pod中的端口"><span class="nav-number">1.6.1.4.1.</span> <span class="nav-text">将本地网络端口转发到pod中的端口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用标签组织pod"><span class="nav-number">1.6.1.5.</span> <span class="nav-text">用标签组织pod</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改现有pod的标签"><span class="nav-number">1.6.1.6.</span> <span class="nav-text">修改现有pod的标签</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前面只是看pod有啥标签-刷选具体标签的值-这里用标签选择器来过滤pod子集"><span class="nav-number">1.6.2.</span> <span class="nav-text">前面只是看pod有啥标签, 刷选具体标签的值, 这里用标签选择器来过滤pod子集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用下-列出pod"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">使用下 ,列出pod</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在标签中使用多个条件"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">在标签中使用多个条件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用标签来约束调度pod"><span class="nav-number">1.6.3.</span> <span class="nav-text">使用标签来约束调度pod</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用标签分类工作节点node"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">使用标签分类工作节点node</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调度pod到某一个node"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">调度pod到某一个node</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注解pod"><span class="nav-number">1.6.4.</span> <span class="nav-text">注解pod</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看对象的注解"><span class="nav-number">1.6.4.1.</span> <span class="nav-text">查看对象的注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加和修改注解"><span class="nav-number">1.6.4.2.</span> <span class="nav-text">添加和修改注解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-使用命名空间对资源进行分组"><span class="nav-number">1.6.5.</span> <span class="nav-text">3.7 使用命名空间对资源进行分组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可以将大组件大系统接着拆"><span class="nav-number">1.6.5.1.</span> <span class="nav-text">可以将大组件大系统接着拆</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列出集群中所有命名空间及其pod"><span class="nav-number">1.6.5.2.</span> <span class="nav-text">列出集群中所有命名空间及其pod</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个命名空间"><span class="nav-number">1.6.5.3.</span> <span class="nav-text">创建一个命名空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#管理其他命名空间中的对象"><span class="nav-number">1.6.5.4.</span> <span class="nav-text">管理其他命名空间中的对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名空间的隔离"><span class="nav-number">1.6.5.5.</span> <span class="nav-text">命名空间的隔离</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止和移除pod"><span class="nav-number">1.6.6.</span> <span class="nav-text">停止和移除pod</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#按名称删除"><span class="nav-number">1.6.6.1.</span> <span class="nav-text">按名称删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用标签选择器来删pod"><span class="nav-number">1.6.6.2.</span> <span class="nav-text">使用标签选择器来删pod</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过删除整个命名空间删pod"><span class="nav-number">1.6.6.3.</span> <span class="nav-text">通过删除整个命名空间删pod</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除命名空间所有pod-但命名空间要留着"><span class="nav-number">1.6.6.4.</span> <span class="nav-text">删除命名空间所有pod, 但命名空间要留着</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除命名空间中几乎所有资源"><span class="nav-number">1.6.6.5.</span> <span class="nav-text">删除命名空间中几乎所有资源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-章-副本机制和其他控制器"><span class="nav-number">1.6.7.</span> <span class="nav-text">4 章 副本机制和其他控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-存活探针"><span class="nav-number">1.6.7.1.</span> <span class="nav-text">4.1 存活探针</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建HTTP的存活探针"><span class="nav-number">1.6.7.1.1.</span> <span class="nav-text">创建HTTP的存活探针</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-了解ReplicationController"><span class="nav-number">1.6.7.2.</span> <span class="nav-text">4.2 了解ReplicationController</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ReplicationController的操作"><span class="nav-number">1.6.7.2.1.</span> <span class="nav-text">ReplicationController的操作</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
