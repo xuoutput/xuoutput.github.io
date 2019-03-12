@@ -80,7 +80,7 @@ docker本身的启动, 本身就可以看做是一个守护进程 `service docke
 13. `docker rm <ID/>name>`: 删除构成container的可读写层,要先stop. `docker rmi <ID/>name>`是删top level layer image, `docker rmi $(docker images -q)`: 删了所有层 . 就是`docker container rm`和`docker image rm` 简写
 14. `docker commit <ID/>name> <newImageName>`: 保存contaner为新image(将可读写层变为只读层, 无论容器运不运行, 注意层的id会变), `docker build`: 从一个DockerFile中建立image(里面是4步,先FROM获取到image, 然后重复地 1. `docker run`新建一层读写,然后分配进程空间, 再2. `RUM` 执行命令 **RUN其实就会新建一个读写层的** , 3. `docker commit`保存这层为只读层), 两种方式都可以构建镜像. `-t`是打tag. 类似`git` 每一个修改都是一个`commit`, 保存记录.
 15. `docker history <imageName>`: 获取镜像历史(只能是本地)
-16. `docker push <user>/<repo_name>`: 推送镜像. `docker login` `-u -p`和`docker logout` :注意登录id不是邮箱, 然后这个id就算你注册的时候填了大写的, 注册成功后还都是小的, 看一下.
+16. `docker push <user>/<repo_name>`: 推送镜像. `docker login` `-u -p`和`docker logout` :注意登录id不是邮箱, 然后这个id就算你注册的时候填了大写的, 注册成功后还都是小的, 看一下.(登不上就直接去UI桌面中登录好了)
 17. `docker help`和`docker <command> --help`: 帮助
 18. `docker update`: 更新contain而配置
 19. `docker rename`重命名container,也可以在`docker run`的时候指定name
