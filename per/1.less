@@ -1,0 +1,46 @@
+@import '../../Common/index.less';
+.content-table {
+  background: #fff;
+  margin-top: 28px;
+  padding: 28px 28px 0 28px;
+  box-shadow: 0px 16px 16px 0px rgba(237, 239, 246, 1);
+  border-radius: 2px;
+  .content-table-toolbar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    .search {
+      width: 223px;
+      height: 32px;
+    }
+  }
+  .admin-table {
+    .email {
+      color: @font-active-color;
+    }
+    .deleted {
+      color: @font-secondary-color;
+    }
+    .table-op {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      .operate-icon:hover {
+        cursor: pointer;
+      }
+      .on-edit:hover {
+        color: #001fb2;
+      }
+      .on-delete:hover {
+        color: #db5038;
+      }
+      .spanner {
+        display: inline-block;
+        width: 8px;
+      }
+    }
+  }
+}

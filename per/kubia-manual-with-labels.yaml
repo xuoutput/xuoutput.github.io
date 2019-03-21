@@ -1,0 +1,14 @@
+apiVersion: v1              # kubernetes API v1
+kind: Pod                   # 是一个pod
+metadata:                   # 
+  name: kubia-manual-v2     # pod名称
+  labels:                     # 这里是新增的labels
+    creation_method: manual
+    env: prod
+spec:                       # pod规格 / 内容(pod的容器列表, volume等)
+  containers:
+  - image: ximage/kubia     # 容器所用镜像
+    name: kubia             # 容器名
+    ports:
+    - containerPort: 8080   # 监听端口
+      protocol: TCP

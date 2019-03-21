@@ -1,0 +1,4 @@
+apiVersion: v1              # kubernetes API v1
+kind: Namespace             # 表示定义一个namespace
+metadata:
+  name: custom-namespace    #  命名空间的名字
