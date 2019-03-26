@@ -1281,7 +1281,6 @@ ReplicationController是一种 kubernetes 资源, 可确保它的pod始终保持
 
 ##### ReplicationController的操作
 
-
 ReplicationController不是根据pod类型来操作的, 而是根据pod是否匹配某个标签选择器
 他的工作是确保pod的数量始终与其标签选择器匹配.
 
@@ -1292,6 +1291,559 @@ ReplicationController不是根据pod类型来操作的, 而是根据pod是否匹
 - pod template: 用于创建新的pod副本模板
 
 图4.3
+
+都可以随时修改, 只有副本数会影响现有的pod, 更改标签和模板不会对于现有pod没有影响. 更改标签只是会使现有的pod脱离ReplicationController的范围, ReplicationController也不影响pod的内容, 在模板影响的是ReplicationController创建新的pod
+
+使用ReplicationController的好处是:
+
+- 确保一个pod持续运行, 现有的pod丢失时会重启一个新的pod
+- 集群节点故障时, 会为故障节点上运行的所有pod创建替代副本
+- 能轻松实现pod的水平伸缩
+
+4.2.2 创建一个ReplicationController
+
+```yaml
+apiVersion: v1              # kubernetes API v1
+kind: ReplicationController # 是一个ReplicationController
+metadata:                   #
+  name: kubia               # 名称
+spec:
+  replicas: 3
+  selector:                 # pod选择器决定了RC的操作对象
+    app: kubia
+  template:
+    metadata:
+      labels:               # 这里的标签要和selector的对应
+        app: kubia
+    spec:
+      containers:
+      - name: kubia             # 容器名
+        image: ximage/kubia     # 容器所用镜像
+        ports:
+        - containerPort: 8080   # 监听端口
+```
+
+kubernetes会创建一个名为kubia的新的 ReplicationController , 确保符合标签选择器`app: kubia`的pod实例始终未3个.
+模板中的pod标签显然必须和 ReplicationController 的标签选择器匹配, 否则会无休止地创建地新的容器. API服务也会校验的.
+不需要指定pod选择器
+
+4.2.3 使用 ReplicationController
+
+```javascript
+kubectl get pods
+
+kubectl delete pod <pod名> 看下ReplicationController生效没
+
+kubectl get rc
+
+kubectl describe rc kubia
+```
+
+控制器对删除操作的反应是新建一个, 但他没有对删除本身做出反应, 而是针对由此产生的状态 - pod数量不足.
+虽然ReplicationController会立即收到删除pod的通知, 但这个不是他创建替代pod的原因, 改通知会触发控制器检查实际的pod数量并采取适当的措施.
+
+模拟节点故障, 多个节点的情况下, minikube和docker不性, 用`sudo ifconfig eht0 down`关网卡
+
+```JavaScript
+kubectl get node    # 看status NotReady 因为网断开了
+kubectl get pods    # 看status 变unknown 因为无法访问
+```
+
+4.2.4 将pod移入或移出ReplicationController的作用域
+
+由ReplicationController创建的pod并不是绑定到ReplicationController, 而是管理与标签选择器匹配的pod, 所以通过selector
+
+> 虽然一个pod没有绑定到ReplicationController, 但该pod的`meta.ownerReference`中引用了, 同个这个字段找pod属于哪个ReplicationController
+
+在你改了一个pod的标签后, 就不归原来的ReplicationController管了, 只不过ReplicationController发现它少了一个pod后, 会重新启一个新的pod
+
+```JavaScript
+kubectl label pod kubia-dmdck type=special
+
+kubectl get pods --show-labels
+
+kubectl label pod kubia-dmdck app=foo --overwrite
+```
+
+`--overwrite`是必要的, 防止你错改标签, 记住该标签只是第一步
+
+如果直接改了ReplicationController的标签选择器呢, 相当于原来的pod都脱离控制, 但还是运行, 然后ReplicationController再创建副本数量的新的pod
+
+4.2.5 修改pod模板
+
+ReplicationController的pod模板可以随时修改, 更改pod的模板只会影响后面创建的pod, 不会影响原来的, 不要原来的你可以删掉.
+图4.6
+
+```JavaScript
+kubectl edit rc kubia     # 弹出一个yaml配置的, 修改
+```
+
+配置`KUBE_EDITOR`环境变量来告诉kubectl你要用的文本编辑器
+
+4.2.6 水平缩放pod
+
+扩容缩容的意思
+
+```JavaScript
+kubectl scale rc kubia --replicas=10
+
+kubectl edit rc kubia   # 通过编辑定义 找到spec.replicas
+
+kubectl get rc
+```
+
+4.2.7 删除
+
+通过`kubectl delete` 删除ReplicationController时, pod也会被删除, 但由于由 ReplicationController 创建的pod不是 ReplicationController 的组成部分, 只是由其所管理, 因此可以只删除 ReplicationController 而保持pod运行.
+
+在`kubectl delete`时增加`--cascade=false`来保持pod的运行.
+
+```JavaScript
+kubectl delete rc kubia --cascade=false
+```
+
+#### 4.3 使用ReplicaSet而不是ReplicationController
+
+新一代的ReplicationController. 通常不会直接创建他, 而是在创建更高层级的`Deployment`资源时自动创建他们.
+
+ReplicaSet的行为和ReplicationController完全相同, 但pod选择器的表达能力更强.
+ReplicationController的标签选择器只允许包含某个标签的匹配pod, **但ReplicaSet的选择器还允许匹配缺少某个标签的pod, 或包含特定签名的pod, 不管其值如何.**
+
+如ReplicationController不能同时匹配env=1和env=2的, 只能2选1, 但ReplicaSet可以
+ReplicationController不能基于标签名字来, 可以理解为env=*
+
+定义
+
+```yaml
+apiVersion: apps/v1beta2    # 新的版本号
+kind: ReplicationSet        # 是一个ReplicationSet
+metadata:                   #
+  name: kubia               # 名称
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubia              # 使用了更简单的matchLabels选择器
+  template:
+    metadata:
+      labels:
+        app: kubia
+    spec:
+      containers:
+      - name: kubia             # 容器名
+        image: ximage/kubia     # 容器所用镜像
+        ports:
+        - containerPort: 8080   # 监听端口
+```
+
+注意这里不是v1 API的一部分, 因此在创建资源时要指定正确的apiVersion
+还有唯一区别就是在选择器上, 不必在selector属性中直接列出pod需要的标签, 而是在selector.matchLabels下指定他们
+
+关于API版本的属性
+apiVersion属性指定两件事情
+
+- API组(apps)
+- 实际的API版本(v1beta2)
+
+后面会看到某些kubernetes资源位于所谓的核心API组中, 改组不需要在APIVersion字段中指定
+有好几个API组.
+
+也是一样通过`kubectl create`创建后通过`kubectl get rs`和`kubectl describe rs`来检查
+
+前面的matchLabels没啥区别, 用matchExpressions属性来重写选择器.
+
+```yaml
+selector:
+  marchExpressions:
+    - key: app        # 选择器要求该pod包含名为app的标签
+      operator: In
+      values:         # 标签的值必须是kubia
+        - kubia
+```
+
+这里给选择器添加额外的表达式, 每个表达式必须包含一个key, 一个operator, 可能还有一个values(取决于运算符)
+4个有效的运算符
+
+- In: label的值必须与其中一个指定的values匹配.
+- NotIn: label值与任何指定的values不匹配
+- Exists: pod必须包含一个指定名称的标签, 值不重要, 使用这个运算符时, 不应指定values字段
+- DoesNotExist: pod不得包含指定名称的标签, values也不能有.
+
+指定了多个表达式时, 这些所有的运算符都得为true时才能使选择器和pod匹配.
+如果同时指定了matchLabels和matchExpressions, 则所有标签必须要匹配, 表达式也要匹配.
+
+删除也一样, `kubectl delete rs kubia`
+
+#### 4.4 使用DaemonSet在每一个节点上运行一个pod
+
+ReplicaSet的行为和ReplicationController在kubernetes集群上运行部署特定数量的pod, 当你希望pod在每个节点上运行时.
+这些情况包括pod执行系统级别的与基础结构相关的操作. 例如希望在每个节点上运行日志收集器和资源监控器, 另一个例子是kubernetes的`kube-proxy`进程
+在kubernetes之外, 此类进程通常在节点启动期间, 通过系统初始化脚本或`systemd`守护进程启动. 当然可以在kubernetes节点上用`systemd`运行系统进程, 但这样就不能利用所有的kubernetes特性了.
+
+用DaemonSet好了, 除了又DaemonSet创建的pod, 已经有一个指定的目标节点并跳过kubernetes调度程序.
+DaemonSet确保能够创建足够的pod, 并在自己的节点上部署每个pod
+图4.8
+
+> 尽管ReplicaSet确保集群中存在期望数量的pod副本, 但DaemonSet并没有期望的副本数的概念, 他不需要, 因为他的工作是确保一个pod匹配它的选择器并在每个节点上运行.
+
+如果节点下线, DaemonSet不会在其他地方重新创建pod, 如果新节点加入或删了pod, 那么会重新创建一个新的pod
+
+4.4.2 使用DaemonSet只在特定节点上运行pod
+
+通过在pod模板的`nodeSelector`属性上知道你个
+
+后面可以设置节点为不可调度, 防止pod被部署到节点上. 但DaemonSet可以将节点部署到这些不可调度的节点上, 因为无法调度的属性只会被调度器使用, 而DaemonSet管理的pod则完全绕过调度器, 这是预期的, 因为DaemonSet的目的是运行系统服务, 即使是在不可调度的节点上, 系统服务通常也需要运行.
+
+图4.9是一个ssd-monitor的例子
+
+```yaml
+apiVersion: apps/v1beta2    # 新的版本号
+kind: DaemonSet             # 是一个DaemonSet
+metadata:                   #
+  name: ssd-monitor         # 名称
+spec:
+  selector:
+    matchLabels:
+      app: ssd-monitor
+  template:
+    metadata:
+      labels:
+        app: ssd-monitor
+    spec:
+      nodeSelector:         # pod模板会包含一个节点选择器, 会选择有disk=ssd标签的节点
+        disk: ssd
+      containers:
+      - name: main                # 容器名
+        image: luksa/ssd-monitor  # 容器所用镜像
+```
+
+这个DaemonSet将运行一个基于luksa/ssd-monitor容器镜像的单容器pod, 该pod的实例在每个具有disk=ssd标签的节点上创建
+
+```JavaScript
+kubectl create -f ssd-monitor.yaml
+
+kubectl get ds
+
+kubectl get po
+```
+
+这事并没有pod, 还需要给节点打上disk=ssd的标签, 打上标签后, DaemonSet将检测到节点的标签已经更改, 并将pod部署到有匹配标签的所有节点
+
+```JavaScript
+kubectl label node minikube disk=ssd
+```
+
+删除节点, 就改下标签名
+
+```JavaScript
+kubectl label node minikube disk=hdd --overwrite
+```
+
+删除DaemonSet也会删除pod的
+
+> 目前为止的都是持续运行的pod, ReplicationController和ReplicaSet和DaemonSet都是持续运行, 永远不会达到完成状态, pod退出后再重新启动, 一个可完成任务是进程终止后不应该再重新启动的.
+
+后面就是job资源, 允许你运行一种pod, 改pod在内部进程成功结束时, 不重启容器, 一旦任务完成, pod就被认为处于完成状态.
+如果是异常退出, 可以按照ReplicaSet的pod方式重新安排到其他节点, 如果是进程本身异常退出, 错误退出码, 可以将job配置为重新启动容器
+对临时任务很有用, 关键是任务要以正确的方式结束.
+
+4.5 job
+
+```yaml
+apiVersion: batch/v1        # 新的版本号
+kind: Job                   # 是一个DaemonSet
+metadata:                   #
+  name: batch-job           # 名称
+spec:
+  template:                 # 没有指定pod选择器, 根据模板创建
+    metadata:
+      labels:
+        app: batch-job
+    spec:
+      restartPolicy: OnFailure  # job不能使用Always为默认的重新启动策略, 三种还有Never
+      containers:
+      - name: main
+        image: luksa/batch-job
+```
+
+```JavaScript
+kubectl get jobs
+
+kubectl get po
+
+kubectl get po -a   # --show-all 显示completed
+
+kubectl logs batch-job-28
+```
+
+作业可以配置创建多个pod实例, 并可以串行或并行来运行他们, 通过配置`completions`和`parallelism`属性
+
+顺序运行job pod
+
+```yaml
+apiVersion: batch/v1        # 新的版本号
+kind: Job                   # 是一个DaemonSet
+metadata:                   #
+  name: multi-completino-batch-job           # 名称
+spec:
+  completions: 5            # 在这里指定次作业顺序运行5个pod
+  template:
+    metadata:
+      labels:
+        app: batch-job
+    spec:
+      restartPolicy: OnFailure  # job不能使用Always为默认的重新启动策略, 三种还有Never
+      containers:
+      - name: main
+        image: luksa/batch-job
+```
+
+是指正确运行5个, 如果pod有失败的, 会重新启动
+
+下面可以指定同时有2个可以并行, 一共完成5个
+
+```yaml
+apiVersion: batch/v1        # 新的版本号
+kind: Job                   # 是一个DaemonSet
+metadata:                   #
+  name: multi-completino-batch-job           # 名称
+spec:
+  completions: 5            # 在这里指定次作业顺序运行5个pod
+  parallelism: 2            # 最多两个pod可以并行运行
+```
+
+缩放也是
+
+```JavaScript
+kubectl scale job multi-completion-batch-job --replicas 3
+```
+
+设置完成时间 用`activeDeadlineSeconds`属性 设置超时时间, 并标记为失败
+
+> 可以配置job manifest的`spec.backoffLimit`字段来配置失败前的重试次数, 默认6次
+
+4.6 安排定期运行或在将来运行一次
+
+job一般是在创建时立即运行pod, 有些批处理的, 需要在特定时间运行或在指定时间间隔内重复运行. 在linux系统内这些任务称为cron任务
+
+kubernetes的cron任务通过CronJob资源进行配置. 用cron格式指定.
+在配置时间时, kubernetes将根据在CronJob对象中配置的job模板创建job资源, 创建job资源时, 将根据任务的pod模板创建并启动一个或多个pod副本
+
+例如
+
+```yaml
+apiVersion: batch/v1beta1         # 新的版本号
+kind: CronJob                     # 是一个CronJob
+metadata:
+  name: batch-job-every-fifteen-minutes          # 名称
+spec:
+  schedule: "0,15,30,45 * * * *"  # 在每天每小时的15, 30, 45, 分钟运行
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: periodic-batch-job
+        spec:
+          restartPolicy: OnFailure  # job不能使用Always为默认的重新启动策略, 三种还有Never
+          containers:
+          - name: main
+            image: luksa/batch-job
+  ```
+
+并不是特别复杂
+
+cron时间格式表
+从左到右包含5个
+
+- 分钟
+- 小时
+- 每月中的第几天
+- 月
+- 星期几
+
+`"0,15,30,45 * * * *"` 看星号
+
+在计划的时间内, CronJob资源会创建job资源, 然后job创建pod
+可能发生job或pod创建并运行得相对较晚的情况, 可以有要求, 任务开始不能落后预定的时间过多, 通过`startingDeadlineSeconds`来指定截止日期
+
+```yaml
+apiVersion: batch/v1beta1         # 新的版本号
+kind: CronJob                     # 是一个CronJob
+metadata:
+  name: batch-job-every-fifteen-minutes          # 名称
+spec:
+  schedule: "0,15,30,45 * * * *"  # 在每天每小时的15, 30, 45, 分钟运行
+  startingDeadlineSeconds: 15     # pod最迟必须在预定时间后15秒开始运行
+  jobTemplate:
+```
+
+### 第5章:服务 让客户端发现pod并与之通信
+
+- 创建服务资源, 利用单个地址访问一组pod
+- 发现集群中的服务
+- 将服务公开给外部客户端
+- 从集群内部连接外部服务
+- 控制pod是与服务关联
+- 排除服务故障
+
+现在已经学习过了pod, 以及如何通过ReplicaSet和类似资源部署运行.尽管特定的pod可以独立地应对外部刺激, **现在大多数应用都需要根据外部请求做出响应.**例如就微服务而言, pod通常需要对来自集群内部其他pod,以及来自集群外部的客户端HTTP请求做出响应.
+
+pod需要一种寻求其他pod的方法来使用其他pod提供的服务, 不像在没有kubernetes的世界, 没有那种指定IP地址的方法
+
+- pod是短暂的: 他们会随时启动或者关闭, 无论为了给其他pod提供空间而从节点中被移除 或者是减少了pod的数量, 又或者是因为集群中存在节点异常
+- kubernetes在pod启动前会给已经调度到节点上的pod分配IP地址: 因此客户端不能提前知道提供服务的pod的IP地址
+- 水平伸缩意味着多个pod可能会提供相同的服务: 每个pod都有自己的IP地址, 客户端无需关心后端提供服务pod的数量, 以及各自应对的IP地址, 他们无须记录每个pod的IP地址, 相反, 所有的pod可以通过一个单一的IP地址进行访问.
+
+解决上述问题, kubernetes提供了一种资源, 叫服务service
+
+服务是一种为一组功能相同的pod提供单一不变的接入点的资源. 当服务存在时, 它的IP地址和端口不会改变.
+图5.1
+
+服务的后端可以有不止一个pod, 服务的连接对所有的后端pod是负载均衡的.
+
+使用`kubectl expose`来创建服务, 还可以用yaml文件
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubia
+spec:
+  ports:
+  - port: 80          # 该服务的可用端口
+    targetPort: 8080  # 服务将连接转发到容器端口
+  selector:           # 具有app=kubia标签的pod都属于该服务
+    app: kubia
+```
+
+创建了一个叫kubia的服务, 他将在端口80接受请求并将连接路由到具有标签选择器是app=kubia的pod的8080端口上
+
+用`kubectl create`创建后, `kubectl get svc`看下服务
+
+会分配一个集群内的IP地址, 只能在集群内部可以被访问. 服务的主要目标就是使用集群内部的其他pod可以访问当前这组pod, 但通常也希望对外暴露服务.
+
+从内部集群测试服务
+
+- 显而易见的方法是创建一个pod, 他将请求发送到服务的集群IP并记录响应, 可以通过查看pod日志检查服务的响应
+- 可使用ssh远程登录到其中一个kubernetes节点上, 然后使用curl命令
+- 可以通过`kubectl exec`命令在一个已经存在的pod中执行`curl`命令
+
+使用`kubectl get pod`列出所有pod, 选择其中一个作为exec的执行目标
+
+```JavaScript
+kubectl exec kubia-7nog -- curl -s http://10.111.249.154
+```
+
+`--`双横杠代表kubectl命令项的结束, 在两个横杠之后的内容是指在pod内部需要执行的命令.
+`-s`表示需要连接一个不同的API服务器而不是默认的
+图5.3
+
+通常如果多次执行同样的命令, 每次调用执行应该在不同的pod上, 因为服务代理通常将每个连接随机指向选中的后端pod中的一个, 即使连接来自同一个客户端.
+如果希望特定客户端产生的所有请求每次都指向同一个pod, 可以设置服务的`sessionAffinity`属性为`ClientIP`而不是None默认值
+
+```yaml
+apiVersion: v1
+kind: Service
+spec:
+  sessionAffinity: ClientIP
+```
+
+kubernetes仅支持两种形式的会话亲和性服务: None和ClientIP, 不支持cookie的会话哦, 因为kubernetes不是在HTTP层面上.服务处理TCP和UDP包,并不关心其中的内容, cookie是HTTP的一部分, 所有服务并不知道他们.
+
+创建一个服务可暴露一个端口, 也可以暴露多个端口. 通过一个集群IP, 使用一个服务就可以将多个端口全部暴露出来.
+
+> 创建一个有多个端口的服务的时候, 必须给每个端口指定名字
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubia
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  - name: https
+    port: 443
+    targetPort: 8443
+  selector:
+    app: kubia
+```
+
+标签选择器应用于整个服务, 不能对每个端口做单独的配置. 如果不同的pod有不同的端口映射关系, 需要创建两个服务.
+
+使用命名的端口
+
+```yaml
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: kubia
+    ports:
+    - name: http          # 端口8080被命名为http
+      containerPort: 8080
+    - name: https
+      containerPort: 8443
+```
+
+```yaml
+apiVersion: v1
+kind: Service
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: http  # 将端口80映射到容器中被称为http的端口
+  - name: https
+    port: 443
+    targetPort: https
+  selector:
+    app: kubia
+```
+
+最大的好处就是即使更换端口号也无需更改服务spec
+
+#### 5.1.2服务发现
+
+通过创建服务, 现在就可以通过一个单一稳定的IP地址访问到pod.
+客户端pod如何知道服务的IP和端口, 是否需要先建服务, 然后手动, 不是, kubernetes还为客户端提供了发现服务的IP和端口的方式
+
+通过环境变量发现服务: 在pod开始运行的时候,  kubernetes会初始化一系列的环境变量指向现有存在的服务.如果你创建的服务早于客户端pod的创建, pod上的进程可以根据环境变量获得服务的IP地址和端口号.
+
+在一个运行pod上检查环境, 去了解这些环境变量. 比如现在已经了解到了通过`kubectl exec`在pod上运行一个命令, 但由于服务的创建晚于pod的创建, 所有有关服务的变量并没有设置. 要解决这个问题.
+
+在查看服务的环境变量之前, 首先需要删除所有的pod使ReplicationController创建全新的pod, 在无须知道pod的名字下删除所有pod
+
+`kubectl delete po --all`
+
+然后列出所有的新pod, 然后选择一个运行`kubectl exec`进入, 运行`env`列出所有的环境变量.
+
+`kubectl exec kubia-1ni env`
+
+会有
+
+```JavaScript
+KUBIA_SERVICE_HOST=10.111.249.153   # 服务的集群IP
+KUBIA_SERVICE_PORT=80               # 服务所在端口
+```
+
+通过`kubectl get svc`可以看有哪些服务, 用env看服务都是名字开头的, 代表KUBIA服务的IP地址和端口号.
+
+比如前面的前端获取后端的, 就是靠这个知道访问的IP和端口.
+
+> 服务是 下划线, 全大写.
+
+环境变量是获得服务IP地址和端口号的一种方式, 还有DNS
+
+在`kube-system`命名空间下列出所有的名称, 有一个pod被称为`kube-dns`, 这个pod就运行DNS服务, 在集群中的其他pod都被配置成使用其作为dns(可以通过修改每个容器的`/etc/resolv.conf`文件来实现)
+运行在pod上的进程DNS查询都会被kubernetes自身的DNS服务器响应, 该服务器知道系统中运行的所有服务.
+
+> pod是否使用内部的DNS服务器是根据pod中spec的dnsPolicy属性来定义的.
+
+
 
 
 
