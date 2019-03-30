@@ -1843,10 +1843,66 @@ KUBIA_SERVICE_PORT=80               # 服务所在端口
 
 > pod是否使用内部的DNS服务器是根据pod中spec的dnsPolicy属性来定义的.
 
+通过FQDN连接服务
 
+前端的pod可以通过打开以下FQDN的链接来访问后端数据库服务`backend-database.default.svc.cluster.local`
+backend-database对应于服务名称, default表示服务在其中定义的名称空间, svc.cluster.local是在所有集群本地服务名称中使用的可配置集群域后缀.
 
+> 注意, 客户端仍然必须知道服务的端口号, 如果服务使用标准端口号(比如HTTP 80, Postgres 5432),这样没问题, 如果并不是标准端口, 客户端可以从环境变量中获取端口号.
 
+连接一个服务可能比这更简单, 如果前端pod和数据库pod在同一个命名空间下, 可以省略`svc.cluster.local`后缀, 甚至命名空间.因此可以使用`backend-database`来指代服务
 
+在pod容器中运行shell
+
+通过`kubectl exec`在一个pod容器上运行bash, 加上`-it`
+
+`kubectl exec -it kubia-3inly bash` 进入后再使用`curl http://kubia.default.svc.cluster.local`
+
+`curl http://kubia.default`, `curl http://kubia`
+
+在请求的URL中, 可以将服务的名称作为主机名来访问服务, 因为根据每个pod容器DNS解析器配置的方法, 可以将命名空间和`svc.cluster.local`后缀省略掉, 看容器的`/etc/resilv/conf`文件
+
+> **无法ping通服务IP的原因**, curl是可以的, ping不行, 因为服务的集群IP是一个虚拟IP, 并且只有在于服务端口结合时才有意义.
+
+5.2 连接集群外部的服务
+
+希望通过kubernetes服务特性暴露外部服务的情况, 不要让服务将连接重定向到集群中的pod, 而是让他重定向到外部IP和端口.
+这样做可以让你充分利用服务负载平衡和服务发现. 在集群中运行的客户端pod可以像连接到内部服务一样连接到外部服务.
+
+5.2.1 服务endpoint
+
+再说下服务, 服务并不是和pod直接相连的,相反, 有一种资源介于两者之间, 他就是`endpoint`, 用`kubectl describe svc kubia`可以看到有个`Endpoints`
+
+Endpoint资源就是暴露一个服务的IP地址和端口列表, 和其他kubernetes资源一样, 都可以用`kubectl info`来看 `kubectl get endpoint kubia`
+尽管在spec服务中定义了pod选择器, 但在重定向传入连接时不会直接使用它, 相反, 选择器用于构建IP和端口列表, 然后存储在Endpoint资源中. 当客户端连接到服务器时, 服务代理选择这些IP和端口对中的一个, 并将传入连接重定向到该位置监听的服务器.
+
+5.2.2 手动配置服务的endpoint
+
+服务的endpoint与服务解耦后, 可以分别手动配置和更新他们.
+
+5.3 将服务暴露给外部客户端
+
+3种
+
+- 将服务的类型设置成NodePort
+- 将服务的类型设置为LoadBalance
+- 创建一个Ingress资源
+
+5.4 通过Ingress暴露服务
+
+图5.9
+
+要有Ingress控制器才能控制Ingress资源
+
+`kubectl get po --all-namespace`
+
+`kubectl get ingresses`
+
+配置Ingress处理TLS传输 HTTPS
+
+`kubectl apply -f kubia-ingress-tls.yaml`使用文件中指定内容来更新Ingress资源, 而不是通过删除并从新文件重新创建的方式.
+
+就绪探针
 
 
 ## 参考
