@@ -47,6 +47,14 @@ permalink:
 
 ## 界面设置
 
+vim自带有一些基本的色彩主题，一般在`/usr/share/vim/vim74/colors/`中
+
+然后你可以下载使用, 一般放在在`~/.vim/colors`,然后在`~/.vimrc`中设置`colorscheme xxx`
+
+[参考：Vim Colors - Online Preview](http://vimcolors.com/?utf8=%E2%9C%93&bg=dark&order=**newest**)
+[参考：vim官方收集的各种主题包：Vim.org色彩主题集](https://www.vim.org/scripts/script_search_results.php?keywords=&script_type=color+scheme&order_by=creation_date&direction=descending&search=search)
+
+
 
 
 ## 插件
@@ -125,3 +133,15 @@ vim-cheat40
 [vim 入坑指南（五）插件 Vim-Plug](https://vimzijun.net/2016/09/21/vim-plug/)
 [Minimalist Vim Plugin Manager](https://github.com/junegunn/vim-plug)
 界面
+
+集合
+[如何用Vim搭建IDE？](https://harttle.land/2015/11/04/vim-ide.html)
+[Vim - 配置IDE一般的python环境](https://zhuanlan.zhihu.com/p/30022074)
+[spf13](http://vim.spf13.com/)
+[超级强大的vim配置（vimplus）](https://cloud.tencent.com/developer/article/1058322)
+[Vim成长之路](https://github.com/solomonxie/solomonxie.github.io/issues/25)
+[把VIM配置成IDE开发环境](https://blog.csdn.net/ajian005/article/details/39700981)
+[所需即所获：像 IDE 一样使用 vim](https://github.com/yangyangwithgnu/use_vim_as_ide)
+[The Ultimate vimrc](https://github.com/amix/vimrc)
+[简明 VIM 练级攻略](https://coolshell.cn/articles/5426.html)
+[将你的Vim 打造成轻巧强大的IDE](http://yuez.me/jiang-ni-de-vim-da-zao-cheng-qing-qiao-qiang-da-de-ide/)
