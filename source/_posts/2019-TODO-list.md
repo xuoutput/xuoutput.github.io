@@ -13,6 +13,25 @@ permalink:
 
 收集了一些github、掘金、segmentfault 等平台文章或小册中的内容，完成一些整理并总结!
 
+## 英语
+
+### 听力
+
+每日英语听力
+
+## 计算机基础
+
+## 刷题
+
+### LeetCode
+
+[LeetCode solutions with JavaScript](https://github.com/hanzichi/leetcode)
+
+## 打字
+
+typingclub
+
+
 ## JS篇
 
 ### 导引
