@@ -773,3 +773,7 @@ foo.bar(); // Reference, OK => foo
 [理解JS中的call、apply、bind方法](https://www.cnblogs.com/libin-1/p/6069031.html)
 [深入理解JavaScript系列（13）：This? Yes,this! 666666](http://www.cnblogs.com/TomXu/archive/2012/01/17/2310479.html)
 [前端基础进阶（五）：全方位解读this 666666](https://www.jianshu.com/p/d647aa6d1ae6)
+
+[Understanding JavaScript Function Invocation and "this" 666666](https://yehudakatz.com/2011/08/10/understanding-javascript-function-invocation-and-this/)
+
+[Annotated ECMAScript 5.1](http://es5.github.io/#x15.3.4.4)
