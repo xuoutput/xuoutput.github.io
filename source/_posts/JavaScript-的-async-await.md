@@ -129,6 +129,8 @@ console.log("5");
 // 1 2 3 4 5 6 7 8
 ```
 
+> 扩展, ajax, node的时间循环, promise, async/await
+
 ## 说下async起的作用
 
 这个问题关键在于, `async`函数如何处理它的返回值. 在普通的`function`前加`async`的效果是啥
@@ -496,3 +498,4 @@ async function myFunction() {
 [2. 阮一峰async 函数的含义和用法](http://www.ruanyifeng.com/blog/2015/05/async.html)
 [从event loop到async await来了解事件循环机制 666](https://juejin.im/post/5c148ec8e51d4576e83fd836)
 [Event Loop 原来是这么回事 66](https://juejin.im/post/5c36b3b0f265da611f07e409)
+[[翻译] Async/Await 使你的代码更简洁](https://juejin.im/post/5a6c1db1518825733a30efbf)
