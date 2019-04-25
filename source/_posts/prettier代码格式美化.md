@@ -1,5 +1,5 @@
 ---
-title: preiiter代码格式美化
+title: prettier代码格式美化
 date: 2019-02-20 20:39:17
 tags:
 - prettier
@@ -10,7 +10,7 @@ comments: false
 permalink:
 ---
 
-# preiiter代码格式美化
+# prettier代码格式美化
 
 从`EditorConfig`到各种`***Lint`, 再到 `prettier`。 其实就是一起用
 
