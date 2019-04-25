@@ -11,11 +11,25 @@ permalink:
 
 # 统一代码风格[editorconfig](https://editorconfig.org/)
 
-当多人共同开发一个项目的时候(尤其是开源的项目)，可能不同的人使用者不同的编辑器. 又或者一个人在开发不同的项目中又要遵循不同项目的规范(代码风格), 当然还有即使是同一个文件,在`html`和`css`中也存在不同的代码风格问题, 麻烦就出现了. 
+当多人共同开发一个项目的时候(尤其是开源的项目)，可能不同的人使用者不同的编辑器. 又或者一个人在开发不同的项目中又要遵循不同项目的规范(代码风格), 当然还有即使是同一个文件,在`html`和`css`中也存在不同的代码风格问题, 麻烦就出现了.
 
 当然可以用ESlint这个来对代码提交前进行一次检查, 我们常用的`yarn prettier`和`yarn tslint` 也算是一个优化代码风格,一个检查.
 
 这里当然重点说的就是`editorconfig`来配置好, 从根本上解决问题. 其他的都是提交前的保险.
+
+## 先给个常见的配置
+
+```json
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+```
 
 ## 使用editorconfig
 

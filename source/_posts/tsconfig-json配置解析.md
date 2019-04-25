@@ -14,6 +14,8 @@ permalink:
 - 指定待编译的文件
 - 定义编译选项
 
+安装外typescript后用`tsc --init`就可以生成, 也可以自己创咯
+
 ## 概述
 
 如果一个目录下存在一个`tsconfig.json`文件，那么它意味着这个目录是 TypeScript 项目的**根目录**。 `tsconfig.json`文件中指定了用来**编译这个项目的根文件和编译选项**。
