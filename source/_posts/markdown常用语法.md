@@ -2,37 +2,37 @@
 title: markdown常用语法
 date: 2018-01-22 21:25:55
 tags:
-- markdown
+  - markdown
 categories:
-- 前端
+  - 前端
 ---
 
-# 直接贴一段用markdown写好的文章，两边对照的那种看好了
+# 直接贴一段用 markdown 写好的文章，两边对照的那种看好了
 
-用stackEdit
+用 stackEdit
 
-## 目前用的是vscodve
+## 目前用的是 vscodve
 
-虽然vscode本身有markdown的预览，不过并不支持LaTeX。推v荐两款插件markdown all in one和Markdown Preview Enhanced。不仅支持LaTex还有导出pdf这种功能，画路程图
+虽然 vscode 本身有 markdown 的预览，不过并不支持 LaTeX。推荐两款插件 markdown all in one 和 Markdown Preview Enhanced。不仅支持 LaTex 还有导出 pdf 这种功能，画路程图
 markdownlint
 
-### 3款插件功能
+### 3 款插件功能
 
-* markdown all in one
+- markdown all in one
 
-| Tables               | Are          | Cool       |
+|        Tables        |     Are      |    Cool    |
 | :------------------: | :----------: | :--------: |
-| 标题                 | 自动生成目录 | 引用       |
+|         标题         | 自动生成目录 |    引用    |
 | `ctrl + shift + [/]` |              |            |
-| 删除                 | 强调         | 斜体       |  |
-|                      | `ctrl + b`   | `ctrl + i` | `<u>` |
-| 无序列表             | 有序列表     | 列表项     |
-| tab / backsapce      |
-| 链接                 | 图片         | 索引链接   |
-| \[\]\(\)             | \!\[\]\(\)   | \[\]\[\]   |
-| 代码,代码块          | 高亮         |
-| \`\`\`|\`\`\`c++     |
-| 表格                 |
+|         删除         |     强调     |    斜体    |  |
+|                      |  `ctrl + b`  | `ctrl + i` | `<u>` |
+|       无序列表       |   有序列表   |   列表项   |
+|   tab / backsapce    |
+|         链接         |     图片     |  索引链接  |
+|       \[\]\(\)       |  \!\[\]\(\)  |  \[\]\[\]  |
+|     代码,代码块      |     高亮     |
+|        \`\`\`        |  \`\`\`c++   |
+|         表格         |
 
 ## 总结
 
@@ -51,28 +51,26 @@ markdownlint
 
 
 ```
-| Tables           | Are            | Cool     |
-| :--------------: | :------------: | :------: |
-| 标题             | 自动生成目录   | 引用     |
-| \# heading       | \[toc\]        | \>       |
-| 删除             | 强调           | 斜体     |  |
-| \~\~del\~\~      | \*\*strong\*\* | \*em\*   | `<u>` |
-| 无序列表         | 有序列表       | 列表项   |
-| \*               | 1\.            | \- \[x\] |
-| 链接             | 图片           | 索引链接 |
-| \[\]\(\)         | \!\[\]\(\)     | \[\]\[\] |
-| 代码,代码块      | 高亮           |
-| \`\`\`|\`\`\`c++ |
-| 表格             |
 
+|   Tables    |      Are       |   Cool   |
+| :---------: | :------------: | :------: |
+|    标题     |  自动生成目录  |   引用   |
+| \# heading  |    \[toc\]     |    \>    |
+|    删除     |      强调      |   斜体   |  |
+| \~\~del\~\~ | \*\*strong\*\* |  \*em\*  | `<u>` |
+|  无序列表   |    有序列表    |  列表项  |
+|     \*      |      1\.       | \- \[x\] |
+|    链接     |      图片      | 索引链接 |
+|  \[\]\(\)   |   \!\[\]\(\)   | \[\]\[\] |
+| 代码,代码块 |      高亮      |
+|   \`\`\`    |   \`\`\`c++    |
+|    表格     |
 
+---
 
+## 标题（有 2 种方式）
 
-___
-
-## 标题（有2种方式）
-
-### Setext方式
+### Setext 方式
 
 ```
 大标题         <h1>
@@ -81,13 +79,11 @@ ___
 ---
 ```
 
-大标题
-===
-小标题
----
+# 大标题
 
+## 小标题
 
-### ATX方式
+### ATX 方式
 
 ```
 # 一级标题          <h1>
@@ -99,15 +95,22 @@ ___
 ```
 
 # 一级标题
+
 ## 二级标题
+
 ### 三级标题
+
 #### 四级标题
+
 ##### 五级标题
+
 ###### 六级标题
 
 ## 引用
+
 使用\>
 加不加空格都行，推荐加
+
 ```
 > hello world   <blockquote>
 ```
@@ -115,36 +118,38 @@ ___
 > hello world
 
 嵌套的引用
-注意前面加一个或多个空格或tab，还有要2个\>\>
+注意前面加一个或多个空格或 tab，还有要 2 个\>\>
+
 ```
 > hello
  >> world
 ```
 
 > hello
- >> world
+>
+> > world
 
 ## 删除 强调 斜体
-使用2个~号包上的表示删除，没有单个~的用法哦
-使用2个\*号或者2个\_包上的表示强调
+
+使用 2 个~号包上的表示删除，没有单个~的用法哦
+使用 2 个\*号或者 2 个\_包上的表示强调
 单个\*或者\_包上的表示斜体
 
 ```markdown
 hello world
-//删除线   <del>
+//删除线 <del>
 ~~hello world~~
-//强调    <em>
+//强调 <em>
 **hello world**
-__hello world__
-//斜体    <strong>
-*hello world*
+**hello world**
+//斜体 <strong>
+_hello world_
 _hello world_
 //也存在只需要\*或\_开头或结尾有就行，但不推荐,因为你不知道什么时候会和前面的\*发生闭合
-*hello world
-hello world*
 _hello world
 hello world_
-
+_hello world
+hello world_
 ```
 
 hello world
@@ -152,20 +157,20 @@ hello world
 ~~hello world~~
 //强调
 **hello world**
-__hello world__
+**hello world**
 //斜体
-*hello world*
+_hello world_
 _hello world_
 //不推荐
-*hello world
-hello world*
+_hello world
+hello world_
 _hello world
 hello world_
 
-
 ## 分割线
 
-用\_\_\_下划线及更多就好了,注意不是\-减号，这是小标题，虽然有些用减号来作为分割，比如cmdmarkdown
+用\_\_\_下划线及更多就好了,注意不是\-减号，这是小标题，虽然有些用减号来作为分割，比如 cmdmarkdown
+
 ```
 hello
 ---
@@ -173,11 +178,10 @@ world
 ```
 
 hello
-___
+
+---
+
 world
-
-
-
 
 ## 列表
 
@@ -192,13 +196,15 @@ world
 - hello
 ```
 
-* h
-+ hi
+- h
+
+* hi
+
 - hello
 
 嵌套
 
-就是加tab，不建议只加1个空格
+就是加 tab，不建议只加 1 个空格
 
 ```
 * h
@@ -206,15 +212,16 @@ world
     * hello
 ```
 
-* h
-    * hi
-        * hello
+- h
+  - hi
+    - hello
 
 ### 有序列表
 
 所有的都要注意加空格，然后就是第一个起始的为参考基准，后面的数字打乱其实没关系，但不建议打乱写。
 
 还有就是怎么重新建立一个新开始的有序列表
+
 ```
 <ol> <li>
 1. h
@@ -230,11 +237,11 @@ world
 
 1. h
 2. hi
-3. hello 
-
-3. h
-2. hi
 3. hello
+
+4. h
+5. hi
+6. hello
 
 嵌套
 
@@ -244,10 +251,10 @@ world
         3. hello
 
 ```
-1. h
-    2. hi
-        3. hello
 
+1. h
+   2. hi
+      3. hello
 
 ### todo list
 
@@ -265,7 +272,6 @@ world
 - [x] 修复 LaTex 公式渲染问题
 - [x] 新增 LaTex 公式编号功能
 
-
 ## 超链接
 
 ```
@@ -279,11 +285,13 @@ world
 
 比超链接多一个!
 但图片怎么设置大小呢
+
 ```
 <p><img></p>
 ![GitHub Mark](http://github.global.ssl.fastly.net/images/modules/logos_page/GitHub-Mark.png "GitHub Mark")
 ```
-![GitHub Mark](http://github.global.ssl.fastly.net/images/modules/logos_page/GitHub-Mark.png "GitHub Mark")
+
+![GitHub Mark](http://github.global.ssl.fastly.net/images/modules/logos_page/GitHub-Mark.png 'GitHub Mark')
 
 ## 索引链接
 
@@ -303,7 +311,6 @@ world
 [1]: www.github.com
 [2]: http://github.global.ssl.fastly.net/images/modules/logos_page/Octocat.png
 
-
 ## 自动链接
 
 用<>
@@ -311,32 +318,29 @@ world
 ```
 <www.github.com>
 ```
-<www.github.com>
 
+<www.github.com>
 
 ## 代码(用\`)
 
 ### 行内代码
 
-1个\`
+1 个\`
 
 ```
 <code>
 `hello`
 ```
+
 `hello`
 
 ### 段落代码
 
-2个\`\`
+2 个\`\`
 
+`hello world`
 
-``
-hello
-world
-``
-
-3个\`带序号的
+3 个\`带序号的
 
 ```
 hello
@@ -391,18 +395,17 @@ tips:
 就是怎么设置几行或几列合一，并没有这功能，所以用html写？
 ```
 
-| Tables        | Are           | Cool  |
-| :------------ | :-----------: | ----: |
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      | $12   |
-| zebra stripes | are neat      | $1    |
+| Tables        |      Are      |   Cool |
+| :------------ | :-----------: | -----: |
+| col 3 is      | right-aligned | \$1600 |
+| col 2 is      |   centered    |   \$12 |
+| zebra stripes |   are neat    |    \$1 |
 
+---
 
-___
 ## 其他功能
 
-
-### 2. 书写一个质能守恒公式[^LaTeX]
+### 2. 书写一个质能守恒公式[^latex]
 
 ```
 $$E=mc^2$$
@@ -436,37 +439,6 @@ Bob-->Alice: I am good thanks!
         验收: 3d
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 问题
 
-在使用hexo中 如果你写表格用的是html这种，那么部署完hexo后会出现很多行空行br，这是因为hexo本身的问题，所以要么压缩下，写一行，但这么不就更麻烦了么。要么还是用markdown的语法
+在使用 hexo 中 如果你写表格用的是 html 这种，那么部署完 hexo 后会出现很多行空行 br，这是因为 hexo 本身的问题，所以要么压缩下，写一行，但这么不就更麻烦了么。要么还是用 markdown 的语法
