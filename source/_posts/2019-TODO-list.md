@@ -43,6 +43,8 @@ typingclub
 [前端基础进阶系列 666](https://www.jianshu.com/p/cd3fee40ef59)
 [深入理解 JavaScript 系列 666666](http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html)
 [给前端好文多一首歌的时间（九）](https://www.jianshu.com/p/dd35aa1472b3)
+[程序员练级攻略（2018）：前端基础和底层原理](https://segmentfault.com/a/1190000017072371)
+[前端基础进阶目录](https://segmentfault.com/a/1190000012646488)
 
 ### 数据类型
 

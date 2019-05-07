@@ -1,5 +1,5 @@
 ---
-title: async function await
+title: async-function-await
 date: 2018-11-25 20:24:15
 tags:
 - es6
@@ -11,7 +11,7 @@ comments: false
 permalink:
 ---
 
-# async function/ await
+# async-function-await
 
 ## 语法
 

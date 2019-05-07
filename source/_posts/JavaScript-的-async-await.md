@@ -1,5 +1,5 @@
 ---
-title: JavaScript 的 async/await
+title: JavaScript-的-async-await
 date: 2018-11-25 16:43:08
 tags:
 - es6
@@ -11,7 +11,7 @@ comments: false
 permalink:
 ---
 
-# JavaScript 的 async/await
+# JavaScript-的-async-await
 
 第一阶段, 知道await当异步为同步,
 第二阶段, 知道了event loop后知道await是promsie的语法糖.
