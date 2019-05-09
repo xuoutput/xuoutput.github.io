@@ -2,9 +2,7 @@
 title: javascript-变量
 date: 2019-05-09 16:20:21
 tags:
-- var
-- let
-- const
+- 变量
 categories:
 - JavaScript完全手册(2018版)
 comments: false
@@ -14,6 +12,8 @@ permalink:
 # javascript-变量
 
 [变量 – JavaScript 完全手册（2018 版）6666](https://www.html.cn/archives/10014)
+
+变量是分配给标识符的字面量，因此您可以稍后在程序中引用和使用它。 我们将学习如何使用 JavaScript 声明一个变量。
 
 ## JavaScript 变量简介
 
@@ -91,6 +91,8 @@ var a = 1,
 
 你在任何的 `JavaScript` 文档中找不到这个术语，我们说的 `Hoisting`(提升) 只是使用了其字面含义来做个比喻。如果你已经对 JavaScript 作用域工作原理有基本的了解，那么更深入的了解 [JavaScript 中的 Hoisting (变量提升和函数声明提升)](https://www.html.cn/archives/7924) 有助于你建立更强大的基础知识。
 
+> 也可以看总结的 {% post_link 再谈js作用域 再谈js作用域 %}
+
 ## 使用 let
 
 `let` 是 `ES2015` 中引入的新功能，**它本质上是 `var` 的块作用域版本**。 它的作用域仅限于定义它的 `block`(块)（由一对花括号标识），语句或表达式，以及所有包含的内部块。
@@ -124,3 +126,10 @@ const a = 'test';
 ## 参考
 
 [变量 – JavaScript 完全手册（2018 版）6666](https://www.html.cn/archives/10014)
+
+[深入理解 JavaScript 中的作用域和上下文](https://www.html.cn/archives/7255)
+[JavaScript 核心概念之作用域和闭包](https://www.html.cn/archives/7262)
+[实例分析 JavaScript 作用域](https://www.html.cn/archives/7300)
+[JavaScript 中的 Hoisting (变量提升和函数声明提升)](https://www.html.cn/archives/7924)
+
+{% post_link 再谈js作用域 再谈js作用域 %}
