@@ -17,18 +17,18 @@ permalink:
 
 ## 原始类型
 
-原始类型包括：
+原始类型包括：5+1(Symbol)
 
-number（数字）
-string（字符串）
-boolean（布尔）
-还有两种特殊类型：
+Number（数字）
+String（字符串）
+Boolean（布尔）
+还有两种特殊的原始类型：
 
-null（空值）
-undefined（未定义）
+Null（空值）
+Undefined（未定义）
 让我们在这里详细介绍它们。
 
-### number（数字）
+### Number（数字）
 
 在内部，JavaScript **只有一种数字类型**：每个数字都是一个**浮点数**。
 
@@ -58,7 +58,10 @@ JavaScript 代码:
 [JavaScript 中科学计数法转化为数值字符串形式](https://www.html.cn/archives/9318)
 [JavaScript 格式化数字、金额、千分位、保留几位小数、舍入舍去…](https://www.html.cn/archives/7324)
 
-### string（字符串）
+> 理解IEEE 754 的结构对理解最大值, 最小值很有用. 但注意**安全整数**这一回事, 还涉及指数为0是正负0和指数为2047的表示无穷大`2`个和NAN有`2^53-2`, 就是去掉2个无穷
+> [ECMAScript中的Number Type与 IEEE 754-2008 安全整数](https://juejin.im/post/5ccae4f25188254190544ded#heading-3)
+
+### String（字符串）
 
 字符串类型是一系列字符。它在源代码中定义为字符串字面量，用`单引号`或`双引号`括起来：
 
@@ -126,7 +129,7 @@ with
 ${something}`;
 ```
 
-### boolean（布尔）
+### Boolean（布尔）
 
 JavaScript 为布尔值定义了两个保留字：`true` 和 `false` 。 许多比较操作 `==` `===` `<` `>`（依此类推）返回一个布尔值。
 
@@ -152,11 +155,11 @@ null;
 
 > [JavaScript-Equality-Table](https://github.com/dorey/JavaScript-Equality-Table)
 
-### null
+### Null
 
-`null` 是一个特殊值，表示缺少值，这种类型就只有一个值 `null`。 这也是其他语言中的常见概念，例如在 `Python` 中可以称为 `nil` 或 `None` 。
+`null` 是一个特殊值，表示缺少值，`Null`这种类型就只有一个值 `null`。 这也是其他语言中的常见概念，例如在 `Python` 中可以称为 `nil` 或 `None` 。
 
-### undefined
+### Undefined
 
 `undefined` 表示变量**尚未初始化且值不存在**。
 
@@ -170,13 +173,17 @@ JavaScript 代码:
 typeof variable === 'undefined';
 ```
 
-JavaScript 新手很容易混淆 `undefined` 和 `null` ，请阅读 [JavaScript 中 undefined 和 null 的区别](https://www.html.cn/archives/6236) 了解。
+JavaScript 新手很容易混淆 `undefined` 和 `null` ，请阅读 [JavaScript 中 undefined 和 null 的区别 666](https://www.html.cn/archives/6236) 了解。
+
+> **首字母大写**的`Undefined`表示的是一种**数据类型**,**首字母小写**的`undefined`表示的是属于这种**数据类型的唯一的一个值**。
 
 ## Object(对象) 类型
 
 任何不是原始类型的东西都是对象类型。
 
 **函数**，**数组**和我们称之为**对象**的是对象类型。 它们本身是特殊的，但是它们继承了对象的许多属性，比如具有**原型**，并且还有对这些属性起作用的**方法**。
+
+> `Object` 是唯一的复杂数据类型。 `Object` , `Array` , `Function` 这些**引用类型**值最终都可以归结为 `Object` 复杂数据类型。
 
 ## 类型判断
 
@@ -192,7 +199,7 @@ JavaScript 新手很容易混淆 `undefined` 和 `null` ，请阅读 [JavaScript
 [JavaScript 中科学计数法转化为数值字符串形式](https://www.html.cn/archives/9318)
 [JavaScript 格式化数字、金额、千分位、保留几位小数、舍入舍去…](https://www.html.cn/archives/7324)
 
-[JavaScript 等值比较 == ，=== 和 Object.is()](https://www.html.cn/archives/7977)
+[JavaScript 等值比较 == ，=== 和 Object.is() 666](https://www.html.cn/archives/7977)
 [JavaScript-Equality-Table](https://github.com/dorey/JavaScript-Equality-Table)
-[JavaScript 中 undefined 和 null 的区别](https://www.html.cn/archives/6236)
+[JavaScript 中 undefined 和 null 的区别 66666](https://www.html.cn/archives/6236)
 [JavaScript 数据类型判断 666](https://www.html.cn/archives/10016)
