@@ -185,6 +185,10 @@ JavaScript 新手很容易混淆 `undefined` 和 `null` ，请阅读 [JavaScript
 
 > `Object` 是唯一的复杂数据类型。 `Object` , `Array` , `Function` 这些**引用类型**值最终都可以归结为 `Object` 复杂数据类型。
 
+看 {% post_link js的数组 js的数组 %} 里面还有介绍对象的特性, 访问器属性.
+
+然后涉及Map set JSON这些
+
 ## 类型判断
 
 实际开发工作中，我们会经常碰到 JavaScript 数据类型判断，阅读 [JavaScript 数据类型判断 666](https://www.html.cn/archives/10016) 了解 JavaScript 数据类型判断的陷阱 与 最佳的处理方式。

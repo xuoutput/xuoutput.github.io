@@ -19,6 +19,8 @@ permalink:
 
 [MDN 数据类型](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Data_structures)
 
+> 更详细, 除了 5+1 还有 Symbol, 以及对象的特性, 新数据解构 Map, Set
+
 ### 数据类型
 
 这里先谈一下 `JavaScript` 这门语言的数据类型。`JavaScript` 中有七种数据类型，其中有六种简单数据类型(原始烈性)，一种复杂数据类型。
@@ -46,12 +48,70 @@ permalink:
 
 `typeof` 是用来检测变量**数据类型**的操作符，对一个值使用 `typeof` **操作符**可能会返回下列某个**字符串**
 
-- “undefined” — 如果这个变量未定义或这个变量只定义没初始化
-- “string” — 如果这个变量初始化为字符串类型
-- “boolean” — 如果这个变量初始化为布尔类型值
-- “number” — 如果这个变量初始化为数值类型
-- “object” — 如果这个变量初始化为对象或者 null
-- “function” — 如果这个变量初始化为函数
+- “undefined” — 如果这个变量只定义没初始化, 用 `typeof` 如果这个变量未定义或全局的`undefined`属性
+- “string” — 如果这个变量初始化为`String`字符串类型
+- “boolean” — 如果这个变量初始化为`Boolean`布尔类型值
+- “number” — 如果这个变量初始化为`Number`数值类型
+- “symbol” — 如果这个变量初始化为`Symbol`数值类型
+- “object” — 如果这个变量初始化为`Object`对象或 `Array`数组 或者 `Null`类型的 null
+- “function” — 如果这个变量初始化为`Function`函数
+
+> 数组确实是对象, 但我们想更具体区分 是不是一个数组.
+
+[示例, MDN 666666 展示很多易错点](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof#%E7%A4%BA%E4%BE%8B)
+
+> 例如注意`NAN` 还是`number`, 还有**不要使用包装类型**
+
+```javascript
+// Numbers
+typeof 37 === 'number';
+typeof 3.14 === 'number';
+typeof Math.LN2 === 'number';
+typeof Infinity === 'number';
+typeof NaN === 'number'; // 尽管NaN是"Not-A-Number"的缩写
+typeof Number(1) === 'number'; // 但不要使用这种形式!
+
+// Strings
+typeof '' === 'string';
+typeof 'bla' === 'string';
+typeof typeof 1 === 'string'; // typeof总是返回一个字符串
+typeof String('abc') === 'string'; // 但不要使用这种形式!
+
+// Booleans
+typeof true === 'boolean';
+typeof false === 'boolean';
+typeof Boolean(true) === 'boolean'; // 但不要使用这种形式!
+
+// Symbols
+typeof Symbol() === 'symbol';
+typeof Symbol('foo') === 'symbol';
+typeof Symbol.iterator === 'symbol';
+
+// Undefined
+typeof undefined === 'undefined';
+typeof declaredButUndefinedVariable === 'undefined';
+typeof undeclaredVariable === 'undefined';
+
+// Objects
+typeof { a: 1 } === 'object';
+
+// 使用Array.isArray 或者 Object.prototype.toString.call
+// 区分数组,普通对象
+typeof [1, 2, 4] === 'object';
+
+typeof new Date() === 'object';
+
+// 下面的容易令人迷惑，不要使用！
+typeof new Boolean(true) === 'object';
+typeof new Number(1) === 'object';
+typeof new String('abc') === 'object';
+
+// 函数
+typeof function() {} === 'function';
+typeof class C {} === 'function';
+typeof Math.sin === 'function';
+typeof new Function() === 'function';
+```
 
 #### 1. Object 对象检测的陷阱
 
@@ -90,7 +150,7 @@ JavaScript 代码:
 typeof []; //  'object'
 ```
 
-上面说到了**对一个数组**使用 `typeof` 操作符也是会返回 '`object`'，因此 `typeof` 并不能判断数组对象的类型
+上面说到了**对一个数组**使用 `typeof` 操作符也是会返回 `'object'`，因此 `typeof` 并不能判断**数组对象**的类型
 
 > typeof 在判断复杂数据类型不够细致
 
@@ -102,11 +162,16 @@ typeof []; //  'object'
 
 `instanceof` 运算符用来测试一个**对象在其原型链中是否存在一个构造函数的 `prototype` 属性**。
 
+`instanceof` 运算符用于测试构造函数的 `prototype` 属性是否出现在对象的原型链中的任何位置
+
+> 从实例往上走和从构造函数往上走能不能到同一个原型.
+> 看原型链那张图
+
 #### 2. 基本包装类
 
 《Javascript》高级程序设计 第五章第六节 基本包装类型
 
-javascript 为了**方便操作基本类型值**，ECMAscript 提供了 3 个特殊的引用类型：`Boolean`、`Number` 和 `String`。 每当读取一个**基本类型值**的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据。
+javascript 为了**方便操作基本类型值**，ECMAscript 提供了 3 个特殊的引用类型：`Boolean`、`Number` 和 `String`。 每当读取一个**基本类型值**的时候，后台就会创建一个**对应的基本包装类型的对象**，从而让我们能够调用一些方法来操作这些数据。
 
 > 注意不是永久有方法的, 只是暂时的
 
@@ -169,6 +234,8 @@ arr instanceof Object; // true
 // 会返回 true ，是因为 Object 构造函数的 prototype 属性存在与 arr 这个数组实例的原型链上。
 ```
 
+> 所以 `instanceof` 只用来判断 `Function`么
+
 ## 一个高效但危险的变量类型判断方法
 
 ### 用对象的 constructor 来判断对象类型
@@ -192,6 +259,8 @@ function cstor(variable) {
       return 'Array';
     case Object:
       return 'Object';
+    case Function:
+      return 'Function';
   }
 }
 ```
@@ -232,6 +301,8 @@ function cstor(variable) {
       return 'Array';
     case Object:
       return 'Object';
+    case Function:
+      return 'Function';
   }
 }
 ```
@@ -251,12 +322,6 @@ function cstor(variable) {
 JavaScript 代码:
 
 ```javascript
-Object.prototype.toString.call(null); //  "[object Null]"
-
-Object.prototype.toString.call([]); //  "[object Array]"
-
-Object.prototype.toString.call({}); //  "[object Object]"
-
 Object.prototype.toString.call(123); //  "[object Number]"
 
 Object.prototype.toString.call('123'); //  "[object String]"
@@ -264,11 +329,23 @@ Object.prototype.toString.call('123'); //  "[object String]"
 Object.prototype.toString.call(false); //  "[object Boolean]"
 
 Object.prototype.toString.call(undefined); //  "[object Undefined]"
+
+Object.prototype.toString.call(null); //  "[object Null]"
+
+Object.prototype.toString.call([]); //  "[object Array]"
+
+Object.prototype.toString.call(function a() {}); //  "[object Function]"
+
+Object.prototype.toString.call({}); //  "[object Object]"
 ```
 
 ### String Boolean Number Undefined 四种基本类型的判断
 
 除了 `Null` 之外的这四种基本类型值，都可以用 `typeof` 操作符很好的进行判断处理。
+
+当然也可以用 `Object.prototype.toString.call(null)`
+
+`Symbol` 类型 和 引用类型 `Function` 也可以
 
 JavaScript 代码:
 
@@ -314,11 +391,13 @@ JavaScript 代码:
 Array.isArray([]); // true
 ```
 
-#### 3. instanceof 运算符
+#### 3. instanceof 运算符 陷阱
 
 [MDN reference](https://link.juejin.im/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FJavaScript%2FReference%2FOperators%2Finstanceof)
 
-`instanceof` 运算符**用来测试一个对象在其原型链中是否存在一个构造函数的 `prototype` 属性**。
+`instanceof` 运算符**用来测试一个对象在其原型链中是否存在一个构造函数的 `prototype` 属性**。但前面说了 这个不准确.
+
+> {% post_link javascript原型 javascript原型 %}
 
 因此可以检测一个对象的原型链中是否存在 `Array` 构造函数的 `prototype` 属性来判断是不是数组。
 
@@ -333,6 +412,12 @@ JavaScript 代码:
 `typeof` 和 `instanceof` 都不能安全的判断变量是否是 `Object` 对象。
 
 目前判断变量是否是对象的**最安全的方法**就只有 `Object.prototype.toString.call()` 了。
+
+### Function 这块可以继续总结补充, 补充 Symbol 类型
+
+用 `typeof` 可以, 用 `instanceof` 可以, 用`Object.prototype.toString.call()`也可以
+
+instanceof 主要用来判断引用类型的,  不能判断 Symbol 类型
 
 ## 参考
 
