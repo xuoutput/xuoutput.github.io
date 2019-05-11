@@ -152,6 +152,8 @@ const list = Object.create(Array.prototype);
 
 {% post_link javascript原型 javascript原型 %}
 
+> 看完了class的是原型的糖, 那么可以知道 `extends` 也是原型糖, 即`son.prototype = new F()` 子的原型指向父的一个实例
+
 ## 参考
 
 [原型继承 – JavaScript 完全手册（2018 版）](https://www.html.cn/archives/10030)

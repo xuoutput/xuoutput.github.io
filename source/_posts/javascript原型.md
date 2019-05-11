@@ -28,8 +28,36 @@ permalink:
 先把这张图过一遍
 ![prototype.png](prototype.png)
 
-> `typeof Object` 是`"function"`.
+> `typeof Object` 是`"function"`. 也称这样的对象为构造器（`constructor`)
+> 因而，**所有的构造器都是对象，但不是所有的对象都是构造器**。
 > `let n = new Function()` 出来的是一个匿名函数诶.
+
+```javascript
+// 这里看图可以得出
+console.log(typeof(Function))         'function'
+console.log(typeof(new Function()))   'function'  // 匿名函数, 不是对象
+console.log(typeof(Object))           'function'
+console.log(typeof(Array))            'function'  // 这个可以补上图
+// 这里就是返回对象了
+console.log(typeof(new Array()))      'object'
+console.log(typeof(new Date()))       'object'
+console.log(typeof(new Object()))     'object'
+```
+
+> [理解 JavaScript 函数（函数和对象的区别和联系）](https://www.cnblogs.com/jikey/archive/2010/04/28/1722971.html)
+
+**方法也是函数, 可以递归上去**:
+
+```javascript
+Function.prototype.method1 = function() {
+  console.log('function');
+};
+function func1(a, b, c) {
+  return a + b + c;
+}
+func1.method1();
+func1.method1.method1();
+```
 
 [JavaScript 深入之从原型到原型链](https://github.com/mqyqingfeng/Blog/issues/2)
 上图说原型链是`__proto__`这条路
