@@ -18,6 +18,8 @@ permalink:
 第三阶段, 竟然再执行 await 下面的语句之前, 会执行 async 外的同步语句, 这个 **怎么和`Promose`**的 `then`结合理解呢?
 第四阶段, 竟然导致微队列先执行了
 
+{% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %}
+
 ## 结论放开头
 
 1. `async function`只是用来**返回**一个`Promise`对象或者要执行`await`时包上为了达到`async function`不阻塞的效果.(并是不说`async`里面一定要有`await`),**绝不会阻塞后面的语句,整个一个`async function`** 不会阻塞哦, 且返回的是`Promise`.(不要和里面的`await`遇到`Promise`阻塞搞混),而且`await`不会包装值为`Promise`
@@ -131,6 +133,38 @@ new Promise(function(resolve) {
 });
 console.log("5");
 // 1 2 3 4 5 6 7 8
+```
+
+这里再补充 `resolve` 中的
+
+```javascript
+async function async1() {
+  console.log('2');
+  await async2();
+  console.log('8');
+}
+async function async2() {
+  return new Promise(function(resolve) {
+    console.log('3');
+    resolve('--- when ---');
+  }).then(function(res) {
+    console.log('6');
+    console.log(res); // resolve --when-- 中的传到这里哦, 并不是同步哦
+  });
+}
+
+console.log('1');
+async1();
+
+new Promise(function(resolve) {
+  console.log('4');
+  resolve();
+}).then(function() {
+  console.log('7');
+});
+console.log('5');
+
+// 1 2 3 4 5 6  -- when -- 7 8
 ```
 
 如果把 `await` 换了
