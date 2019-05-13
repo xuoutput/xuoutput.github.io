@@ -245,6 +245,8 @@ new Promise(function() {});
 
 [Implementing](https://www.promisejs.org/implementing/) 这里有从头自己实现一个 `promise`的
 
+## ajax 和 fetch
+
 ## 参考
 
 [Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
