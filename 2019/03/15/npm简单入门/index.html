@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="Hexo, NexT">
+
+
+<meta name="description" content="npm简单入门总结下npm的命令12345678// 由于新版的nodejs已经集成了npm，所以之前npm也一并安装好了。同样可以通过输入 &quot;npm -v&quot; 来测试是否成功安装npm -v// 如果你安装的是旧版本的 npm，可以很容易得通过 npm 命令来升级，命令如下：$ sudo npm install npm -g// npm 安装 Node.js 模块语法格式如下：$ npm inst">
+<meta property="og:type" content="article">
+<meta property="og:title" content="npm简单入门">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/npm简单入门/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="npm简单入门总结下npm的命令12345678// 由于新版的nodejs已经集成了npm，所以之前npm也一并安装好了。同样可以通过输入 &quot;npm -v&quot; 来测试是否成功安装npm -v// 如果你安装的是旧版本的 npm，可以很容易得通过 npm 命令来升级，命令如下：$ sudo npm install npm -g// npm 安装 Node.js 模块语法格式如下：$ npm inst">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-16T03:45:21.999Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="npm简单入门">
+<meta name="twitter:description" content="npm简单入门总结下npm的命令12345678// 由于新版的nodejs已经集成了npm，所以之前npm也一并安装好了。同样可以通过输入 &quot;npm -v&quot; 来测试是否成功安装npm -v// 如果你安装的是旧版本的 npm，可以很容易得通过 npm 命令来升级，命令如下：$ sudo npm install npm -g// npm 安装 Node.js 模块语法格式如下：$ npm inst">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/15/npm简单入门/">
+
+
+  <title>npm简单入门 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/npm简单入门/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">npm简单入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T22:50:30+08:00">2019-03-15</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="npm简单入门"><a href="#npm简单入门" class="headerlink" title="npm简单入门"></a>npm简单入门</h1><h2 id="总结下"><a href="#总结下" class="headerlink" title="总结下"></a>总结下</h2><h3 id="npm的命令"><a href="#npm的命令" class="headerlink" title="npm的命令"></a>npm的命令</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 由于新版的nodejs已经集成了npm，所以之前npm也一并安装好了。同样可以通过输入 "npm -v" 来测试是否成功安装</span></span><br><span class="line">npm -v</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果你安装的是旧版本的 npm，可以很容易得通过 npm 命令来升级，命令如下：</span></span><br><span class="line">$ sudo npm install npm -g</span><br><span class="line"></span><br><span class="line"><span class="comment">// npm 安装 Node.js 模块语法格式如下：</span></span><br><span class="line">$ npm install &lt;Module Name&gt;</span><br></pre></td></tr></table></figure>
+<p>npm 的包安装分为本地安装（local）、全局安装（global）两种，从敲的命令行来看，差别只是有没有<code>-g</code>而已，比如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install express         <span class="comment"># 本地安装到./node_modules</span></span><br><span class="line">npm install express -g      <span class="comment"># 全局安装到/usr/local 下或者你 node 的安装目录, nvm这种</span></span><br><span class="line"></span><br><span class="line">npm install &lt;package_name&gt; --save       <span class="comment"># 本地安装后, 把包信息加入package.json的dependencies字段</span></span><br><span class="line">npm install &lt;package_name&gt; --save-dev   <span class="comment"># 本地安装后, 把包信息加入package.json的devDependencies字段</span></span><br><span class="line"></span><br><span class="line">npm install                 <span class="comment"># 是根据package.json的dependencies和devDependencies信息, 根据不同的环境安装不同的包到./node_modules下</span></span><br></pre></td></tr></table></figure>
+<p>本地安装</p>
+<ol>
+<li>将安装包放在 <code>./node_modules</code> 下（运行 <code>npm</code> 命令时所在的目录），如果没有 node_modules 目录，会在当前执行 npm 命令的目录下生成 node_modules 目录。(并不会在<code>package.json</code>中填入)</li>
+<li>可以通过 <code>require()</code> 来引入本地安装的包。</li>
+</ol>
+<p>全局安装</p>
+<ol>
+<li>将安装包放在 <code>/usr/local</code> 下或者你 node 的安装目录。</li>
+<li>可以直接在命令行里使用。</li>
+</ol>
+<p>而后面加参数 <code>--save-dev</code> 和 <code>--save</code> 表示的是<code>dependencies</code>和<code>devDependencies</code>，分别对应<strong>生产环境</strong>需要的安装包和<strong>开发环境</strong>需要的安装包。</p>
+<p><strong>同样在安装模块的时候，可以通过指定参数来修改<code>package.json</code>文件</strong></p>
+<p>查看安装信息</p>
+<p>你可以使用以下命令来查看所有全局安装的模块：</p>
+<p>$ npm list -g</p>
+<p>如果要查看某个模块的版本号，可以使用命令如下：</p>
+<p>$ npm list grunt</p>
+<p>也可以npm list</p>
+<p>卸载模块, 同理分3个地方</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall express</span><br></pre></td></tr></table></figure>
+<p>卸载后，你可以到 /node_modules/ 目录下查看包是否还存在，或者使用以下命令查看：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm ls</span><br></pre></td></tr></table></figure>
+<p>更新模块<br>我们可以使用以下命令更新模块：</p>
+<p>$ npm update express<br>搜索模块<br>使用以下来搜索模块：</p>
+<p>$ npm search express</p>
+<p>接下来我们可以使用以下命令在 npm 资源库中注册用户（使用邮箱注册）：</p>
+<p>$ npm adduser<br>接下来我们就用以下命令来发布模块：</p>
+<p>$ npm publish</p>
+<p>NPM提供了很多命令，例如install和publish，使用npm help可查看所有命令。</p>
+<p>使用<code>npm help &lt;command&gt;</code>可查看某条命令的详细帮助，例如npm help install。</p>
+<p>在package.json所在目录下使用npm install . -g可先在本地安装当前命令行程序，可用于发布前的本地测试。</p>
+<p>使用<code>npm update &lt;package&gt;</code>可以把当前目录下node_modules子目录里边的对应模块更新至最新版本。</p>
+<p>使用<code>npm update &lt;package&gt; -g</code>可以把全局安装的对应命令行程序更新至最新版。</p>
+<p>使用<code>npm cache clear</code>可以清空NPM本地缓存，用于对付使用相同版本号发布新版本代码的人。</p>
+<p>使用<code>npm unpublish &lt;package&gt;@&lt;version&gt;</code>可以撤销发布自己发布过的某个版本代码。</p>
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><h2 id="权限问题"><a href="#权限问题" class="headerlink" title="权限问题"></a>权限问题</h2><p>当尝试全局安装某个包得时候，你可能会收到<code>EACCES</code>错误。这说明你<strong>没有权限</strong>写入npm用于存储全局包和命令的目录。</p>
+<p>你可以用下面三种方法解决此问题：</p>
+<ul>
+<li>修改npm默认目录的权限；</li>
+<li>将npm默认目录定向到其他你具有读写权限的目录；</li>
+<li>使用某个包管理器来安装node，它会为你处理好权限问题。</li>
+</ul>
+<p>知道有这么个就好了</p>
+<p>1、找到npm的目录路径：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config get prefix</span><br></pre></td></tr></table></figure>
+<p>2、配置npm使用这个新目录：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set prefix <span class="string">'~/.npm-global'</span></span><br></pre></td></tr></table></figure>
+<h2 id="本地安装npm"><a href="#本地安装npm" class="headerlink" title="本地安装npm"></a>本地安装npm</h2><p>安装npm包有<strong>两种方式</strong>：本地安装或全局安装。根据你想如何使用包，你可以选择安装方式。</p>
+<p>如果你想要<strong>从你自己的模块中</strong>通过使用Node.js的<code>require</code>方法来依赖某个包，那你可以<strong>本地安装</strong>这个包，这是npm安装的默认行为。<br>另外，如果你想<strong>当做命令行工具</strong>使用它，比如grunt CLI，那你应该<strong>全局安装</strong>这个包。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+<p>此命令将在你的当前目录创建<code>node_modules</code>目录（若还未安装任何包），并将下载此包到这个目录。</p>
+<h3 id="安装的是哪个版本的包？"><a href="#安装的是哪个版本的包？" class="headerlink" title="安装的是哪个版本的包？"></a>安装的是哪个版本的包？</h3><p>如果在本地目录中<strong>没有</strong><code>package.json</code>文件，那该包的<strong>最新版本</strong>会被安装了。</p>
+<p>如果有<code>package.json</code>文件，那么在<code>package.json</code>中声明的满足semver（语义化版本）规则的最新版本会被安装。</p>
+<h3 id="使用已安装的包"><a href="#使用已安装的包" class="headerlink" title="使用已安装的包"></a>使用已安装的包</h3><p>一旦包被安装在<code>node_modules</code>，你就可以在你的代码中使用它了。比如，当你创建Node.js模块是，你可以引入它。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">var</span> lodash = <span class="built_in">require</span>(<span class="string">'lodash'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> output = lodash.without([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="number">1</span>);</span><br><span class="line"><span class="built_in">console</span>.log(output);</span><br></pre></td></tr></table></figure>
+<h2 id="5-使用package-json配置文件"><a href="#5-使用package-json配置文件" class="headerlink" title="5. 使用package.json配置文件"></a>5. 使用package.json配置文件</h2><p>管理本地安装的包的最好方法是创建一个<code>package.json</code>文件。</p>
+<p><code>package.json</code>文件会给你提供很多好东西：</p>
+<ul>
+<li>它用<strong>作你的项目的包依赖管理文档</strong>。</li>
+<li>它允许你使用<strong>语义化版本</strong>管理规则，<strong>指定</strong>项目中能使用的<strong>包的版本</strong>。</li>
+<li>使你的<strong>构建版本可以重新生成</strong>，这意味着你可以更易于与其他开发者<strong>分享代码</strong>。</li>
+</ul>
+<h3 id="创建package-json文件"><a href="#创建package-json文件" class="headerlink" title="创建package.json文件"></a>创建package.json文件</h3><p>要创建package.json文件，运行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<p>此为初始化项目命令，会在你运行此命令的文件夹根目录下创建项目配置文件：package.json。<strong>同时每行会出现一个问题</strong>，你输入答案后会出来另一个问题。这些问题最终会记录到package.json文件中。</p>
+<p><strong>“—yes”标签</strong><br>扩展的命令行问答式流程不是必须的。通常你可以轻松地使用package.json文件快速配置项目。</p>
+<p>你可以运行带<code>--yes</code>或<code>-y</code>标签的<code>npm init</code>命令，来生成默认的package.json文件：</p>
+<p>这样<strong>name是默认的文件夹名</strong>。其他的问题都是用默认值填充的：</p>
+<p>内容如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"testnpm"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"keywords"</span>: [],</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"license"</span>: <span class="string">"ISC"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>name：默认为目录名字，除非在git目录中，它会是git仓库的名字；</li>
+<li>version：版本号，刚初始化的项目总是1.0.0；</li>
+<li>description - 包的描述。</li>
+<li>main：总是index.js；</li>
+<li>scripts：默认创建一行空的测试脚本；</li>
+<li>keywords：关键字</li>
+<li>author：作者</li>
+<li>contributors - 包的其他贡献者姓名。</li>
+<li>license：ISC开源证书</li>
+<li>dependencies - 依赖包列表。如果依赖包没有安装，npm 会自动将依赖包安装在 node_module 目录下。</li>
+<li>devDependencies</li>
+<li>repository: will pull in info from the current directory, if present</li>
+<li>bugs: will pull in info from the current directory, if present</li>
+<li>homepage: 包的官网 url 。</li>
+</ul>
+<p>你也可以通过set命令来设置一些配置项。比如下边的这些：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="built_in">set</span> init.author.email <span class="string">"xxx@xx.com"</span></span><br><span class="line">npm <span class="built_in">set</span> init.author.name <span class="string">"example user"</span></span><br><span class="line">npm <span class="built_in">set</span> init.license <span class="string">"MIT"</span></span><br></pre></td></tr></table></figure>
+<h3 id="指定依赖包"><a href="#指定依赖包" class="headerlink" title="指定依赖包"></a>指定依赖包</h3><ul>
+<li>“dependencies”: these packages are required by your application in <code>production</code>  这货线上</li>
+<li>“devDependencies”: these packages are only needed for <code>development</code> and <code>testing</code> 这个本地开发和测试</li>
+</ul>
+<h3 id="save-和-save-dev安装标记"><a href="#save-和-save-dev安装标记" class="headerlink" title="--save 和 --save-dev安装标记"></a><code>--save</code> 和 <code>--save-dev</code>安装标记</h3><p>在命令行中使用这两个标记，是添加依赖到你的package.json文件的更简单（也更酷）的方式。</p>
+<p>添加package.json依赖的入口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;package_name&gt; --save</span><br></pre></td></tr></table></figure>
+<p>添加package.json<strong>开发环境依赖</strong>的入口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;package_name&gt; --save-dev</span><br></pre></td></tr></table></figure>
+<h3 id="管理依赖包的版本"><a href="#管理依赖包的版本" class="headerlink" title="管理依赖包的版本"></a>管理依赖包的版本</h3><p>npm使用<strong>语义化版本</strong>管理依赖包，也就是我们常说的“SemVer”。</p>
+<p>如果在项目文件夹下有package.json文件，你在此文件夹下运行命令<code>npm install</code>，npm就会<strong>检查文件中列出的依赖包</strong>，并<strong>下载所有满足语义化规则的最新版本的依赖包</strong>。</p>
+<p>一开始<code>npm install &lt;package_name&gt;</code>的时候会在<code>package.json</code>中的<code>dependencies</code>或<code>devDependencies</code>中填入相关信息, 然后再本路径目录下下载包到<code>node_modules</code>中<br>直接<code>npm install</code> 会读取<code>package.json</code> 中信息, 然后下载包到<code>node_modules</code></p>
+<h2 id="6、更新本地包"><a href="#6、更新本地包" class="headerlink" title="6、更新本地包"></a>6、更新本地包</h2><p>很多时候，你需要<strong>升级项目中的依赖包</strong>，以获得上游源代码的更新。</p>
+<p>运在package.json同级目录下，运行<code>npm update</code>命令，来实现<strong>依赖包的更新</strong>。</p>
+<p>测试：运行<code>npm outdated</code>命令，包都是最新版的话应该不会有什么结果。</p>
+<h2 id="7、卸载本地包"><a href="#7、卸载本地包" class="headerlink" title="7、卸载本地包"></a>7、卸载本地包</h2><p>通过<code>npm uninstall &lt;package&gt;</code>命令，你可以将<code>node_modules</code>目录下的某个依赖包移除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall lodash</span><br></pre></td></tr></table></figure>
+<p>要从<code>package.json</code>文件的依赖列表中移除，你需要使用<code>--save</code>标签：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall --save lodash</span><br></pre></td></tr></table></figure>
+<p>注意：如果你是以开发依赖包（<code>devDependency</code>）的方式安装的（即安装时待<code>--dave -dev</code>标签），那用—save将无法从package.json中移除，你必须用<code>--save -dev</code>标签。</p>
+<blockquote>
+<p>有3种方式哦</p>
+</blockquote>
+<h2 id="8、全局安装npm包"><a href="#8、全局安装npm包" class="headerlink" title="8、全局安装npm包"></a>8、全局安装npm包</h2><p>安装npm包有两种方法：<strong>本地安装和全局安装</strong>。如何选择安装方式取决于你想如何使用这些依赖包。</p>
+<p>译注：所谓“本地安装”，就是在项目文件夹中安装npm依赖包，以便此项目调用；“全局安装”相反，安装之后可以供所有项目直接调用，可以免去重复安装的步骤和空间。</p>
+<p>如果你期望将包当作命令行工具来使用，比如grunt命令行工具，那你就需要全局安装。<br>相反地，如果你期望在你自己的模块中引入依赖包，比如用Node的 require 方法，那么你需要将它本地安装。</p>
+<p>要全局下载依赖包的话，添加<code>-g</code>标识符就好了哦，<code>npm install -g &lt;package&gt;</code>，像下面这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g jshint</span><br></pre></td></tr></table></figure>
+<p>如果出现EACCES错误，你就修复一下权限。逼不得已的时候，你也可以试试 sudo：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g jshint</span><br></pre></td></tr></table></figure>
+<h2 id="9、更新全局包"><a href="#9、更新全局包" class="headerlink" title="9、更新全局包"></a>9、更新全局包</h2><p>要更新全局包的话，那<strong>就再全局安装一下</strong>：<code>npm install -g &lt;package&gt;</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g jshint</span><br></pre></td></tr></table></figure>
+<p>如果想要找出哪些包需要更新，你可以使用 <code>npm outdated -g --depth=0</code> 命令帮忙。</p>
+<p>译注：</p>
+<p>有时候，在项目文件夹中直接 <code>npm install</code>，通过<code>package.json</code>的依赖声明中<strong>重新安装所有包</strong>，给人感觉挺Low B的。这个时候就需要找出哪些包已经过时了，需要更新。<br>而且，有时候<strong>有些依赖包没被声明</strong>在package.json文件中，那<code>npm install</code>就对他不起作用了。<br><code>--depth=0</code> 的意思是依赖包的深度，<strong>只检查顶层依赖包</strong>。(因为存在一个包依赖另一个包, 比如<code>tslint</code>)<br><strong>更新所有全局包</strong>，你可以使用 <code>npm update -g</code>。（译注：这可能会很慢，因为你装了太多依赖了）<br>注意：npm版本低于2.6.1的话，此命令被建议用来更新所有过时的全局包。</p>
+<h2 id="10、卸载全局包"><a href="#10、卸载全局包" class="headerlink" title="10、卸载全局包"></a>10、卸载全局包</h2><p>卸载全局包使用 <code>npm uninstall -g &lt;package&gt;</code> 命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall -g jshint</span><br></pre></td></tr></table></figure>
+<h2 id="11、创建Node-js模块"><a href="#11、创建Node-js模块" class="headerlink" title="11、创建Node.js模块"></a>11、创建Node.js模块</h2><p>Node.js模块是一种可以<strong>发布</strong>到npm的包。当你创建一个新模块的时候，你将从 <code>package.json</code> 文件开始。</p>
+<p>使用 <code>npm init</code> 命令创建 <code>package.json</code> 文件。命令行中将会弹出<code>package.json</code>字段中要你输入的值。两个必填字段：名称（name）和版本（version）。你可能也需要输入主文件字段（main），可以使用默认值 index.js。</p>
+<p>如果你想为作者（author）字段添加信息，你可以使用以下格式（邮箱、网站都是选填的）：</p>
+<p>一旦<code>package.json</code>文件创建好了，你将想要创建模块的入口文件，如果使用默认值，他将会是 <code>index.js</code>。</p>
+<p>在此文件中，添加一个函数，作为 <code>exports</code> 对象的一个属性。这样，require此文件之后，这个函数在其他代码中就可以使用了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exports.printMsg = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"This is a message from the demo package"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<p>将你的包发布到npm<br>在你的项目外新建一个目录，然后 cd 过去<br>运行 <code>npm install &lt;package&gt;</code><br>创建一个test.js文件，require这个包，并调用此方法（函数）<br>运行 node test.js。终端将会输出：This is a message from the demo package<br>恭喜你，你的第一个npm包创建成功了。</p>
+<h2 id="12、发布npm包"><a href="#12、发布npm包" class="headerlink" title="12、发布npm包"></a>12、发布npm包</h2><p>你可以发布任何包含package.json文件的目录，比如Nodejs模块。</p>
+<p>创建用户<br>发布包之前，你必须创建一个npm用户账号。如果还没有，你可以用<code>npm adduser</code>创建一个。如果已经注册了，使用<code>npm login</code>命令将账号信息存储到本地客户端。</p>
+<p>测试：使用<code>npm config ls</code>确认账号信息已经存储到您的客户端。访问<a href="https://npmjs.com/~" target="_blank" rel="noopener">https://npmjs.com/~</a> 以确保信息正确。</p>
+<h3 id="发布包"><a href="#发布包" class="headerlink" title="发布包"></a>发布包</h3><p>使用<code>npm publish</code>来发布程序包。</p>
+<p>注意，目录下的所有文件都将被包含进去，除非目录下有<code>.gitignore</code> 或 <code>.npmignore</code> 文件（详情请看npm-developers）将其排除。</p>
+<p>同时，请确保npm上没有别的开发者提交的同名都包存在。</p>
+<h3 id="更新包"><a href="#更新包" class="headerlink" title="更新包"></a>更新包</h3><p>当你<strong>修改了你的包文件</strong>，你可以用<code>npm version &lt;update_type&gt;</code>更新它。<br><code>update_type</code>是指语义化版本管理的发布类型的一种：补丁版本（patch）、次版本（minor）或主版本（major）。<br>此命令会更改package.json中的<strong>版本号</strong>。注意哦，如果你<strong>有此包的git仓库</strong>，那么此命令也会向git仓库添加此版本的一个标签。</p>
+<p>更新版本号之后，你就可以再次 <code>npm publish</code> 了。</p>
+<p>站点下的README文件是不会更新，除非你的包的新版本发布成功。所以你需要运行<code>npm version patch</code>和<code>npm publish</code>命令来修复站点下的文档。</p>
+<h2 id="13、语义化版本号"><a href="#13、语义化版本号" class="headerlink" title="13、语义化版本号"></a>13、语义化版本号</h2><p>语义化版本控制是一种标准，许多项目都用它来标识新版本是何种更改。这是非常重要的，因为有时这些更改会破坏依赖这个包的代码。</p>
+<h3 id="语义化版本对于发布者"><a href="#语义化版本对于发布者" class="headerlink" title="语义化版本对于发布者"></a>语义化版本对于发布者</h3><p>如果项目将要与他人分享，那它的版本应该始于1.0.0，尽管npm上有些项目不遵循此规则。<br>之后，所有更改应该按如下方法处理：</p>
+<ul>
+<li>Bug修复和其他小版本修改：用<code>Patch</code>版本，增加<strong>最后</strong>的版本数，如：1.0.1；</li>
+<li>不会破坏已有特性的新特性：用<code>Minor</code>版本，增加<strong>中间</strong>的版本数，如：1.1.0；</li>
+<li>会破坏向后兼容的更改：用<code>Majo</code>版本，增加<strong>第一个</strong>版本数，如：2.0.0.</li>
+</ul>
+<h3 id="语义化版本对于使用者"><a href="#语义化版本对于使用者" class="headerlink" title="语义化版本对于使用者"></a>语义化版本对于使用者</h3><p>如果你是包的使用者，你可以在package.json文件中指定你的app能接受哪种版本。</p>
+<p>如果你用某包的1.0.4版本开始开发的，你可以按下面方式指定版本范围：</p>
+<ul>
+<li>补丁版本（Patch releases）: 1.0 or 1.0.x or ~1.0.4</li>
+<li>次版本（Minor releases）: 1 or 1.x or ^1.0.4</li>
+<li>主版本（Major releases）: * or x</li>
+</ul>
+<h2 id="14、使用局部包-私有包"><a href="#14、使用局部包-私有包" class="headerlink" title="14、使用局部包, 私有包"></a>14、使用局部包, 私有包</h2><p>对npm的包而言, scope就像一个命名空间, 如果一个包的名字前带有<code>@</code>, 那么这就是一个<code>scoped package</code>, scopes是在<code>@</code>和<code>/</code>之间的所有东西</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@scope/project-name</span><br></pre></td></tr></table></figure>
+<p>每一个npm 用户都有他们自己的scope</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@username/project-name</span><br></pre></td></tr></table></figure>
+<h3 id="更新npm并登录"><a href="#更新npm并登录" class="headerlink" title="更新npm并登录"></a>更新npm并登录</h3><p>你的npm包版本要大于2.7.0的, 然后第一个使用scoped modules要先登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g npm</span><br><span class="line">npm login</span><br></pre></td></tr></table></figure>
+<h3 id="初始化局部包"><a href="#初始化局部包" class="headerlink" title="初始化局部包"></a>初始化局部包</h3><p>只需要如下在一个包名前带上你的名字就好</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"@username/project-name"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你用<code>npm init</code>来初始化, 可以带一个<code>--scope</code>来</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init --scope=username</span><br></pre></td></tr></table></figure>
+<p>如果你想一直用同一个scope, 可以在<code>.npmrc</code>中设置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> scope username</span><br></pre></td></tr></table></figure>
+<h3 id="发布局部包"><a href="#发布局部包" class="headerlink" title="发布局部包"></a>发布局部包</h3><p>scoped包默认是私有的, 要发布的话, 你得付费买一个私有模块账户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --access=public</span><br></pre></td></tr></table></figure>
+<h3 id="使用局部包"><a href="#使用局部包" class="headerlink" title="使用局部包"></a>使用局部包</h3><p>一样的用法<br>In package.json:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"@username/project-name"</span>: <span class="string">"^1.0.0"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>On the command line:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @username/project-name --save</span><br></pre></td></tr></table></figure>
+<p>In a require statement:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> projectName = <span class="built_in">require</span>(<span class="string">"@username/project-name"</span>)</span><br></pre></td></tr></table></figure>
+<p>For information about using scoped private modules, visit npmjs.com/private-modules.</p>
+<h2 id="15、使用标签"><a href="#15、使用标签" class="headerlink" title="15、使用标签"></a>15、使用标签</h2><p>为了更可读, 和git一样</p>
+<h3 id="添加标签（tag）"><a href="#添加标签（tag）" class="headerlink" title="添加标签（tag）"></a>添加标签（tag）</h3><p>To add a tag to a specific version of your package, use <code>npm dist-tag add @ []</code>. See the CLI docs for more information.</p>
+<h3 id="使用标签（tag）发布"><a href="#使用标签（tag）发布" class="headerlink" title="使用标签（tag）发布"></a>使用标签（tag）发布</h3><p>默认情况下, <code>npm publish</code> 给你的包打上 <code>latest</code> tag. 使用 <code>--tag</code> , 你可以指定当前发布的包的tag是beta</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish --tag beta</span><br></pre></td></tr></table></figure>
+<h3 id="使用标签（tag）安装"><a href="#使用标签（tag）安装" class="headerlink" title="使用标签（tag）安装"></a>使用标签（tag）安装</h3><p>Like <code>npm publish</code>, <code>npm install</code> will use the <code>latest</code> tag by default.<br>To override this behavior, use <code>npm install @</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install somepkg@beta</span><br></pre></td></tr></table></figure>
+<h3 id="Caveats-警告"><a href="#Caveats-警告" class="headerlink" title="Caveats 警告"></a>Caveats 警告</h3><p>Because <code>dist-tags</code> share the same namespace with <code>semver</code>, avoid using any tag names that may cause a conflict.<br>最好就是不要在打tag前加上<code>v</code>, 防止和<code>semver</code>语义化的冲突</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://www.kancloud.cn/shellway/npm-doc/199981" target="_blank" rel="noopener">NPM文档</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/06/k8s集群的简单安装和使用/" rel="next" title="k8s集群的简单安装和使用">
+                <i class="fa fa-chevron-left"></i> k8s集群的简单安装和使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/30/vim配置/" rel="prev" title="vim配置">
+                vim配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#npm简单入门"><span class="nav-number">1.</span> <span class="nav-text">npm简单入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结下"><span class="nav-number">1.1.</span> <span class="nav-text">总结下</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#npm的命令"><span class="nav-number">1.1.1.</span> <span class="nav-text">npm的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#package-json"><span class="nav-number">1.1.2.</span> <span class="nav-text">package.json</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权限问题"><span class="nav-number">1.2.</span> <span class="nav-text">权限问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地安装npm"><span class="nav-number">1.3.</span> <span class="nav-text">本地安装npm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装的是哪个版本的包？"><span class="nav-number">1.3.1.</span> <span class="nav-text">安装的是哪个版本的包？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用已安装的包"><span class="nav-number">1.3.2.</span> <span class="nav-text">使用已安装的包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-使用package-json配置文件"><span class="nav-number">1.4.</span> <span class="nav-text">5. 使用package.json配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建package-json文件"><span class="nav-number">1.4.1.</span> <span class="nav-text">创建package.json文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定依赖包"><span class="nav-number">1.4.2.</span> <span class="nav-text">指定依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#save-和-save-dev安装标记"><span class="nav-number">1.4.3.</span> <span class="nav-text">--save 和 --save-dev安装标记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理依赖包的版本"><span class="nav-number">1.4.4.</span> <span class="nav-text">管理依赖包的版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、更新本地包"><span class="nav-number">1.5.</span> <span class="nav-text">6、更新本地包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、卸载本地包"><span class="nav-number">1.6.</span> <span class="nav-text">7、卸载本地包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、全局安装npm包"><span class="nav-number">1.7.</span> <span class="nav-text">8、全局安装npm包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、更新全局包"><span class="nav-number">1.8.</span> <span class="nav-text">9、更新全局包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、卸载全局包"><span class="nav-number">1.9.</span> <span class="nav-text">10、卸载全局包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11、创建Node-js模块"><span class="nav-number">1.10.</span> <span class="nav-text">11、创建Node.js模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12、发布npm包"><span class="nav-number">1.11.</span> <span class="nav-text">12、发布npm包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发布包"><span class="nav-number">1.11.1.</span> <span class="nav-text">发布包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新包"><span class="nav-number">1.11.2.</span> <span class="nav-text">更新包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13、语义化版本号"><span class="nav-number">1.12.</span> <span class="nav-text">13、语义化版本号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语义化版本对于发布者"><span class="nav-number">1.12.1.</span> <span class="nav-text">语义化版本对于发布者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语义化版本对于使用者"><span class="nav-number">1.12.2.</span> <span class="nav-text">语义化版本对于使用者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14、使用局部包-私有包"><span class="nav-number">1.13.</span> <span class="nav-text">14、使用局部包, 私有包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新npm并登录"><span class="nav-number">1.13.1.</span> <span class="nav-text">更新npm并登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化局部包"><span class="nav-number">1.13.2.</span> <span class="nav-text">初始化局部包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布局部包"><span class="nav-number">1.13.3.</span> <span class="nav-text">发布局部包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用局部包"><span class="nav-number">1.13.4.</span> <span class="nav-text">使用局部包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15、使用标签"><span class="nav-number">1.14.</span> <span class="nav-text">15、使用标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加标签（tag）"><span class="nav-number">1.14.1.</span> <span class="nav-text">添加标签（tag）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用标签（tag）发布"><span class="nav-number">1.14.2.</span> <span class="nav-text">使用标签（tag）发布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用标签（tag）安装"><span class="nav-number">1.14.3.</span> <span class="nav-text">使用标签（tag）安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Caveats-警告"><span class="nav-number">1.14.4.</span> <span class="nav-text">Caveats 警告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">1.15.</span> <span class="nav-text">参考文献</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

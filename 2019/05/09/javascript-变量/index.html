@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="变量,">
+
+
+<meta name="description" content="javascript-变量变量 – JavaScript 完全手册（2018 版）6666 变量是分配给标识符的字面量，因此您可以稍后在程序中引用和使用它。 我们将学习如何使用 JavaScript 声明一个变量。 JavaScript 变量简介变量是分配给标识符的字面量，因此您可以稍后在程序中引用和使用它。 JavaScript 中的变量没有附加任何类型。 将特定字面量类型分配给变量后，您可以稍">
+<meta name="keywords" content="变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript-变量">
+<meta property="og:url" content="http://yoursite.com/2019/05/09/javascript-变量/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="javascript-变量变量 – JavaScript 完全手册（2018 版）6666 变量是分配给标识符的字面量，因此您可以稍后在程序中引用和使用它。 我们将学习如何使用 JavaScript 声明一个变量。 JavaScript 变量简介变量是分配给标识符的字面量，因此您可以稍后在程序中引用和使用它。 JavaScript 中的变量没有附加任何类型。 将特定字面量类型分配给变量后，您可以稍">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-09T09:05:35.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript-变量">
+<meta name="twitter:description" content="javascript-变量变量 – JavaScript 完全手册（2018 版）6666 变量是分配给标识符的字面量，因此您可以稍后在程序中引用和使用它。 我们将学习如何使用 JavaScript 声明一个变量。 JavaScript 变量简介变量是分配给标识符的字面量，因此您可以稍后在程序中引用和使用它。 JavaScript 中的变量没有附加任何类型。 将特定字面量类型分配给变量后，您可以稍">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/09/javascript-变量/">
+
+
+  <title>javascript-变量 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/javascript-变量/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript-变量</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T16:20:21+08:00">2019-05-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/JavaScript完全手册-2018版/" itemprop="url" rel="index"><span itemprop="name">JavaScript完全手册(2018版)</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="javascript-变量"><a href="#javascript-变量" class="headerlink" title="javascript-变量"></a>javascript-变量</h1><p><a href="https://www.html.cn/archives/10014" target="_blank" rel="noopener">变量 – JavaScript 完全手册（2018 版）6666</a></p>
+<p>变量是分配给标识符的字面量，因此您可以稍后在程序中引用和使用它。 我们将学习如何使用 JavaScript 声明一个变量。</p>
+<h2 id="JavaScript-变量简介"><a href="#JavaScript-变量简介" class="headerlink" title="JavaScript 变量简介"></a>JavaScript 变量简介</h2><p><strong>变量是分配给标识符的字面量</strong>，因此您可以稍后在程序中引用和使用它。</p>
+<p>JavaScript 中的变量<strong>没有附加任何类型</strong>。 将<strong>特定字面量类型</strong>分配给变量后，您可以稍后重新分配该变量，以持有任何其他类型，而不会出现类型错误或任何问题。</p>
+<blockquote>
+<p>这就是 JavaScript 有时被称为 <strong>“无类型”</strong> 的原因。<br>但不正确. 和<a href="/2019/05/09/javascript-数据类型/" title="javascript-数据类型">javascript-数据类型</a>中说的 有类型 捋一捋</p>
+</blockquote>
+<p>建议先声明变量再使用它。 有 3 种方法可以做到：使用 <code>var</code>，<code>let</code> 或 <code>const</code>。 这三种方式在以后如何与变量进行交互方面有所不同。</p>
+<blockquote>
+<p><code>let</code> 或 <code>const</code>必须先声明变量才能使用它, 而<code>var</code>有变量提升<br><a href="https://www.css88.com/archives/7924" target="_blank" rel="noopener">JavaScript 中的 Hoisting (变量提升和函数声明提升) 666</a> &gt; <a href="https://juejin.im/post/5a5ee28f6fb9a01cbe655860" target="_blank" rel="noopener">由变量提升谈谈 JavaScript Execution Context</a> &gt; <a href="https://www.cnblogs.com/buchongming/p/5858026.html" target="_blank" rel="noopener">JavaScript 中作用域和作用域链的简单理解（变量提升）</a></p>
+</blockquote>
+<h2 id="使用-var"><a href="#使用-var" class="headerlink" title="使用 var"></a>使用 var</h2><p>在 <code>ES2015</code> <strong>之前</strong>，<code>var</code> 是<strong>唯一</strong>可用于定义变量的构造。</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>如果您忘记添加 <code>var</code> ，您将为未声明的变量分配值，<strong>结果可能会有所不同</strong>。</p>
+<p>在现代环境中，<strong>启用严格模式后，您将收到错误</strong>。 在较旧的环境中（或禁用严格模式），这将<strong>简单地初始化变量并将其分配给全局(<code>global</code>)对象</strong>，在浏览器中，全局对象是 <code>window</code>，在 Node.js 中，全局对象是 <code>global</code> 。</p>
+<blockquote>
+<p>注意分配给全局对象和声明变量一个全局变量是不一样的</p>
+</blockquote>
+<p>如果在声明变量时没有初始化变量，则在为其赋值之前，它将具有 <code>undefined</code> (未定义) 的值。</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a; <span class="comment">//typeof a === 'undefined'</span></span><br></pre></td></tr></table></figure>
+<p>您可以<strong>多次重新声明变量</strong>，以覆盖它：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>您还可以在<strong>同一语句中一次性声明多个变量</strong>：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>,</span><br><span class="line">  b = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>作用域</strong>是代码中变量的<strong>可见性</strong>。</p>
+<p>使用<strong>任何函数外部</strong>的 <code>var</code> 初始化的变量将<strong>分配给全局对象</strong>，具有全局作用域并且是任何地方可见。<br>在<strong>函数内部</strong>用 <code>var</code> 初始化的变量，被赋值变量的<strong>作用域是该函数</strong>，它被称为 <strong>local(本地)作用域 或 函数作用域</strong>，只在函数内可见，就<strong>像函数参数</strong>一样。</p>
+<p>函数中定义与全局变量名称的任何变量，<strong>可见性优先于全局变量，并将全局变量隐藏</strong>。</p>
+<blockquote>
+<p>作用域链的知识点</p>
+</blockquote>
+<p>重要的是要理解一个 <code>block</code>(块)（由一对花括号<code>{}</code>标识）<strong>没有定义新的作用域</strong>。</p>
+<blockquote>
+<p><strong>只有在创建函数时才会创建新作用域</strong>，因为 <code>var</code> <strong>没有块作用域，而是函数作用域</strong>。</p>
+</blockquote>
+<p>在函数内部，其中定义的任何变量在所有函数代码中都是可见的(<strong>前后顺序无关</strong>)，即使变量是在函数末尾声明的，它仍然可以在开头引用，因为 JavaScript 在执行代码之前实际上将所有变量都移到了顶层（被称为 <code>hoisting</code>(提升) ）。<strong>为避免混淆，请始终在函数开头声明变量</strong>。</p>
+<p>作用域对于新手来说很容易混淆，你可以查看 <a href="https://www.html.cn/archives/7255" target="_blank" rel="noopener">深入理解 JavaScript 中的作用域和上下文</a> 和 <a href="https://www.html.cn/archives/7300" target="_blank" rel="noopener">实例分析 JavaScript 作用域</a> 来深入理解作用域。</p>
+<blockquote>
+<p>另外 <code>Hoisting</code>(提升) 这个词是用来解释 <strong>变量 和 函数声明</strong> 是如何被提升到 <strong>函数或全局</strong> 作用域<strong>顶部</strong>的。</p>
+</blockquote>
+<p>你在任何的 <code>JavaScript</code> 文档中找不到这个术语，我们说的 <code>Hoisting</code>(提升) 只是使用了其字面含义来做个比喻。如果你已经对 JavaScript 作用域工作原理有基本的了解，那么更深入的了解 <a href="https://www.html.cn/archives/7924" target="_blank" rel="noopener">JavaScript 中的 Hoisting (变量提升和函数声明提升)</a> 有助于你建立更强大的基础知识。</p>
+<blockquote>
+<p>也可以看总结的 <a href="/2019/02/12/再谈js作用域/" title="再谈js作用域">再谈js作用域</a></p>
+</blockquote>
+<h2 id="使用-let"><a href="#使用-let" class="headerlink" title="使用 let"></a>使用 let</h2><p><code>let</code> 是 <code>ES2015</code> 中引入的新功能，<strong>它本质上是 <code>var</code> 的块作用域版本</strong>。 它的作用域仅限于定义它的 <code>block</code>(块)（由一对花括号标识），语句或表达式，以及所有包含的内部块。</p>
+<p>现代 <code>JavaScript</code> 开发人员<strong>可能会选择仅使用</strong> <code>let</code> <strong>并完全放弃使用 var</strong>。</p>
+<p><code>let</code> 也可以在任何函数之外定义 – 与 <code>var</code> 相反 – <code>let</code> 不会创建全局变量。</p>
+<h2 id="使用-const"><a href="#使用-const" class="headerlink" title="使用 const"></a>使用 const</h2><p>用 <code>var</code> 或 <code>let</code> 声明的变量可以稍后在程序中<strong>更改，然后重新分配</strong>。 初始化 <code>const</code> 后，<strong>其值永远不会再次更改，并且不能重新分配给不同的值</strong>。</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="string">'test'</span>;</span><br></pre></td></tr></table></figure>
+<p>我们不能为 a 常量指定不同的字面量。<strong>然而，如果 a 是一个提供方法的<code>对象</code>，那么我们可以更改 a <code>内容</code></strong>。</p>
+<blockquote>
+<p>可以改 a 的内容, 不是改 a 的引用的值</p>
+</blockquote>
+<p><code>const</code> 不提供不可变性（<code>immutability</code>），<strong>只是确保不能更改引用</strong>。</p>
+<p><code>const</code> 具有<strong>块范围</strong>，与 <code>let</code> 相同。</p>
+<p>现代 <code>JavaScript</code> 开发人员可能会选择始终将 <code>const</code> 用于不需要在程序中稍后重新分配的变量。</p>
+<p>为什么？ 因为我们应该始终使用最简单的结构，以避免在未来发生错误。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.html.cn/archives/10014" target="_blank" rel="noopener">变量 – JavaScript 完全手册（2018 版）6666</a></p>
+<p><a href="https://www.html.cn/archives/7255" target="_blank" rel="noopener">深入理解 JavaScript 中的作用域和上下文</a><br><a href="https://www.html.cn/archives/7262" target="_blank" rel="noopener">JavaScript 核心概念之作用域和闭包</a><br><a href="https://www.html.cn/archives/7300" target="_blank" rel="noopener">实例分析 JavaScript 作用域</a><br><a href="https://www.html.cn/archives/7924" target="_blank" rel="noopener">JavaScript 中的 Hoisting (变量提升和函数声明提升)</a></p>
+<a href="/2019/02/12/再谈js作用域/" title="再谈js作用域">再谈js作用域</a>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/变量/" rel="tag"># 变量</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/08/typescript代码检查/" rel="next" title="typescript代码检查">
+                <i class="fa fa-chevron-left"></i> typescript代码检查
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/09/javascript-数据类型/" rel="prev" title="javascript-数据类型">
+                javascript-数据类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#javascript-变量"><span class="nav-number">1.</span> <span class="nav-text">javascript-变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-变量简介"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript 变量简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-var"><span class="nav-number">1.2.</span> <span class="nav-text">使用 var</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-let"><span class="nav-number">1.3.</span> <span class="nav-text">使用 let</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-const"><span class="nav-number">1.4.</span> <span class="nav-text">使用 const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.5.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

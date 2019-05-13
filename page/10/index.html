@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="Hexo, NexT">
+
+
+<meta name="description" content="this is description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Little H title">
+<meta property="og:url" content="http://yoursite.com/page/10/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="this is description">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Little H title">
+<meta name="twitter:description" content="this is description">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/page/10/">
+
+
+  <title>Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/moment一款管理date格式的轻量级js库/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/07/moment一款管理date格式的轻量级js库/" itemprop="url">moment一款管理date格式的轻量级js库</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T09:39:40+08:00">2018-03-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Moment-js是一款解析-验证-控制和格式化时间的轻量级javascript库"><a href="#Moment-js是一款解析-验证-控制和格式化时间的轻量级javascript库" class="headerlink" title="Moment.js是一款解析,验证,控制和格式化时间的轻量级javascript库"></a><a href="http://momentjs.com/docs/" target="_blank" rel="noopener">Moment.js</a>是一款解析,验证,控制和格式化时间的轻量级javascript库</h1><p>可以使用在browser和Node.js中</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install moment</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> moment = <span class="built_in">require</span>(<span class="string">'moment'</span>);</span><br><span class="line">moment().format();</span><br></pre></td></tr></table></figure>
+<h3 id="Browser"><a href="#Browser" class="headerlink" title="Browser"></a>Browser</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//就是使用CDN  在cdnjs.com或jsDelivr上都有</span></span><br><span class="line">&lt;script src=<span class="string">"moment.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    moment().format();</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="官方推荐用Require-js-但我不会"><a href="#官方推荐用Require-js-但我不会" class="headerlink" title="官方推荐用Require.js(但我不会)"></a>官方推荐用Require.js(但我不会)</h3><p>先通过bower或node_modules安装依赖,然后通过packages config</p>
+<h3 id="Browserify"><a href="#Browserify" class="headerlink" title="Browserify"></a>Browserify</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install moment</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> moment = <span class="built_in">require</span>(<span class="string">'moment'</span>);</span><br><span class="line">moment().format();</span><br></pre></td></tr></table></figure>
+<h4 id="Note-There-is-a-bug-that-prevents-moment-locale-from-being-loaded"><a href="#Note-There-is-a-bug-that-prevents-moment-locale-from-being-loaded" class="headerlink" title="Note: There is a bug that prevents moment.locale from being loaded."></a><strong>Note</strong>: There is a bug that prevents moment.locale from being loaded.</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> moment = <span class="built_in">require</span>(<span class="string">'moment'</span>);</span><br><span class="line">moment.locale(<span class="string">'cs'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(moment.locale()); <span class="comment">// en</span></span><br></pre></td></tr></table></figure>
+<h4 id="Use-the-workaround-below"><a href="#Use-the-workaround-below" class="headerlink" title="Use the workaround below"></a>Use the workaround below</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> moment = <span class="built_in">require</span>(<span class="string">'moment'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'moment/locale/cs'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(moment.locale()); <span class="comment">// cs</span></span><br></pre></td></tr></table></figure>
+<h4 id="In-order-to-include-all-the-locales"><a href="#In-order-to-include-all-the-locales" class="headerlink" title="In order to include all the locales"></a>In order to include all the locales</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> moment = <span class="built_in">require</span>(<span class="string">'moment'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">"moment/min/locales.min"</span>);</span><br><span class="line">moment.locale(<span class="string">'cs'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(moment.locale()); <span class="comment">// cs</span></span><br></pre></td></tr></table></figure>
+<h3 id="Typescript-2-13-0"><a href="#Typescript-2-13-0" class="headerlink" title="Typescript 2.13.0+"></a>Typescript 2.13.0+</h3><p>这个要moment版本大于2.13.0才能用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//install via NPM</span></span><br><span class="line">npm install moment</span><br><span class="line"><span class="comment">//Import and use in your Typescript file</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> moment <span class="keyword">from</span> <span class="string">'moment'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> now = moment().format(<span class="string">'LLLL'</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="Note-If-you-have-trouble-importing-moment-try-adding-quot-allowSyntheticDefaultImports-quot-true-in-compilerOptions-in-yourtsconfig-json-file-and-then-use-the-syntax"><a href="#Note-If-you-have-trouble-importing-moment-try-adding-quot-allowSyntheticDefaultImports-quot-true-in-compilerOptions-in-yourtsconfig-json-file-and-then-use-the-syntax" class="headerlink" title="Note: If you have trouble importing moment, try adding &quot;allowSyntheticDefaultImports&quot;: true in compilerOptions in yourtsconfig.json file and then use the syntax"></a><strong>Note</strong>: If you have trouble importing moment, try adding <code>&quot;allowSyntheticDefaultImports&quot;: true</code> in compilerOptions in your<code>tsconfig.json</code> file and then use the syntax</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> moment <span class="keyword">from</span> <span class="string">'moment'</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="Locale-Import-就是设置时区"><a href="#Locale-Import-就是设置时区" class="headerlink" title="Locale Import(就是设置时区)"></a>Locale Import(就是设置时区)</h4><p>To use <code>moment.locale</code> you first need to import the language you are targeting.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> moment <span class="keyword">from</span> <span class="string">'moment'</span>;</span><br><span class="line"><span class="comment">//就是这个</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'moment/locale/pt-br'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(moment.locale()); <span class="comment">// en</span></span><br><span class="line">moment.locale(<span class="string">'fr'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(moment.locale()); <span class="comment">// en</span></span><br><span class="line">moment.locale(<span class="string">'pt-BR'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(moment.locale()); <span class="comment">// pt-BR</span></span><br></pre></td></tr></table></figure>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>为了修改原生的 <code>Date.prototype</code>, Moment.js 创建了一个 wrapper for the <code>Date</code> object. 获取这个wrapper object, 只需要简单的调用 <code>moment()</code> 输入支持的类型即可.</p>
+<p>The <code>Moment</code> prototype is exposed through <code>moment.fn</code>.如果你想增加你自定义的函数,可以通过这个</p>
+<p>为了简单使用,所有在 <code>Moment.prototype</code>中的方法 都会指到 <code>moment#method</code>. So <code>Moment.prototype.format == moment.fn.format == moment#format</code>.</p>
+<h3 id="Now"><a href="#Now" class="headerlink" title="Now"></a>Now</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">moment();</span><br><span class="line"><span class="comment">// From 2.14.0 onward, also supported</span></span><br><span class="line">moment([]);</span><br><span class="line">moment(&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p>获得当前时间只需要调用 <code>moment()</code> 不需要参数.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> now = moment();</span><br></pre></td></tr></table></figure>
+<p>本质上就是和调用 <code>moment(new Date())</code>一样.</p>
+<p><strong>Note</strong>: From version 2.14.0, <code>moment([])</code> and <code>moment({})</code> also return now. They used to default to start-of-today before 2.14.0, but that was arbitrary so it was changed.</p>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><p>要用到时查下</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/07/md5使用MD5来hash/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/07/md5使用MD5来hash/" itemprop="url">md5使用MD5来hash</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T09:18:57+08:00">2018-03-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用MD5来哈希消息的一个js函数"><a href="#使用MD5来哈希消息的一个js函数" class="headerlink" title="使用MD5来哈希消息的一个js函数"></a>使用MD5来哈希消息的一个js函数</h1><h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><p>version 2.0.0 前有2个package谁叫md5 on npm,一个小写,一个大写(你看到的这个就是). version 2.0.0之后,所有的版本就都是小写的md5 on npm. 如果你想在versions &gt;= 2.0.0正确使用这个module,那么你就得改一下 require(‘MD5’) 为 require(‘md5’)  .</p>
+<p><a href="http://npm.taobao.org/package/md5" target="_blank" rel="noopener">淘宝地址md5</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install md5</span><br></pre></td></tr></table></figure>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5(message)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>message: String or Buffer</li>
+<li>返回    String</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> md5 = <span class="built_in">require</span>(<span class="string">'md5'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(md5(<span class="string">'message'</span>));</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">78e731027</span>d8fd50ed642340b7c9a63b3</span><br></pre></td></tr></table></figure>
+<p>如果支持buffer</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>); <span class="comment">//这个fs不是通过npm安装,而是node自带的</span></span><br><span class="line"><span class="keyword">var</span> md5 = <span class="built_in">require</span>(<span class="string">'md5'</span>);</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'example.txt'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, buf</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(md5(buf));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/06/simplemde一款markdown编辑器/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/06/simplemde一款markdown编辑器/" itemprop="url">simplemde一款markdown编辑器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T21:27:23+08:00">2018-03-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="SimpleMDE-is-a-simple-embeddable-and-beautiful-JS-markdown-editor"><a href="#SimpleMDE-is-a-simple-embeddable-and-beautiful-JS-markdown-editor" class="headerlink" title="SimpleMDE is a simple, embeddable, and beautiful JS markdown editor"></a><a href="https://github.com/sparksuite/simplemde-markdown-editor" target="_blank" rel="noopener">SimpleMDE</a> is a simple, embeddable, and beautiful JS markdown editor</h1><p><strong>simplemde marked highlight.js区别</strong><br>第一个是编辑器,第二个是解析器,第三个是语法高亮</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>通过npm</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install simplemde --sava</span><br></pre></td></tr></table></figure>
+<p>通过 jsDelivr.但这个更新会有延迟 </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个会自动加载到页面上第一个textarea上,不建议这么做</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE();</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 应该用一个特殊的加了id的</span></span><br><span class="line"><span class="regexp">&lt;textarea id="MyID"&gt; &lt;/</span>textarea&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE(&#123; </span><br><span class="line">    element: <span class="built_in">document</span>.getElementById(<span class="string">"MyID"</span>) </span><br><span class="line">&#125;);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="获取-设置内容"><a href="#获取-设置内容" class="headerlink" title="获取/设置内容"></a>获取/设置内容</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get</span></span><br><span class="line">simplemde.value();</span><br><span class="line"><span class="comment">//set</span></span><br><span class="line">simplemde.value(<span class="string">"This text will appear in the editor"</span>);</span><br><span class="line"><span class="comment">//这里当然是用来解析markdown后显示html,有个markdown函数,我们不用,用marked</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h2><ul>
+<li>autoDownloadFontAwesome: 默认是undefined,可选true/false 是否自动下载字体,图标.建议false,因为速度会变慢.我们npm下载就好了</li>
+<li>autofocus: 默认false, true/false, 自动聚焦到编辑器.</li>
+<li>autosave: 自动保存<ul>
+<li>enabled: 默认false</li>
+<li>delay: 默认延迟 10000 (10s). 延迟10s自动保存</li>
+<li>uniqueId: 设置自动保存就一定要设置一个id</li>
+</ul>
+</li>
+<li>blockStyles: 自定义bold code italic怎么标记<ul>
+<li>bold  ** or __. Defaults to **.</li>
+<li>code  ``` or ~~~. Defaults to ```.</li>
+<li>italic  * or _. Defaults to *.</li>
+</ul>
+</li>
+<li>element: DOM元素挂载点 默认就是页面中第一个textarea标签.建议修改掉,用id=””指定</li>
+<li>forceSync: 前置同步. 默认false.</li>
+<li>hideIcons: 要隐藏图标的一个数组</li>
+<li>indentWithTabs: 缩进用tab 默认 true. 否则就是space</li>
+<li>initialValue: 自定义一个初始值,不是placeholder</li>
+<li>insertTexts: 自定义插入文本的行为,是一个有2个元素的数组. 第1个元素时鼠标或高亮前插入,第2个之后插入, For example, this is the default link value: [“<a href="http://" target="_blank" rel="noopener">“, “</a>“].<ul>
+<li>horizontalRule</li>
+<li>image</li>
+<li>link</li>
+<li>table</li>
+</ul>
+</li>
+<li>lineWrapping: 自动换行. 默认 true.</li>
+<li>parsingConfig: 在编辑的时候对解析markdown的设置进行调整(不是预先写入)<ul>
+<li>allowAtxHeaderWithoutSpace: 如果是true就在对标题渲染的时候在#后面不会带一个空格. 默认 false.</li>
+<li>strikethrough: false的话不处理 GFM strikethrough 语法. 默认 true.</li>
+<li>underscoresBreakWords: true的话下划线当做分隔符,默认 false</li>
+</ul>
+</li>
+<li>placeholder: 自定义placeholder显示</li>
+<li>previewRender: 自定义解析markdown到html的函数. 当用户预览的时候会加载</li>
+<li>promptURLs: true的话, 会有2个js弹窗出现要求link或img的url.默认false.</li>
+<li><p>renderingConfig: 在预览的时候解析markdown的设置进行调整.(不是在编辑时)</p>
+<ul>
+<li>singleLineBreaks: false的话, 不会解析GFM single line breaks. 默认 true.</li>
+<li>codeSyntaxHighlighting: true的话 将会对使用 highlight.js的进行高亮. 默认 false. 使用这个功能的话你必须在你的页面上加载 highlight.js . For example, include the script and the CSS files like:<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css"</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>shortcuts: 快捷键 默认有一张表.</p>
+</li>
+<li>showIcons: 一组显示图标名字</li>
+<li>spellChecker: 拼写检查. 默认true.</li>
+<li>status: 默认 true 显示状态栏<ul>
+<li>当然这个也可以你定义</li>
+</ul>
+</li>
+<li>styleSelectedText:  false的话, 从选择的行中移除CodeMirror-selectedtext class . 默认 true.</li>
+<li>tabSize: 自定义tab大小. 默认 2.</li>
+<li>toolbar: false的话, 隐藏工具栏. 默认是展示</li>
+<li>toolbarTips: false的话, 关闭工具栏按钮提示. 默认true.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Most options demonstrate the non-default behavior</span></span><br><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE(&#123;</span><br><span class="line">	autofocus: <span class="literal">true</span>,</span><br><span class="line">	autosave: &#123;</span><br><span class="line">		enabled: <span class="literal">true</span>,</span><br><span class="line">		uniqueId: <span class="string">"MyUniqueID"</span>,</span><br><span class="line">		delay: <span class="number">1000</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	blockStyles: &#123;</span><br><span class="line">		bold: <span class="string">"__"</span>,</span><br><span class="line">		italic: <span class="string">"_"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	element: <span class="built_in">document</span>.getElementById(<span class="string">"MyID"</span>),</span><br><span class="line">	forceSync: <span class="literal">true</span>,</span><br><span class="line">	hideIcons: [<span class="string">"guide"</span>, <span class="string">"heading"</span>],</span><br><span class="line">	indentWithTabs: <span class="literal">false</span>,</span><br><span class="line">	initialValue: <span class="string">"Hello world!"</span>,</span><br><span class="line">	insertTexts: &#123;</span><br><span class="line">		horizontalRule: [<span class="string">""</span>, <span class="string">"\n\n-----\n\n"</span>],</span><br><span class="line">		image: [<span class="string">"![](http://"</span>, <span class="string">")"</span>],</span><br><span class="line">		link: [<span class="string">"["</span>, <span class="string">"](http://)"</span>],</span><br><span class="line">		table: [<span class="string">""</span>, <span class="string">"\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text      | Text     |\n\n"</span>],</span><br><span class="line">	&#125;,</span><br><span class="line">	lineWrapping: <span class="literal">false</span>,</span><br><span class="line">	parsingConfig: &#123;</span><br><span class="line">		allowAtxHeaderWithoutSpace: <span class="literal">true</span>,</span><br><span class="line">		strikethrough: <span class="literal">false</span>,</span><br><span class="line">		underscoresBreakWords: <span class="literal">true</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	placeholder: <span class="string">"Type here..."</span>,</span><br><span class="line">	previewRender: <span class="function"><span class="keyword">function</span>(<span class="params">plainText</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> customMarkdownParser(plainText); <span class="comment">// Returns HTML from a custom parser</span></span><br><span class="line">	&#125;,</span><br><span class="line">	previewRender: <span class="function"><span class="keyword">function</span>(<span class="params">plainText, preview</span>) </span>&#123; <span class="comment">// Async method</span></span><br><span class="line">		setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			preview.innerHTML = customMarkdownParser(plainText);</span><br><span class="line">		&#125;, <span class="number">250</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Loading..."</span>;</span><br><span class="line">	&#125;,</span><br><span class="line">	promptURLs: <span class="literal">true</span>,</span><br><span class="line">	renderingConfig: &#123;</span><br><span class="line">		singleLineBreaks: <span class="literal">false</span>,</span><br><span class="line">		codeSyntaxHighlighting: <span class="literal">true</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	shortcuts: &#123;</span><br><span class="line">		drawTable: <span class="string">"Cmd-Alt-T"</span></span><br><span class="line">	&#125;,</span><br><span class="line">	showIcons: [<span class="string">"code"</span>, <span class="string">"table"</span>],</span><br><span class="line">	spellChecker: <span class="literal">false</span>,</span><br><span class="line">	status: <span class="literal">false</span>,</span><br><span class="line">	status: [<span class="string">"autosave"</span>, <span class="string">"lines"</span>, <span class="string">"words"</span>, <span class="string">"cursor"</span>], <span class="comment">// Optional usage</span></span><br><span class="line">	status: [<span class="string">"autosave"</span>, <span class="string">"lines"</span>, <span class="string">"words"</span>, <span class="string">"cursor"</span>, &#123;</span><br><span class="line">		className: <span class="string">"keystrokes"</span>,</span><br><span class="line">		defaultValue: <span class="function"><span class="keyword">function</span>(<span class="params">el</span>) </span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.keystrokes = <span class="number">0</span>;</span><br><span class="line">			el.innerHTML = <span class="string">"0 Keystrokes"</span>;</span><br><span class="line">		&#125;,</span><br><span class="line">		onUpdate: <span class="function"><span class="keyword">function</span>(<span class="params">el</span>) </span>&#123;</span><br><span class="line">			el.innerHTML = ++<span class="keyword">this</span>.keystrokes + <span class="string">" Keystrokes"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;], <span class="comment">// Another optional usage, with a custom status bar item that counts keystrokes</span></span><br><span class="line">	styleSelectedText: <span class="literal">false</span>,</span><br><span class="line">	tabSize: <span class="number">4</span>,</span><br><span class="line">	toolbar: <span class="literal">false</span>,</span><br><span class="line">	toolbarTips: <span class="literal">false</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="高度-2种都可以-在html中或css中"><a href="#高度-2种都可以-在html中或css中" class="headerlink" title="高度(2种都可以,在html中或css中)"></a>高度(2种都可以,在html中或css中)</h2><p>To change the minimum height (before it starts auto-growing):</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.CodeMirror</span>, <span class="selector-class">.CodeMirror-scroll</span> &#123;</span><br><span class="line">	<span class="attribute">min-height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">Or</span>, <span class="selector-tag">you</span> <span class="selector-tag">can</span> <span class="selector-tag">keep</span> <span class="selector-tag">the</span> <span class="selector-tag">height</span> <span class="selector-tag">static</span>:</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.CodeMirror</span> &#123;</span><br><span class="line">	<span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2><p><a href="https://codemirror.net/doc/manual.html#events" target="_blank" rel="noopener">You can catch the following list of events:</a> </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE();</span><br><span class="line">simplemde.codemirror.on(<span class="string">"change"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(simplemde.value());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="从textarea中移除simplemde"><a href="#从textarea中移除simplemde" class="headerlink" title="从textarea中移除simplemde"></a>从textarea中移除simplemde</h2><p>通过调用 toTextArea 方法. 注意这个也会清除自动保存,就是textarea内容重置了.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE();</span><br><span class="line">...</span><br><span class="line">simplemde.toTextArea();</span><br><span class="line">simplemde = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="一些常用方法"><a href="#一些常用方法" class="headerlink" title="一些常用方法"></a>一些常用方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> simplemde = <span class="keyword">new</span> SimpleMDE();</span><br><span class="line">simplemde.isPreviewActive(); <span class="comment">// returns boolean</span></span><br><span class="line">simplemde.isSideBySideActive(); <span class="comment">// returns boolean</span></span><br><span class="line">simplemde.isFullscreenActive(); <span class="comment">// returns boolean</span></span><br><span class="line">simplemde.clearAutosavedValue(); <span class="comment">// no returned value</span></span><br></pre></td></tr></table></figure>
+<h2 id="How-it-works"><a href="#How-it-works" class="headerlink" title="How it works"></a>How it works</h2><p>SimpleMDE began as an improvement of lepture’s Editor project, but has now taken on an identity of its own. It is bundled with CodeMirror and depends on Font Awesome.</p>
+<p><strong>CodeMirror</strong> is the <em>backbone</em> of the project and parses much of the Markdown syntax as it’s being written. This allows us to add styles to the Markdown that’s being written. Additionally, a toolbar and status bar have been added to the top and bottom, respectively. Previews are rendered by Marked using GFM.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/06/marked一个简易markdown功能实现模块/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/06/marked一个简易markdown功能实现模块/" itemprop="url">marked一个简易markdown功能实现模块</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T19:15:39+08:00">2018-03-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="marked模块-简易markdown功能实现"><a href="#marked模块-简易markdown功能实现" class="headerlink" title="marked模块-简易markdown功能实现"></a>marked模块-简易markdown功能实现</h1><p>Markdown不是HTML，目前还不能被浏览器解析，所以我们需要Markdown的<strong>解析器(不是编辑器,编辑器另选simplemde)</strong>，把Markdown翻译成浏览器认识的HTML文档展示出来。Marked就是一个基于Nodejs的Markdown解析引擎！</p>
+<p><a href="https://www.cnblogs.com/djtao/p/6224399.html" target="_blank" rel="noopener">markdown.js简易手册</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm isntall marked --sava</span><br><span class="line"></span><br><span class="line">或者用cdn</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>使用就很简单了，直接用div或者textarea都行，id指明后用innerHTML插入</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Marked in the browser<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/path/to/marked.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementById(<span class="string">'content'</span>).innerHTML =</span></span><br><span class="line"><span class="javascript">      marked(<span class="string">'# Marked in browser\n\nRendered by **marked**.'</span>);</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="详细说明marked-方法"><a href="#详细说明marked-方法" class="headerlink" title="详细说明marked()方法"></a>详细说明marked()方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">marked(markdownString [,options] [,callback])</span><br></pre></td></tr></table></figure>
+<p><code>markdownString</code>是你渲染的内容，必须是字符串。<br><code>options</code>是你渲染的设置——它是一个对象。当然，你用<code>marked.setOptions</code>也是不错的。<br><code>callback</code>是回调函数。如果 <code>options</code> 参数没有定义，它就是第二个参数。</p>
+<h3 id="关于Options-详细解说，毕竟配合highlight-js一起用"><a href="#关于Options-详细解说，毕竟配合highlight-js一起用" class="headerlink" title="关于Options(详细解说，毕竟配合highlight.js一起用)"></a>关于Options(详细解说，毕竟配合highlight.js一起用)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rendererMD = <span class="keyword">new</span> marked.Renderer();</span><br><span class="line">marked.setOptions(&#123;</span><br><span class="line">  renderer: rendererMD,</span><br><span class="line">  gfm: <span class="literal">true</span>,</span><br><span class="line">  tables: <span class="literal">true</span>,</span><br><span class="line">  breaks: <span class="literal">false</span>,</span><br><span class="line">  pedantic: <span class="literal">false</span>,</span><br><span class="line">  sanitize: <span class="literal">false</span>,</span><br><span class="line">  smartLists: <span class="literal">true</span>,</span><br><span class="line">  smartypants: <span class="literal">false</span></span><br><span class="line">&#125;);<span class="comment">//基本设置</span></span><br></pre></td></tr></table></figure>
+<p>当然首先highlight.js要引入</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">hljs.initHighlightingOnLoad();</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因为highlight.js不能渲染接口返回的代码，所以需要node中的marked配合options</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rendererMD = <span class="keyword">new</span> marked.Renderer();</span><br><span class="line">marked.setOptions(&#123;</span><br><span class="line">    renderer: rendererMD, <span class="comment">//当然可以renderer: new marked.Renderer()</span></span><br><span class="line">    gfm: <span class="literal">true</span>,</span><br><span class="line">    tables: <span class="literal">true</span>,</span><br><span class="line">    breaks: <span class="literal">false</span>,</span><br><span class="line">    pedantic: <span class="literal">false</span>,</span><br><span class="line">    sanitize: <span class="literal">false</span>,</span><br><span class="line">    smartLists: <span class="literal">true</span>,</span><br><span class="line">    smartypants: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//要显示的markdown内容</span></span><br><span class="line"><span class="keyword">var</span> markdownString = <span class="string">'```js\n console.log("hello"); \n```'</span>;</span><br><span class="line"><span class="comment">//这是设置highlight.js的,当然也可以拿到前面的setOptions中</span></span><br><span class="line">marked.setOptions(&#123;</span><br><span class="line">    highlight: <span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;    <span class="comment">//这个code后还有2个参数lang,callback</span></span><br><span class="line">    <span class="keyword">return</span> hljs.highlightAuto(code).value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//这是在HTML中使用</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'content'</span>).innerHTML = marked(markdownString);</span><br></pre></td></tr></table></figure>
+<p>所以以上有两点参数说明</p>
+<h4 id="highlight中-高亮的参数"><a href="#highlight中-高亮的参数" class="headerlink" title="highlight中 高亮的参数"></a>highlight中 高亮的参数</h4><p>完整的highlight方法包含三个参数：<strong>code，lang和callback</strong></p>
+<p><strong>code</strong>——代码内容——是一个字符串。<br><strong>lang</strong>——编程语言的种类——也是字符串。</p>
+<blockquote>
+<p>这个需要在highlight.registerLanguage中设置</p>
+</blockquote>
+<p><strong>callback</strong>就是回调函数。</p>
+<h4 id="renderer（渲染）"><a href="#renderer（渲染）" class="headerlink" title="renderer（渲染）"></a>renderer（渲染）</h4><p>render存放的是一个对象，不声明时默认为<code>new Renderer()</code>。</p>
+<p><strong>自定义渲染方式(这个略过吧)</strong><br>渲染选项允许你以自定义的方式渲染内容，并把之前的规则设置覆盖掉。——这是<strong>比较底层</strong>的方法了。</p>
+<p>比如，我想渲染<code># heading+</code>，但是默认的规则是：<code>&lt;h1&gt;&lt;/h1&gt;</code>，我想改为更为复杂的结构——</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rendererMD = <span class="keyword">new</span> marked.Renderer();</span><br><span class="line">rendererMD.heading = <span class="function"><span class="keyword">function</span> (<span class="params">text, level</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> escapedText = text.toLowerCase().replace(<span class="regexp">/[^\w]+/g</span>, <span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&lt;h'</span> + level + <span class="string">'&gt;&lt;a name="'</span> +</span><br><span class="line">            escapedText +</span><br><span class="line">                <span class="string">'" class="anchor" href="#'</span> +</span><br><span class="line">                escapedText +</span><br><span class="line">                <span class="string">'"&gt;&lt;span class="header-link"&gt;&lt;/span&gt;&lt;/a&gt;'</span> +</span><br><span class="line">                text + <span class="string">'&lt;/h'</span> + level + <span class="string">'&gt;'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//显示</span></span><br><span class="line"><span class="built_in">console</span>.log(marked(<span class="string">'# heading+'</span>, &#123; <span class="attr">renderer</span>: rendererMD &#125;));</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'content'</span>).innerHTML = marked(<span class="string">'# heading+'</span>, &#123; <span class="attr">renderer</span>: rendererMD &#125;);</span><br></pre></td></tr></table></figure>
+<p>渲染结果</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">name</span>=<span class="string">"heading-"</span> <span class="attr">class</span>=<span class="string">"anchor"</span> <span class="attr">href</span>=<span class="string">"#heading-"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"header-link"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  heading+</span><br><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>以上就用了heading的渲染。</p>
+<p><strong>块级支持以下渲染</strong></p>
+<ul>
+<li>code(string code, string language)</li>
+<li>blockquote(string quote)</li>
+<li>html(string html)</li>
+<li>heading(string text, number level)</li>
+<li>hr()</li>
+<li>list(string body, boolean ordered)</li>
+<li>listitem(string text)</li>
+<li>paragraph(string text)</li>
+<li>table(string header, string body)</li>
+<li>tablerow(string content)</li>
+<li>tablecell(string content, object flags)</li>
+</ul>
+<p><code>flags</code> 拥有以下属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    header: <span class="literal">true</span> || <span class="literal">false</span>,</span><br><span class="line">    align: <span class="string">'center'</span> || <span class="string">'left'</span> || <span class="string">'right'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>行级支持以下渲染</strong>：</p>
+<ul>
+<li>strong(string text)</li>
+<li>em(string text)</li>
+<li>codespan(string code)</li>
+<li>br()</li>
+<li>del(string text)</li>
+<li>link(string href, string title, string text)</li>
+<li>image(string href, string title, string text)</li>
+</ul>
+<h4 id="其它渲染参数-都是boolean"><a href="#其它渲染参数-都是boolean" class="headerlink" title="其它渲染参数(都是boolean)"></a>其它渲染参数(都是boolean)</h4><p><strong>gfm</strong><br>它是一个布尔值，默认为true。<br>允许 GitHub标准的markdown.</p>
+<p><strong>tables</strong><br>它是一个布尔值，默认为true。<br>支持<strong>支持github表格语法</strong>。该选项要求 gfm 为true。</p>
+<p><strong>breaks</strong><br>它是一个布尔值，默认为false。<br>支持<strong>github回车换行</strong>。该选项要求 gfm 为true。</p>
+<p><strong>pedantic</strong><br>它是一个布尔值，默认为false。<br><strong>尽可能地兼容 markdown.pl</strong>的晦涩部分。不纠正原始模型任何的不良行为和错误。</p>
+<p><strong>sanitize</strong><br>它是一个布尔值，默认为false。<br>对输出进行过滤（清理），将<strong>忽略任何已经输入的html代码</strong>（标签）</p>
+<p><strong>smartLists</strong><br>它是一个布尔值，默认为false。<br><strong>使用比原生markdown更时髦的列表</strong>。 旧的列表将可能被作为pedantic的处理内容过滤掉.</p>
+<p><strong>smartypants</strong><br>它是一个布尔值，默认为false。<br>使用更为<strong>时髦的标点</strong>，比如在引用语法中加入破折号。</p>
+<h4 id="使用lexer和parser"><a href="#使用lexer和parser" class="headerlink" title="使用lexer和parser"></a>使用lexer和parser</h4><p>如果你想，还可以使用词法分析器。通过它可以追加规则：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> tokens = marked.lexer(<span class="string">'text'</span>);<span class="comment">//把text解析为一个marked.js的内部对象</span></span><br><span class="line"><span class="built_in">console</span>.log(marked.parser(tokens));<span class="comment">//又把这个对象转化为html字符串。（&lt;p&gt;text&lt;/p&gt;）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> lexer = <span class="keyword">new</span> marked.Lexer(&#123;<span class="attr">sanitize</span>: <span class="literal">true</span>&#125;);<span class="comment">//放option信息</span></span><br><span class="line"><span class="keyword">var</span> tokens = lexer.lex(<span class="string">'&lt;h1&gt;hello&lt;/h1&gt;'</span>);<span class="comment">//&lt;p&gt;&amp;lt;h1&amp;gt;hello&amp;lt;/h1&amp;gt;&lt;/p&gt;</span></span><br><span class="line"><span class="built_in">console</span>.log(marked.parser(tokens));</span><br><span class="line"><span class="built_in">console</span>.log(lexer.rules);<span class="comment">//打出正则信息</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/06/highlight-js高亮你的代码/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/06/highlight-js高亮你的代码/" itemprop="url">highlight.js高亮你的代码</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T16:46:02+08:00">2018-03-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="highlight代码高亮的使用"><a href="#highlight代码高亮的使用" class="headerlink" title="highlight代码高亮的使用"></a>highlight代码高亮的使用</h1><p><a href="https://highlightjs.org/static/demo/" target="_blank" rel="noopener">各种highlight风格demo预览</a></p>
+<p><a href="https://highlightjs.org/usage/" target="_blank" rel="noopener">官网usage教程</a></p>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>当然可以下载，然后引入,再<a href="http://highlightjs.readthedocs.io/en/latest/api.html#inithighlightingonload" target="_blank" rel="noopener">初始化</a><br>一共3句话</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 这个是风格显示选择 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/path/to/styles/default.css"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 这个是highlight本体 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/path/to/highlight.pack.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Attaches highlighting to the page load event 不就是onload的时候执行渲染么，也就是说，在此之后改变document都不会在执行了--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">hljs.initHighlightingOnLoad();</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不过当然推荐的是用CDN了，还是去bootCND上找了</p>
+<p>在使用时，一定要将你要展示的代码包在<code>&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;</code>标签里！！！ 它会自动匹配语言进行高亮，如果没有高亮，可以进行手动匹配,加上class</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="tag">&lt;<span class="name">code</span> <span class="attr">class</span>=<span class="string">"html"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">code</span>&gt;</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a href="http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases" target="_blank" rel="noopener">支持的语言列表</a></p>
+<p>如果不想要高亮了,<strong>class选nohighlight</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">pre</span>&gt;</span><span class="tag">&lt;<span class="name">code</span> <span class="attr">class</span>=<span class="string">"nohighlight"</span>&gt;</span>...<span class="tag">&lt;/<span class="name">code</span>&gt;</span><span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="highlight-API文档"><a href="#highlight-API文档" class="headerlink" title="highlight API文档"></a>highlight API文档</h2><h2 id="一些问题注意"><a href="#一些问题注意" class="headerlink" title="一些问题注意"></a>一些问题注意</h2><ol>
+<li><p>如果你的代码里包含标签，记得将标签的”&lt;”换成”&amp;lt”，把”&gt;”换成”&amp;gt”</p>
+</li>
+<li><p>从接口中取出来的代码是不会在高亮的，这个问题不就是onload的时候执行渲染么，也就是说，在此之后改变document都不会在执行了。所以很显然这样并不能高亮从接口取会来的文档的代码。</p>
+</li>
+</ol>
+<p><strong>最终解决问题的方法</strong>是接口返回使用highlight.js编译好的html，因为后端使用的是node，用marked就解决了这个问题。只需要在marked的配置中添加highlight项即可（要先<code>npm install highlight.js</code>）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里参数看不明白就看marked那篇</span></span><br><span class="line"><span class="keyword">var</span> marked = <span class="built_in">require</span>(<span class="string">'marked'</span>);</span><br><span class="line"><span class="keyword">var</span> highlight = <span class="built_in">require</span>(<span class="string">'highlight.js'</span>);</span><br><span class="line">marked.setOptions(&#123;</span><br><span class="line">    renderer: <span class="keyword">new</span> marked.Renderer(),</span><br><span class="line">    gfm: <span class="literal">true</span>,</span><br><span class="line">    tables: <span class="literal">true</span>,</span><br><span class="line">    breaks: <span class="literal">false</span>,</span><br><span class="line">    pedantic: <span class="literal">false</span>,</span><br><span class="line">    sanitize: <span class="literal">false</span>,</span><br><span class="line">    smartLists: <span class="literal">true</span>,</span><br><span class="line">    smartypants: <span class="literal">false</span>,</span><br><span class="line">    highlight: <span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> highlight.highlightAuto(code).value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>然后返回的文档已经添加了对应的class。</p>
+<p>当然highlight: function(code, lang, callback)有三个参数可以展开介绍</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/06/Font-Awesome一套绝佳的图标字体库和CSS框架/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/06/Font-Awesome一套绝佳的图标字体库和CSS框架/" itemprop="url">Font Awesome一套绝佳的图标字体库和CSS框架</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T15:47:07+08:00">2018-03-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/newbie项目/" itemprop="url" rel="index"><span itemprop="name">newbie项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Font-Awesome一套绝佳的图标字体库和CSS框架"><a href="#Font-Awesome一套绝佳的图标字体库和CSS框架" class="headerlink" title="Font Awesome一套绝佳的图标字体库和CSS框架"></a>Font Awesome一套绝佳的图标字体库和CSS框架</h1><p>Font Awesome为您提供可缩放的矢量图标，您可以使用CSS所提供的所有特性对它们进行更改，包括：大小、颜色、阴影或者其它任何支持的效果。</p>
+<ul>
+<li>一个字库，675个图标<br>  仅一个Font Awesome字库，就包含了与网页相关的所有形象图标。</li>
+<li>无需依赖JavaScript<br>  Font Awesome完全不依赖JavaScript，因此无需担心兼容性。</li>
+<li>无限缩放<br>  无论在任何尺寸下，可缩放的矢量图形都会为您呈现出完美的图标。</li>
+<li>如言语一般自由<br>  Font Awesome完全免费，哪怕是商业用途。请查看许可。</li>
+<li>CSS控制<br>  只要CSS支持，无论颜色、大小、阴影或者其它任何效果，都可以轻易展现。</li>
+<li>高分屏完美呈现<br>  Font Awesome的矢量图标，将使您的网站在视网膜级的高分屏上大放异彩。</li>
+<li>完美兼容其它框架<br>  尽管是为Bootstrap设计，但Font Awesome同样能与其它框架完美协同运作。</li>
+<li>可用于桌面系统<br>  用于桌面系统，或需要一套完整的矢量图，请查看备忘。</li>
+<li>可适配于屏幕阅读器<br>  与其它字体不同，Font Awesome不会影响屏幕阅读器正常工作。</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h2 id="最简单的方式：BootstrapCDN-（由MaxCDN提供）"><a href="#最简单的方式：BootstrapCDN-（由MaxCDN提供）" class="headerlink" title="最简单的方式：BootstrapCDN （由MaxCDN提供）"></a>最简单的方式：<a href="http://www.bootstrapcdn.com/#fontawesome_tab" target="_blank" rel="noopener">BootstrapCDN</a> （由<a href="https://www.maxcdn.com/" target="_blank" rel="noopener">MaxCDN</a>提供）</h2><p>一句话将<strong>Font Awesome</strong>加入您的网页中。您完全不用下载或者安装任何东西！</p>
+<ol>
+<li>将以下代码粘贴到网页HTML代码的 <code>&lt;head&gt;</code> 部分.</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当新版本发布时，BootstrapCDN需要一点时间来同步到最新版本。稍安勿躁 :)</p>
+</blockquote>
+<ol>
+<li>参考<a href="http://fontawesome.dashgame.com/#basic" target="_blank" rel="noopener">示例</a>，然后开始使用Font Awesome吧!</li>
+</ol>
+<h2 id="简单方式之一：使用默认CSS"><a href="#简单方式之一：使用默认CSS" class="headerlink" title="简单方式之一：使用默认CSS"></a>简单方式之一：使用默认CSS</h2><p>如果您使用了默认的<strong>Bootstrap CSS</strong>样式，那么你可以使用这种方式来引入默认的<strong>Font Awesome CSS</strong>样式。</p>
+<ol>
+<li>复制整个 font-awesome 文件夹到您的项目中。</li>
+<li>在HTML的 <code>&lt;head&gt;</code> 中引用<strong>font-awesome.min.css</strong>。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"path/to/font-awesome/css/font-awesome.min.css"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 当然也用CND了 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="简单方式之二：LESS-Ruby-Gem"><a href="#简单方式之二：LESS-Ruby-Gem" class="headerlink" title="简单方式之二：LESS Ruby Gem"></a>简单方式之二：LESS Ruby Gem</h2><h2 id="简单方式之三：SASS-Ruby-Gem"><a href="#简单方式之三：SASS-Ruby-Gem" class="headerlink" title="简单方式之三：SASS Ruby Gem"></a>简单方式之三：SASS Ruby Gem</h2><h2 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h2><h3 id="基本图标"><a href="#基本图标" class="headerlink" title="基本图标"></a>基本图标</h3><p>您可以将Font Awesome图标使用在几乎任何地方，只需要使用<strong>CSS前缀 fa</strong> ，<strong>再加上图标名称</strong>。 Font Awesome是为使用<strong>内联元素</strong>而设计的。我们通常更喜欢使用 <i> ，因为它更简洁。 但实际上使用 <code>&lt;span&gt;</code> 才能更加语义化(span在嵌套组合时可以用)。</i></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-camera-retro"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> 这是一个fa-camera-retro图标</span><br></pre></td></tr></table></figure>
+<p>如果您修改了图标容器的字体大小，图标大小会随之改变。同样的变化也会发生在颜色、阴影等其它任何CSS支持的效果上。</p>
+<h3 id="大图标"><a href="#大图标" class="headerlink" title="大图标"></a>大图标</h3><p>使用 <strong>fa-lg (33%递增)、fa-2x、 fa-3x、fa-4x，或者 fa-5x</strong> 类 来放大图标。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-camera-retro fa-lg"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> fa-lg</span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-camera-retro fa-2x"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> fa-2x</span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-camera-retro fa-3x"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> fa-3x</span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-camera-retro fa-4x"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> fa-4x</span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-camera-retro fa-5x"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> fa-5x</span><br></pre></td></tr></table></figure>
+<p>如果图标的底部和顶部被截断了，您需要<strong>增加行高</strong>来解决此问题。</p>
+<h3 id="固定宽度"><a href="#固定宽度" class="headerlink" title="固定宽度"></a>固定宽度</h3><p>使用 <code>fa-fw</code> 可以将图标设置为一个固定宽度。<strong>主要用于不同宽度图标无法对齐的情况。 尤其在列表或导航时起到重要作用</strong>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"list-group"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-home fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>&amp;nbsp; Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-book fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>&amp;nbsp; Library<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-pencil fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>&amp;nbsp; Applications<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"list-group-item"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-cog fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>&amp;nbsp; Settings<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="用于列表"><a href="#用于列表" class="headerlink" title="用于列表"></a>用于列表</h3><p>使用 <code>fa-ul</code> 和 <code>fa-li</code> 便可以简单的将<strong>无序列表的默认符号替换掉</strong>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"fa-ul"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa-li fa fa-check-square"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>List icons<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa-li fa fa-check-square"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>can be used<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa-li fa fa-spinner fa-spin"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>as bullets<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa-li fa fa-square"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span>in lists<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="边框与对齐"><a href="#边框与对齐" class="headerlink" title="边框与对齐"></a>边框与对齐</h3><p>使用 <code>fa-border</code> 以及 <code>pull-right</code> 或 <code>pull-left</code> 可以轻易构造出<strong>引用</strong>的特殊效果。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-quote-left fa-3x pull-left fa-border"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">...tomorrow we will run faster, stretch out our arms farther...</span><br><span class="line">And then one fine morning— So we beat on, boats against the</span><br><span class="line">current, borne back ceaselessly into the past.</span><br></pre></td></tr></table></figure>
+<h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><p>使用 <code>fa-spin</code> 类来使任意图标<strong>旋转</strong>，现在您还可以使用 <code>fa-pulse</code> 来使其进行8方位旋转。尤其适合 <strong>fa-spinner、fa-refresh 和 fa-cog</strong> 。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-spinner fa-spin"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-spinner fa-pulse"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-refresh fa-spin"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-cog fa-spin"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-circle-o-notch fa-spin"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> CSS3动画不支持IE8-IE9。</p>
+<h3 id="旋转与翻转"><a href="#旋转与翻转" class="headerlink" title="旋转与翻转"></a>旋转与翻转</h3><p>使用 <code>fa-rotate-*</code> 和 <code>fa-flip-*</code> 类可以对图标进行任意旋转和翻转。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-shield"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> normal<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-shield fa-rotate-90"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> fa-rotate-90<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-shield fa-rotate-180"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> fa-rotate-180<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-shield fa-rotate-270"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> fa-rotate-270<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-shield fa-flip-horizontal"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> fa-flip-horizontal<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-shield fa-flip-vertical"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> icon-flip-vertical</span><br></pre></td></tr></table></figure>
+<h3 id="组合使用"><a href="#组合使用" class="headerlink" title="组合使用"></a>组合使用</h3><p>如果想要将<strong>多个图标组合起来</strong>，使用 <code>fa-stack</code> 类作为父容器， fa-stack-1x 作为正常比例的图标， fa-stack-2x 作为大一些的图标。还可以使用 <code>fa-inverse</code> 类来切换图标颜色。您可以在父容器中 通过添加 <strong>大图标 fa-lg</strong> 类来控制整体大小。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"fa-stack fa-lg"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-square-o fa-stack-2x"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-twitter fa-stack-1x"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">fa-twitter on fa-square-o<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"fa-stack fa-lg"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-circle fa-stack-2x"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-flag fa-stack-1x fa-inverse"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">fa-flag on fa-circle<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"fa-stack fa-lg"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-square fa-stack-2x"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-terminal fa-stack-1x fa-inverse"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">fa-terminal on fa-square<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"fa-stack fa-lg"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-camera fa-stack-1x"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-ban fa-stack-2x text-danger"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">fa-ban on fa-camera</span><br></pre></td></tr></table></figure>
+<h3 id="Bootstrap-3-示例"><a href="#Bootstrap-3-示例" class="headerlink" title="Bootstrap 3 示例"></a>Bootstrap 3 示例</h3><p>Font Awesome 完全兼容 Bootstrap 的所有组件。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-danger"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-trash-o fa-lg"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> Delete<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-default btn-sm"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-cog"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> Settings<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-lg btn-success"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-flag fa-2x pull-left"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> Font Awesome<span class="tag">&lt;<span class="name">br</span>&gt;</span>Version 4.7.0<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"btn-group"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-default"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-align-left"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-default"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-align-center"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-default"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-align-right"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-default"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-align-justify"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"input-group margin-bottom-sm"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"input-group-addon"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-envelope-o fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">placeholder</span>=<span class="string">"Email address"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"input-group"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"input-group-addon"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-key fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">placeholder</span>=<span class="string">"Password"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"btn-group open"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-primary"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-user fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> User<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"btn btn-primary dropdown-toggle"</span> <span class="attr">data-toggle</span>=<span class="string">"dropdown"</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"fa fa-caret-down"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"dropdown-menu"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-pencil fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> Edit<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-trash-o fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> Delete<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-ban fa-fw"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> Ban<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"divider"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"i"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> Make admin<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-pencil-square"</span> <span class="attr">aria-hidden</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>Accessible Rich Internet Applications</strong><br>图标的可访问性</p>
+<p>现代的辅助技术能够识别并朗读由 CSS 生成的内容和特定的 Unicode 字符。为了避免 屏幕识读设备抓取非故意的和可能产生混淆的输出内容（尤其是当图标纯粹作为装饰用途时），我们为这些图标设置了 <code>aria-hidden=&quot;true&quot;</code> 属性。</p>
+<p>如果你使用图标是为了表达某些含义（不仅仅是为了装饰用），请确保你所要表达的意思能够通过被辅助设备识别，例如，包含额外的内容并通过 .sr-only 类让其在视觉上表现出隐藏的效果。</p>
+<p>如果你所创建的组件不包含任何文本内容（例如， <code>&lt;button&gt;</code> 内只包含了一个图标），你应当提供其他的内容来表示这个控件的意图，这样就能让使用辅助设备的用户知道其作用了。这种情况下，你可以为控件添加 aria-label 属相。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/06/fastclick-解决移动端click事件300ms延迟/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/06/fastclick-解决移动端click事件300ms延迟/" itemprop="url">fastclick 解决移动端click事件300ms延迟</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T15:09:59+08:00">2018-03-06</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="fastclick-解决移动端click事件300ms延迟"><a href="#fastclick-解决移动端click事件300ms延迟" class="headerlink" title="fastclick 解决移动端click事件300ms延迟"></a>fastclick 解决移动端click事件300ms延迟</h1><h2 id="移动端click-事件延迟300ms"><a href="#移动端click-事件延迟300ms" class="headerlink" title="移动端click 事件延迟300ms"></a>移动端click 事件延迟300ms</h2><p>一般情况下，如果没有经过特殊处理，移动端浏览器在派发点击事件的时候，通常会出现300ms左右的延迟。也就是说，当我们点击页面的时候移动端浏览器并不是立即作出反应，而是会等上一小会儿才会出现点击的效果。在移动WEB兴起的初期，用户对300ms的延迟感觉不明显。但是，随着用户对交互体验的要求越来越高，现今，移动端300ms的点击延迟逐渐变得明显而无法忍受。</p>
+<p>那么，移动端300ms的点击延迟是怎么来的呢？</p>
+<h2 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h2><p>移动浏览器上支持的<strong>双击缩放</strong>操作，以及IOS Safari 上的<strong>双击滚动</strong>操作，是导致300ms的点击延迟主要原因。</p>
+<h2 id="预备知识：移动端点击一个元素触发事件的顺序"><a href="#预备知识：移动端点击一个元素触发事件的顺序" class="headerlink" title="预备知识：移动端点击一个元素触发事件的顺序"></a>预备知识：移动端点击一个元素触发事件的顺序</h2><p><strong>以下是四种touch和click事件</strong><br>touchstart: //手指放到屏幕上时触发<br>touchmove: //手指在屏幕上滑动式触发<br>touchend: //手指离开屏幕时触发<br>touchcancel: //系统取消touch事件的时候触发，这个好像比较少用<br>click：//在这个dom（或冒泡到这个dom）上手指触摸开始，且手指未曾在屏幕上移动（某些浏览器允许移动一个非常小的位移值），且在这个在这个dom上手指离开屏幕，且触摸和离开屏幕之间的间隔时间较短（某些浏览器不检测间隔时间，也会触发click）才能触发<br><strong>上述事件发生顺序</strong>：在移动端，手指点击一个元素，会经过：touchstart —&gt; touchmove -&gt; touchend —&gt;click。</p>
+<p><strong>双击缩放</strong>：顾名思义，即用手指在屏幕上快速点击两次，移动端浏览器会将网页缩放至原始比例。 那么这和 300 毫秒延迟有什么联系呢？<br><strong>假定这么一个场景</strong>。用户在浏览器里边点击了一个<strong>链接</strong>。由于用户可以进行双击缩放或者双击滚动的操作，当用户一次点击屏幕之后，浏览器并不能立刻判断用户是确实要打开这个链接，还是想要进行双击操作。<strong>因此，浏览器就等待 300 毫秒，以判断用户是否再次点击了屏幕。</strong><br>也就是说，移动端浏览器会有一些默认的行为，比如双击缩放、双击滚动。这些行为，尤其是双击缩放，主要是为桌面网站在移动端的浏览体验设计的。而在用户对页面进行操作的时候，移动端浏览器会优先判断用户是否要触发默认的行为。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="禁用缩放-全部缩放"><a href="#禁用缩放-全部缩放" class="headerlink" title="禁用缩放(全部缩放)"></a>禁用缩放(全部缩放)</h3><p>对于不需要缩放的页面，通过设置<code>meta</code>标签禁用缩放，表明这个页面是不需要缩放的，双击缩放就没有意义了。此时浏览器可以禁用默认的双击缩放行为并且去掉300ms的点击延迟。<br>该方法缺点在于必须通过完全禁用缩放来达到去掉点击延迟的目的，但我们初衷是想禁止默认双击缩放行为，这样就不用等待300ms来判断当前操作是否是双击。<strong>但是通常情况下我们还是希望能通过双指缩放来进行缩放操作</strong>，比如放大图片，很小的一段文字。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"user-scalable=no"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"initial-scale=1,maximum-scale=1"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="更改默认视口宽度"><a href="#更改默认视口宽度" class="headerlink" title="更改默认视口宽度"></a>更改默认视口宽度</h3><p>移动端浏览器默认视口宽度一般比设备浏览器视窗宽度大，通常是980px,我们可以通过如下标签设置视口宽度为设备宽度。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因为双击缩放主要是用来改善桌面站点在移动端浏览体验的，而随着响应式设计的普及，很多站点都已经对移动端做过适配和优化了，这个时候就不需要双击缩放了，<strong>如果能够识别出一个网站是响应式的网站，那么移动端浏览器就可以自动禁掉默认的双击缩放行为并且去掉300ms的点击延迟</strong>。chrome 32+中，如果设置了上述meta标签，那浏览器就可以认为该网站已经对移动端做过了适配和优化，就无需双击缩放操作了。<br>这个方案相比方案一的好处在于，它没有完全禁用缩放，而只是禁用了浏览器默认的双击缩放行为，但用户仍然可以通过双指缩放操作来缩放页面。<strong>不足在于其他浏览器的支持有限。</strong></p>
+<h3 id="css-touch-action"><a href="#css-touch-action" class="headerlink" title="css touch-action"></a>css touch-action</h3><p>指针事件（Point Event）最初由微软提出，现已进入 <a href="https://w3c.github.io/pointerevents/" target="_blank" rel="noopener">W3C 规范的候选推荐标准阶段</a> (Candidate Recommendation)。指针事件是一个新的 web 事件系列，相应的规范旨在使用一个单独的事件模型，对所有输入类型，包括鼠标 (mouse)、触摸 (touch)、触控 (stylus) 等，进行统一的处理。<br>例如，你可以只去监听一个元素的 pointerdown事件，无需分别监听其 touchstart和mousedown事件。其中有一个和点击延迟直接相关的实现 —— 一个名为 touch-action的新 CSS 属性。根据<a href="https://w3c.github.io/pointerevents/#the-touch-action-css-property" target="_blank" rel="noopener">规范</a>，touch-action<br><strong>属性决定 “是否触摸操作会触发用户代理的默认行为。这包括但不限于双指缩放等行为”。</strong><br>从实际应用的角度来看，touch-action决定了用户在点击了目标元素之后，是否能够进行双指缩放或者双击缩放。因此，这也相当完美地解决了 300 毫秒点击延迟的问题。touch-action的默为 auto，将其置为 none 即可移除目标元素的 300 毫秒延迟。<br>目前而言，<strong>Internet Explorer 实现了指针事件</strong>，同时，现在已经有一些指针事件的 polyfills 可以在项目中使用了</p>
+<h3 id="指针事件的-polyfill"><a href="#指针事件的-polyfill" class="headerlink" title="指针事件的 polyfill"></a>指针事件的 polyfill</h3><p>指针事件的 polyfill 比较多，以下列出比较流行的几个。</p>
+<ul>
+<li>Google 的 <a href="https://github.com/jquery/PEP" target="_blank" rel="noopener">Polymer</a></li>
+<li>微软的 <a href="https://archive.codeplex.com/?p=handjs" target="_blank" rel="noopener">HandJS</a></li>
+<li>@Rich-Harris 的 <a href="https://github.com/Rich-Harris/Points" target="_blank" rel="noopener">Points</a></li>
+</ul>
+<p>为避免 300 毫秒点击延迟，我们主要关心这些 polyfill 是如何在<strong>非 IE 浏览器中模拟 CSS touch-action属性的</strong>，这其实是一个不小的挑战。由于浏览器会忽略不被支持的 CSS 属性，唯一能够检测开发者是否声明了 touch-action: none的方法是使用 JavaScript 去请求并解析所有的样式表。HandJS 也正是这么做的，但不管是从性能上来看还是其他一些复杂的方面，这都会遇到问题。<br>Polymer 则是通过判断标签上的 touch-action属性 (attribute)，而非 CSS 代码。<br>这对于我们开发者来说意味着什么？如果你比较感兴趣，想深入指针事件，那上述 polyfill 就非常适合应用到手头的项目中。然而，你若只想寻求一个解决 300 毫秒点击延迟的方法，上述方案可能就有点过了，因为它们要么是资源密集型的方案，要么是touch-action属性的非标准化模拟。所以，接下去我们要来看一些专门针对 300 毫秒延迟而生的解决方案</p>
+<h3 id="zepto等库的-tap事件"><a href="#zepto等库的-tap事件" class="headerlink" title="zepto等库的 tap事件"></a>zepto等库的 tap事件</h3><p>zepto 的touch模块中自定义了tap事件，用于代替click事件，表示一个轻击操作。touch模块实现tap的原理是绑定事件touchstart,touchmove和touchend到document上，然后通过计算touch事件触发的时间差，位置差来实现了自定义的tap,swipe等。<br>zepto自定义的tap操作虽然可以解决300ms点击延迟问题，但存在著名的“点透”问题。不知其最新版本有没有解决该问题。</p>
+<h3 id="fastclick-解决300ms延迟。"><a href="#fastclick-解决300ms延迟。" class="headerlink" title="fastclick 解决300ms延迟。"></a>fastclick 解决300ms延迟。</h3><p><a href="https://github.com/ftlabs/fastclick" target="_blank" rel="noopener">FastClick</a> 是 <a href="https://labs.ft.com/" target="_blank" rel="noopener">FT Labs</a> 专门为解决移动端浏览器 300 毫秒点击延迟问题所开发的一个轻量级的库。</p>
+<ul>
+<li>基本原理：FastClick的实现原理是在检测到touchend事件的时候，会通过DOM自定义事件立即出发模拟一个click事件，并把浏览器在300ms之后真正的click事件阻止掉。</li>
+<li>fastClick的核心代码</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FastClick.prototype.onTouchEnd = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123; <span class="comment">// 一些状态监测代码 </span></span><br><span class="line">    <span class="comment">// 从这里开始，</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.needsClick(targetElement)) &#123; <span class="comment">// 如果这不是一个需要使用原生click的元素，则屏蔽原生事件，避免触发两次click </span></span><br><span class="line">    event.preventDefault(); <span class="comment">// 触发一次模拟的click </span></span><br><span class="line">    <span class="keyword">this</span>.sendClick(targetElement, event); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里可以看到，FastClick在<code>touchEnd</code>的时候，在符合条件的情况下，主动触发了click事件，这样避免了浏览器默认的300毫秒等待判断。为了防止原生的click被触发，这里还通过<code>event.preventDefault()</code>屏蔽了原生的click事件。</p>
+<p>通过<code>sendClick</code>模拟click事件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FastClick.prototype.sendClick = <span class="function"><span class="keyword">function</span>(<span class="params">targetElement, event</span>) </span>&#123; <span class="comment">// 这里是一些状态检查逻辑</span></span><br><span class="line"><span class="comment">// 创建一个鼠标事件 </span></span><br><span class="line">clickEvent = <span class="built_in">document</span>.createEvent(<span class="string">'MouseEvents'</span>); <span class="comment">// 初始化鼠标事件为click事件 </span></span><br><span class="line">clickEvent.initMouseEvent(<span class="keyword">this</span>.determineEventType(targetElement), <span class="literal">true</span>, <span class="literal">true</span>, <span class="built_in">window</span>, <span class="number">1</span>, touch.screenX, touch.screenY, touch.clientX, touch.clientY, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="number">0</span>, <span class="literal">null</span>); <span class="comment">// fastclick的内部变量，用来识别click事件是原生还是模拟 </span></span><br><span class="line">clickEvent.forwardedTouchEvent = <span class="literal">true</span>; <span class="comment">// 在目标元素上触发该鼠标事件， </span></span><br><span class="line">targetElement.dispatchEvent(clickEvent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就目前而言，FastClick 非常实际地解决 300 毫秒点击延迟的问题。唯一的缺点可能也就是该脚本的文件尺寸 (尽管它只有 10kb)。</p>
+<h2 id="对比总结"><a href="#对比总结" class="headerlink" title="对比总结"></a>对比总结</h2><p><strong>禁用缩放</strong>：简单，但同时也使的网页无法缩放，不适用于未对移动端浏览做适配优化的网页。<br><strong>更改默认视口宽度</strong>：简单，但需要浏览器支持。<br><strong>指针事件和css touch-action:新属性</strong>，可能存在浏览器兼容问题，如仅为解决点击延迟问题儿引入一整套指针事件有点过了。<br><strong>tap事件</strong>：能较好解决点击延迟，并且对其他移动端触摸事件也有较好支持，但存在点透问题，不知最新版是否解决。<br><strong>fastclick</strong>:当前较好的专门解决点击延迟的库，脚本尺寸相对较大。</p>
+<p><a href="https://www.jianshu.com/p/16d3e4f9b2a9" target="_blank" rel="noopener">参考链接</a></p>
+<p>使用<a href="https://www.npmjs.com/package/fastclick" target="_blank" rel="noopener">fastclick</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm install fastclick -S</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解决移动端300ms延迟问题</span></span><br><span class="line"><span class="keyword">var</span> attachFastClick = <span class="built_in">require</span>(<span class="string">'fastclick'</span>);</span><br><span class="line">attachFastClick(<span class="built_in">document</span>.body);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解决移动端300ms延迟问题</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">"undefined"</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> Fastclick = <span class="built_in">require</span>(<span class="string">'fastclick'</span>)</span><br><span class="line">  Fastclick.attach(<span class="built_in">document</span>.body)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/25/tmux简单使用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/25/tmux简单使用/" itemprop="url">tmux简单使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-25T17:46:01+08:00">2018-02-25</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="tmux简单使用"><a href="#tmux简单使用" class="headerlink" title="tmux简单使用"></a>tmux简单使用</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>ubuntu下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install tmux</span><br></pre></td></tr></table></figure>
+<p>安装完后运行</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>Tmux基于典型的c/s模型，主要分为会话、窗口和面板三个元素：</p>
+<ul>
+<li>Session：输入tmux后就创建了一个会话，一个会话是一组窗体的集合。</li>
+<li>Window：会话中一个当前活动的窗口。</li>
+<li>Pane:一个窗口可以分成多个面板</li>
+</ul>
+<p><img src="tmuxbase.jpg" alt="tmuxbase"></p>
+<p>图中左下角的3显示为当前会话，随后1 vim,2 bash,3 ssh 分别是3个窗口，蓝色bash表示当前窗口.<br>图中用蓝色数字标记的1,2,3分别是bash窗口的三个面板(Pane)。你还可以在tmux配置文件中给状态栏添加时间、天气等信息。</p>
+<h2 id="操作-有个前缀"><a href="#操作-有个前缀" class="headerlink" title="操作(有个前缀)"></a>操作(有个前缀)</h2><p>Tmux的所有操作必须使用一个前缀进入<strong>命令模式</strong>，默认前缀为ctrl+b，很多人会改为ctrl+a,你可以修改tmux.conf配置文件来修改默认前缀：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#前缀设置为&lt;Ctrl-a&gt;</span><br><span class="line">set -g prefix C-a</span><br><span class="line">#解除&lt;Ctrl-b&gt;</span><br><span class="line">ubind C-b</span><br></pre></td></tr></table></figure>
+<h2 id="窗格操作-Pane"><a href="#窗格操作-Pane" class="headerlink" title="窗格操作(Pane)"></a>窗格操作(Pane)</h2><ul>
+<li>% 向右平分出两个窗格</li>
+<li>“ 向下平分出两个窗格</li>
+<li>x 关闭当前窗格(当窗口中只剩一个pane时，就是关闭窗口)</li>
+<li>q 显示所有窗格的序号，在序号出现期间按下对应的数字，即可跳转至对应的窗格</li>
+<li>{ 当前窗格前移(所有窗口大小不变，内容按从上往下，从左往右。往前走)</li>
+<li>} 当前窗格后移</li>
+<li>; 选择上次使用的窗格，只能记住一次</li>
+<li>o 选择下一个窗格，也可以使用上下左右<strong>方向键</strong>来选择(改成vim的 hjkl)</li>
+<li>space 切换窗格布局，tmux 内置了五种窗格布局，也可以通过 ⌥1 至 ⌥5来切换</li>
+<li>z(zoom) 最大化当前窗格，再次执行可恢复原来大小</li>
+</ul>
+<h2 id="窗口操作-window"><a href="#窗口操作-window" class="headerlink" title="窗口操作(window)"></a>窗口操作(window)</h2><p>tmux 除了窗格以外，还有窗口（window） 的概念。依次使用以下快捷键来熟悉 tmux 的窗口操作：</p>
+<ul>
+<li>c(create) 新建窗口，此时当前窗口会切换至新窗口，不影响原有窗口的状态</li>
+<li>&amp; 关闭当前窗口</li>
+<li>p(previous) 切换至上一窗口</li>
+<li>n(next) 切换至下一窗口</li>
+<li>w(window) 窗口列表选择，注意 macOS 下使用 ⌃p 和 ⌃n 进行上下选择</li>
+<li>l 在前后两个窗口间互相切换</li>
+<li>0 切换至 0 号窗口，使用其他数字 id 切换至对应窗口(0~9,在10往上就不行了)</li>
+<li>. 修改当前窗口编号；相当于窗口重新排序(一个是编号，一个是名字1:~xioaming)</li>
+<li>,(搜狗) 重命名窗口，可以使用中文，重命名后能在 tmux 状态栏更快速的识别窗口 id</li>
+<li>f(find) 根据窗口名搜索选择窗口，可模糊匹配</li>
+<li>ctrl+方向 调整窗口大小(技巧：按住ctrl+k再按方向键)</li>
+</ul>
+<h2 id="会话操作-session"><a href="#会话操作-session" class="headerlink" title="会话操作(session)"></a>会话操作(session)</h2><p>如果运行了多次 tmux 命令则会开启多个 tmux 会话（session）。在 tmux 会话中，使用前缀快捷键 ⌃b 配合以下快捷键可操作会话：</p>
+<ul>
+<li>s(session) 选择会话列表，就是开了几个tmux</li>
+<li>d detach 当前会话，运行后将会退出 tmux 进程，返回至 shell 主进程(但会话列表仍在，就是退出与保存)</li>
+<li>$ 重命名当前会话</li>
+<li>: 进入命令行模式；此时可以输入支持的命令，例如kill-server可以关闭服务器</li>
+<li>[ 进入复制模式；此时的操作与vi/emacs相同，按q/Esc退出([ space 鼠标 enter])<ol>
+<li>按前缀+[ 进入复制模式</li>
+<li>按一下 space 开始复制，方向键选择复制区域</li>
+<li>按 Enter 复制并退出copy-mode。</li>
+<li>将光标移动到指定位置，按前缀+ ] 粘贴</li>
+</ol>
+</li>
+</ul>
+<p>在 <strong>shell</strong> 主进程下运行以下命令可以操作 tmux 会话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tmux ls # 列出所有 tmux 会话</span><br><span class="line">//新建与打开</span><br><span class="line">tmux new -s foo # 新建名称为 foo 的会话</span><br><span class="line">tmux a # 恢复至上一次的会话</span><br><span class="line">tmux a -t foo # 恢复名称为 foo 的会话，会话默认名称为数字</span><br><span class="line">//删除</span><br><span class="line">tmux kill-session -t foo # 删除名称为 foo 的会话</span><br><span class="line">tmux kill-server # 删除所有的会话</span><br></pre></td></tr></table></figure>
+<p>除以上提到的快捷键以外，tmux 还有许多其他的快捷键和命令，使用前缀快捷键 ctrl+b 加 ? 可以<strong>查看所有的快捷键列表</strong>，该列表视图为 <strong>tmux copy 模式</strong>，该模式下可使用以下快捷键（无需加 ⌃b 前缀）：</p>
+<ul>
+<li>⌃s 向前搜索</li>
+<li>q 退出 copy 模式</li>
+<li>⌃v 下一页 翻页也可用pageup pagedown</li>
+<li>Meta v 上一页 （tmux 快捷键为 Emacs 风格，这里的 Meta 键可用 Esc 模拟）</li>
+</ul>
+<h2 id="常见配置与问题"><a href="#常见配置与问题" class="headerlink" title="常见配置与问题"></a>常见配置与问题</h2><h3 id="1、鼠标滚屏"><a href="#1、鼠标滚屏" class="headerlink" title="1、鼠标滚屏"></a>1、鼠标滚屏</h3><p>tmux 默认配置中最糟糕的体验就是滚屏查看和文本复制（大家可以先试试看）。你需要先使用 ⌃b [ 快捷键进入 copy 模式，然后使用翻页、字符定位来选择需要的字符，效率远没有鼠标选择来的快。</p>
+<p>因此 tmux 提供了一些个性化配置项来优化这些配置，首先在 shell 中运行 <code>touch ~/.tmux.conf</code> 新建用户配置文件。在文件中增加以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 开启鼠标模式</span><br><span class="line">set -g mode-mouse on</span><br><span class="line">​</span><br><span class="line"># 允许鼠标选择窗格</span><br><span class="line">set -g mouse-select-pane on</span><br><span class="line">​</span><br><span class="line"># 如果喜欢给窗口自定义命名，那么需要关闭窗口的自动命名</span><br><span class="line">set-option -g allow-rename off</span><br><span class="line">​</span><br><span class="line"># 如果对 vim 比较熟悉，可以将 copy mode 的快捷键换成 vi 模式</span><br><span class="line">set-window-option -g mode-keys vi</span><br></pre></td></tr></table></figure>
+<p>配置文件修改完成后，可以 <code>tmux kill-server</code> 重启所有 tmux 进程，或者在 tmux 会话中使用 ctrl+b : 进入控制台模式，输入 <code>source-file ~/.tmux.conf</code> 命令重新加载配置(ubuntu上没这命令)。</p>
+<h3 id="2、-pane切换"><a href="#2、-pane切换" class="headerlink" title="2、 pane切换"></a>2、 pane切换</h3><p>切换面板就和vim一样了,方向键太变扭了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># map Vi movement keys as pane movement keys</span><br><span class="line">bind h select-pane -L</span><br><span class="line">bind j select-pane -D</span><br><span class="line">bind k select-pane -U</span><br><span class="line">bind l select-pane -R</span><br></pre></td></tr></table></figure>
+<h3 id="3、美化-tmux-powerline"><a href="#3、美化-tmux-powerline" class="headerlink" title="3、美化 tmux-powerline"></a>3、美化 tmux-powerline</h3><p>就是我的效果达不到例子那样</p>
+<p><a href="https://github.com/erikw/tmux-powerline" target="_blank" rel="noopener">https://github.com/erikw/tmux-powerline</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/14/ubuntu上优化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/14/ubuntu上优化/" itemprop="url">ubuntu上优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-14T23:12:55+08:00">2018-02-14</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ubuntu16-04-上手要做的事"><a href="#ubuntu16-04-上手要做的事" class="headerlink" title="ubuntu16.04 上手要做的事"></a>ubuntu16.04 上手要做的事</h1><p>主要是</p>
+<ol>
+<li>音频播放器</li>
+<li>视屏播放器</li>
+<li>编程IDE vsc</li>
+<li>桌面美化</li>
+</ol>
+<p>sudo apt-get update         //获取最新系统安装的软件版本列表<br>sudo apt-get dist-upgrade    //升级系统软件，不过这之前可以改个源，system setting，soteware中改aliyun或163的都可以<br>sudo apt-get autoremove     //自动移除没有依赖的软件<br>sudo apt-get autoclean      //删掉软件的升级的安装包</p>
+<p>装个命令行vim  如果是物理机先搞显卡驱动</p>
+<p>chmod 777 /etc/sudoers  默认是440，改完别退出sudo 然后编辑这个文件vim<br>不该也没事，这是改的没有密码的登录而已，然后再改回440</p>
+<h1 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h1><p>详细情况见 <a href="">ubuntu上安装软件方法</a></p>
+<ol>
+<li>sudo apt-get </li>
+<li>如果是deb的可以使用</li>
+<li>.tar.gz的先tar -x</li>
+</ol>
+<h1 id="安装mac主题包"><a href="#安装mac主题包" class="headerlink" title="安装mac主题包"></a>安装mac主题包</h1><p>sudo apt-get install gnome-tweak-tool</p>
+<p>自己百度ubuntu14.04 mac</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/09/mongodb使用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/09/mongodb使用/" itemprop="url">mongodb使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-09T15:06:37+08:00">2018-02-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考文档，菜鸟<br><a href="http://www.runoob.com/mongodb/mongodb-window-install.html" target="_blank" rel="noopener">mongoDB入门</a></p>
+<h1 id="mongodb使用"><a href="#mongodb使用" class="headerlink" title="mongodb使用"></a>mongodb使用</h1><h2 id="下载及安装"><a href="#下载及安装" class="headerlink" title="下载及安装"></a>下载及安装</h2><p>按window上的来，下载并安装好到默认路径，<strong>并配置好环境变量(这样才能在cmd命令行中打入mongo就能运行)</strong><br><img src="path.png" alt="path"></p>
+<p><strong>要用到的命令也就那几个</strong><br>mongod 打开或创建数据库<br>mongo   连接数据库才能继续其他操作<br>mongoimport 导入数据库<br><img src="mongo.png" alt="mongo"></p>
+<h2 id="创建数据库目录并在命令行下运行-MongoDB-服务器"><a href="#创建数据库目录并在命令行下运行-MongoDB-服务器" class="headerlink" title="创建数据库目录并在命令行下运行 MongoDB 服务器"></a>创建数据库目录并在命令行下运行 MongoDB 服务器</h2><p>MongoDB将数据目录存储在 db 目录下。但是这个数据目录不会主动创建，我们在安装完成后需要创建它<br>名字随便取，就建个db，<strong>注意不要放在C:\Program Files\MongoDB下</strong></p>
+<p>会提示Invalid command: FilesMongoDBdb<br>毕竟路径中有空格<br>换一个位置，换到C:\Users\db下也不行，说是<strong>只读</strong> 不允许<br><strong>那就干脆放到D盘下</strong></p>
+<p>为了从命令提示符下运行 MongoDB 服务器，你必须从 MongoDB 目录的 bin 目录中执行 <code>mongod.exe</code> 文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//改到D:\db</span><br><span class="line">mongod --dbpath D:\db</span><br></pre></td></tr></table></figure>
+<h2 id="连接MongoDB-这个是在上面打开服务器的基础上"><a href="#连接MongoDB-这个是在上面打开服务器的基础上" class="headerlink" title="连接MongoDB(这个是在上面打开服务器的基础上)"></a>连接MongoDB(这个是在上面打开服务器的基础上)</h2><p>我们可以在命令窗口中运行 mongo.exe 命令即可连接上 MongoDB，执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mongo</span><br></pre></td></tr></table></figure>
+<p><strong>感觉这个用git bash来操作不好</strong><br>因为看下图比较, 就是没有提示符了<br><img src="showdbs1.png" alt="showdbs1"><br><img src="showdbs2.png" alt="showdbs2"></p>
+<h2 id="配置-MongoDB-服务-跳过"><a href="#配置-MongoDB-服务-跳过" class="headerlink" title="配置 MongoDB 服务(跳过)"></a>配置 MongoDB 服务(跳过)</h2><p>管理员模式打开命令行窗口</p>
+<p>创建目录，执行下面的语句来创建数据库和日志文件的目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir c:\data\db</span><br><span class="line">mkdir c:\data\log</span><br></pre></td></tr></table></figure>
+<p>主要一个log日志文件，db前面已将创建了</p>
+<h2 id="一些常用命令-连接Mongo后"><a href="#一些常用命令-连接Mongo后" class="headerlink" title="一些常用命令(连接Mongo后)"></a>一些常用命令(连接Mongo后)</h2><p>总结下前面的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">mongod:</span><br><span class="line">    mongod --dbpath &lt;path&gt;</span><br><span class="line">mongo:</span><br><span class="line">    show dbs            //查看所有数据库(空的数据库不显示，注意insert(&#123;&#125;) 这个也是插入了东西，会显示的。和remove(&#123;&#125;)一样哦 )</span><br><span class="line">    db                  //db 命令查看当前数据库名,也表示当前数据库</span><br><span class="line">    show collections    //查看当前库的所有集合</span><br><span class="line">    show users          //查看当前库有哪些用户</span><br><span class="line">        show profile</span><br><span class="line">        show log</span><br><span class="line"></span><br><span class="line">增  use &lt;dbname&gt;        //使用或创建数据库</span><br><span class="line">        db               //查看当前是哪个数据库 show dbs看不到，因为test中没有数据</span><br><span class="line">删  db.dropDatabase()    //删除当前数据库(要进到删除的数据库中么？先use到，在drop)，默认为 test，你可以使用 db 命令查看当前数据库名。删除后db下还是在被删除掉的数据库中，不过show dbs已经看不到了，和use创建那会一样</span><br><span class="line"></span><br><span class="line">改   </span><br><span class="line">查   db / show dbs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //collections都是BSON格式 当JSON好了   BSON是一种类json的一种二进制形式的存储格式,简称Binary JSON。</span><br><span class="line">增   db.collectionName.insert(&#123;&quot;name&quot;:&quot;pipi&quot;&#125;)   //用json格式写入就好了，可以show dbs可以看到，当然可以定一个变量咯，然后插入。这个插入就只是插入，即使同名也插入，不会替换/合并等。都当做那条集合中的记录</span><br><span class="line"></span><br><span class="line">删   db.collectionName.drop()                    //删了当前数据库所有集合中叫collectionName的一个集合</span><br><span class="line"></span><br><span class="line">    db.collection.remove(                   //这个是移除某个集合中的一条记录</span><br><span class="line">    &lt;query&gt;,</span><br><span class="line">    &#123;</span><br><span class="line">        justOne: &lt;boolean&gt;,</span><br><span class="line">        writeConcern: &lt;document&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    db.col.remove(&#123;&#125;)   //删除一个collection中所有记录，这不就是drop么？不对。drop后是在show collections中也看不到了</span><br><span class="line">    db.col.remove(&#123;&apos;age&apos;: 1&#125;)   //删除所有age=1的</span><br><span class="line">    db.col.remove(&#123;&apos;age&apos;: 1&#125;, &#123;justOne: true&#125;)   //删除所有age=1的中第一条匹配的</span><br><span class="line">    //remove drop dropDatabase</span><br><span class="line"></span><br><span class="line">查   db.collectionName.find()        //查找当前数据库中collectionName这个集合的所有记录</span><br><span class="line">        find(&#123;k: v&#125;)                  //查一个对象，age=3的就是&#123;k:v&#125;还是个模糊查询</span><br><span class="line">        find(&#123;k: &#123;$ne: v&#125;&#125;)                  //查一个对象，age!=3的就是&#123;k:v&#125;还是个模糊查询</span><br><span class="line">        find(&#123;k: v&#125;,&#123;k: v&#125;)           //查多个对象，多个条件用逗号，AND隔开</span><br><span class="line">        find($or: [&#123;k: v&#125;,&#123;k: v&#125;])          //这是OR,当然AND和OR也能一起用</span><br><span class="line">        //条件查询 &gt; &lt;</span><br><span class="line">        find(&#123; k: &#123;$gt: v&#125; &#125;)   gte</span><br><span class="line">        find(&#123; k: &#123;$lt: v&#125; &#125;)   lte</span><br><span class="line">        find(&#123; k: &#123;$gt: v, $lt: v&#125;, k: &#123;$gt: v, $lt: v&#125; &#125;)  //合起来</span><br><span class="line">        find().limit(5)             //查出来了结果过滤，取前5条</span><br><span class="line">        find().skip()               //这是跳过几条</span><br><span class="line">        find().pretty()             //格式更好点</span><br><span class="line">排序      find().sort(&#123;k1: 1&#125;, &#123;k2, -1&#125;)  //按k1排序，k1相同就按k2, 1表正序，-1逆序</span><br><span class="line"></span><br><span class="line">改   //使用 update() 和 save() 方法来更新集合中的文档. 一个是更新，个是替换</span><br><span class="line">    //update() 方法用于更新已存在的文档</span><br><span class="line">    //save() 方法通过传入的文档来替换已有文档</span><br><span class="line"></span><br><span class="line">    db.collection.update(</span><br><span class="line">    &lt;query&gt;,</span><br><span class="line">    &lt;update&gt;,</span><br><span class="line">    &#123;</span><br><span class="line">        upsert: &lt;boolean&gt;,</span><br><span class="line">        multi: &lt;boolean&gt;,           //默认查询第一条匹配的，true之后是所有的</span><br><span class="line">        writeConcern: &lt;document&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">    //用到了$set: db.col.update(&#123;&apos;title&apos;:&apos;MongoDB 教程&apos;&#125;,&#123;$set:&#123;&apos;title&apos;:&apos;MongoDB&apos;&#125;&#125;)</span><br><span class="line">    //以上语句只会修改第一条发现的文档，如果你要修改多条相同的文档，则需要设置 multi 参数为 true。</span><br><span class="line">    //$ db.col.update(&#123;&apos;title&apos;:&apos;MongoDB 教程&apos;&#125;,&#123;$set:&#123;&apos;title&apos;:&apos;MongoDB&apos;&#125;&#125;,&#123;multi:true&#125;)</span><br><span class="line"></span><br><span class="line">    db.collection.update(&#123;</span><br><span class="line">        &#123;k, v&#125;,</span><br><span class="line">        &#123;$set: &#123;k, v2&#125;      修改</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    db.collection.update(&#123;</span><br><span class="line">        &#123;k, v&#125;,</span><br><span class="line">        &#123;k1, v1, k2, v2&#125;    替换</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    db.collection.save(</span><br><span class="line">    &lt;document&gt;,</span><br><span class="line">    &#123;</span><br><span class="line">        writeConcern: &lt;document&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">mongoimport:    导入一个BSON</span><br><span class="line">    mongoimport --db test --collection user --drop --file D:\db\1.json</span><br></pre></td></tr></table></figure>
+<p>最后说下nodejs连接MongoDB</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

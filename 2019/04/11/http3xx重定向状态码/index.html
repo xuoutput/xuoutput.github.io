@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="http状态码,重定向,">
+
+
+<meta name="description" content="http3xx 重定向状态码简单说下 301/302/303/307/308 这 5 种状态码的情况 状态码的解释301 Moved Permanently（永久移动）被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。除非额外指定，否则这个响应也是可缓存的。新的永">
+<meta name="keywords" content="http状态码,重定向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http3xx重定向状态码">
+<meta property="og:url" content="http://yoursite.com/2019/04/11/http3xx重定向状态码/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="http3xx 重定向状态码简单说下 301/302/303/307/308 这 5 种状态码的情况 状态码的解释301 Moved Permanently（永久移动）被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。除非额外指定，否则这个响应也是可缓存的。新的永">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-11T07:01:12.736Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http3xx重定向状态码">
+<meta name="twitter:description" content="http3xx 重定向状态码简单说下 301/302/303/307/308 这 5 种状态码的情况 状态码的解释301 Moved Permanently（永久移动）被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。除非额外指定，否则这个响应也是可缓存的。新的永">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/11/http3xx重定向状态码/">
+
+
+  <title>http3xx重定向状态码 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/http3xx重定向状态码/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">http3xx重定向状态码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-11T14:26:55+08:00">2019-04-11</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/网络/" itemprop="url" rel="index"><span itemprop="name">网络</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="http3xx-重定向状态码"><a href="#http3xx-重定向状态码" class="headerlink" title="http3xx 重定向状态码"></a>http3xx 重定向状态码</h1><p>简单说下 301/302/303/307/308 这 5 种状态码的情况</p>
+<h2 id="状态码的解释"><a href="#状态码的解释" class="headerlink" title="状态码的解释"></a>状态码的解释</h2><h3 id="301-Moved-Permanently（永久移动）"><a href="#301-Moved-Permanently（永久移动）" class="headerlink" title="301 Moved Permanently（永久移动）"></a>301 Moved Permanently（永久移动）</h3><p>被请求的资源已永久移动到新位置，并且将来任何对此资源的引用都应该使用本响应返回的若干个 URI 之一。如果可能，拥有链接编辑功能的客户端应当自动把请求的地址修改为从服务器反馈回来的地址。<br>除非额外指定，否则这个响应也是<strong>可缓存</strong>的。新的永久性的 URI 应当在响应的<code>Location</code>域中返回。<br>除非这是一个 HEAD 请求，否则响应的实体中应当包含指向新的 URI 的超链接及简短说明。如果这不是一个 GET 或者 HEAD 请求，因此浏览器禁止自动进行重定向，除非得到用户的确认，因为请求的条件可能因此发生变化。</p>
+<blockquote>
+<p>注意：对于某些使用 HTTP/1.0 协议的浏览器，当它们发送的 POST 请求得到了一个 301 响应的话，接下来的重定向请求将会变成 GET 方式。</p>
+</blockquote>
+<h3 id="302-Found（发现）"><a href="#302-Found（发现）" class="headerlink" title="302 Found（发现）"></a>302 Found（发现）</h3><p>要求客户端执行临时重定向（原始描述短语为“<code>Moved Temporarily</code>”）。由于这样的重定向是临时的，客户端应当继续向原有地址发送以后的请求。<br>只有在<code>Cache-Control</code>或<code>Expires</code>中进行了指定的情况下，这个响应才是可缓存的。新的临时性的 URI 应当在响应的<code>Location</code>域中返回。<br>除非这是一个 HEAD 请求，否则响应的实体中应当包含指向新的 URI 的超链接及简短说明。如果这不是一个 GET 或者 HEAD 请求，那么浏览器禁止自动进行重定向，除非得到用户的确认，因为请求的条件可能因此发生变化。</p>
+<blockquote>
+<p>注意：虽然 RFC 1945 和 RFC 2068 规范不允许客户端在重定向时改变请求的方法，但是很多现存的浏览器将 302 响应视作为 303 响应，并且使用 GET 方式访问在 Location 中规定的 URI，而无视原先请求的方法。因此状态码 303 和 307 被添加了进来，用以明确服务器期待客户端进行何种反应。</p>
+</blockquote>
+<h3 id="303-See-Other（查看其他）"><a href="#303-See-Other（查看其他）" class="headerlink" title="303 See Other（查看其他）"></a>303 See Other（查看其他）</h3><p>对应当前请求的响应可以在另一个 URI 上被找到，当响应于 POST（或 PUT / DELETE）接收到响应时，客户端应该假定服务器已经收到数据，并且应该使用单独的 GET 消息发出重定向。这个方法的存在主要是为了允许由脚本激活的 POST 请求输出重定向到一个新的资源。这个新的 URI 不是原始资源的替代引用。同时，303 响应禁止被缓存。当然，第二个请求（重定向）可能被缓存。新的 URI 应当在响应的 Location 域中返回。除非这是一个 HEAD 请求，否则响应的实体中应当包含指向新的 URI 的超链接及简短说明。注意：许多 HTTP/1.1 版以前的浏览器不能正确理解 303 状态。如果需要考虑与这些浏览器之间的互动，302 状态码应该可以胜任，因为大多数的浏览器处理 302 响应时的方式恰恰就是上述规范要求客户端处理 303 响应时应当做的。</p>
+<h3 id="307-Temporary-Redirect（临时重定向）"><a href="#307-Temporary-Redirect（临时重定向）" class="headerlink" title="307 Temporary Redirect（临时重定向）"></a>307 Temporary Redirect（临时重定向）</h3><p>在这种情况下，请求应该与另一个 URI 重复，但后续的请求应仍使用原始的 URI。 <strong>与 302 相反，当重新发出原始请求时，不允许更改请求方法</strong>。 例如，应该使用另一个 POST 请求来重复 POST 请求</p>
+<h3 id="308-Permanent-Redirect-（永久重定向）"><a href="#308-Permanent-Redirect-（永久重定向）" class="headerlink" title="308 Permanent Redirect （永久重定向）"></a>308 Permanent Redirect （永久重定向）</h3><p>请求和所有将来的请求应该使用另一个 URI 重复。 <strong>307 和 308 重复 302 和 301 的行为，但不允许 HTTP 方法更改</strong>。 例如，将表单提交给永久重定向的资源可能会顺利进行。</p>
+<h2 id="301-302-303-307-308-的区别"><a href="#301-302-303-307-308-的区别" class="headerlink" title="301/302/303/307/308 的区别"></a>301/302/303/307/308 的区别</h2><p><strong>301，302 是 http1.0</strong>的内容，<strong>303、307、308 是 http1.1</strong>的内容。</p>
+<p>301 和 302 本来<strong>在规范中是不允许重定向时改变请求方法的（将 POST 改为 GET）</strong>，但是许多浏览器却允许重定向时改变请求方法（这是一种不规范的实现）。</p>
+<p>303 的出现正是为了给上面的 301，302 这种行为作出个规范（将错就错吧），也就是允许重定向时改变请求方法。此外 303 响应禁止被缓存。</p>
+<p><strong>大多数的浏览器处理 302 响应时的方式恰恰就是上述规范要求客户端处理 303 响应时应当做的，所以 303 基本用的很少，一般用 302</strong>。</p>
+<p>307 和 308 的出现也是给上面的行为做个规范，不过是不允许重定向时改变请求方法。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Permanent</th>
+<th>Temporary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Allows changing the request method from POST to GET.</td>
+<td>301</td>
+<td>302</td>
+</tr>
+<tr>
+<td>Does not allow changing the request method from POST to GET.</td>
+<td>308</td>
+<td>307</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>注：永久（Permanent）和临时（Temporary）的区别</p>
+</blockquote>
+<p>永久是指<strong>原来访问的资源已经永久删除啦</strong>，客户端应该根据新的 URI 访问重定向。</p>
+<p>临时是指访问的<strong>资源可能暂时先用 location 的 URI 访问，但旧资源还在的</strong>，下次你再来访问的时候可能就不用重定向了。</p>
+<p>故 301 与 302 的区别：</p>
+<p>301 表示搜索引擎在抓取新内容的同时也将旧的网址交换为重定向之后的网址；302 表示旧地址 A 的资源还在（仍然可以访问），这个重定向只是临时地从旧地址 A 跳转到地址 B，搜索引擎会抓取新的内容而保存旧的网址。</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>因为 301 与 302 的区别，所以导致产生 302 网址劫持，故不建议使用 302 重定向（然而浏览器默认是使用 302 重定向）</p>
+<p>302 重定向和网址劫持（URL hijacking）</p>
+<p>从网址 A 做一个 302 重定向到网址 B 时，主机服务器的隐含意思是网址 A 随时有可能改主意，重新显示本身的内容或转向其他的地方。大部分的搜索引擎在大部分情况下，当收到 302 重定向时，一般只要去抓取目标网址就可以了，也就是说网址 B。如果搜索引擎在遇到 302 转向时，百分之百的都抓取目标网址 B 的话，就不用担心网址 URL 劫持了。问题就在于，有的时候搜索引擎，尤其是 Google，并不能总是抓取目标网址。比如说，有的时候 A 网址很短，但是它做了一个 302 重定向到 B 网址，而 B 网址是一个很长的乱七八糟的 URL 网址，甚至还有可能包含一些问号之类的参数。很自然的，A 网址更加用户友好，而 B 网址既难看，又不用户友好。这时 Google 很有可能会仍然显示网址 A。由于搜索引擎排名算法只是程序而不是人，在遇到 302 重定向的时候，并不能像人一样的去准确判定哪一个网址更适当，这就造成了网址 URL 劫持的可能性。也就是说，一个不道德的人在他自己的网址 A 做一个 302 重定向到你的网址 B，出于某种原因， Google 搜索结果所显示的仍然是网址 A，但是所用的网页内容却是你的网址 B 上的内容，这种情况就叫做网址 URL 劫持。你辛辛苦苦所写的内容就这样被别人偷走了。302 重定向所造成的网址 URL 劫持现象，已经存在一段时间了。不过到目前为止，似乎也没有什么更好的解决方法。在正在进行的谷歌大爸爸数据中心转换中，302 重定向问题也是要被解决的目标之一。从一些搜索结果来看，网址劫持现象有所改善，但是并没有完全解决。</p>
+<h3 id="使用-301-的场景：（一般是资源位置永久更改）"><a href="#使用-301-的场景：（一般是资源位置永久更改）" class="headerlink" title="使用 301 的场景：（一般是资源位置永久更改）"></a>使用 301 的场景：（一般是资源位置永久更改）</h3><p>1.域名到期不想续费（或者发现了更适合网站的域名），想换个域名。</p>
+<p>2.在搜索引擎的搜索结果中出现了不带 www 的域名，而带 www 的域名却没有收录，这个时候可以用 301 重定向来告诉搜索引擎我们目标的域名是哪一个。</p>
+<p>3.空间服务器不稳定，换空间的时候。</p>
+<p>注：另外，返回 301 请求码进行跳转被谷歌认为是将网站地址由 HTTP 迁移到 HTTPS 的最佳方法(然而大家都用 302。。。。)</p>
+<h3 id="使用-302-的场景：（一般是普通的重定向需求：临时跳转）"><a href="#使用-302-的场景：（一般是普通的重定向需求：临时跳转）" class="headerlink" title="使用 302 的场景：（一般是普通的重定向需求：临时跳转）"></a>使用 302 的场景：（一般是普通的重定向需求：临时跳转）</h3><p>1.未登录前先使用 302 重定向到登录页面,登录成功后再跳回到原来请求的页面</p>
+<p>举个例子，比如我未登录京东前我就访问京东的个人界面 <a href="https://home.jd.com/" target="_blank" rel="noopener">https://home.jd.com/</a> ,然后就会重定向到登录界面，我们可以通过浏览器的 dev-tool 查看状态码</p>
+<p>我们可以发现响应的状态码为 302，并且返回了 location 为登录界面的 url，并且附带了 ReturnUrl 方便我们登录后跳回到 <a href="https://home.jd.com/" target="_blank" rel="noopener">https://home.jd.com/</a></p>
+<p>2.有时候需要自动刷新页面，比如 5 秒后回到订单详细页面之类。</p>
+<p>例子略。</p>
+<p>3.有时系统进行升级或者切换某些功能时，需要临时更换地址。</p>
+<p>例子略。</p>
+<p>4.像微博之类的使用短域名，用户浏览后需要重定向到真实的地址之类。<br>再来个例子，我访问了另一个微博的秒拍视频链接：<a href="http://t.cn/RuOcwxn，然后重定向了两次，先是301重定向到video.weibo.com，再302重定向到miaopai.com。" target="_blank" rel="noopener">http://t.cn/RuOcwxn，然后重定向了两次，先是301重定向到video.weibo.com，再302重定向到miaopai.com。</a></p>
+<p>5.电脑端与移动端的转换</p>
+<p>比如我访问网页端页面<a href="https://www.taobao.com/，302重定向到了移动端页面m.taobao.com" target="_blank" rel="noopener">https://www.taobao.com/，302重定向到了移动端页面m.taobao.com</a></p>
+<p>使用 303 的场景</p>
+<p>几乎没有，一般就是用 302</p>
+<h3 id="使用-307-的场景"><a href="#使用-307-的场景" class="headerlink" title="使用 307 的场景"></a>使用 307 的场景</h3><p>很少用，与 302 类似，只不过是针对 POST 方法的请求不允许更改方法</p>
+<p>不过我在访问百度时，发现用了 307 状态码</p>
+<h3 id="使用-308-的场景"><a href="#使用-308-的场景" class="headerlink" title="使用 308 的场景"></a>使用 308 的场景</h3><p>很少用，与 301 类似，只不过是针对 POST 方法的请求不允许更改方法</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/wuguanglin/p/redirect.html" target="_blank" rel="noopener">详解重定向（HTTP 状态码 301/302/303/307/308）附例子</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/http状态码/" rel="tag"># http状态码</a>
+          
+            <a href="/tags/重定向/" rel="tag"># 重定向</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/08/在前端用JavaScript来实现下载/" rel="next" title="在前端用JavaScript来实现下载">
+                <i class="fa fa-chevron-left"></i> 在前端用JavaScript来实现下载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/11/mysql创建表的时候COLLATE干嘛的/" rel="prev" title="mysql创建表的时候COLLATE干嘛的">
+                mysql创建表的时候COLLATE干嘛的 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#http3xx-重定向状态码"><span class="nav-number">1.</span> <span class="nav-text">http3xx 重定向状态码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#状态码的解释"><span class="nav-number">1.1.</span> <span class="nav-text">状态码的解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#301-Moved-Permanently（永久移动）"><span class="nav-number">1.1.1.</span> <span class="nav-text">301 Moved Permanently（永久移动）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#302-Found（发现）"><span class="nav-number">1.1.2.</span> <span class="nav-text">302 Found（发现）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#303-See-Other（查看其他）"><span class="nav-number">1.1.3.</span> <span class="nav-text">303 See Other（查看其他）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#307-Temporary-Redirect（临时重定向）"><span class="nav-number">1.1.4.</span> <span class="nav-text">307 Temporary Redirect（临时重定向）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#308-Permanent-Redirect-（永久重定向）"><span class="nav-number">1.1.5.</span> <span class="nav-text">308 Permanent Redirect （永久重定向）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#301-302-303-307-308-的区别"><span class="nav-number">1.2.</span> <span class="nav-text">301/302/303/307/308 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用场景"><span class="nav-number">1.3.</span> <span class="nav-text">使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-301-的场景：（一般是资源位置永久更改）"><span class="nav-number">1.3.1.</span> <span class="nav-text">使用 301 的场景：（一般是资源位置永久更改）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-302-的场景：（一般是普通的重定向需求：临时跳转）"><span class="nav-number">1.3.2.</span> <span class="nav-text">使用 302 的场景：（一般是普通的重定向需求：临时跳转）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-307-的场景"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用 307 的场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-308-的场景"><span class="nav-number">1.3.4.</span> <span class="nav-text">使用 308 的场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="Hexo, NexT">
+
+
+<meta name="description" content="javascript-事件 events浏览器中的 JavaScript 使用事件驱动的编程模型。 一切都始于事件。 本节介绍 JavaScript 事件以及事件处理的工作原理。 浏览器中的 JavaScript 使用事件驱动的编程模型。 一切都始于事件。 事件可能是 DOM 已加载，或者是异步请求完成，或用户单击元素或滚动页面，或用户按下键盘。 有很多不同类型的事件。 事件处理器（Event h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript-事件events">
+<meta property="og:url" content="http://yoursite.com/2019/05/13/javascript-事件events/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="javascript-事件 events浏览器中的 JavaScript 使用事件驱动的编程模型。 一切都始于事件。 本节介绍 JavaScript 事件以及事件处理的工作原理。 浏览器中的 JavaScript 使用事件驱动的编程模型。 一切都始于事件。 事件可能是 DOM 已加载，或者是异步请求完成，或用户单击元素或滚动页面，或用户按下键盘。 有很多不同类型的事件。 事件处理器（Event h">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/javascript-事件events/bubble.png">
+<meta property="og:updated_time" content="2019-05-13T03:22:39.766Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript-事件events">
+<meta name="twitter:description" content="javascript-事件 events浏览器中的 JavaScript 使用事件驱动的编程模型。 一切都始于事件。 本节介绍 JavaScript 事件以及事件处理的工作原理。 浏览器中的 JavaScript 使用事件驱动的编程模型。 一切都始于事件。 事件可能是 DOM 已加载，或者是异步请求完成，或用户单击元素或滚动页面，或用户按下键盘。 有很多不同类型的事件。 事件处理器（Event h">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/13/javascript-事件events/bubble.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/13/javascript-事件events/">
+
+
+  <title>javascript-事件events | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/javascript-事件events/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript-事件events</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-13T10:25:49+08:00">2019-05-13</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="javascript-事件-events"><a href="#javascript-事件-events" class="headerlink" title="javascript-事件 events"></a>javascript-事件 events</h1><p><strong>浏览器</strong>中的 JavaScript 使用<strong>事件驱动</strong>的编程模型。 一切都始于事件。 本节介绍 JavaScript 事件以及事件处理的工作原理。</p>
+<p>浏览器中的 JavaScript 使用<strong>事件驱动的编程模型</strong>。</p>
+<p>一切都始于事件。</p>
+<p>事件可能是 <code>DOM</code> 已加载，或者是<strong>异步请求</strong>完成，或用户<strong>单击</strong>元素或<strong>滚动</strong>页面，或用户<strong>按下</strong>键盘。</p>
+<p>有很多不同类型的事件。</p>
+<h2 id="事件处理器（Event-handlers）"><a href="#事件处理器（Event-handlers）" class="headerlink" title="事件处理器（Event handlers）"></a>事件处理器（Event handlers）</h2><p>你可以使用<strong>事件处理程序</strong>响应任何事件，事件处理程序只是<strong>在事件发生时调用的函数</strong>。</p>
+<p>你可以为<strong>同一事件注册多个处理程序</strong>，并在事件发生时调用它们。</p>
+<p>JavaScript 提供了<strong>三种</strong>注册事件处理程序的方法：</p>
+<h3 id="内联事件处理程序-inline"><a href="#内联事件处理程序-inline" class="headerlink" title="内联事件处理程序 inline"></a>内联事件处理程序 inline</h3><p>由于他自身的限制，这种类型的事件处理程序<strong>今天很少使用</strong>，但这是 JavaScript <strong>早期的唯一方法</strong>：</p>
+<p>HTML 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">'site.com'</span> onclick=<span class="string">'dosomething();'</span>&gt;</span><br><span class="line">  A link</span><br><span class="line">&lt;<span class="regexp">/a&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="DOM-事件处理器"><a href="#DOM-事件处理器" class="headerlink" title="DOM 事件处理器"></a>DOM 事件处理器</h3><p>当<strong>一个对象只有一个事件处理器时</strong>这种方法很常用，因为在这种情况下<strong>无法添加多个处理程序</strong>：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//window loaded</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>它在处理<code>XHR</code>请求时最常用：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//.. do something</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>你可以使用 <code>if (&#39;onsomething&#39; in window) {}</code> 检查是否已将处理程序分配给某个属性。</p>
+<h3 id="使用-addEventListener"><a href="#使用-addEventListener" class="headerlink" title="使用 addEventListener()"></a>使用 addEventListener()</h3><p>这是 <strong>现代</strong> 方式。这种方法允许我们根据需求注册<strong>多个处理程序</strong>，你会发现它是绑定处理程序最受欢迎的方式：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">//window loaded</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：IE8 及以下版本不支持这个方法，可以使用 <code>attachEvent</code>() 代替。如果你需要支持旧浏览器，请记住这一点。</p>
+</blockquote>
+<h2 id="监听不同的元素"><a href="#监听不同的元素" class="headerlink" title="监听不同的元素"></a>监听不同的元素</h2><p>你可以监听 <code>window</code> 来拦截“<strong>全局</strong>”事件，比如<strong>键盘</strong>的使用，你也可以<strong>监听特定元素上</strong>发生的事件，比如鼠标点击了某个按钮。</p>
+<p>这也是为什么 <code>addEventListener</code> <strong>有时候在 <code>window</code> 上调用，有时间在某个 <code>DOM</code> 元素上</strong>。</p>
+<h2 id="Event-对象"><a href="#Event-对象" class="headerlink" title="Event 对象"></a>Event 对象</h2><p><strong>事件处理器</strong>会获得一个 <code>Event</code> <strong>对象</strong>作为第一个参数：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> link = <span class="built_in">document</span>.getElementById(<span class="string">'my-link'</span>);</span><br><span class="line">link.addEventListener(<span class="string">'click'</span>, (event) =&gt; &#123;</span><br><span class="line">  <span class="comment">// link clicked</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这个对象包含很多有用的属性和方法，比如：</p>
+<ul>
+<li><code>target</code>，事件发生的目标 <code>DOM</code> 元素</li>
+<li><code>type</code>，事件类型</li>
+<li><code>stopPropagation()</code>，调用以阻止 <code>DOM</code> 事件传播</li>
+</ul>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Event" target="_blank" rel="noopener">(查看完整清单)Event</a></p>
+<p>其它属性提供给<strong>特定的事件</strong>，<code>Event</code> 只是不同事件的一个接口：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent" target="_blank" rel="noopener">MouseEvent</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent" target="_blank" rel="noopener">KeyboardEvent</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/DragEvent" target="_blank" rel="noopener">DragEvent</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent" target="_blank" rel="noopener">FetchEvent</a></li>
+</ul>
+<p>…等等<br>上面的每一个都链接到了 MDN 页面，你可以在那查看它们所有的属性。</p>
+<p>例如，<strong>当一个键盘事件发生时，你可以检查哪个键被按下</strong>，通过 <code>key</code> 属性值得到一个可读格式的值（ <code>Escape</code>, <code>Enter</code> 等等）：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'keydown'</span>, (event) =&gt; &#123;</span><br><span class="line">  <span class="comment">// key pressed</span></span><br><span class="line">  <span class="built_in">console</span>.log(event.key);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>在<strong>鼠标事件中，我们可以检查按下了哪个鼠标按钮</strong>：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> link = <span class="built_in">document</span>.getElementById(<span class="string">'my-link'</span>);</span><br><span class="line">link.addEventListener(<span class="string">'mousedown'</span>, (event) =&gt; &#123;</span><br><span class="line">  <span class="comment">// mouse button pressed</span></span><br><span class="line">  <span class="built_in">console</span>.log(event.button); <span class="comment">//0=left, 2=right</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="事件冒泡和事件捕捉"><a href="#事件冒泡和事件捕捉" class="headerlink" title="事件冒泡和事件捕捉"></a>事件冒泡和事件捕捉</h2><p><strong>事件冒泡</strong>和<strong>事件捕捉</strong>是事件传播的两个模型。</p>
+<p>假设你的 DOM 结构是这样的：</p>
+<p>HTML 代码:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>你希望跟踪用户何时单击该按钮，并且你有<strong>两个事件侦听器</strong>，一个在 <code>button</code> 上，另一个在 <code>#container</code> 上。 请记住，<strong>单击子元素将始终传播到其父元素</strong>，除非你停止事件传播（我们稍后会看到）。</p>
+<p>这些事件侦听器会<strong>按照顺序调用</strong>，这个顺序通过<strong>事件冒泡/事件捕捉模型</strong>决定。</p>
+<p><strong>冒泡</strong> 意味着事件<strong>从被点击的元素（子元素）一直向上传播到所有祖先元素</strong>，从最近的一个开始。从子开始处理相应程序</p>
+<p>在我们的例子中，点击 <code>button</code> 的话, <code>button</code> 上的处理器会在 <code>#container</code> 之前发生。</p>
+<p><strong>捕捉</strong> 恰恰相反：<strong>最外部的事件会在特定处理器之前</strong>发生，比如还是点击 <code>button</code> , 但先冒泡到最外层的 <code>#container</code> , <code>#container</code>上的事件处理先相应, 然后是 <code>button</code> 上的事件处理程序响应.</p>
+<p>默认采用<code>事件冒泡</code>模型。从子开始处理</p>
+<p>你也<strong>可以选择使用事件捕捉</strong>，通过将 <code>addEventListener</code> 的第三个参数设为 true：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'container'</span>).addEventListener(</span><br><span class="line">  <span class="string">'click'</span>,</span><br><span class="line">  () =&gt; &#123;</span><br><span class="line">    <span class="comment">//window loaded</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>注意：<strong>首先运行所有<code>捕获</code>事件处理程序</strong>。<br><strong>然后是所有<code>冒泡</code>的事件处理程序</strong>。</p>
+<p>这个顺序遵循这个<strong>原则</strong>：<code>DOM</code> 遍历从 <code>Window</code> 对象开始的所有元素，直到找到被点击的元素项。执行此操作时，调用与事件关联的任何事件处理程序（捕获阶段）。</p>
+<p>一旦找到目标元素，它会重复这个过程直到回到 <code>Window</code> 对象，此时调用相应的事件处理器（冒泡阶段）。</p>
+<p>这样图可以帮助你理解这个过程：</p>
+<blockquote>
+<p>注意咯, 如果你设置了多个事件处理, 比如一个 <code>window</code> 上设置了 2 个 一个用 <strong>冒泡</strong>, 一个用 <strong>捕获</strong>, 那么 都会触发的, 然后触发顺序是 下面的 1 2 3 4 先 处理 <strong>捕获的</strong> 在处理 <strong>冒泡</strong> 的事件处理程序</p>
+</blockquote>
+<p><img src="bubble.png" alt="bubble.png"></p>
+<h2 id="停止传播"><a href="#停止传播" class="headerlink" title="停止传播"></a>停止传播</h2><p>DOM 元素上的事件将<strong>传播到其所有父元素上</strong>，除非手动停止传播：</p>
+<p>HTML 代码:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"my-link"</span> <span class="attr">...</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>a</code> 上的 <code>click</code> 事件会传播到 <code>section</code> 然后是 <code>body</code> 。</p>
+<p>你可以调用 <code>Event</code> 的 <code>stopPropagation()</code> 方法来<strong>停止事件传播</strong>，通常<strong>放在事件处理程序的末尾</strong>（注：我个人喜好放在事件处理程序的开始处）：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> link = <span class="built_in">document</span>.getElementById(<span class="string">'my-link'</span>);</span><br><span class="line">link.addEventListener(<span class="string">'mousedown'</span>, (event) =&gt; &#123;</span><br><span class="line">  <span class="comment">// process the event</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  event.stopPropagation();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="常见事件"><a href="#常见事件" class="headerlink" title="常见事件"></a>常见事件</h2><p>以下可能是你会处理的最常见事件的列表。</p>
+<h3 id="load"><a href="#load" class="headerlink" title="load"></a>load</h3><p>页面加载完成后，在 <code>window</code> 和 <code>body</code> 元素上触发 <code>load</code> 事件。</p>
+<h2 id="鼠标事件"><a href="#鼠标事件" class="headerlink" title="鼠标事件"></a>鼠标事件</h2><p>单击鼠标按钮时 <code>click</code> 事件触发。 单击鼠标两次时触发 <code>dbclick</code> 事件。 当然，在这种情况下，<code>click</code> 事件会在此事件之前触发。<code>mousedown</code>，<code>mousemove</code> 和 <code>mouseup</code> 可以和<strong>拖动事件</strong>结合在一起。小心使用 <code>mousemove</code>，<strong>因为它会在鼠标移动过程中触发很多次（稍后会看到节流）</strong>。</p>
+<h2 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h2><p>当按下键盘键时 <code>keydown</code> 事件就会触发(当按下按钮时，任何时候重复键)。当键被释放时，将触发 <code>keyup</code> 事件。</p>
+<h2 id="滚动-Scroll"><a href="#滚动-Scroll" class="headerlink" title="滚动(Scroll)"></a>滚动(Scroll)</h2><p>每次滚动页面时都会在 <code>window</code> 上触发 <code>scroll</code> 事件。在事件处理程序中，你可以通过检查 <code>window.scrollY</code>（Y 轴）(注：我个人喜好用 <code>document.documentElement.scrollTop)</code> 来检查当前的滚动位置。</p>
+<p>请记住，此事件<strong>不是一次性的事件</strong>。它在滚动期间会发生很多次，而不仅仅是在滚动的结尾或开始时，所以<strong>不要在处理程序中进行任何频繁的计算或操作</strong> – 而是使用节流代替。</p>
+<h2 id="节流-Throttling"><a href="#节流-Throttling" class="headerlink" title="节流(Throttling)"></a>节流(Throttling)</h2><p>如上所述，<code>mousemove</code> 和 <code>scroll</code> 这两个事件都<strong>不是一次性事件</strong>，而是在持续操作的时间内<strong>连续调用</strong>它们的事件处理函数。</p>
+<p>这是因为它们提供坐标，因此你可以跟踪正在发生的事件。</p>
+<p>如果你在这些事件处理器中进行复杂的操作，则会影响性能并导致站点用户体验不佳。</p>
+<p>像 <a href="https://www.html.cn/doc/lodash/#_throttlefunc-wait0-options" target="_blank" rel="noopener">Lodash throttle</a> 这样的库提供了 100 行代码实现的节流函数来处理这个问题。一个简单易懂的实现是使用 <code>setTimeout</code> 每隔 <code>100ms</code> 缓存一次滚动事件：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> cached = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, (event) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!cached) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">//you can access the original event at `cached`</span></span><br><span class="line">      cached = <span class="literal">null</span>;</span><br><span class="line">    &#125;, <span class="number">100</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  cached = event;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.html.cn/doc/lodash/#_debouncefunc-wait0-options" target="_blank" rel="noopener">防抖动 debounce</a></p>
+<p>两者区别</p>
+<p><a href="https://www.jianshu.com/p/e91775195608" target="_blank" rel="noopener">理解 Debouncing 与 Throttling 的区别 666</a><br><a href="https://www.cnblogs.com/wilber2013/p/5893426.html" target="_blank" rel="noopener">白话 debounce 和 throttle</a></p>
+<p>debounce 的主要区别是 推迟这次调用。 电梯例子<br>throttle 保证方法每 Xms 有规律的执行,</p>
+<ul>
+<li>debounce：把触发非常频繁的事件合并成一次执行</li>
+<li>throttle：设置一个阀值，在阀值内，把触发的事件合并成一次执行；当到达阀值，必定执行一次事件</li>
+</ul>
+<h3 id="了解了-throttle-和-debounce-之后，下面看看他们的常用场景："><a href="#了解了-throttle-和-debounce-之后，下面看看他们的常用场景：" class="headerlink" title="了解了 throttle 和 debounce 之后，下面看看他们的常用场景："></a>了解了 throttle 和 debounce 之后，下面看看他们的常用场景：</h3><p>debounce</p>
+<ul>
+<li>对于键盘事件，当用户输入比较频繁的时候，可以通过 debounce 合并键盘事件处理</li>
+<li>对于 <code>ajax</code> 请求的情况，例如当页面下拉超过一定返回就通过 <code>ajax</code> 请求新的页面内容，这时候可以通过 debounce 合并 ajax 请求事件</li>
+</ul>
+<p>throttle</p>
+<ul>
+<li>对于键盘事件，当用户输入非常频繁，但是我们又必须要在一定时间内（阀值）内执行处理函数的时候，就可以使用 throttle<ul>
+<li>例如，一些网页游戏的键盘事件</li>
+</ul>
+</li>
+<li>对于<strong>鼠标移动和窗口滚动</strong>，鼠标的移动和窗口的滚动会带来大量的事件，但是在一段时间内又必须看到页面的效果<ul>
+<li>例如对于可以拖动的 div，如果使用 debounce，那么 div 会在拖动停止后一下子跳到目标位置；这时就需要使用 throttle</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.html.cn/archives/10207" target="_blank" rel="noopener">JavaScript 中的事件（Events） – JavaScript 完全手册（2018 版）</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/13/javascript-循环loop/" rel="next" title="javascript-循环loop">
+                <i class="fa fa-chevron-left"></i> javascript-循环loop
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/13/javascript-事件循环event-loop/" rel="prev" title="javascript-事件循环event-loop">
+                javascript-事件循环event-loop <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#javascript-事件-events"><span class="nav-number">1.</span> <span class="nav-text">javascript-事件 events</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件处理器（Event-handlers）"><span class="nav-number">1.1.</span> <span class="nav-text">事件处理器（Event handlers）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内联事件处理程序-inline"><span class="nav-number">1.1.1.</span> <span class="nav-text">内联事件处理程序 inline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-事件处理器"><span class="nav-number">1.1.2.</span> <span class="nav-text">DOM 事件处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-addEventListener"><span class="nav-number">1.1.3.</span> <span class="nav-text">使用 addEventListener()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监听不同的元素"><span class="nav-number">1.2.</span> <span class="nav-text">监听不同的元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event-对象"><span class="nav-number">1.3.</span> <span class="nav-text">Event 对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件冒泡和事件捕捉"><span class="nav-number">1.4.</span> <span class="nav-text">事件冒泡和事件捕捉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停止传播"><span class="nav-number">1.5.</span> <span class="nav-text">停止传播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见事件"><span class="nav-number">1.6.</span> <span class="nav-text">常见事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#load"><span class="nav-number">1.6.1.</span> <span class="nav-text">load</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鼠标事件"><span class="nav-number">1.7.</span> <span class="nav-text">鼠标事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键盘事件"><span class="nav-number">1.8.</span> <span class="nav-text">键盘事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滚动-Scroll"><span class="nav-number">1.9.</span> <span class="nav-text">滚动(Scroll)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节流-Throttling"><span class="nav-number">1.10.</span> <span class="nav-text">节流(Throttling)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#了解了-throttle-和-debounce-之后，下面看看他们的常用场景："><span class="nav-number">1.10.1.</span> <span class="nav-text">了解了 throttle 和 debounce 之后，下面看看他们的常用场景：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.11.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

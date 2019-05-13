@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="Hexo, NexT">
+
+
+<meta name="description" content="javascript-事件循环 event-loop 从输入URL到页面加载发生了什么 &amp;gt; JavaScript-的-async-await  事件循环是 JavaScript 最重要的内容之一。 本节旨在解释 JavaScript 如何处理单个线程的内部细节，以及如何处理异步函数。 您的 JavaScript 代码运行是单线程的。一次只发生一件事。 这是一个实际上非常有用的限制，因为它简化了很多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript-事件循环event-loop">
+<meta property="og:url" content="http://yoursite.com/2019/05/13/javascript-事件循环event-loop/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="javascript-事件循环 event-loop 从输入URL到页面加载发生了什么 &amp;gt; JavaScript-的-async-await  事件循环是 JavaScript 最重要的内容之一。 本节旨在解释 JavaScript 如何处理单个线程的内部细节，以及如何处理异步函数。 您的 JavaScript 代码运行是单线程的。一次只发生一件事。 这是一个实际上非常有用的限制，因为它简化了很多">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/javascript-事件循环event-loop/stack.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/javascript-事件循环event-loop/call.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/javascript-事件循环event-loop/call2.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/javascript-事件循环event-loop/setTime.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/13/javascript-事件循环event-loop/setTime2.png">
+<meta property="og:updated_time" content="2019-05-13T03:59:28.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript-事件循环event-loop">
+<meta name="twitter:description" content="javascript-事件循环 event-loop 从输入URL到页面加载发生了什么 &amp;gt; JavaScript-的-async-await  事件循环是 JavaScript 最重要的内容之一。 本节旨在解释 JavaScript 如何处理单个线程的内部细节，以及如何处理异步函数。 您的 JavaScript 代码运行是单线程的。一次只发生一件事。 这是一个实际上非常有用的限制，因为它简化了很多">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/13/javascript-事件循环event-loop/stack.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/13/javascript-事件循环event-loop/">
+
+
+  <title>javascript-事件循环event-loop | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/javascript-事件循环event-loop/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript-事件循环event-loop</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-13T11:23:57+08:00">2019-05-13</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="javascript-事件循环-event-loop"><a href="#javascript-事件循环-event-loop" class="headerlink" title="javascript-事件循环 event-loop"></a>javascript-事件循环 event-loop</h1><blockquote>
+<a href="/2018/12/28/从输入URL到页面加载发生了什么/" title="从输入URL到页面加载发生了什么">从输入URL到页面加载发生了什么</a> > <a href="/2018/11/25/JavaScript-的-async-await/" title="JavaScript-的-async-await">JavaScript-的-async-await</a>
+</blockquote>
+<p>事件循环是 JavaScript 最重要的内容之一。</p>
+<p>本节旨在解释 JavaScript 如何处理<strong>单个线程的内部细节</strong>，以及如何<strong>处理异步函数</strong>。</p>
+<p>您的 JavaScript 代码运行是单线程的。一次只发生一件事。</p>
+<p>这是一个实际上非常有用的限制，因为它简化了很多程序，而不必担心并发问题。</p>
+<p>您只需要注意编写代码的方式，避免任何可能阻塞线程的内容，如同步网络请求或无限循环。</p>
+<p>通常，在大多数浏览器中，<strong>每个浏览器标签</strong>都有一个<strong>独立的事件循环机制</strong>，以使每个<strong>进程隔离</strong>，并避免 web 页面具有无限循环或繁重的处理，从而阻塞整个浏览器。</p>
+<p><strong>浏览器环境管理多个并发事件循环</strong>，例如处理 API 调用。 Web Workers 也在自己的事件循环中运行。</p>
+<p>您只要明白您的代码将在单个事件循环上运行，并在编写代码时考虑到这一点，以避免阻塞它。</p>
+<h2 id="阻塞事件循环"><a href="#阻塞事件循环" class="headerlink" title="阻塞事件循环"></a>阻塞事件循环</h2><p><strong>任何执行时间过长</strong>不能将控制权返回给事件循环的 <code>JavaScript</code> 代码都会阻塞页面内其它代码的执行，甚至阻塞 UI 线程，用户不能单击、滚动页面，等等。</p>
+<p>几乎所有 JavaScript 中的 I/O 原语都是非阻塞的，比如网络请求，Node.js 文件系统操作等。 阻塞是个例外，这就是为什么 JavaScript <strong>基于回调</strong>，以及最近的 <code>promises</code> 和 <code>async/await</code> 。</p>
+<h2 id="调用堆栈"><a href="#调用堆栈" class="headerlink" title="调用堆栈"></a>调用堆栈</h2><p>调用堆栈是 LIFO 队列（Last In, First Out）。 就是个<strong>栈</strong> 先进后出, 后出先进.</p>
+<p>事件循环不断检查调用堆栈里是否仍有函数需要运行。</p>
+<p>在这样做的同时，它将它找到的任何函数调用添加到调用堆栈，并按顺序执行每个调用。</p>
+<p>您可以在调试器或浏览器控制台中了解您可能熟悉的<strong>错误堆栈跟踪</strong>吗？ 浏览器在调用堆栈中查找函数名称，以通知您哪个函数发起当前调用：</p>
+<p>内到外, 栈</p>
+<p><img src="stack.png" alt="stack.png"></p>
+<h2 id="一个简单的事件循环说明"><a href="#一个简单的事件循环说明" class="headerlink" title="一个简单的事件循环说明"></a>一个简单的事件循环说明</h2><p>我们来举一个例子：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bar = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'bar'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baz = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'baz'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> foo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>);</span><br><span class="line">  bar();</span><br><span class="line">  baz();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+<p>此代码打印:</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foo;</span><br><span class="line">bar;</span><br><span class="line">baz;</span><br></pre></td></tr></table></figure>
+<p>正如大家所料，和预期一样。</p>
+<p>当此代码运行时，<strong>首先调用 <code>foo()</code> 。在 <code>foo()</code>里面我们先调用 <code>bar()</code>，然后调用 <code>baz()</code></strong>。</p>
+<p>此时调用堆栈如下所示：</p>
+<p><img src="call.png" alt="call.png"></p>
+<p>每次迭代的事件循环都会查看调用栈中是否存在某些内容并执行它：</p>
+<p><img src="call2.png" alt="call2.png"></p>
+<p>直到调用堆栈为空。</p>
+<h2 id="函数执行队列"><a href="#函数执行队列" class="headerlink" title="函数执行队列"></a>函数执行队列</h2><p>上面的例子看起来很正常，没有什么特别之处：<code>JavaScript</code> 找到要执行的东西，按<strong>顺序</strong>运行它们。</p>
+<p>让我们看看如何<strong>推迟一个函数，直到堆栈清空</strong>。</p>
+<p><code>setTimeout(() =&gt; {}), 0)</code> 用例是调用一个函数，会在代码中其他每个函数都已执行后再执行它。</p>
+<p>举个例子：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bar = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'bar'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baz = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'baz'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> foo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>);</span><br><span class="line">  setTimeout(bar, <span class="number">0</span>);</span><br><span class="line">  baz();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+<p>这段代码打印出来，结果是：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foo;</span><br><span class="line">baz;</span><br><span class="line">bar;</span><br></pre></td></tr></table></figure>
+<p>当此代码运行时，首先调用 <code>foo()</code> 。 在 <code>foo()</code> 里面我们首先调用 <code>setTimeout</code> ，将 <code>bar</code> 作为参数传递，然后将 <code>0</code> 作为计时器传递，意思是让它尽可能快地运行。 然后调用 <code>baz()</code>。</p>
+<p>此时调用堆栈如下所示：</p>
+<p><strong>注意看是 <code>foo()</code> 执行完后 再执行 <code>bar()</code></strong></p>
+<p><img src="setTime.png" alt="setTime.png"></p>
+<p>以下是我们程序中所有函数的执行顺序：</p>
+<p><img src="setTime2.png" alt="setTime2.png"></p>
+<p>为什么会这样？</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>当调用 <code>setTimeout()</code> 时，浏览器或者 Node.js 就会<strong>启动计时器</strong>。 一旦计时器到期，在这个例子中，当我们将 <code>0</code> 作为超时时间，<strong>回调函数</strong>立即被放入 <strong>消息队列</strong> 中。</p>
+<p><strong>消息队列也包含用户发起的事件</strong>，如单击事件、键盘事件，或者在代码有机会对 <code>fetch</code> 响应作出响应之前，<code>fetch</code> 响应就已经进入队列了。再或者像 <code>onLoad</code> 这样的 <code>DOM</code> 事件。</p>
+<p><strong>循环优先于调用堆栈</strong>，它首先处理它在调用堆栈中找到的所有内容，一旦没有任何东西，它就会在事件队列中查找要执行的内容。</p>
+<p>我们<strong>不必等待</strong> <code>setTimeout</code> ，<code>fetch</code> 或其他函数来完成它们自己的工作，因为它们是由浏览器提供的，并且它们依赖于自己的线程。例如，如果您将 <code>setTimeout</code> 超时设置为 2 秒，那么您不必等待 2 秒 — 等待在其他地方发生。</p>
+<h2 id="ES6-作业队列-Job-Queue"><a href="#ES6-作业队列-Job-Queue" class="headerlink" title="ES6 作业队列(Job Queue)"></a>ES6 作业队列(Job Queue)</h2><p>ECMAScript 2015 引入了 <code>Promises</code>（也在 ES6 / ES2015 中引入） ，使用了作业队列(<code>Job Queue</code>)概念。 这是一种<strong>尽快执行异步函数的方法</strong>，而不是放在调用堆栈的末尾。</p>
+<p>在当前函数结束之前 <code>resolve</code> 状态的 <code>Promises</code> 将在当前函数之后立即执行。</p>
+<p>我发现在游乐园里乘坐过山车的情况可以很好地解释 ES6 作业队列(Job Queue)：消息队列让你排队等候队列，等队列中所有其他人坐完之后乘坐，而作业队列(Job Queue)相当于是快速通行票，可以让您在乘坐完之后立即再乘一次。</p>
+<p>例如：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bar = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'bar'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baz = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'baz'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> foo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>);</span><br><span class="line">  setTimeout(bar, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span></span><br><span class="line">    resolve(<span class="string">'should be right after baz, before bar'</span>)</span><br><span class="line">  ).then(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">console</span>.log(resolve));</span><br><span class="line">  baz();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+<p>此代码打印:</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo</span><br><span class="line">baz</span><br><span class="line">should be right after baz, before bar</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
+<p>这是 <code>Promises</code>（包括基于 <code>promises</code> 的 <code>Async/await</code>）和普通的<strong>旧异步函数</strong>（通过 <code>setTimeout()</code> 或其他平台 API ）之间的巨大差异。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.html.cn/archives/10216" target="_blank" rel="noopener">JavaScript 中的事件循环（Event Loop） – JavaScript 完全手册（2018 版）</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/13/javascript-事件events/" rel="next" title="javascript-事件events">
+                <i class="fa fa-chevron-left"></i> javascript-事件events
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/13/javascript-异步编程和回调/" rel="prev" title="javascript-异步编程和回调">
+                javascript-异步编程和回调 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#javascript-事件循环-event-loop"><span class="nav-number">1.</span> <span class="nav-text">javascript-事件循环 event-loop</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阻塞事件循环"><span class="nav-number">1.1.</span> <span class="nav-text">阻塞事件循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用堆栈"><span class="nav-number">1.2.</span> <span class="nav-text">调用堆栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个简单的事件循环说明"><span class="nav-number">1.3.</span> <span class="nav-text">一个简单的事件循环说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数执行队列"><span class="nav-number">1.4.</span> <span class="nav-text">函数执行队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息队列"><span class="nav-number">1.5.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6-作业队列-Job-Queue"><span class="nav-number">1.6.</span> <span class="nav-text">ES6 作业队列(Job Queue)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

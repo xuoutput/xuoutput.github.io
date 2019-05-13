@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="数据类型,">
+
+
+<meta name="description" content="javascript-数据类型数据类型 – JavaScript 完全手册（2018 版）6666 您有时可能会读到 JS 是无类型的，但这是不正确的。 确实，您可以将各种不同类型分配给变量，但 JavaScript 具有类型。 特别是，它提供了原始类型和对象类型。 原始类型原始类型包括：5+1(Symbol) Number（数字）String（字符串）Boolean（布尔）还有两种特殊的原始类型">
+<meta name="keywords" content="数据类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript-数据类型">
+<meta property="og:url" content="http://yoursite.com/2019/05/09/javascript-数据类型/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="javascript-数据类型数据类型 – JavaScript 完全手册（2018 版）6666 您有时可能会读到 JS 是无类型的，但这是不正确的。 确实，您可以将各种不同类型分配给变量，但 JavaScript 具有类型。 特别是，它提供了原始类型和对象类型。 原始类型原始类型包括：5+1(Symbol) Number（数字）String（字符串）Boolean（布尔）还有两种特殊的原始类型">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-10T03:24:37.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript-数据类型">
+<meta name="twitter:description" content="javascript-数据类型数据类型 – JavaScript 完全手册（2018 版）6666 您有时可能会读到 JS 是无类型的，但这是不正确的。 确实，您可以将各种不同类型分配给变量，但 JavaScript 具有类型。 特别是，它提供了原始类型和对象类型。 原始类型原始类型包括：5+1(Symbol) Number（数字）String（字符串）Boolean（布尔）还有两种特殊的原始类型">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/09/javascript-数据类型/">
+
+
+  <title>javascript-数据类型 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/javascript-数据类型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript-数据类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T16:57:49+08:00">2019-05-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/JavaScript完全手册-2018版/" itemprop="url" rel="index"><span itemprop="name">JavaScript完全手册(2018版)</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="javascript-数据类型"><a href="#javascript-数据类型" class="headerlink" title="javascript-数据类型"></a>javascript-数据类型</h1><p><a href="https://www.html.cn/archives/10017" target="_blank" rel="noopener">数据类型 – JavaScript 完全手册（2018 版）6666</a></p>
+<p>您有时可能会读到 JS 是<strong>无类型</strong>的，但这是不正确的。 确实，您可以将各种不同类型分配给变量，但 JavaScript 具有类型。 特别是，它提供了原始类型和对象类型。</p>
+<h2 id="原始类型"><a href="#原始类型" class="headerlink" title="原始类型"></a>原始类型</h2><p>原始类型包括：5+1(Symbol)</p>
+<p>Number（数字）<br>String（字符串）<br>Boolean（布尔）<br>还有两种特殊的原始类型：</p>
+<p>Null（空值）<br>Undefined（未定义）<br>让我们在这里详细介绍它们。</p>
+<h3 id="Number（数字）"><a href="#Number（数字）" class="headerlink" title="Number（数字）"></a>Number（数字）</h3><p>在内部，JavaScript <strong>只有一种数字类型</strong>：每个数字都是一个<strong>浮点数</strong>。</p>
+<p>数字字面量是源代码中表示的数字，并且取决于它的编写方式，它可以是整数字面量或浮点数字面量。</p>
+<p>整数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JavaScript 代码:</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">5354576767321</span></span><br><span class="line"><span class="number">0xCC</span> <span class="comment">//hex</span></span><br></pre></td></tr></table></figure>
+<p>浮点数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JavaScript 代码:</span><br><span class="line"><span class="number">3.14</span></span><br><span class="line"><span class="number">.1234</span></span><br><span class="line"><span class="number">5.2e4</span> <span class="comment">//5.2 * 10^4</span></span><br></pre></td></tr></table></figure>
+<p>实际工作中你会碰到很多不可思议的问题，特别是浮点数运算的精度问题，请查看以下几篇文章，了解相关问题及解决方案：</p>
+<p><a href="https://www.html.cn/archives/7340" target="_blank" rel="noopener">JavaScript 浮点数运算的精度问题</a><br><a href="https://www.html.cn/archives/9318" target="_blank" rel="noopener">JavaScript 中科学计数法转化为数值字符串形式</a><br><a href="https://www.html.cn/archives/7324" target="_blank" rel="noopener">JavaScript 格式化数字、金额、千分位、保留几位小数、舍入舍去…</a></p>
+<blockquote>
+<p>理解IEEE 754 的结构对理解最大值, 最小值很有用. 但注意<strong>安全整数</strong>这一回事, 还涉及指数为0是正负0和指数为2047的表示无穷大<code>2</code>个和NAN有<code>2^53-2</code>, 就是去掉2个无穷<br><a href="https://juejin.im/post/5ccae4f25188254190544ded#heading-3" target="_blank" rel="noopener">ECMAScript中的Number Type与 IEEE 754-2008 安全整数</a></p>
+</blockquote>
+<h3 id="String（字符串）"><a href="#String（字符串）" class="headerlink" title="String（字符串）"></a>String（字符串）</h3><p>字符串类型是一系列字符。它在源代码中定义为字符串字面量，用<code>单引号</code>或<code>双引号</code>括起来：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'A string'</span>;</span><br><span class="line"><span class="string">'Another string'</span>;</span><br></pre></td></tr></table></figure>
+<p>通过使用反斜杠 <code>\</code> ，字符串可以<strong>换行</strong></p>
+<blockquote>
+<p>只是输入的时候可以换行输入, 而<strong>不是输出的时候显示是换行的</strong><br>要做到输出时候是换行的要用<code>字符串模板</code>, 或使用<code>\n</code>换行</p>
+</blockquote>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'A \</span></span><br><span class="line"><span class="string">string'</span>;</span><br></pre></td></tr></table></figure>
+<p>字符串可在打印字符串时<strong>解析转义序列</strong>，例如 <code>\n</code> 以创建一个<strong>新行</strong>。当您需要在<strong>引号</strong>括起的字符串中输入引号时，反斜杠也很有用，以防止将字符解释为结束引号：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'I\'m a developer'</span>;</span><br></pre></td></tr></table></figure>
+<p>可以使用 <code>+</code> 运算符连接字符串：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'A '</span> + <span class="string">'string'</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h4><p>在 <code>ES2015(ES6)</code> 中引入，模板字符串是<strong>字符串字面量</strong>，允许更强大的方式来定义字符串。</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`a string`</span>;</span><br></pre></td></tr></table></figure>
+<p>您可以执行字符串替换，嵌入任何 JavaScript 表达式的结果：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`a string with <span class="subst">$&#123;something&#125;</span>`</span><span class="string">`a string with <span class="subst">$&#123;something +</span></span></span><br><span class="line"><span class="string"><span class="subst">  somethingElse&#125;</span>`</span><span class="string">`a string with <span class="subst">$&#123;obj.something()&#125;</span>`</span>;</span><br></pre></td></tr></table></figure>
+<p>您可以轻松拥有<strong>多行字符串</strong>：, 不用加转义的<code>\n</code></p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`a string</span></span><br><span class="line"><span class="string">with</span></span><br><span class="line"><span class="string"><span class="subst">$&#123;something&#125;</span>`</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="Boolean（布尔）"><a href="#Boolean（布尔）" class="headerlink" title="Boolean（布尔）"></a>Boolean（布尔）</h3><p>JavaScript 为布尔值定义了两个保留字：<code>true</code> 和 <code>false</code> 。 许多比较操作 <code>==</code> <code>===</code> <code>&lt;</code> <code>&gt;</code>（依此类推）返回一个布尔值。</p>
+<p><code>if</code> ，<code>while</code> 语句和其他控制结构使用布尔值来确定程序的流程。</p>
+<p>他们不仅接受<code>true</code> 或 <code>false</code>，还接受 <code>真值</code> 和 <code>假值</code>。</p>
+<p><strong>假值</strong>，值被解析为 <code>false</code>，有</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> - <span class="number">0</span>;</span><br><span class="line"><span class="literal">NaN</span>;</span><br><span class="line"><span class="literal">undefined</span>;</span><br><span class="line"><span class="literal">null</span>;</span><br><span class="line">(<span class="string">''</span>); <span class="comment">//empty string</span></span><br></pre></td></tr></table></figure>
+<p>其余所有的值都被解析为 <strong>真值（truthy）</strong> 。</p>
+<p>实际工作中我们还会碰到等值比较，请查看 <a href="https://www.html.cn/archives/7977" target="_blank" rel="noopener">JavaScript 等值比较 == ，=== 和 Object.is()</a> 了解详情。</p>
+<blockquote>
+<p><a href="https://github.com/dorey/JavaScript-Equality-Table" target="_blank" rel="noopener">JavaScript-Equality-Table</a></p>
+</blockquote>
+<h3 id="Null"><a href="#Null" class="headerlink" title="Null"></a>Null</h3><p><code>null</code> 是一个特殊值，表示缺少值，<code>Null</code>这种类型就只有一个值 <code>null</code>。 这也是其他语言中的常见概念，例如在 <code>Python</code> 中可以称为 <code>nil</code> 或 <code>None</code> 。</p>
+<h3 id="Undefined"><a href="#Undefined" class="headerlink" title="Undefined"></a>Undefined</h3><p><code>undefined</code> 表示变量<strong>尚未初始化且值不存在</strong>。</p>
+<p>它通常由<strong>没有返回值的函数</strong>返回。 当一个函数接受一个但不是由调用者设置的参数时，它是未定义的。</p>
+<p>要检测值是否未定义，请使用构造：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typeof</span> variable === <span class="string">'undefined'</span>;</span><br></pre></td></tr></table></figure>
+<p>JavaScript 新手很容易混淆 <code>undefined</code> 和 <code>null</code> ，请阅读 <a href="https://www.html.cn/archives/6236" target="_blank" rel="noopener">JavaScript 中 undefined 和 null 的区别 666</a> 了解。</p>
+<blockquote>
+<p><strong>首字母大写</strong>的<code>Undefined</code>表示的是一种<strong>数据类型</strong>,<strong>首字母小写</strong>的<code>undefined</code>表示的是属于这种<strong>数据类型的唯一的一个值</strong>。</p>
+</blockquote>
+<h2 id="Object-对象-类型"><a href="#Object-对象-类型" class="headerlink" title="Object(对象) 类型"></a>Object(对象) 类型</h2><p>任何不是原始类型的东西都是对象类型。</p>
+<p><strong>函数</strong>，<strong>数组</strong>和我们称之为<strong>对象</strong>的是对象类型。 它们本身是特殊的，但是它们继承了对象的许多属性，比如具有<strong>原型</strong>，并且还有对这些属性起作用的<strong>方法</strong>。</p>
+<blockquote>
+<p><code>Object</code> 是唯一的复杂数据类型。 <code>Object</code> , <code>Array</code> , <code>Function</code> 这些<strong>引用类型</strong>值最终都可以归结为 <code>Object</code> 复杂数据类型。</p>
+</blockquote>
+<p>看 <a href="/2018/12/07/js的数组/" title="js的数组">js的数组</a> 里面还有介绍对象的特性, 访问器属性.</p>
+<p>然后涉及Map set JSON这些</p>
+<h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><p>实际开发工作中，我们会经常碰到 JavaScript 数据类型判断，阅读 <a href="https://www.html.cn/archives/10016" target="_blank" rel="noopener">JavaScript 数据类型判断 666</a> 了解 JavaScript 数据类型判断的陷阱 与 最佳的处理方式。</p>
+<h2 id="对象类型"><a href="#对象类型" class="headerlink" title="对象类型"></a>对象类型</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.html.cn/archives/10017" target="_blank" rel="noopener">数据类型 – JavaScript 完全手册（2018 版）6666</a></p>
+<p><a href="https://www.html.cn/archives/7340" target="_blank" rel="noopener">JavaScript 浮点数运算的精度问题</a><br><a href="https://www.html.cn/archives/9318" target="_blank" rel="noopener">JavaScript 中科学计数法转化为数值字符串形式</a><br><a href="https://www.html.cn/archives/7324" target="_blank" rel="noopener">JavaScript 格式化数字、金额、千分位、保留几位小数、舍入舍去…</a></p>
+<p><a href="https://www.html.cn/archives/7977" target="_blank" rel="noopener">JavaScript 等值比较 == ，=== 和 Object.is() 666</a><br><a href="https://github.com/dorey/JavaScript-Equality-Table" target="_blank" rel="noopener">JavaScript-Equality-Table</a><br><a href="https://www.html.cn/archives/6236" target="_blank" rel="noopener">JavaScript 中 undefined 和 null 的区别 66666</a><br><a href="https://www.html.cn/archives/10016" target="_blank" rel="noopener">JavaScript 数据类型判断 666</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据类型/" rel="tag"># 数据类型</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/09/javascript-变量/" rel="next" title="javascript-变量">
+                <i class="fa fa-chevron-left"></i> javascript-变量
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/09/javascript-数据类型判断/" rel="prev" title="javascript-数据类型判断">
+                javascript-数据类型判断 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#javascript-数据类型"><span class="nav-number">1.</span> <span class="nav-text">javascript-数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原始类型"><span class="nav-number">1.1.</span> <span class="nav-text">原始类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Number（数字）"><span class="nav-number">1.1.1.</span> <span class="nav-text">Number（数字）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String（字符串）"><span class="nav-number">1.1.2.</span> <span class="nav-text">String（字符串）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模板字符串"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">模板字符串</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boolean（布尔）"><span class="nav-number">1.1.3.</span> <span class="nav-text">Boolean（布尔）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Null"><span class="nav-number">1.1.4.</span> <span class="nav-text">Null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Undefined"><span class="nav-number">1.1.5.</span> <span class="nav-text">Undefined</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-对象-类型"><span class="nav-number">1.2.</span> <span class="nav-text">Object(对象) 类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型判断"><span class="nav-number">1.3.</span> <span class="nav-text">类型判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象类型"><span class="nav-number">1.4.</span> <span class="nav-text">对象类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.5.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

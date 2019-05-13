@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="tsconfig.json,">
+
+
+<meta name="description" content="tsconfig.json 配置解析 指定待编译的文件 定义编译选项  安装外typescript后用tsc --init就可以生成, 也可以自己创咯 概述如果一个目录下存在一个tsconfig.json文件，那么它意味着这个目录是 TypeScript 项目的根目录。 tsconfig.json文件中指定了用来编译这个项目的根文件和编译选项。 一个项目可以通过以下方式之一来编译：使用tsconf">
+<meta name="keywords" content="tsconfig.json">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tsconfig.json配置解析">
+<meta property="og:url" content="http://yoursite.com/2019/04/25/tsconfig-json配置解析/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="tsconfig.json 配置解析 指定待编译的文件 定义编译选项  安装外typescript后用tsc --init就可以生成, 也可以自己创咯 概述如果一个目录下存在一个tsconfig.json文件，那么它意味着这个目录是 TypeScript 项目的根目录。 tsconfig.json文件中指定了用来编译这个项目的根文件和编译选项。 一个项目可以通过以下方式之一来编译：使用tsconf">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-25T09:51:01.806Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tsconfig.json配置解析">
+<meta name="twitter:description" content="tsconfig.json 配置解析 指定待编译的文件 定义编译选项  安装外typescript后用tsc --init就可以生成, 也可以自己创咯 概述如果一个目录下存在一个tsconfig.json文件，那么它意味着这个目录是 TypeScript 项目的根目录。 tsconfig.json文件中指定了用来编译这个项目的根文件和编译选项。 一个项目可以通过以下方式之一来编译：使用tsconf">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/25/tsconfig-json配置解析/">
+
+
+  <title>tsconfig.json配置解析 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/25/tsconfig-json配置解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">tsconfig.json配置解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-25T10:41:22+08:00">2019-04-25</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="tsconfig-json-配置解析"><a href="#tsconfig-json-配置解析" class="headerlink" title="tsconfig.json 配置解析"></a>tsconfig.json 配置解析</h1><ul>
+<li>指定待编译的文件</li>
+<li>定义编译选项</li>
+</ul>
+<p>安装外typescript后用<code>tsc --init</code>就可以生成, 也可以自己创咯</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>如果一个目录下存在一个<code>tsconfig.json</code>文件，那么它意味着这个目录是 TypeScript 项目的<strong>根目录</strong>。 <code>tsconfig.json</code>文件中指定了用来<strong>编译这个项目的根文件和编译选项</strong>。</p>
+<p>一个项目可以通过以下方式之一来编译：<br>使用<code>tsconfig.json</code>(<strong>推荐</strong>)</p>
+<ul>
+<li>不带任何输入文件的情况下调用<code>tsc</code>，编译器会从<strong>当前目录开始</strong>去查找<code>tsconfig.json</code>文件，<strong>逐级向上搜索父目录</strong>。(<strong>常用</strong>)</li>
+<li>不带任何输入文件的情况下调用<code>tsc</code>，且使用命令行参数—project（或-p）<strong>指定一个包含</strong><code>tsconfig.json</code>文件的目录。(不常用)</li>
+</ul>
+<p>当命令行上指定了输入文件时，<code>tsconfig.json</code>文件会被忽略。(不建议)</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><code>tsconfig.json</code>示例文件:</p>
+<p>使用<code>&quot;files&quot;</code>属性 (不建议)</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"module"</span>: <span class="string">"commonjs"</span>,</span><br><span class="line">    <span class="attr">"noImplicitAny"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"removeComments"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"preserveConstEnums"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"files"</span>: [</span><br><span class="line">    <span class="string">"core.ts"</span>,</span><br><span class="line">    <span class="string">"sys.ts"</span>,</span><br><span class="line">    <span class="string">"types.ts"</span>,</span><br><span class="line">    <span class="string">"scanner.ts"</span>,</span><br><span class="line">    <span class="string">"parser.ts"</span>,</span><br><span class="line">    <span class="string">"utilities.ts"</span>,</span><br><span class="line">    <span class="string">"binder.ts"</span>,</span><br><span class="line">    <span class="string">"checker.ts"</span>,</span><br><span class="line">    <span class="string">"emitter.ts"</span>,</span><br><span class="line">    <span class="string">"program.ts"</span>,</span><br><span class="line">    <span class="string">"commandLineParser.ts"</span>,</span><br><span class="line">    <span class="string">"tsc.ts"</span>,</span><br><span class="line">    <span class="string">"diagnosticInformationMap.generated.ts"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>&quot;include&quot;</code>和<code>&quot;exclude&quot;</code>属性 (<strong>推荐</strong>)</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"module"</span>: <span class="string">"system"</span>,</span><br><span class="line">    <span class="attr">"noImplicitAny"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"removeComments"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"preserveConstEnums"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"outFile"</span>: <span class="string">"../../built/local/tsc.js"</span>,</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"include"</span>: [<span class="string">"src/**/*"</span>],</span><br><span class="line">  <span class="attr">"exclude"</span>: [<span class="string">"node_modules"</span>, <span class="string">"**/*.spec.ts"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><p><code>&quot;compilerOptions&quot;</code>可以被忽略，这时编译器会使用默认值。在这里查看<a href="https://www.tslang.cn/docs/handbook/compiler-options.html" target="_blank" rel="noopener">完整的编译器选项列表</a>。</p>
+<p><code>&quot;files&quot;</code>指定一个包含相对或绝对文件路径的列表。 <code>&quot;include&quot;</code>和<code>&quot;exclude&quot;</code>属性指定一个文件<code>glob</code>匹配模式列表。 支持的<code>glob</code>通配符有：</p>
+<ul>
+<li><code>*</code> 匹配 0 或多个字符（不包括目录分隔符）</li>
+<li><code>?</code> 匹配一个任意字符（不包括目录分隔符）</li>
+<li><code>**/</code> 递归匹配任意子目录</li>
+</ul>
+<p>如果一个<code>glob</code>模式里的某部分只包含<code>*或.*</code>，那么仅有支持的<strong>文件扩展名类型</strong>被包含在内（比如默认<code>.ts</code>，<code>.tsx</code>，和<code>.d.ts</code>， 如果 <code>allowJs</code>设置能<code>true</code>还包含<code>.js</code>和<code>.jsx</code>）。</p>
+<ol>
+<li><p>如果<code>&quot;files&quot;</code>和<code>&quot;include&quot;</code><strong>都没有被指定</strong>，编译器<strong>默认包含当前目录和子目录下所有的<code>TypeScript</code>文件</strong>（<code>.ts</code>, <code>.d.ts</code> 和 <code>.tsx</code>），排除在<code>&quot;exclude&quot;</code>里指定的文件。<br><code>JS</code>文件（<code>.js</code>和<code>.jsx</code>）也被包含进来如果<code>allowJs</code>被设置成<code>true</code>。</p>
+</li>
+<li><p>如果指定了 <code>&quot;files&quot;</code>或<code>&quot;include&quot;</code>，编译器会将它们结合一并包含进来。<br>使用 <code>&quot;outDir&quot;</code><strong>指定的目录下的文件永远会被编译器排除</strong>，除非你明确地使用<code>&quot;files&quot;</code>将其包含进来（就算你没用<code>exclude</code>也会被排除出去）。</p>
+</li>
+<li><p>使用<code>&quot;include&quot;</code>引入的文件可以使用<code>&quot;exclude&quot;</code><strong>属性过滤</strong>。 然而，通过 <code>&quot;files&quot;</code>属性明确指定的文件却<strong>总是会被包含在内</strong>，不管<code>&quot;exclude&quot;</code>如何设置。 如果没有特殊指定， <code>&quot;exclude&quot;</code><strong>默认情况下会排除</strong><code>node_modules</code>，<code>bower_components</code>，<code>jspm_packages</code>和<code>&lt;outDir&gt;</code>目录。</p>
+</li>
+<li><p>任何被<code>&quot;files&quot;</code>或<code>&quot;include&quot;</code>指定的文件所引用的文件也会被包含进来。 <code>A.ts</code>引用了<code>B.ts</code>，因此<code>B.ts</code>不能被排除，除非引用它的<code>A.ts</code>在<code>&quot;exclude&quot;</code>列表中。</p>
+</li>
+</ol>
+<p><strong>需要注意编译器不会去引入那些可能做为输出的文件</strong>；比如，假设我们包含了<code>index.ts</code>，那么<code>index.d.ts</code>和<code>index.js</code>会被排除在外。 通常来讲，<strong>不推荐只有扩展名的不同来区分同目录下的文件</strong>。</p>
+<p><code>tsconfig.json</code>文件可以是个空文件，那么所有默认的文件（如上面所述）都<strong>会以默认配置选项编译</strong>。</p>
+<p><strong>在命令行上</strong>指定的编译选项会覆盖在<code>tsconfig.json</code>文件里的相应选项。</p>
+<h3 id="file-include-exclude-outDir总结"><a href="#file-include-exclude-outDir总结" class="headerlink" title="file, include, exclude, outDir总结"></a>file, include, exclude, outDir总结</h3><ol>
+<li>没有file和include, 默认包含当前tsconfig.json目录下和子目录下素有的(.ts, tsx, .d.ts)文件</li>
+<li>file是一定不会被排除的, include的可以用exclude的排除掉一部分. outDir这个输出文件也会被排除,(按编译器不会去引入那些可能做为输出的文件)</li>
+<li>被file和include引用的文件的文件也会被包进来</li>
+</ol>
+<blockquote>
+<p>即file和outDir都会包含和不包含, include和exclude来设置下</p>
+</blockquote>
+<h2 id="types，typeRoots和types"><a href="#types，typeRoots和types" class="headerlink" title="@types，typeRoots和types"></a><code>@types</code>，<code>typeRoots</code>和<code>types</code></h2><p><strong>默认</strong>所有可见的<code>&quot;@types&quot;</code>包会在编译过程中被包含进来。 <code>node_modules/@types</code>文件夹下以及它们子文件夹下的所有包都<strong>是可见的</strong>； 也就是说， <code>./node_modules/@types/</code>，<code>../node_modules/@types/</code>和<code>../../node_modules/@types/</code>等等。</p>
+<p>如果指定了<code>typeRoots</code>，只有<code>typeRoots</code>下面的包才会被包含进来。 比如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"typeRoots"</span>: [<span class="string">"./typings"</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个配置文件会包含所有<code>./typings</code>下面的包，而不包含<code>./node_modules/@types</code>里面的包。(但我们不推荐用<code>typings</code>了)</p>
+<p>如果指定了<code>types</code>，只有被列出来的包才会被包含进来。 比如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"types"</span>: [<span class="string">"node"</span>, <span class="string">"lodash"</span>, <span class="string">"express"</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个<code>tsconfig.json</code>文件将<strong>仅会包含</strong> <code>./node_modules/@types/node</code>，<code>./node_modules/@types/lodash</code>和<code>./node_modules/@types/express</code>。<br><code>/@types/</code>。 <code>node_modules/@types/*</code>里面的其它包<strong>不会被引入进来</strong>。</p>
+<p>指定<code>&quot;types&quot;: []</code>来<strong>禁用</strong>自动引入<code>@types</code>包。</p>
+<p>注意，自动引入只在你使用了全局的声明（相反于模块）时是重要的。 如果你使用 <code>import &quot;foo&quot;</code>语句，<code>TypeScript</code>仍然会查找<code>node_modules</code>和<code>node_modules/@types</code>文件夹来获取<code>foo</code>包。</p>
+<h2 id="使用-extends-继承配置-不常用"><a href="#使用-extends-继承配置-不常用" class="headerlink" title="使用 extends 继承配置 (不常用)"></a>使用 extends 继承配置 (不常用)</h2><p><code>tsconfig.json</code>文件可以利用<code>extends</code>属性<strong>从另一个配置文件里继承配置</strong>。</p>
+<p><code>extends</code>是<code>tsconfig.json</code>文件里的顶级属性（与<code>compilerOptions</code>，<code>files</code>，<code>include</code>，和<code>exclude</code>一样）。 <code>extends</code>的值是一个字符串，包含指向另一个要继承文件的路径。</p>
+<p><strong>在原文件里的配置先被加载，然后被来至继承文件里的配置重写</strong>。 如果发现循环引用，则会报错。</p>
+<p>来至所继承配置文件的<code>files</code>，<code>include</code>和<code>exclude</code><strong>覆盖</strong>源配置文件的属性。</p>
+<p>配置文件里的相对路径在解析时相对于它所在的文件。</p>
+<p>比如：</p>
+<p>configs/base.json：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"noImplicitAny"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"strictNullChecks"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>tsconfig.json：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"extends"</span>: <span class="string">"./configs/base"</span>,</span><br><span class="line">  <span class="attr">"files"</span>: [<span class="string">"main.ts"</span>, <span class="string">"supplemental.ts"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>tsconfig.nostrictnull.json：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"extends"</span>: <span class="string">"./tsconfig"</span>,</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"strictNullChecks"</span>: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="compileOnSave-直接-false-吧"><a href="#compileOnSave-直接-false-吧" class="headerlink" title="compileOnSave (直接 false 吧)"></a>compileOnSave (直接 false 吧)</h2><p>在最顶层设置<code>compileOnSave</code>标记，可以让<code>IDE</code>在保存文件的时候根据<code>tsconfig.json</code>重新生成文件。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compileOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"noImplicitAny"</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要想支持这个特性需要 Visual Studio 2015， TypeScript1.8.4 以上并且安装 atom-typescript 插件。</p>
+<h2 id="给一个简单常用的配置"><a href="#给一个简单常用的配置" class="headerlink" title="给一个简单常用的配置"></a>给一个简单常用的配置</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"compileOnSave"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">    <span class="attr">"target"</span>: <span class="string">"es5"</span>,</span><br><span class="line">    <span class="attr">"module"</span>: <span class="string">"commonjs"</span>,</span><br><span class="line">    <span class="attr">"allowSyntheticDefaultImports"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"emitDecoratorMetadata"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"experimentalDecorators"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"sourceMap"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"strictNullChecks"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"baseUrl"</span>: <span class="string">"./src"</span>,</span><br><span class="line">    <span class="attr">"lib"</span>: [<span class="string">"es2015"</span>, <span class="string">"dom"</span>],</span><br><span class="line">    <span class="attr">"jsx"</span>: <span class="string">"react"</span>,</span><br><span class="line">    <span class="attr">"outDir"</span>: <span class="string">".tmp"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"include"</span>: [<span class="string">"src/**/*"</span>],</span><br><span class="line">  <span class="attr">"exclude"</span>: [<span class="string">"node_modules"</span>, <span class="string">"bower_components"</span>],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.tslang.cn/docs/handbook/tsconfig-json.html" target="_blank" rel="noopener">tsconfig.json</a><br><a href="https://juejin.im/post/5ac7fd1e51882555784e3575" target="_blank" rel="noopener">tsconfig.json 整理记录</a><br><a href="https://www.tslang.cn/docs/handbook/compiler-options.html" target="_blank" rel="noopener">完整的编译器选项列表</a><br><a href="https://segmentfault.com/a/1190000013514680" target="_blank" rel="noopener">理解 Typescript 配置文件</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tsconfig-json/" rel="tag"># tsconfig.json</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/22/http-2简介/" rel="next" title="http/2简介">
+                <i class="fa fa-chevron-left"></i> http/2简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/25/webpack简单入门/" rel="prev" title="webpack简单入门">
+                webpack简单入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#tsconfig-json-配置解析"><span class="nav-number">1.</span> <span class="nav-text">tsconfig.json 配置解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">1.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#细节"><span class="nav-number">1.3.</span> <span class="nav-text">细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#file-include-exclude-outDir总结"><span class="nav-number">1.3.1.</span> <span class="nav-text">file, include, exclude, outDir总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#types，typeRoots和types"><span class="nav-number">1.4.</span> <span class="nav-text">@types，typeRoots和types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-extends-继承配置-不常用"><span class="nav-number">1.5.</span> <span class="nav-text">使用 extends 继承配置 (不常用)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#compileOnSave-直接-false-吧"><span class="nav-number">1.6.</span> <span class="nav-text">compileOnSave (直接 false 吧)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给一个简单常用的配置"><span class="nav-number">1.7.</span> <span class="nav-text">给一个简单常用的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.8.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="vim,ecmas,">
+
+
+<meta name="description" content="vim配置主要讲下~/.vimrc的配置, 然后还有一些插件的使用 大致划分的话，我们通过 vimrc 告诉 vim 如下几类信息：  插件 界面设置 操作定义  开始三本基础的书, 按阶段看  vimtutor. Pratical Vim Learn Vimscript the Hard Way  基本操作缓冲区的Vim 多文件编辑：缓冲区 123456&amp;lt;c+i&amp;gt;&amp;lt;c+o&amp;gt">
+<meta name="keywords" content="vim,ecmas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim配置">
+<meta property="og:url" content="http://yoursite.com/2019/03/30/vim配置/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="vim配置主要讲下~/.vimrc的配置, 然后还有一些插件的使用 大致划分的话，我们通过 vimrc 告诉 vim 如下几类信息：  插件 界面设置 操作定义  开始三本基础的书, 按阶段看  vimtutor. Pratical Vim Learn Vimscript the Hard Way  基本操作缓冲区的Vim 多文件编辑：缓冲区 123456&amp;lt;c+i&amp;gt;&amp;lt;c+o&amp;gt">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-05T08:43:08.502Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vim配置">
+<meta name="twitter:description" content="vim配置主要讲下~/.vimrc的配置, 然后还有一些插件的使用 大致划分的话，我们通过 vimrc 告诉 vim 如下几类信息：  插件 界面设置 操作定义  开始三本基础的书, 按阶段看  vimtutor. Pratical Vim Learn Vimscript the Hard Way  基本操作缓冲区的Vim 多文件编辑：缓冲区 123456&amp;lt;c+i&amp;gt;&amp;lt;c+o&amp;gt">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/30/vim配置/">
+
+
+  <title>vim配置 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/30/vim配置/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vim配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T16:23:59+08:00">2019-03-30</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/后端教程/" itemprop="url" rel="index"><span itemprop="name">后端教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="vim配置"><a href="#vim配置" class="headerlink" title="vim配置"></a>vim配置</h1><p>主要讲下<code>~/.vimrc</code>的配置, 然后还有一些插件的使用</p>
+<p>大致划分的话，我们通过 vimrc 告诉 vim 如下几类信息：</p>
+<ul>
+<li>插件</li>
+<li>界面设置</li>
+<li>操作定义</li>
+</ul>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>三本基础的书, 按阶段看</p>
+<ul>
+<li>vimtutor.</li>
+<li>Pratical Vim</li>
+<li>Learn Vimscript the Hard Way</li>
+</ul>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p>缓冲区的<br><a href="https://harttle.land/2015/11/17/vim-buffer.html" target="_blank" rel="noopener">Vim 多文件编辑：缓冲区</a></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">c</span>+i&gt;</span><br><span class="line">&lt;<span class="keyword">c</span>+<span class="keyword">o</span>&gt;</span><br><span class="line"></span><br><span class="line">:<span class="keyword">ls</span></span><br><span class="line">:<span class="keyword">bn</span> :<span class="keyword">bp</span></span><br><span class="line">:b123</span><br></pre></td></tr></table></figure>
+<h2 id="操作定义"><a href="#操作定义" class="headerlink" title="操作定义"></a>操作定义</h2><p><a href="https://vimzijun.net/2016/07/16/vim-mode/#fn:2" target="_blank" rel="noopener">vim 入坑指南（二）— vim 的模式</a></p>
+<p>公式一：[数字] + operator + motion<br>公式二：operator + [数字] + operator (前后均为同一个 operator）</p>
+<h3 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h3><p>删除键没用, 删不掉上一行, 用<code>set backspace=2</code><br><a href="https://www.smslit.top/2016/11/27/vim-backspace-invalid/" target="_blank" rel="noopener">vim中delete（backspace）键不能向左删除</a></p>
+<p>对于在插入模式下按方向键结果出来OAOBOCOD这种, 设置了<code>set nocp</code>即<code>set nocompatible</code>情况下还是这种效果的, 因为我用了<code>inoremap &lt;esc&gt; &lt;nop&gt;</code><br><a href="https://github.com/garybernhardt/selecta/issues/76#issuecomment-72739612" target="_blank" rel="noopener">Arrow keys type OA, OB, OC, and OD</a><br>当然还有更厉害的<code>ESC O D</code></p>
+<h2 id="界面设置"><a href="#界面设置" class="headerlink" title="界面设置"></a>界面设置</h2><p>vim自带有一些基本的色彩主题，一般在<code>/usr/share/vim/vim74/colors/</code>中</p>
+<p>然后你可以下载使用, 一般放在在<code>~/.vim/colors</code>,然后在<code>~/.vimrc</code>中设置<code>colorscheme xxx</code></p>
+<p><a href="http://vimcolors.com/?utf8=%E2%9C%93&amp;bg=dark&amp;order=**newest**" target="_blank" rel="noopener">参考：Vim Colors - Online Preview</a><br><a href="https://www.vim.org/scripts/script_search_results.php?keywords=&amp;script_type=color+scheme&amp;order_by=creation_date&amp;direction=descending&amp;search=search" target="_blank" rel="noopener">参考：vim官方收集的各种主题包：Vim.org色彩主题集</a></p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>流行的有4种吧, Vundle, NeoBundle, VimPlug, Pathogen</p>
+<p>我暂时用<code>vim-plug</code></p>
+<p>基本上看建议是<a href="https://www.zhihu.com/question/24294358/answer/27362814" target="_blank" rel="noopener">vim有哪些插件管理程序？都有些什么特点？ - LiTuX的回答 - 知乎</a></p>
+<p>基本使用方式<a href="https://linux.cn/article-9751-1.html" target="_blank" rel="noopener">Vim-plug：极简 Vim 插件管理器</a>或者<a href="https://hiberabyss.github.io/2018/03/21/vim-plug-introduction/" target="_blank" rel="noopener">VIM 插件管理工具 vim-plug 简明教程</a></p>
+<p>在这个网站上找到一个插件后使用<a href="https://vimawesome.com/plugin/fugitive-vim" target="_blank" rel="noopener">fugitive.vim</a></p>
+<p>基本上就是这么方便</p>
+<h3 id="再讲下使用吧"><a href="#再讲下使用吧" class="headerlink" title="再讲下使用吧"></a>再讲下使用吧</h3><p>安装后在<code>~/.vimrc</code>中配置</p>
+<p>记住，当你在配置文件中声明插件时，列表应该以 <code>call plug#begin(PLUGIN_DIRECTORY)</code> 开始，并以 <code>plug#end()</code> 结束。 所有的在<a href="https://vimawesome.com/" target="_blank" rel="noopener">VimAwesome</a>上找到的插件使用的时候都要放在这个里面</p>
+<p>下面是一个普遍的例子</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> plug#begin(<span class="string">'~/.vim/plugged'</span>)</span><br><span class="line">Plug <span class="string">'scrooloose/nerdtree'</span>, &#123; <span class="string">'on'</span>:  <span class="string">'NERDTreeToggle'</span> &#125;</span><br><span class="line"><span class="keyword">call</span> plug#end()</span><br></pre></td></tr></table></figure>
+<p>增加后用<code>:source ~/.vimrc</code>来, 或者不退出, 用<code>:source %</code></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" 看插件状态</span></span><br><span class="line">:PlugStatus</span><br><span class="line"></span><br><span class="line"><span class="comment">" 按配置安装插件, 安装时也会有插件状态提示信息</span></span><br><span class="line">:PlugInstall</span><br><span class="line"></span><br><span class="line"><span class="comment">" 更新插件</span></span><br><span class="line">:PlugUpdate</span><br><span class="line"></span><br><span class="line"><span class="comment">" 查看不同, 这货没啥用</span></span><br><span class="line">:PlugDiff</span><br><span class="line"></span><br><span class="line"><span class="comment">" 删除插件是记得不仅要在vimrc中删了, 也要运行命令, 防止在~/.vim/plugged/中还有</span></span><br><span class="line">:PlugClean</span><br><span class="line"></span><br><span class="line"><span class="comment">" 升级VimPlug</span></span><br><span class="line">:PlugUpgrade</span><br></pre></td></tr></table></figure>
+<h3 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h3><p>vim-cheat40</p>
+<h2 id="emacs"><a href="#emacs" class="headerlink" title="emacs"></a>emacs</h2><p>两者可以共同使用<br><a href="https://www.gowhich.com/blog/617" target="_blank" rel="noopener">mac 终端光标的快捷键操作</a><br><a href="https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org#%E8%8F%9C%E9%B8%9F%E6%80%8E%E4%B9%88%E5%BC%80%E5%A7%8B" target="_blank" rel="noopener">一年成为 Emacs 高手 (像神一样使用编辑器)</a></p>
+<h3 id="终端中的快捷键操作"><a href="#终端中的快捷键操作" class="headerlink" title="终端中的快捷键操作"></a>终端中的快捷键操作</h3><p>常用的快捷键：<br>Ctrl + d        删除一个字符，相当于通常的Delete键（命令行若无所有字符，则相当于exit；处理多行标准输入时也表示eof）<br>Ctrl + h        退格删除一个字符，相当于通常的Backspace键<br>Ctrl + u        删除光标之前到行首的字符<br>Ctrl + k        删除光标之前到行尾的字符<br>Ctrl + c        取消当前行输入的命令，相当于Ctrl + Break<br>Ctrl + a        光标移动到行首（Ahead of line），相当于通常的Home键<br>Ctrl + e        光标移动到行尾（End of line）<br>Ctrl + f        光标向前(Forward)移动一个字符位置<br>Ctrl + b        光标往回(Backward)移动一个字符位置<br>Ctrl + l        清屏，相当于执行clear命令<br>Ctrl + p        调出命令历史中的前一条（Previous）命令，相当于通常的上箭头<br>Ctrl + n        调出命令历史中的下一条（Next）命令，相当于通常的上箭头<br>Ctrl + r        显示：号提示，根据用户输入查找相关历史命令（reverse-i-search）</p>
+<p>次常用快捷键：<br>Alt + f         光标向前（Forward）移动到下一个单词<br>Alt + b         光标往回（Backward）移动到前一个单词<br>Ctrl + w        删除从光标位置前到当前所处单词（Word）的开头<br>Alt + d         删除从光标位置到当前所处单词的末尾<br>Ctrl + y        粘贴最后一次被删除的单词</p>
+<p>移动就是f,b, a,e<br>删除u, k, w, d, d, h<br>粘贴y<br>历史r</p>
+<blockquote>
+<p>关闭mac上按option输出字符<a href="https://blog.csdn.net/gubenpeiyuan/article/details/52877603" target="_blank" rel="noopener">MacOS中如何关闭或禁用Option（Alt）+ 键盘输出特殊字符(解决oh my zsh 使option f b 失效)</a> 就是改下items2的key为+Esc</p>
+</blockquote>
+<h3 id="开启emacs入门"><a href="#开启emacs入门" class="headerlink" title="开启emacs入门"></a>开启emacs入门</h3><p>先安装再配置<a href="https://www.gnu.org/software/emacs/download.html#macos" target="_blank" rel="noopener">GNU Emacs Download &amp; installation</a></p>
+<p>然而brew没有<code>--with-cocoa</code>的参数, 当你用<code>brew install emacs</code>后, 用<code>emacs --version</code>却看到版本不对诶</p>
+<p>因为mac自带emacs在<code>/usr/bin/emacs</code><br>删不掉这个自带的emacs<br><a href="https://superuser.com/questions/1018810/delete-usr-bin-emacs-operation-not-permitted" target="_blank" rel="noopener">Delete /usr/bin/emacs - Operation not permitted</a><br><a href="https://apple.stackexchange.com/a/108753" target="_blank" rel="noopener">Who installed this Emacs?</a></p>
+<p>在使用brew安装完之后 <a href="https://www.kancloud.cn/chandler/mac_os/480609" target="_blank" rel="noopener">更改系统自带旧版本</a></p>
+<p>在<code>~/.zshrc</code>中添加<code>alias emacs=&quot;/usr/local/Cellar/emacs/26.1_1/bin/emacs-26.1&quot;</code></p>
+<p>看教程学下基本的知识<a href="https://github.com/redguardtoo/emacs.d#checklist" target="_blank" rel="noopener">Fast and robust Emacs setup.</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>操作定义<br><a href="https://www.v2ex.com/amp/t/432528/1" target="_blank" rel="noopener">从零学习 vim 一个多月, 感觉最有用的三个教程</a><br><a href="http://learnvimscriptthehardway.stevelosh.com/" target="_blank" rel="noopener">Learn Vimscript the Hard Way</a><br><a href="http://learnvimscriptthehardway.onefloweroneworld.com/" target="_blank" rel="noopener">Learn Vimscript the Hard Way 中文版</a></p>
+<p><a href="https://vimzijun.net/2016/07/16/vim-mode/#fn:2" target="_blank" rel="noopener">vim 入坑指南（二）— vim 的模式</a><br><a href="http://billsedison.github.io/2015/09/25/mac-vim-ABCD/" target="_blank" rel="noopener">mac-vim 按上下左右出现ABCD</a><br>插件<br><a href="https://vimzijun.net/2016/09/21/vim-plug/" target="_blank" rel="noopener">vim 入坑指南（五）插件 Vim-Plug</a><br><a href="https://github.com/junegunn/vim-plug" target="_blank" rel="noopener">Minimalist Vim Plugin Manager</a><br>界面</p>
+<p>集合<br><a href="https://harttle.land/2015/11/04/vim-ide.html" target="_blank" rel="noopener">如何用Vim搭建IDE？</a><br><a href="https://zhuanlan.zhihu.com/p/30022074" target="_blank" rel="noopener">Vim - 配置IDE一般的python环境</a><br><a href="http://vim.spf13.com/" target="_blank" rel="noopener">spf13</a><br><a href="https://cloud.tencent.com/developer/article/1058322" target="_blank" rel="noopener">超级强大的vim配置（vimplus）</a><br><a href="https://github.com/solomonxie/solomonxie.github.io/issues/25" target="_blank" rel="noopener">Vim成长之路</a><br><a href="https://blog.csdn.net/ajian005/article/details/39700981" target="_blank" rel="noopener">把VIM配置成IDE开发环境</a><br><a href="https://github.com/yangyangwithgnu/use_vim_as_ide" target="_blank" rel="noopener">所需即所获：像 IDE 一样使用 vim</a><br><a href="https://github.com/amix/vimrc" target="_blank" rel="noopener">The Ultimate vimrc</a><br><a href="https://coolshell.cn/articles/5426.html" target="_blank" rel="noopener">简明 VIM 练级攻略</a><br><a href="http://yuez.me/jiang-ni-de-vim-da-zao-cheng-qing-qiao-qiang-da-de-ide/" target="_blank" rel="noopener">将你的Vim 打造成轻巧强大的IDE</a></p>
+<p>ecmas<br><a href="https://www.gowhich.com/blog/617" target="_blank" rel="noopener">mac 终端光标的快捷键操作</a><br><a href="https://github.com/redguardtoo/mastering-emacs-in-one-year-guide/blob/master/guide-zh.org#%E8%8F%9C%E9%B8%9F%E6%80%8E%E4%B9%88%E5%BC%80%E5%A7%8B" target="_blank" rel="noopener">一年成为 Emacs 高手 (像神一样使用编辑器)</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vim/" rel="tag"># vim</a>
+          
+            <a href="/tags/ecmas/" rel="tag"># ecmas</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/15/npm简单入门/" rel="next" title="npm简单入门">
+                <i class="fa fa-chevron-left"></i> npm简单入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/01/前端的网络请求方式和http/" rel="prev" title="前端的网络请求方式和http">
+                前端的网络请求方式和http <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vim配置"><span class="nav-number">1.</span> <span class="nav-text">vim配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始"><span class="nav-number">1.1.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作"><span class="nav-number">1.2.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作定义"><span class="nav-number">1.3.</span> <span class="nav-text">操作定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bug"><span class="nav-number">1.3.1.</span> <span class="nav-text">bug</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#界面设置"><span class="nav-number">1.4.</span> <span class="nav-text">界面设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件"><span class="nav-number">1.5.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#再讲下使用吧"><span class="nav-number">1.5.1.</span> <span class="nav-text">再讲下使用吧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用插件"><span class="nav-number">1.5.2.</span> <span class="nav-text">常用插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#emacs"><span class="nav-number">1.6.</span> <span class="nav-text">emacs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#终端中的快捷键操作"><span class="nav-number">1.6.1.</span> <span class="nav-text">终端中的快捷键操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启emacs入门"><span class="nav-number">1.6.2.</span> <span class="nav-text">开启emacs入门</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

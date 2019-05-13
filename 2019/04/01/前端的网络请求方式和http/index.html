@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="http,">
+
+
+<meta name="description" content="前端的网络请求方式和httphttp请求报文HTTP之请求消息Request客户端发送一个HTTP请求到服务器的请求消息包括以下格式： 请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。  这里难理解的事请求头中各个字段的用法. 所有的头部信息HTTP Headers 列一些常见的     消息头 描述 更多信息 标准     date 报文创建的日期和时间">
+<meta name="keywords" content="http">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端的网络请求方式和http">
+<meta property="og:url" content="http://yoursite.com/2019/04/01/前端的网络请求方式和http/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="前端的网络请求方式和httphttp请求报文HTTP之请求消息Request客户端发送一个HTTP请求到服务器的请求消息包括以下格式： 请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。  这里难理解的事请求头中各个字段的用法. 所有的头部信息HTTP Headers 列一些常见的     消息头 描述 更多信息 标准     date 报文创建的日期和时间">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/04/01/前端的网络请求方式和http/request.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/01/前端的网络请求方式和http/response.png">
+<meta property="og:updated_time" content="2019-04-02T13:13:56.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端的网络请求方式和http">
+<meta name="twitter:description" content="前端的网络请求方式和httphttp请求报文HTTP之请求消息Request客户端发送一个HTTP请求到服务器的请求消息包括以下格式： 请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。  这里难理解的事请求头中各个字段的用法. 所有的头部信息HTTP Headers 列一些常见的     消息头 描述 更多信息 标准     date 报文创建的日期和时间">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/01/前端的网络请求方式和http/request.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/01/前端的网络请求方式和http/">
+
+
+  <title>前端的网络请求方式和http | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/01/前端的网络请求方式和http/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端的网络请求方式和http</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-01T19:12:56+08:00">2019-04-01</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端教程/" itemprop="url" rel="index"><span itemprop="name">前端教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前端的网络请求方式和http"><a href="#前端的网络请求方式和http" class="headerlink" title="前端的网络请求方式和http"></a>前端的网络请求方式和http</h1><h2 id="http请求报文"><a href="#http请求报文" class="headerlink" title="http请求报文"></a>http请求报文</h2><h3 id="HTTP之请求消息Request"><a href="#HTTP之请求消息Request" class="headerlink" title="HTTP之请求消息Request"></a>HTTP之请求消息Request</h3><p>客户端发送一个HTTP请求到服务器的请求消息包括以下格式：</p>
+<p>请求行（request line）、<strong>请求头部（header</strong>）、空行和请求数据四个部分组成。</p>
+<p><img src="request.png" alt="request.png"></p>
+<p>这里难理解的事请求头中各个字段的用法.</p>
+<p>所有的头部信息<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers" target="_blank" rel="noopener">HTTP Headers</a></p>
+<p>列一些常见的</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>消息头</th>
+<th>描述</th>
+<th>更多信息</th>
+<th>标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>报文创建的日期和时间</td>
+<td><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Date" target="_blank" rel="noopener">date</a></td>
+<td>RFC 7231</td>
+</tr>
+<tr>
+<td>cache-control</td>
+<td>在http 请求和响应中通过指定指令来实现缓存机制</td>
+<td><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control" target="_blank" rel="noopener">cache-control</a></td>
+<td></td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>决定当前的事务完成后，是否会关闭网络连接</td>
+<td><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Connection" target="_blank" rel="noopener">Connection</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="HTTP之响应消息Response"><a href="#HTTP之响应消息Response" class="headerlink" title="HTTP之响应消息Response"></a>HTTP之响应消息Response</h3><p>一般情况下，服务器接收并处理客户端发过来的请求后会返回一个HTTP的响应消息。</p>
+<p>HTTP响应也由四个部分组成，分别是：<strong>状态行、消息报头</strong>、空行和响应正文。</p>
+<p><img src="response.png" alt="response.png"></p>
+<h2 id="按http头部分"><a href="#按http头部分" class="headerlink" title="按http头部分"></a>按http头部分</h2><p>HTTP 首部表示在HTTP请求或响应中的用来传递附加信息的字段，修改所传递的消息（或者消息主体）的语义，或者使其更加精确。<strong>消息首部不区分大小写</strong>，开始于一行的开头，后面紧跟着一个’:’和与之相关的值。字段值在一个换行符（CR）前或者整个消息的末尾结束。</p>
+<p><strong>自定专用消息头</strong>可通过<code>&#39;X-&#39;</code> 前缀来添加；但是这种用法被IETF在2012年6月发布的 RFC5548 中<strong>明确弃用</strong>，原因是其会在非标准字段成为标准时造成不便；其他的消息头在 IANA 注册表 中列出, 其原始内容在 RFC 4229 中定义。 此外，IANA 还维护着被提议的新HTTP 消息头注册表.</p>
+<p>按照惯例，可以把<strong>消息首部分为几类</strong>，尽管这种划分不存在于任何一份规范文档中：</p>
+<ul>
+<li><code>General header</code>：可以应用于请求和响应中，但是与在消息主体中的数据无关。</li>
+<li><code>Request header</code>：含有与所要获取的资源或者客户端自身相关的附加信息。</li>
+<li><code>Response header</code>：含有与响应相关的附加信息，比如它的位置或者与服务器相关的信息（名称、版本号等）。</li>
+<li><code>Entity header</code>: 含有与消息主体相关的附加信息，比如长度或者MIME类型。</li>
+</ul>
+<h3 id="General-header"><a href="#General-header" class="headerlink" title="General header"></a>General header</h3><p>通用首部指的是<strong>可以应用于请求和响应中，但是不能应用于消息内容自身</strong>的 HTTP header 。 取决于应用的上下文环境，<code>通用首部可以是response</code> 或者 <code>request headers</code>。但是不可以是 entity headers。</p>
+<p>最常见的通用首部包括： <code>Date</code>, <code>Cache-Control</code> or <code>Connection</code>.</p>
+<h3 id="Request-header"><a href="#Request-header" class="headerlink" title="Request header"></a>Request header</h3><p>请求头可以被定义为：被用于http请求中并且和请求主体无关的那一类HTTP header。某些请求头如<code>Accept</code>, <code>Accept-*</code>,  <code>If-*</code>允许执行条件请求。某些请求头如：<code>Cookie</code>, <code>User-Agent</code> 和<code>Referer</code>描述了请求本身以确保服务端能返回正确的响应。</p>
+<p><strong>并非所有出现在请求中的http首部都属于请求头</strong>，例如在 POST请求中经常出现的<code>Content-Length</code>实际上是一个代表请求主体大小的<code>entity header</code>，虽然你也可以把它叫做请求头。</p>
+<p>此外，CORS定义了一个叫做 <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/%E7%AE%80%E5%8D%95%E5%A4%B4%E9%83%A8" target="_blank" rel="noopener">simple headers</a>的集合，它是请求头集合的一个子集。如果某次请求是只包含simple headers的话，则被认为是简单请求，不会触发请求预检（preflight）。</p>
+<h3 id="Response-header"><a href="#Response-header" class="headerlink" title="Response header"></a>Response header</h3><p>响应头 可以定义为：被用于http响应中并且和响应消息主体无关的那一类 HTTP header。像<code>Age</code>, <code>Location</code> 和 <code>Server</code>都属于响应头，他们被用于描述响应。</p>
+<p><strong>并非所有出现在响应中的http header都属于响应头</strong>，例如<code>Content-Length</code>就是一个代表响应体消息大小的entity header，虽然你也可以把它叫做响应头。</p>
+<p>下面展示了一个 GET请求的响应头。需要注意的是，严格来说<code>Content-Encoding</code>和<code>Content-Type</code>都是属于entity headers。</p>
+<h3 id="Entity-header"><a href="#Entity-header" class="headerlink" title="Entity header"></a>Entity header</h3><p>实体报头HTTP header用来描述消息体内容。<strong>实体报头既可用于请求也可用于响应中</strong>。如<code>Content-Length</code>，<code>Content-Language</code>，<code>Content-Encoding</code>之类的报头都是实体报头。</p>
+<p>尽管实体报头既非请求或响应报头，（由于它经常出现在请求头或响应头中）它们通常包含于此类概念中。</p>
+<p>在下面例子中，<code>Content-Length</code>是一个实体报头，而<code>Host</code>和<code>User-Agent</code>是request headers（请求报头）</p>
+<h2 id="按处理方式分"><a href="#按处理方式分" class="headerlink" title="按处理方式分"></a>按处理方式分</h2><p>消息头也可以根据代理对其的处理方式分为：</p>
+<h3 id="端到端消息头"><a href="#端到端消息头" class="headerlink" title="端到端消息头"></a>端到端消息头</h3><p>这类消息头必须被传输到<strong>最终的消息接收者</strong>，也即，请求的服务器或响应的客户端。<strong>中间的代理服务器必须转发未经修改的端到端消息头，并且必须缓存它们</strong>。</p>
+<h3 id="逐跳消息头"><a href="#逐跳消息头" class="headerlink" title="逐跳消息头"></a>逐跳消息头</h3><p>这类消息头仅对<strong>单次传输连接有意义</strong>，不能通过代理或缓存进行重新转发。这些消息头包括 <code>Connection</code>, <code>Keep-Alive</code>, <code>Proxy-Authenticate</code>, <code>Proxy-Authorization</code>, <code>TE</code>, <code>Trailer</code>, <code>Transfer-Encoding</code> 及 <code>Upgrade</code>。注意，只能使用 <code>Connection</code> 来设置逐跳一般头。</p>
+<h2 id="按使用类别"><a href="#按使用类别" class="headerlink" title="按使用类别"></a>按使用类别</h2><h3 id="AuthenticationSection"><a href="#AuthenticationSection" class="headerlink" title="AuthenticationSection"></a>AuthenticationSection</h3><ul>
+<li>WWW-Authenticate: Defines the <strong>authentication method</strong> that should be used to gain access to a resource.</li>
+<li>Authorization: Contains the <strong>credentials</strong> to authenticate a user agent with a server.</li>
+<li>Proxy-Authenticate: Defines the <strong>authentication method</strong> that should be used to gain access to a resource behind <strong>a Proxy server</strong>.</li>
+<li>Proxy-Authorization: Contains the <strong>credentials</strong> to authenticate a user agent with <strong>a proxy server</strong>.</li>
+</ul>
+<h3 id="CachingSection"><a href="#CachingSection" class="headerlink" title="CachingSection"></a>CachingSection</h3><ul>
+<li>Age: The time <strong>in seconds</strong> the object has been in a proxy cache.</li>
+<li>Cache-Control: Specifies directives for <strong>caching mechanisms</strong> in both requests and responses.</li>
+<li>Clear-Site-Data: <strong>Clears browsing data</strong> (e.g. cookies, storage, cache) associated with the requesting website.</li>
+<li>Expires: The <strong>date/time</strong> after which the response is considered stale.</li>
+<li>Pragma: Implementation-specific header that may have various effects anywhere along the request-response chain. Used for backwards compatibility with <strong>HTTP/1.0 caches</strong> where the <strong>Cache-Control</strong> header is <strong>not yet present</strong>.</li>
+<li>Warning: A general warning field containing information about possible problems.</li>
+</ul>
+<h3 id="ConditionalsSection"><a href="#ConditionalsSection" class="headerlink" title="ConditionalsSection"></a>ConditionalsSection</h3><ul>
+<li>Last-Modified: It is a validator, <strong>the last modification date</strong> of the resource, used to compare several versions of the same resource. It is <strong>less accurate than ETag</strong>, but easier to calculate in some environments. Conditional requests using <code>If-Modified-Since</code> and <code>If-Unmodified-Since</code> use this value to change the behavior of the <strong>request</strong>.</li>
+<li>ETag: It is a validator, <strong>a unique string identifying the version</strong> of the resource. Conditional requests using <code>If-Match</code> and <code>If-None-Match</code> use this value to change the behavior of the <strong>request</strong>.</li>
+<li>If-Match: Makes the <strong>request</strong> conditional and applies the method only if the stored resource <strong>matches</strong> one of the given <code>ETags</code>.</li>
+<li>If-None-Match: Makes the <strong>request</strong> conditional and applies the method only if the stored resource <strong>doesn’t match</strong> any of the given <code>ETags</code>. This is <strong>used to update caches</strong> (for safe requests), or <strong>to prevent to upload</strong> a new resource when one is already existing.</li>
+<li>If-Modified-Since: Makes the <strong>request</strong> conditional and expects the entity to be transmitted only if it has been modified after the given date. This is used to transmit data only when the cache is out of date.</li>
+<li>If-Unmodified-Since: Makes the <strong>request</strong> conditional and expects the entity to be transmitted only if it has not been modified after the given date. This is used to ensure the coherence of a new fragment of a specific range with previous ones, or to implement an optimistic concurrency control system when modifying existing documents.</li>
+<li>Vary: Determines how to match future <strong>request</strong> headers to decide whether a cached response can be used rather than requesting a fresh one from the origin server.</li>
+</ul>
+<h3 id="Connection-managementSection"><a href="#Connection-managementSection" class="headerlink" title="Connection managementSection"></a>Connection managementSection</h3><ul>
+<li>Connection: Controls whether the network connection stays open after the current transaction finishes.</li>
+<li>Keep-Alive: Controls how long a persistent connection should stay open.</li>
+</ul>
+<h3 id="Content-negotiationSection"><a href="#Content-negotiationSection" class="headerlink" title="Content negotiationSection"></a>Content negotiationSection</h3><ul>
+<li>Accept: Informs the server about the types of data that <strong>can be sent back</strong>. It is <code>MIME-type</code>.</li>
+<li>Accept-Charset: Informs the server about which <strong>character set</strong> the client is able to understand.</li>
+<li>Accept-Encoding: Informs the server about the <strong>encoding algorithm</strong>, usually a compression algorithm, that can be used on the resource sent back.</li>
+<li>Accept-Language: Informs the server about the <strong>language</strong> the server is expected to send back. This is a hint and is not necessarily under the full control of the user: the server should always pay attention not to override an explicit user choice (like selecting a language in a drop down list).</li>
+</ul>
+<h3 id="ControlsSection"><a href="#ControlsSection" class="headerlink" title="ControlsSection"></a>ControlsSection</h3><ul>
+<li>Expect: Indicates expectations that need to be fulfilled by the server in order to properly handle the request.</li>
+</ul>
+<h3 id="CookiesSection"><a href="#CookiesSection" class="headerlink" title="CookiesSection"></a>CookiesSection</h3><ul>
+<li>Cookie: Contains stored HTTP cookies previously sent by the server with the <code>Set-Cookie</code> header.</li>
+<li>Set-Cookie: Send cookies from the server to the user agent.</li>
+</ul>
+<h3 id="CORSSection"><a href="#CORSSection" class="headerlink" title="CORSSection"></a>CORSSection</h3><p>Learn more about CORS <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">here</a>.</p>
+<ul>
+<li>Access-Control-Allow-Origin: Indicates whether the response can be shared.</li>
+<li>Access-Control-Allow-Credentials: Indicates whether the response to the request can be exposed when the credentials flag is true.</li>
+<li>Access-Control-Allow-Headers: Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request.</li>
+<li>Access-Control-Allow-Methods: Specifies the method or methods allowed when accessing the resource in response to a preflight request.</li>
+<li>Access-Control-Expose-Headers: Indicates which headers can be exposed as part of the response by listing their names.</li>
+<li>Access-Control-Max-Age: Indicates how long the results of a preflight request can be cached.</li>
+<li>Access-Control-Request-Headers: Used when issuing a preflight request to let the server know which HTTP headers will be used when the actual request is made.</li>
+<li>Access-Control-Request-Method: Used when issuing a preflight request to let the server know which HTTP method will be used when the actual request is made.</li>
+<li>Origin: Indicates where a fetch originates from.</li>
+<li>Timing-Allow-Origin: Specifies origins that are allowed to see values of attributes retrieved via features of the Resource Timing API, which would otherwise be reported as zero due to cross-origin restrictions.</li>
+</ul>
+<h2 id="Do-Not-TrackSection"><a href="#Do-Not-TrackSection" class="headerlink" title="Do Not TrackSection"></a>Do Not TrackSection</h2><ul>
+<li>DNT: Used for expressing the user’s tracking preference.</li>
+<li>Tk: Indicates the tracking status that applied to the corresponding request.</li>
+</ul>
+<h3 id="DownloadsSection"><a href="#DownloadsSection" class="headerlink" title="DownloadsSection"></a>DownloadsSection</h3><ul>
+<li>Content-Disposition: Is a response header if the resource transmitted should be displayed inline (default behavior when the header is not present), or it should be handled like a download and the browser should present a ‘Save As’ window.</li>
+</ul>
+<h3 id="Message-body-informationSection"><a href="#Message-body-informationSection" class="headerlink" title="Message body informationSection"></a>Message body informationSection</h3><ul>
+<li>Content-Length: Indicates the size of the entity-body, in decimal number of octets, sent to the recipient.</li>
+<li>Content-Type: Indicates the media type of the resource.</li>
+<li>Content-Encoding: Used to specify the compression algorithm.</li>
+<li>Content-Language: Describes the language(s) intended for the audience, so that it allows a user to differentiate according to the users’ own preferred language.</li>
+<li>Content-Location: Indicates an alternate location for the returned data.</li>
+</ul>
+<h3 id="RedirectsSection"><a href="#RedirectsSection" class="headerlink" title="RedirectsSection"></a>RedirectsSection</h3><ul>
+<li>Location: Indicates the URL to redirect a page to.</li>
+</ul>
+<h3 id="Request-contextSection"><a href="#Request-contextSection" class="headerlink" title="Request contextSection"></a>Request contextSection</h3><ul>
+<li>From: Contains an Internet email address for a human user who controls the requesting user agent.</li>
+<li>Host: Specifies the domain name of the server (for virtual hosting), and (optionally) the TCP port number on which the server is listening.</li>
+<li>Referer: The address of the previous web page from which a link to the currently requested page was followed.</li>
+<li>Referrer-Policy: Governs which referrer information sent in the Referer header should be included with requests made.</li>
+<li>User-Agent: Contains a characteristic string that allows the network protocol peers to identify the application type, operating system, software vendor or software version of the requesting software user agent. See also the Firefox user agent string reference.</li>
+</ul>
+<h3 id="Response-contextSection"><a href="#Response-contextSection" class="headerlink" title="Response contextSection"></a>Response contextSection</h3><ul>
+<li>Allow: Lists the set of HTTP request methods support by a resource.</li>
+<li>Server: Contains information about the software used by the origin server to handle the request.</li>
+</ul>
+<h3 id="Range-requestsSection"><a href="#Range-requestsSection" class="headerlink" title="Range requestsSection"></a>Range requestsSection</h3><ul>
+<li>Accept-Ranges: Indicates if the server supports range requests, and if so in which unit the range can be expressed.</li>
+<li>Range: Indicates the part of a document that the server should return.</li>
+<li>If-Range: Creates a conditional range request that is only fulfilled if the given etag or date matches the remote resource. Used to prevent downloading two ranges from incompatible version of the resource.</li>
+<li>Content-Range: Indicates where in a full body message a partial message belongs.</li>
+</ul>
+<h2 id="HTTP1-0-rfc1945"><a href="#HTTP1-0-rfc1945" class="headerlink" title="HTTP1.0 rfc1945"></a>HTTP1.0 <a href="https://tools.ietf.org/html/rfc1945" target="_blank" rel="noopener">rfc1945</a></h2><h3 id="方法3种-GET-HEAD-POST"><a href="#方法3种-GET-HEAD-POST" class="headerlink" title="方法3种 GET, HEAD, POST"></a>方法3种 GET, HEAD, POST</h3><h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><p>GET方法意味着检索由Request-URI标识的任何信息（以实体的形式）。 如果Request-URI引用数据生成过程，则生成的数据应作为响应中的实体而不是过程的源文本返回，除非该文本恰好是过程的输出。 如果请求消息包括<code>If-Modified-Since</code>头字段，则GET方法的语义变为“条件GET”。 条件GET方法请求<strong>仅在</strong>自<code>If-Modified-Since</code>标头给出的<strong>日期之后修改标识的资源时才传输</strong>，如第10.9节所述。 条件GET方法旨在通过允许刷新缓存实体而不需要多个请求或传输不必要的数据来减少网络使用。</p>
+<h4 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h4><p>此方法通常用于测试超文本链接的有效性，可访问性和最近的修改。 没有类似于条件GET的“条件HEAD”请求。 如果HEAD请求包含<code>If-Modified-Since</code>标头字段，则应<strong>忽略</strong>该字段。</p>
+<h4 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h4><p>所有HTTP / 1.0 POST请求都需要有效的<code>Content-Length</code>。 一个HTTP / 1.0服务器应该无法确定请求消息内容的长度时应该响应400（错误请求）消息。</p>
+<p>应用程序不能缓存对POST请求的响应，因为应用程序无法知道服务器将在以后的某个请求中返回等效响应。</p>
+<h2 id="1-0-目录"><a href="#1-0-目录" class="headerlink" title="1.0 目录"></a>1.0 目录</h2><ol>
+<li>Introduction ……………………………………….  4<br>1.1  Purpose ……………………………………….  4       Uniform Resource Identifier (URI)<br>1.2  Terminology ……………………………………  4       666<br>1.3  Overall Operation ………………………………  6       6666<br>1.4  HTTP and MIME ………………………………….  8</li>
+<li>Notational Conventions and Generic Grammar …………….  8<br>2.1  Augmented BNF ………………………………….  8<br>2.2  Basic Rules …………………………………… 10</li>
+<li>Protocol Parameters ………………………………… 12<br>3.1  HTTP Version ………………………………….. 12<br>3.2  Uniform Resource Identifiers ……………………. 14<pre><code> 3.2.1  General Syntax ................................ 14
+ 3.2.2  http URL ...................................... 15
+</code></pre>3.3  Date/Time Formats ……………………………… 15<br>3.4  Character Sets ………………………………… 17<br>3.5  Content Codings ……………………………….. 18<br>3.6  Media Types …………………………………… 19<pre><code> 3.6.1  Canonicalization and Text Defaults ............ 19
+ 3.6.2  Multipart Types ............................... 20
+</code></pre>3.7  Product Tokens ………………………………… 20</li>
+<li>HTTP Message ………………………………………. 21<br>4.1  Message Types …………………………………. 21<br>4.2  Message Headers ……………………………….. 22<br>4.3  General Header Fields ………………………….. 23</li>
+<li>Request …………………………………………… 23<br>5.1  Request-Line ………………………………….. 23<pre><code> 5.1.1  Method ........................................ 24
+ 5.1.2  Request-URI ................................... 24
+</code></pre>5.2  Request Header Fields ………………………….. 25</li>
+<li>Response ………………………………………….. 25<br>6.1  Status-Line …………………………………… 26<pre><code> 6.1.1  Status Code and Reason Phrase ................. 26
+</code></pre>6.2  Response Header Fields …………………………. 28</li>
+<li>Entity ……………………………………………. 28<br>7.1  Entity Header Fields …………………………… 29<br>7.2  Entity Body …………………………………… 29<pre><code> 7.2.1  Type .......................................... 29
+ 7.2.2  Length ........................................ 30
+</code></pre></li>
+<li>Method Definitions …………………………………. 30<br>8.1  GET ………………………………………….. 31<br>8.2  HEAD …………………………………………. 31<br>8.3  POST …………………………………………. 31</li>
+<li>Status Code Definitions …………………………….. 32<br>9.1  Informational 1xx ……………………………… 32<br>9.2  Successful 2xx ………………………………… 32<br>9.3  Redirection 3xx ……………………………….. 34<br>9.4  Client Error 4xx ………………………………. 35<br>9.5  Server Error 5xx ………………………………. 37</li>
+<li>Header Field Definitions ……………………………. 37<br>10.1  Allow ……………………………………….. 38<br>10.2  Authorization ………………………………… 38<br>10.3  Content-Encoding ……………………………… 39<br>10.4  Content-Length ……………………………….. 39<br>10.5  Content-Type …………………………………. 40<br>10.6  Date ………………………………………… 40<br>10.7  Expires ……………………………………… 41<br>10.8  From ………………………………………… 42<br>10.9  If-Modified-Since …………………………….. 42<br>10.10 Last-Modified ………………………………… 43<br>10.11 Location …………………………………….. 44<br>10.12 Pragma ………………………………………. 44<br>10.13 Referer ……………………………………… 44<br>10.14 Server ………………………………………. 45<br>10.15 User-Agent …………………………………… 46<br>10.16 WWW-Authenticate ……………………………… 46</li>
+<li>Access Authentication ………………………………. 47<br>11.1  Basic Authentication Scheme ……………………. 48</li>
+<li>Security Considerations …………………………….. 49<br>12.1  Authentication of Clients ……………………… 49<br>12.2  Safe Methods …………………………………. 49<br>12.3  Abuse of Server Log Information ………………… 50<br>12.4  Transfer of Sensitive Information ………………. 50<br>12.5  Attacks Based On File and Path Names ……………. 51</li>
+<li>Acknowledgments </li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://segmentfault.com/a/1190000018668190" target="_blank" rel="noopener">全面分析前端的网络请求方式</a><br><a href="https://juejin.im/post/58ddb636ac502e0063992865" target="_blank" rel="noopener">HTTP最强资料大全 66</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers" target="_blank" rel="noopener">HTTP Headers MDN</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/http/" rel="tag"># http</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/30/vim配置/" rel="next" title="vim配置">
+                <i class="fa fa-chevron-left"></i> vim配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/07/leetcode刷题-js版/" rel="prev" title="leetcode刷题 js版">
+                leetcode刷题 js版 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前端的网络请求方式和http"><span class="nav-number">1.</span> <span class="nav-text">前端的网络请求方式和http</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#http请求报文"><span class="nav-number">1.1.</span> <span class="nav-text">http请求报文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP之请求消息Request"><span class="nav-number">1.1.1.</span> <span class="nav-text">HTTP之请求消息Request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP之响应消息Response"><span class="nav-number">1.1.2.</span> <span class="nav-text">HTTP之响应消息Response</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按http头部分"><span class="nav-number">1.2.</span> <span class="nav-text">按http头部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#General-header"><span class="nav-number">1.2.1.</span> <span class="nav-text">General header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Request-header"><span class="nav-number">1.2.2.</span> <span class="nav-text">Request header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response-header"><span class="nav-number">1.2.3.</span> <span class="nav-text">Response header</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Entity-header"><span class="nav-number">1.2.4.</span> <span class="nav-text">Entity header</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按处理方式分"><span class="nav-number">1.3.</span> <span class="nav-text">按处理方式分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端到端消息头"><span class="nav-number">1.3.1.</span> <span class="nav-text">端到端消息头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逐跳消息头"><span class="nav-number">1.3.2.</span> <span class="nav-text">逐跳消息头</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按使用类别"><span class="nav-number">1.4.</span> <span class="nav-text">按使用类别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AuthenticationSection"><span class="nav-number">1.4.1.</span> <span class="nav-text">AuthenticationSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CachingSection"><span class="nav-number">1.4.2.</span> <span class="nav-text">CachingSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConditionalsSection"><span class="nav-number">1.4.3.</span> <span class="nav-text">ConditionalsSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Connection-managementSection"><span class="nav-number">1.4.4.</span> <span class="nav-text">Connection managementSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Content-negotiationSection"><span class="nav-number">1.4.5.</span> <span class="nav-text">Content negotiationSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ControlsSection"><span class="nav-number">1.4.6.</span> <span class="nav-text">ControlsSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CookiesSection"><span class="nav-number">1.4.7.</span> <span class="nav-text">CookiesSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CORSSection"><span class="nav-number">1.4.8.</span> <span class="nav-text">CORSSection</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Do-Not-TrackSection"><span class="nav-number">1.5.</span> <span class="nav-text">Do Not TrackSection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DownloadsSection"><span class="nav-number">1.5.1.</span> <span class="nav-text">DownloadsSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Message-body-informationSection"><span class="nav-number">1.5.2.</span> <span class="nav-text">Message body informationSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RedirectsSection"><span class="nav-number">1.5.3.</span> <span class="nav-text">RedirectsSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Request-contextSection"><span class="nav-number">1.5.4.</span> <span class="nav-text">Request contextSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response-contextSection"><span class="nav-number">1.5.5.</span> <span class="nav-text">Response contextSection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Range-requestsSection"><span class="nav-number">1.5.6.</span> <span class="nav-text">Range requestsSection</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP1-0-rfc1945"><span class="nav-number">1.6.</span> <span class="nav-text">HTTP1.0 rfc1945</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法3种-GET-HEAD-POST"><span class="nav-number">1.6.1.</span> <span class="nav-text">方法3种 GET, HEAD, POST</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GET"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HEAD"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#POST"><span class="nav-number">1.6.1.3.</span> <span class="nav-text">POST</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-0-目录"><span class="nav-number">1.7.</span> <span class="nav-text">1.0 目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.8.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

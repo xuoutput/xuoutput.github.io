@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="Hexo, NexT">
+
+
+<meta name="description" content="JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。 编程语言中的异步计算机在设计上是异步的。 异步意味着某些事情可以独立于主程序流而发生。 在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们认为我们的计算机同时运行许多程序，但">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript-异步编程和回调">
+<meta property="og:url" content="http://yoursite.com/2019/05/13/javascript-异步编程和回调/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。 编程语言中的异步计算机在设计上是异步的。 异步意味着某些事情可以独立于主程序流而发生。 在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们认为我们的计算机同时运行许多程序，但">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-13T04:03:13.913Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript-异步编程和回调">
+<meta name="twitter:description" content="JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。 编程语言中的异步计算机在设计上是异步的。 异步意味着某些事情可以独立于主程序流而发生。 在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们认为我们的计算机同时运行许多程序，但">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/13/javascript-异步编程和回调/">
+
+
+  <title>javascript-异步编程和回调 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/13/javascript-异步编程和回调/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript-异步编程和回调</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-13T12:02:50+08:00">2019-05-13</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。</p>
+<p>编程语言中的异步<br>计算机在设计上是异步的。</p>
+<p>异步意味着某些事情可以独立于主程序流而发生。</p>
+<p>在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们认为我们的计算机同时运行许多程序，但这是一种幻觉（除了多处理器机器）。</p>
+<p>程序内部使用 中断 ，这是一个发送到处理器的信号，以引起系统的注意。</p>
+<p>我不会深入讨论它的内部细节，但请记住，程序是异步的是很正常的，并在需要注意之前停止它们的执行，并且计算机可以在此期间执行其他操作。当程序正在等待来自网络的响应时，它不能在请求完成之前停止处理器。</p>
+<p>通常，编程语言是同步的，有些语言提供了一种在语言或库中管理异步方法。 C，Java，C＃，PHP，Go，Ruby，Swift，Python，默认情况下它们都是同步的。其中一些通过使用线程处理异步，产生一个新进程。</p>
+<p>JavaScript<br>JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。</p>
+<p>代码行是一个接一个地串行执行的，例如：</p>
+<p>JavaScript 代码:<br>const a = 1<br>const b = 2<br>const c = a * b<br>console.log(c)<br>doSomething()<br>但 JavaScript 诞生于浏览器中，一开始其主要工作就是响应用户操作，如 onClick，onMouseOver，onChange，onSubmit等。 怎么用同步编程模型呢？</p>
+<p>答案是在它的环境中。 浏览器通过提供一组可以处理这种功能的 API 来解决这个问题。</p>
+<p>最近，Node.js 引入了一个非阻塞 I/O 环境，将这个概念扩展到文件访问，网络调用等。</p>
+<p>回调函数（Callbacks）<br>你无法知道用户何时要单击按钮，因此你 要为click事件定义事件处理程序。 此事件处理程序接受一个函数，该函数将在事件触发时调用：</p>
+<p>JavaScript 代码:<br>document.getElementById(‘button’).addEventListener(‘click’, () =&gt; {<br>  //item clicked<br>})<br>这就是所谓的 回调函数。</p>
+<p>回调是一个简单的函数，它作为值传递给另一个函数，并且只在事件发生时执行。 我们可以这样做，是因为函数是 JavaScript 的 “一等公民” ，可以分配给变量并传递给其他函数（称为 高阶函数 ）</p>
+<p>将所有客户端代码包装在 window 对象上的 load 事件侦听器中是很常见的，这样仅在该页面准备就绪时才运行回调函数：</p>
+<p>JavaScript 代码:<br>window.addEventListener(‘load’, () =&gt; {<br>  //window loaded<br>  //do what you want<br>})<br>回调在任何地方都使用，而不仅仅在DOM事件中使用。</p>
+<p>一个常见的例子是使用定时器：</p>
+<p>JavaScript 代码:<br>setTimeout(() =&gt; {<br>  // runs after 2 seconds<br>}, 2000)<br>XHR请求也接受回调。在本示例中，通过将函数分配给属性，该函数在特定事件发生时将被调用(在本例中，请求状态发生了变化)：</p>
+<p>JavaScript 代码:<br>const xhr = new XMLHttpRequest()<br>xhr.onreadystatechange = () =&gt; {<br>  if (xhr.readyState === 4) {<br>    xhr.status === 200 ? console.log(xhr.responseText) : console.error(‘error’)<br>  }<br>}<br>xhr.open(‘GET’, ‘<a href="https://yoursite.com">https://yoursite.com</a>‘)<br>xhr.send()<br>在回调中处理错误<br>你如何处理回调错误？ 一个非常常见的策略是使用 Node.js 采用的办法：任何回调函数中的第一个参数是错误对象：error-first callbacks（错误优先的回调）</p>
+<p>如果没有错误，则该对象为 null。 如果有错误，则包含错误的描述和其他信息。</p>
+<p>JavaScript 代码:<br>fs.readFile(‘/file.json’, (err, data) =&gt; {<br>  if (err !== null) {<br>    //handle error<br>    console.log(err)<br>    return<br>  }<br>  //no errors, process data<br>  console.log(data)<br>})<br>回调带来的问题<br>对于简单的情况，回调非常有用！</p>
+<p>但是每个回调都会增加嵌套层级，当你有很多回调时，代码开始变得非常复杂，也就大家经常会听到的 “回调地狱” ：</p>
+<p>JavaScript 代码:<br>window.addEventListener(‘load’, () =&gt; {<br>  document.getElementById(‘button’).addEventListener(‘click’, () =&gt; {<br>    setTimeout(() =&gt; {<br>      items.forEach(item =&gt; {<br>        //your code here<br>      })<br>    }, 2000)<br>  })<br>})<br>这只是一个简单的 4 层嵌套代码，但我已经看到了更多层级的嵌套，这并不好玩。</p>
+<p>我们如何解决这个问题呢？</p>
+<p>回调的替代方案<br>从 ES6 开始，JavaScript 引入了一些新功能，可以帮助我们不用回调就能处理异步代码：</p>
+<p>Promises (ES6)<br>Async/Await (ES8)<br>这些将在后面的章节中单独介绍。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/13/javascript-事件循环event-loop/" rel="next" title="javascript-事件循环event-loop">
+                <i class="fa fa-chevron-left"></i> javascript-事件循环event-loop
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
