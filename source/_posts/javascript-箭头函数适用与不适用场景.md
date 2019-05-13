@@ -191,6 +191,8 @@ this.examples.forEach((example) => {
 
 [Promises](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises) 使得管理异步代码变得容易很多（即使你很欢快地使用 `async / await`，你仍然应该理解 `async / await` 是[建立在 Promises 之上的](https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8) ！）
 
+> Promise 还涉及包装 `Ajax` 和 `fetch`
+
 [JavaScript 回调函数怎么理解](https://segmentfault.com/q/1010000000140970)
 回调函数有高阶函数的味道, 不过是返回这个传入的函数执行结果
 
