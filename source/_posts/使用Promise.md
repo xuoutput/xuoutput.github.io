@@ -55,6 +55,10 @@ new Promise( function(resolve, reject) {...} /* executor */  );
 
 参数就是一个 `function(resolve, reject) {...}` 这个`executor`
 
+> !**注意, 这个 `executor` 不是用 `return`, 而是返回并执行 `resolve, reject` 回调函数**
+> !**注意, 这个 `executor` 不是用 `return`, 而是返回并执行 `resolve, reject` 回调函数**
+> !**注意, 这个 `executor` 不是用 `return`, 而是返回并执行 `resolve, reject` 回调函数**
+
 `executor`是带有 `resolve` 和 `reject` 两个参数的**函数** 。**这两个参数也是函数**. (**回调函数哦**)
 
 **Promise**构造函数执行时立即调用 `executor` 函数（ **executor 函数在 Promise 构造函数返回新建对象前被调用**）， `resolve` 和 `reject` 两个**函数**作为参数传递给 `executor`。`executor 内部`通常会执行一些**异步操作**，
