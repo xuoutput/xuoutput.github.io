@@ -2,6 +2,12 @@
 title: javascript-事件events
 date: 2019-05-13 10:25:49
 tags:
+- 事件
+- events
+categories:
+- javascript教程
+comments: false
+permalink:
 ---
 
 # javascript-事件 events

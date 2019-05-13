@@ -2,6 +2,12 @@
 title: javascript-事件循环event-loop
 date: 2019-05-13 11:23:57
 tags:
+- 事件循环
+- event-loop
+categories:
+- javascript教程
+comments: false
+permalink:
 ---
 
 # javascript-事件循环 event-loop
@@ -9,8 +15,6 @@ tags:
 > {% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %} > {% post_link JavaScript-的-async-await JavaScript-的-async-await %}
 
 事件循环是 JavaScript 最重要的内容之一。
-
-我用 JavaScript 编码了多年，但我从来没有完全理解事件是如何工作的。没有详细了解这个概念是完全没问题的，但是像往常一样，了解它的工作方式很有帮助，而且在这一点上你可能只是有点好奇。
 
 本节旨在解释 JavaScript 如何处理**单个线程的内部细节**，以及如何**处理异步函数**。
 
