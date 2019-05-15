@@ -15,7 +15,7 @@ permalink:
 
 第一阶段, 知道 await 当异步为同步,
 第二阶段, 知道了 event loop 后知道 await 是 promsie 的语法糖.
-第三阶段, 竟然再执行 await 下面的语句之前, 会执行 async 外的同步语句, 这个 **怎么和`Promose`**的 `then`结合理解呢?
+第三阶段, 竟然再执行 await 下面的语句之前, 会执行 async 外的同步语句, 这个 **怎么和`Promose`**的 `then`结合理解呢?. 可不可以理解为 `await` 下面的语句, 是类似 `Promise`的 `.then` 的语句哦
 第四阶段, 竟然导致微队列先执行了
 
 {% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %}
@@ -52,6 +52,13 @@ permalink:
 > 2. 一般上面没啥问题, 就是注**意如果执行`await`后面的表达式后面是一个`promise`, 那么这个会把微队列也先执行掉**
 >    如果`await`后面是是`Promise`的, 那么**会提前执行微队列**, 注意再提前也是要先执行完`async`外的同步代码哦
 
+**{% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %}, **{% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %}**{% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %}** 重要的链接看三遍哦
+
+> **在说下结论**: 不需要把上面的 `await` 特别理解, 只需要动 `event loop` 然后知道 **微队列** 常见的是 `promise`的 `then`. 而 `await` 说的分右边的表达式是不是 `promise` 的, 在去 `async` 外执行 这个. **直接把 `await` 的当 `promise` 的, 下面的语句当做 `then` 的内容, 所以才会顺序执行**.
+> **直接把 `await` 这条语句当 `promise` , 下面的语句当做 `then` 的内容, 所以才会顺序执行. 所以才会要执行 `async` 的同步语句先**.
+> **直接把 `await` 这条语句当 `promise` , 下面的语句当做 `then` 的内容, 所以才会顺序执行. 所以才会要执行 `async` 的同步语句先**.
+> **直接把 `await` 这条语句当 `promise` , 下面的语句当做 `then` 的内容, 所以才会顺序执行. 所以才会要执行 `async` 的同步语句先**.
+
 想想怎么把 `await` 转成 `promise` 在思考这个顺序, 反正 `await` 并不是 `.then` 因为两者返回值类型不同, `.then`会包着 Promise 的
 
 > 反正 `await` 返回一个值, 但右侧不必要一定是 `promise` 类型的, `async` 的函数 可以接 `then`
@@ -63,6 +70,7 @@ setTimeout(function () {
   console.log('6')
 }, 0)
 console.log('1')
+
 async function async1() {
   console.log('2')
   await async2()
@@ -71,6 +79,27 @@ async function async1() {
 async function async2() {
   console.log('3')
 }
+
+async1()
+console.log('4')
+
+
+// 果然可以理解为 await 后面的语句当做 then的, 所以可以顺序执行
+setTimeout(function () {
+  console.log('6')
+}, 0)
+console.log('1')
+
+function async1() {
+  console.log('2')
+  new Promise( (res, rej) => {
+    console.log('3')
+    res()
+  }).then(() => {
+    console.log('5')
+  })
+}
+
 async1()
 console.log('4')
 ```
@@ -83,6 +112,8 @@ console.log('4')
 6. 进入第二轮事件循环输出 6。
 
 上面没啥问题, 下面的第一个例子也没啥问题, `await`右边不是 promise, 重点看第二个例子`await`右边是 promise, 然后`async`函数外的同步代码**又会推入微队列**
+
+> **再一次理解**: 果然可以理解为 `await` **后面的语句**当做 `then` 的, 所以可以顺序执行
 
 ```JavaScript
 async function async1() {
@@ -107,7 +138,7 @@ new Promise(function(resolve) {
 console.log("5");
 // 1 2 3 4 5 7 6
 
-
+// 这个例子更体现了 await 后面的语句当做 then, 先去执行 async 外面的同步语句哦
 async function async1() {
   console.log("2");
   await async2();
@@ -167,7 +198,7 @@ console.log('5');
 // 1 2 3 4 5 6  -- when -- 7 8
 ```
 
-如果把 `await` 换了
+如果把 `await` 换了, 这里没有把原来 `await` 后面的语句用 `then` 包上, 所有顺序有错误
 
 ```javascript
 async function async1() {
