@@ -291,7 +291,7 @@ throttle 保证方法每 Xms 有规律的执行,
 debounce
 
 - 对于键盘事件，当用户输入比较频繁的时候，可以通过 debounce 合并键盘事件处理
-- 对于 `ajax` 请求的情况，例如当页面下拉超过一定返回就通过 `ajax` 请求新的页面内容，这时候可以通过 debounce 合并 ajax 请求事件
+- 对于 **`ajax` 请求的情况**，例如当页面下拉超过一定返回就通过 `ajax` 请求新的页面内容，这时候可以通过 debounce 合并 ajax 请求事件
 
 throttle
 
