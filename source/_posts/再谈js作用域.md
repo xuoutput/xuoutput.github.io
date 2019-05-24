@@ -10,9 +10,11 @@ comments: false
 permalink:
 ---
 
-# 再谈js作用域
+# 再谈 js 作用域
 
-在上一篇{% post_link js作用域链和闭包 js作用域链和闭包 %}中讲的有点没头绪, 重新梳理下
+在上一篇{% post_link js作用域链和闭包 js作用域链和闭包 %}中讲的有点没头绪, 重新梳理下, **多看参考链接的第一篇**, 搞清编译时和运行时的作用域链和执行上下文的区别.
+
+> 看那 4 篇就够了
 
 ## scope, scope chain, execution context, context 的区别
 
@@ -24,17 +26,17 @@ permalink:
 
 > 上面的创建指写好代码, 只是定义哦, 还没运行呢.
 
-### 作用域scope
+### 作用域 scope
 
 作用域是你的代码在**运行时(不运行时的预处理阶段也是可以产生的静态作用域链, 是非自己部分的哦)**，各个变量、函数和对象的可访问性。换句话说，作用域决定了你的代码里的变量和其他资源在各个区域中的可见性。
 
-js有3种作用域, 全局作用域(`Global context： window/global`), 局部作用域(`Local Scope` , 又称为函数作用域 `Function context`), 块级作用域`{}`和`const let`
+js 有 3 种作用域, 全局作用域(`Global context： window/global`), 局部作用域(`Local Scope` , 又称为函数作用域 `Function context`), 块级作用域`{}`和`const let`
 
 ### 上下文 context
 
 上下文指的是在**相同的作用域**中的`this`的值, 这里`this`是在调用时确定的(本函数的`this`值), 而作用域`scope`也是运行时才有的. 所以没错.
 
-## 例子add()
+## 例子 add()
 
 主要是看这个链接
 [JavaScript 核心概念之作用域和闭包 666](https://www.css88.com/archives/7262)
@@ -70,9 +72,11 @@ var total = add(5, 10);
 ```
 
 执行该函数创建一个**内部对象**，称为 `Execution Context`（执行期上下文）。执行期上下文**定义了一个函数`正在执行时`的作用域环境**。
+
 > 特别注意，执行期上下文和我们平常说的上下文不同，`执行期上下文`指的是作用域`scope`。平常说的上下文是`this`的取值指向。
 
 执行期上下文和函数创建时的作用域链对象`[[scope]]`区分，这是**两个不同的作用域链对象**。分开的原因很简单，函数定义时的作用域链对象 `[[scope]]` 是固定的，而 `执行期上下文` 会根据不同的运行时环境变化。而且该函数每执行一次，都会创建单独的 `执行期上下文`，因此对同一函数调用多次，会导致创建多个执行期上下文。一旦函数执行完成，执行期上下文将被销毁。
+
 > 函数定义时函数对象的属性是 `[[scope]]` ,而`Execution Context`（执行期上下文）的属性是`scope chain`
 
 `执行期上下文对象`有自己的作用域链，当创建执期行上下文时，其作用域链将**使用**执行函数`[[scope]]`属性所包含的对象（即，函数**定义时**的作用域链对象）进行**初始化**。这些值按照它们在函数中出现的顺序复制到执行期上下文作用域链中。
@@ -120,17 +124,16 @@ obj.getA();
 
 这道题我觉得应该首先看{% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %} 中多**进程浏览器**,和**多线程内核**, `event loop`. {% post_link js立即执行函数 js立即执行函数 %}(来形成作用域块)
 
+尤其是内核和`event loop`, js 引擎和计时器是不同的线程, js 引擎是单线程的哦. 这样你就懂了为啥会这么输出.
 
-尤其是内核和`event loop`, js引擎和计时器是不同的线程, js引擎是单线程的哦. 这样你就懂了为啥会这么输出.
-
-在4个循环下, 在js栈中就会触发4次计时器, 等同步的执行完, 再会执行事件队列中的, 而各个计时器线程又不打扰. 所以栈中for执行完后, 等事件队列, 事件队列都是1秒后执行完. 然而这时的i就是5, 所以大家都输出5
+在 4 个循环下, 在 js 栈中就会触发 4 次计时器, 等同步的执行完, 再会执行事件队列中的, 而各个计时器线程又不打扰. 所以栈中 for 执行完后, 等事件队列, 事件队列都是 1 秒后执行完. 然而这时的 i 就是 5, 所以大家都输出 5
 
 解法是用
 [setTimeout 循环闭包的经典面试题 解法与探究](https://blog.csdn.net/X_Jagger/article/details/64584335)
 
-[setTimeout函数之循环和闭包 6还可以](https://www.jianshu.com/p/e5225ba4a025)
-[图例详解那道setTimeout与循环闭包的经典面试题 666](https://www.jianshu.com/p/9b4a54a98660)
-[你所不知道的setTimeout](https://www.jeffjade.com/2016/01/10/2016-01-10-javacript-setTimeout/#2-setTimeout%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6)
+[setTimeout 函数之循环和闭包 6 还可以](https://www.jianshu.com/p/e5225ba4a025)
+[图例详解那道 setTimeout 与循环闭包的经典面试题 666](https://www.jianshu.com/p/9b4a54a98660)
+[你所不知道的 setTimeout](https://www.jeffjade.com/2016/01/10/2016-01-10-javacript-setTimeout/#2-setTimeout%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6)
 
 ## JavaScript 的词法作用域
 
@@ -142,18 +145,18 @@ obj.getA();
 
 简要说下:
 
-如果一个文档流中包含多个script代码段（用script标签分隔的js代码或引入的js文件），它们的运行顺序是：
+如果一个文档流中包含多个 script 代码段（用 script 标签分隔的 js 代码或引入的 js 文件），它们的运行顺序是：
 
-1. 读入第一个代码段（js执行引擎并非一行一行地分析程序，而是一段一段地分析执行的）
-2. 做**词法分析**，有错则报语法错误（比如括号不匹配等），并跳转到步骤5
+1. 读入第一个代码段（js 执行引擎并非一行一行地分析程序，而是一段一段地分析执行的）
+2. 做**词法分析**，有错则报语法错误（比如括号不匹配等），并跳转到步骤 5
 3. 对`var`变量和`function`定义做“**预解析**“（永远不会报错的，因为只解析正确的声明）
 4. 执行代码段，有错则报错（比如变量未定义）
-5. 如果还有下一个代码段，则读入下一个代码段，重复步骤2
+5. 如果还有下一个代码段，则读入下一个代码段，重复步骤 2
 6. 完成
 
 ### JavaScript 解析过程
 
-> 从前面的**例子add()**回顾下
+> 从前面的**例子 add()**回顾下
 
 `JavaScript` 中每个函数都都表示为一个函数对象（函数实例），函数对象有一个仅供 `JavaScript` 引擎使用的`[[scope]]` 属性。**通过语法分析和预解析**，将`[[scope]]` 属性指向**函数定义时**作用域中的所有对象集合。这个集合被称为函数的作用域链（`scope chain`），包含函数**定义时**作用域中所有可访问的数据。
 
@@ -163,7 +166,7 @@ obj.getA();
 
 ### JavaScript 执行过程
 
-**执行**具体的某个函数时，JS引擎在执行每个函数实例时，都会创建一个`执行期上下文（Execution Context`）和`激活对象（active Object`）（它们**属于`宿主对象`**，与函数实例执行的生命周期保持一致，也就是函数执行完成，这些对象也就被销毁了，闭包例外。）
+**执行**具体的某个函数时，JS 引擎在执行每个函数实例时，都会创建一个`执行期上下文（Execution Context`）和`激活对象（active Object`）（它们**属于`宿主对象`**，与函数实例执行的生命周期保持一致，也就是函数执行完成，这些对象也就被销毁了，闭包例外。）
 
 执行期上下文（`Execution Context`）定义了一个函数**正在执行时**的作用域环境。它使用函数`[[scope]]`属性进行**初始化**。
 
@@ -176,9 +179,9 @@ obj.getA();
 
 分析过程：
 
-- 作用域1 (绿色) ：即全局作用域，包含变量`foo`;
-- 作用域2 (黄色) ：`foo`函数的作用域，包含变量`a`,`bar`,`b`
-- 作用域3 (蓝色) ：`bar`函数的作用域，包含变量`c`
+- 作用域 1 (绿色) ：即全局作用域，包含变量`foo`;
+- 作用域 2 (黄色) ：`foo`函数的作用域，包含变量`a`,`bar`,`b`
+- 作用域 3 (蓝色) ：`bar`函数的作用域，包含变量`c`
 
 `bar` 作用域里完整的包含了 `foo` 的作用域, 因为 `bar` 是定义在 `foo` 中的，产生**嵌套作用域**。值得注意的是，一个函数作用域只有可能存在于一个父级作用域中，不会同时存在两个父级作用域。还有诸如`this` , `window` , `document`等全局对象这里就不说了，避免混乱。
 
@@ -215,12 +218,12 @@ function DoSomething(a)
 DoSomething( 1 );
 ```
 
-打印的结果是`1,1,2,2`。从上面的代码可以看到，参数`a`和局部变量`a`值是**完全相同**的，即使是局部变量`a`重新定义和赋值之后。这样就好理解了，**参数和同名变量**之间是 “**引用**” 关系，也就是说 `JavaScript` 引擎的处理参数和同名局部变量是都引用同一个内存地址。所以示例5中修改局部变量会影响到`arguments`的情况出现。
+打印的结果是`1,1,2,2`。从上面的代码可以看到，参数`a`和局部变量`a`值是**完全相同**的，即使是局部变量`a`重新定义和赋值之后。这样就好理解了，**参数和同名变量**之间是 “**引用**” 关系，也就是说 `JavaScript` 引擎的处理参数和同名局部变量是都引用同一个内存地址。所以示例 5 中修改局部变量会影响到`arguments`的情况出现。
 
-## 再展开, execution context中有什么
+## 再展开, execution context 中有什么
 
 看这个链接中的东西
-[了解JavaScript的执行上下文](https://yanhaijing.com/javascript/2014/04/29/what-is-the-execution-context-in-javascript/)
+[了解 JavaScript 的执行上下文](https://yanhaijing.com/javascript/2014/04/29/what-is-the-execution-context-in-javascript/)
 [由变量提升谈谈 JavaScript Execution Context](https://juejin.im/post/5a5ee28f6fb9a01cbe655860)
 
 ### 什么是执行上下文？
@@ -233,13 +236,13 @@ DoSomething( 1 );
 
 你可以有任意多个函数上下文，**每次调用函数创建一个新的上下文**，会创建一个**私有作用域**，函数内部声明的任何变量都不能在当前函数作用域外部直接访问。在上面的例子中，函数能访问当前上下文外面的变量声明，但在外部上下文不能访问内部的变量/函数声明。
 
-### 执行上下文堆栈 这个看链接, 也可以看那个event loop
+### 执行上下文堆栈 这个看链接, 也可以看那个 event loop
 
 **浏览器**里的`JavaScript`解释器被实现为**单线程**。这意味着同一时间只能发生一件事情，其他的行文或事件将会被放在叫做执行栈里面排队。下面的图是单线程栈的抽象视图：
 
 ![stack1.jpg](stack1.jpg)
 
-有5个需要记住的关键点，**关于执行栈（调用栈）**：
+有 5 个需要记住的关键点，**关于执行栈（调用栈）**：
 
 - 单线程。
 - 同步执行。
@@ -247,13 +250,13 @@ DoSomething( 1 );
 - 无限制函数上下文。
 - 每次函数被调用创建新的执行上下文，包括调用自己。
 
-### 执行上下文的细节
+### 执行上下文的细节 666
 
-我们现在已经知道每次调用函数，都会创建新的执行上下文。然而，在JavaScript解释器内部，每次调用执行上下文，分为两个阶段：
+我们现在已经知道每次调用函数，都会创建新的执行上下文。然而，在 JavaScript 解释器内部，每次调用执行上下文，分为两个阶段：
 
 1. **创建阶段**【当函数被调用，但未执行任何其内部代码之前】：
    - 创建作用域链（`Scope Chain`）
-   - 创建变量对象`VO`，内对应的variables, functions和arguments。
+   - 创建变量对象`VO`，内对应的 variables, functions 和 arguments。
    - 求”`this`“的值。 {% post_link javascript中this指向由函数调用方式决定 javascript中this指向由函数调用方式决定 %}
 2. 激活/**代码执行**阶段：
    - 重新扫描一次代码，给变量赋值，然后执行代码。。
@@ -270,7 +273,7 @@ executionContextObj = {
 
 `executionContextObj`由函数**调用时运行前**创建，**创建阶段**`arguments`的参数会直接传入，函数**内部定义的变量**会初始化为`undefined`。**执行阶段**重新扫描一次代码，给变量赋值，然后执行代码。
 
-#### 下面是执行上下文期间JS引擎执行伪代码
+#### 下面是执行上下文期间 JS 引擎执行伪代码
 
 > 这里和定义时(预处理时)的函数对象的属性`[[scope]]`不同哦
 
@@ -278,7 +281,7 @@ executionContextObj = {
 2. 执行函数代码前，创建`execution context`
 3. 进行**创建阶段**：
    - 初始化作用域链 `Scope Chain`
-   - 创建 `variable object`：(全局下就是全局变量, 没有arguments, `AO`下就是4种:函数的形参实参, 函数内声明的函数和变量)
+   - 创建 `variable object`：(全局下就是全局变量, 没有 arguments, `AO`下就是 4 种:函数的形参实参, 函数内声明的函数和变量)
      - 创建`arguments`对象，初始化该入参变量名和值(**这个函数有, 全局的没有**)
      - 扫描该执行上下文中声明的函数： (其实就是`host提升`, 看{% post_link js作用域链和闭包 js作用域链和闭包 %}中的提升)
        - 对于声明的函数，`variable object`中创建对应的变量名，其值指向该函数（函数是存在`heap`中的）
@@ -289,16 +292,16 @@ executionContextObj = {
    - **决定**上下文`this`的指向, **不要和作用域链, `VO`搞混**
      - > 用`this`的时候下一步就是用`VO`或`scope chain`中的变量咯
      - > 调用的时候才确定`this` {% post_link javascript中this指向由函数调用方式决定 javascript中this指向由函数调用方式决定 %}
-     - > 4种: 直接调用(`window`或`global`), 方法调用(那个`obj`, 注意指向全局的那种调用方式, 从作用域链来看没错), `new`调用(就是创建的那个), 箭头(没有绑定`this`, 但使用`this`的话就是包含它的那个函数或表达式, 外面的父的`this`)
+     - > 4 种: 直接调用(`window`或`global`), 方法调用(那个`obj`, 注意指向全局的那种调用方式, 从作用域链来看没错), `new`调用(就是创建的那个), 箭头(没有绑定`this`, 但使用`this`的话就是包含它的那个函数或表达式, 外面的父的`this`)
      - > 即: `this` 永远指向最后调用它的那个对象
 4. 代码执行阶段：
    - 执行函数内的代码并给对应变量进行赋值（创建阶段为`undefined`的变量）
 
 `this`结合上下文接着看
-[深入理解JavaScript系列（13）：This? Yes,this! 666666](http://www.cnblogs.com/TomXu/archive/2012/01/17/2310479.html)
-[前端基础进阶（五）：全方位解读this 666](https://www.jianshu.com/p/d647aa6d1ae6)
+[深入理解 JavaScript 系列（13）：This? Yes,this! 666666](http://www.cnblogs.com/TomXu/archive/2012/01/17/2310479.html)
+[前端基础进阶（五）：全方位解读 this 666](https://www.jianshu.com/p/d647aa6d1ae6)
 
-[深入浅出 妙用Javascript中apply、call、bind 6666](http://www.admin10000.com/document/6711.html)
+[深入浅出 妙用 Javascript 中 apply、call、bind 6666](http://www.admin10000.com/document/6711.html)
 
 JavaScript 的一大特点是，函数存在「**定义时上下文**」和「**运行时上下文**」以及「**上下文是可以改变的**」这样的概念。
 
@@ -384,7 +387,7 @@ ExecutionContextGlobal = {
 这一阶段从上至下逐条执行代码，运行到`console.log(foo(22))`该行时，**创建阶段**已经为`variableObject`中的`foo`赋值了，因此执行时会执行`foo(22)`函数。
 当执行`foo(22)`函数时，又将进入`foo()`的执行上下文，详见(c)阶段。
 当执行到`console.log(x)`时，此时`x`在`variableObject`中赋值为`undefined`，因此打印出`undefined`，这也正是**变量提升产生**的结果。
-当执行到`var x = 'hello world';`，`variableObject`中的x被赋值为`hello world`。
+当执行到`var x = 'hello world';`，`variableObject`中的 x 被赋值为`hello world`。
 继续往下是`foo`函数的声明，因此什么也不做，执行阶段结束。下面是执行阶段完成后的`ExecutionContextGlobal`。
 
 ```JavaScript
@@ -398,7 +401,7 @@ ExecutionContextGlobal = {
 }
 ```
 
-(c): 当js调用`foo(22)`时，进入到`foo()`函数的`执行上下文`，首先进行该上下文的**创建阶段**。
+(c): 当 js 调用`foo(22)`时，进入到`foo()`函数的`执行上下文`，首先进行该上下文的**创建阶段**。
 
 ```JavaScript
 ExecutionContextFoo = {
@@ -436,7 +439,7 @@ fooExecutionContext = {
 }
 ```
 
-理清了JS中的`执行上下文`，就很容易明白**变量提升**具体是怎么回事了。
+理清了 JS 中的`执行上下文`，就很容易明白**变量提升**具体是怎么回事了。
 在**代码执行前**，执行上下文已经给对应的声明赋值，只不过**变量是赋值**为`undefined`，**函数赋值**为对应的引用，
 而后在**执行阶段**再将对应值**赋值**给变量。
 
@@ -445,7 +448,7 @@ fooExecutionContext = {
 在前面看到`execution context`中的是`VO`, 然后 `AO`是啥
 
 `Variable object(VO)` ：在**全局作用域**就是**全局对象**，而在**其他作用域**是`活动对象AO`。
-`Activation object(AO)` ：包含：函数的`形式参数`，函数的`arguments`对象，`函数内声明的变量`和`内部函数` **4种(函数的形参实参, 函数内声明的函数和变量)**。
+`Activation object(AO)` ：包含：函数的`形式参数`，函数的`arguments`对象，`函数内声明的变量`和`内部函数` **4 种(函数的形参实参, 函数内声明的函数和变量)**。
 
 > **其实`AO`是`VO`的一种情况**。`全局下是没有`**arguments**这个对象的，所以**全局对象不能称为活动对象**。
 
@@ -468,15 +471,15 @@ windowEC = {
 
 除此之外，全局上下文的生命周期，与程序的生命周期一致，只要程序运行不结束，比如关掉浏览器窗口，全局上下文就会一直存在。其他所有的上下文环境，都能直接访问全局上下文的属性。
 
-### 另一种VO不是this
+### 另一种 VO 不是 this
 
-[js中 执行环境(execution context) 和 作用域(scope) 的区别在哪里?](https://www.zhihu.com/question/51336888)
+[js 中 执行环境(execution context) 和 作用域(scope) 的区别在哪里?](https://www.zhihu.com/question/51336888)
 
 执行环境（`Execution Context`，简称`Context`）只是一个**抽象概念**，在具体`JS Engine`实现中，**它对应很多内容**，变量对象（`Variable Object`，简写`VO`）是其一，还有`Scope Chain`，`this`等，这些**共同组成**了执行环境这个概念。
 
 `VO`不是指具体某个`Object`，而是**指一类`Object`**，所以也具有一定程度的**抽象**。
 
-> `VO`是`JS Engine`**内部实现**，用于`identifier resolution`，**JS代码层面是接触不到的**, **但`this`是执行环境的一部分**，所以不要与`VO`搞混.
+> `VO`是`JS Engine`**内部实现**，用于`identifier resolution`，**JS 代码层面是接触不到的**, **但`this`是执行环境的一部分**，所以不要与`VO`搞混.
 
 ```JavaScript
 var color = "blue";
@@ -500,9 +503,9 @@ function changeColor(){
 changeColor();
 ```
 
-书上（《Javascript高级程序设计(第三版)》）的代码（如下）说得很清楚：**`global context`对应一个`VO`（就是`window`!!）**, `changeColor`的`local context`对应一个`VO`，`swapColors`的`local context`对应一个`VO`。所以每个context都对应了一个`VO`。
+书上（《Javascript 高级程序设计(第三版)》）的代码（如下）说得很清楚：**`global context`对应一个`VO`（就是`window`!!）**, `changeColor`的`local context`对应一个`VO`，`swapColors`的`local context`对应一个`VO`。所以每个 context 都对应了一个`VO`。
 
-如上所说，**`this`也是执行环境的一部分**，所以不要与`VO`搞混，`VO`是`JS Engine`**内部实现**，用于`identifier resolution`，**JS代码层面是接触不到的**。参见ES2016规范：(**而我们这里要访问到`VO`是通过`this`或者`window`来, 而不是直接访问`VO`**)
+如上所说，**`this`也是执行环境的一部分**，所以不要与`VO`搞混，`VO`是`JS Engine`**内部实现**，用于`identifier resolution`，**JS 代码层面是接触不到的**。参见 ES2016 规范：(**而我们这里要访问到`VO`是通过`this`或者`window`来, 而不是直接访问`VO`**)
 
 > Lexical Environments and Environment Record values are purely specification mechanisms and need not correspond to any specific artefact of an ECMAScript implementation. It is impossible for an ECMAScript program to directly access or manipulate such values.
 
@@ -512,7 +515,7 @@ changeColor();
 
 这也是为什么前面提到说`global context`对应`window`。
 
-同一本书专门讲Function一章有这样一句话：
+同一本书专门讲 Function 一章有这样一句话：
 
 > The this object is bound at runtime based on the context in which a function is executed: when used inside global functions, this is equal to window in nonstrict mode and undefined in strict mode, whereas this is equal to the object when called as an object method.
 
@@ -543,7 +546,7 @@ o.changeColor(); // Output: false, true, undefined, red
 
 ### 说下全局上下文
 
-[深入理解JavaScript系列（12）：变量对象（Variable Object）66666 看全局上下文中的变量对象这段](https://www.cnblogs.com/TomXu/archive/2012/01/16/2309728.html)
+[深入理解 JavaScript 系列（12）：变量对象（Variable Object）66666 看全局上下文中的变量对象这段](https://www.cnblogs.com/TomXu/archive/2012/01/16/2309728.html)
 
 首先，我们要**给`全局对象`一个明确的定义**：
 
@@ -558,7 +561,7 @@ global = {
   String: <...>
   ...
   ...
-  window: global //引用自身, 就是上面的那个例如
+  window: global //引用自身, 就是上面的那个例如, 请注意这个对象哦
 };
 ```
 
@@ -594,7 +597,7 @@ alert(window[aKey]); // 间接通过动态属性名称访问："test"
 
 ### 函数上下文中的变量对象
 
-在函数执行上下文中，`VO`是**不能直接访问的**，此时由活动对象(`activation object`,缩写为AO)扮演`VO`的角色。
+在函数执行上下文中，`VO`是**不能直接访问的**，此时由活动对象(`activation object`,缩写为 AO)扮演`VO`的角色。
 
 ```JavaScript
 VO(functionContext) === AO;
@@ -613,7 +616,7 @@ AO = {
 1. `callee` — 指向当前函数的引用
 2. `length` — 真正传递的参数个数
 3. `properties-indexes` (字符串类型的整数) 属性的值就是函数的参数值(按参数列表从左到右排列)。 `properties-indexes`内部元素的个数等于`arguments.length`. `properties-indexes` 的值和实际传递进来的参数之间是共享的。
-例如：
+   例如：
 
 ```JavaScript
 function foo(x, y, z) {
@@ -649,22 +652,22 @@ function foo(x, y, z) {
 foo(10, 20);
 ```
 
-这个例子的代码，在当前版本(71.0.3578.98 (Official Build) (64-bit))的`Google Chrome`浏览器里有一个bug  — 即使没有传递参数`z`，`z`和`arguments[2]`仍然是共享的。
+这个例子的代码，在当前版本(71.0.3578.98 (Official Build) (64-bit))的`Google Chrome`浏览器里有一个 bug — 即使没有传递参数`z`，`z`和`arguments[2]`仍然是共享的。
 
-### 处理上下文代码的2个阶段
+### 处理上下文代码的 2 个阶段
 
 现在我们终于到了本文的核心点了。执行上下文的代码被分成两个基本的阶段来处理：
 
- 1. 进入执行上下文
- 2. 执行代码
+1.  进入执行上下文
+2.  执行代码
 
 **变量对象**的修改变化与这两个阶段紧密相关。
 
-注：这2个阶段的处理是一般行为，和上下文的类型无关（也就是说，**在全局上下文和函数上下文中的表现是一样的**）。
+注：这 2 个阶段的处理是一般行为，和上下文的类型无关（也就是说，**在全局上下文和函数上下文中的表现是一样的**）。
 
 ### 这里说下变量(以前认知中有个错误概念)
 
-通常，各类文章和JavaScript相关的书籍都声称：“不管是使用`var`关键字(在全局上下文)**还是不使用`var`关键字(在任何地方)**，都可以声明一个变量”。请记住，**这是错误的概念**：
+通常，各类文章和 JavaScript 相关的书籍都声称：“不管是使用`var`关键字(在全局上下文)**还是不使用`var`关键字(在任何地方)**，都可以声明一个变量”。请记住，**这是错误的概念**：
 
 **任何时候，`变量`只能通过使用`var`关键字才能声明**。
 
@@ -795,7 +798,7 @@ var x = 10;
 
 ### 再说下作用域与执行上下文
 
-JavaScript代码的整个执行过程，分为两个阶段，**代码编译阶段与代码执行阶段**。
+JavaScript 代码的整个执行过程，分为两个阶段，**代码编译阶段与代码执行阶段**。
 **编译阶段**由编译器完成，将代码翻译成可执行代码，这个阶段作用域规则会确定。
 **执行阶段**由引擎完成，主要任务是执行可执行代码，执行上下文在这个阶段创建。
 
@@ -805,9 +808,9 @@ JavaScript代码的整个执行过程，分为两个阶段，**代码编译阶�
 
 ![execution_context.webp](execution_context.webp)
 
-下面的链接更详细分为4个阶段, 整合了从`global context`开始
+下面的链接更详细分为 4 个阶段, 整合了从`global context`开始
 
-[图解JS闭包形成的原因 666](https://segmentfault.com/a/1190000011504517)
+[图解 JS 闭包形成的原因 666](https://segmentfault.com/a/1190000011504517)
 
 #### 程序执行的四个阶段
 
@@ -829,12 +832,12 @@ console.log(age);
 ![step1.jpeg](step1.jpeg)
 
 **第二阶段：函数调用时**
-在执行环境中添加当前函数调用、为本次函数调用创建`活动对象AO`、根据`scope`指定运行期活动对象AO的`上下文内部对象`
+在执行环境中添加当前函数调用、为本次函数调用创建`活动对象AO`、根据`scope`指定运行期活动对象 AO 的`上下文内部对象`
 
 ![step2.jpeg](step2.jpeg)
 
 **第三阶段：函数调用后**
-函数调用从执行环境栈中出栈、函数作用域AO释放、函数作用域AO中的局部变量也一同被释放
+函数调用从执行环境栈中出栈、函数作用域 AO 释放、函数作用域 AO 中的局部变量也一同被释放
 
 ![step3.jpeg](step3.jpeg)
 
@@ -864,26 +867,26 @@ bar();
 
 ## 参考
 
-[《高性能JavaScript》第2章](http://www.menvscode.com/detail/599fd4673bb2bd430d7a7e01)
+[《高性能 JavaScript》第 2 章](http://www.menvscode.com/detail/599fd4673bb2bd430d7a7e01)
 
-**重点是这4篇文章, 然后看完就看下浏览器的机制, 再看下执行上下文的结构**
+**重点是这 4 篇文章, 然后看完就看下浏览器的机制, 再看下执行上下文的结构**
 [JavaScript 核心概念之作用域和闭包 666](https://www.css88.com/archives/7262)
-[深入理解JavaScript中的作用域和上下文 666](https://www.css88.com/archives/7255)
+[深入理解 JavaScript 中的作用域和上下文 666](https://www.css88.com/archives/7255)
 [实例分析 JavaScript 作用域 6666](https://www.css88.com/archives/7300)
 [JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.css88.com/archives/7924)
 
 {% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %}
 
-[了解JavaScript的执行上下文](https://yanhaijing.com/javascript/2014/04/29/what-is-the-execution-context-in-javascript/)
+[了解 JavaScript 的执行上下文](https://yanhaijing.com/javascript/2014/04/29/what-is-the-execution-context-in-javascript/)
 [由变量提升谈谈 JavaScript Execution Context](https://juejin.im/post/5a5ee28f6fb9a01cbe655860)
 
-[js中 执行环境(execution context) 和 作用域(scope) 的区别在哪里?](https://www.zhihu.com/question/51336888)
+[js 中 执行环境(execution context) 和 作用域(scope) 的区别在哪里?](https://www.zhihu.com/question/51336888)
 [js 中的活动对象 与 变量对象 什么区别？](https://www.zhihu.com/question/36393048)
 
-[讲清楚之javascript作用域 6](https://segmentfault.com/a/1190000014980841)
-[深入理解JS中声明提升、作用域（链）和`this`关键字](https://github.com/creeperyang/blog/issues/16)
-[图解JS闭包形成的原因 666](https://segmentfault.com/a/1190000011504517)
-[深入理解JavaScript系列（12）：变量对象（Variable Object）666666](https://www.cnblogs.com/TomXu/archive/2012/01/16/2309728.html)
-[深入理解JavaScript系列（13）：This? Yes,this! 666666](http://www.cnblogs.com/TomXu/archive/2012/01/17/2310479.html)
-[深入浅出 妙用Javascript中apply、call、bind 6666](http://www.admin10000.com/document/6711.html)
+[讲清楚之 javascript 作用域 6](https://segmentfault.com/a/1190000014980841)
+[深入理解 JS 中声明提升、作用域（链）和`this`关键字](https://github.com/creeperyang/blog/issues/16)
+[图解 JS 闭包形成的原因 666](https://segmentfault.com/a/1190000011504517)
+[深入理解 JavaScript 系列（12）：变量对象（Variable Object）666666](https://www.cnblogs.com/TomXu/archive/2012/01/16/2309728.html)
+[深入理解 JavaScript 系列（13）：This? Yes,this! 666666](http://www.cnblogs.com/TomXu/archive/2012/01/17/2310479.html)
+[深入浅出 妙用 Javascript 中 apply、call、bind 6666](http://www.admin10000.com/document/6711.html)
 [闭包，是真的美 666](https://juejin.im/entry/5aca253e5188255c5668b7bb)
