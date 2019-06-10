@@ -71,10 +71,10 @@ typingclub
 [JavaScript 作用域、上下文、执行期上下文、作用域链、闭包 666](https://blog.csdn.net/qq_27626333/article/details/78463565)
 
 4 连套
-[JavaScript 核心概念之作用域和闭包 666](https://www.css88.com/archives/7262)
-[深入理解 JavaScript 中的作用域和上下文 666](https://www.css88.com/archives/7255)
-[实例分析 JavaScript 作用域](https://www.css88.com/archives/7300)
-[JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.css88.com/archives/7924)
+[JavaScript 核心概念之作用域和闭包 666](https://www.html.cn/archives/7262)
+[深入理解 JavaScript 中的作用域和上下文 666](https://www.html.cn/archives/7255)
+[实例分析 JavaScript 作用域](https://www.html.cn/archives/7300)
+[JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.html.cn/archives/7924)
 
 [前端基础进阶（四）：详细图解作用域链与闭包 666 还带基础进阶的](https://www.jianshu.com/p/21a16d44f150)
 [JavaScript 闭包入门（译文）](https://juejin.im/post/58832fe72f301e00697b672d)

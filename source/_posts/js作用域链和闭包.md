@@ -26,7 +26,7 @@ permalink:
 
 全局执行环境是**最外围的一个执行环境**，在 web 浏览器中，我们可以认为他是**window 对象**，因此所有的全局变量和函数都是作为`window`对象的**属性和方法**创建的。代码载入浏览器时，全局环境被创建，关闭网页或者关闭浏览时全局环境被销毁。
 
-> 但看 [JavaScript 核心概念之作用域和闭包 666](https://www.css88.com/archives/7262) 这个链接的图, global 的变量和 window 是单独的, 这里谁对呢>
+> 但看 [JavaScript 核心概念之作用域和闭包 666](https://www.html.cn/archives/7262) 这个链接的图, global 的变量和 window 是单独的, 这里谁对呢>
 
 ### 1.2 函数执行环境
 
@@ -328,7 +328,7 @@ function assignEvents(){
 
 **提升有变量提升和函数提升之分, 先提升函数声明, 在提升变量声明**.
 
-[JavaScript 中的 Hoisting (变量提升和函数声明提升)](https://www.css88.com/archives/7924)
+[JavaScript 中的 Hoisting (变量提升和函数声明提升)](https://www.html.cn/archives/7924)
 
 **规则**:
 
@@ -479,14 +479,14 @@ var func2 = new Function("para1","para2",...,"function body");
 ## 参考
 
 4 个一起看, 按顺序 1234
-[JavaScript 核心概念之作用域和闭包 666](https://www.css88.com/archives/7262)
+[JavaScript 核心概念之作用域和闭包 666](https://www.html.cn/archives/7262)
 上面的看完了可以看下经典题目用 var 的 for setTimeout 这个, 比较 var 定义为什么是 555. 还能学 macro taks 呢.
 还有就是换了 let 之后块作用域的话为什么是 01234. 这个块作用域是怎么样的. 闭包的概念: 不只是函数套函数, 还要用到父函数的变量才行, 目的是从为了得到函数内的局部变量. [学习 Javascript 闭包（Closure）](http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html) . 问为什么闭包执行结束后父函数的AO还在, 因为在闭包还没有执行前的编译阶段, 父函数的AO就在了, 所以闭包执行结束后仍然在, 造成内存.  注意区分编译时的, 然后执行时每次会创建一个执行上下文.
 还有就是不加 var 的当做是是全局变量是错误的, 而是加到全局变量 window 的属性中. 省了 this, 看 {% post_link 再谈js作用域 再谈js作用域 %} 的 551 行. 最大的区别还是定义时和执行时, 这个 a 执行时才有, 不然连 undefined 都不是. 是 not defined
-[深入理解 JavaScript 中的作用域和上下文 666](https://www.css88.com/archives/7255)
+[深入理解 JavaScript 中的作用域和上下文 666](https://www.html.cn/archives/7255)
 讲的大概, 注意了 this 的决定方法 {% post_link javascript中this指向由函数调用方式决定 javascript中this指向由函数调用方式决定 %}, 看了作用域就大致知道 this 值, 谁决定谁, 编译是一个, 运行时 this 的变化, 然后决定 AO 中 this 的值(执行阶段又可以分没执行前和执行中). 然后还有 new 的 .[JavaScript Prototype(原型) 新手指南](https://www.html.cn/archives/10022)
-[实例分析 JavaScript 作用域](https://www.css88.com/archives/7300)
-[JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.css88.com/archives/7924)
+[实例分析 JavaScript 作用域](https://www.html.cn/archives/7300)
+[JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.html.cn/archives/7924)
 
 [JavaScript 中作用域和作用域链的简单理解（变量提升）](https://www.cnblogs.com/buchongming/p/5858026.html)
 [JavaScript 作用域、上下文、执行期上下文、作用域链、闭包 666](https://blog.csdn.net/qq_27626333/article/details/78463565)
@@ -509,7 +509,7 @@ bar();
 [前端基础进阶（四）：详细图解作用域链与闭包](https://www.jianshu.com/p/21a16d44f150)
 [前端基础进阶系列 贼 6](https://www.jianshu.com/p/cd3fee40ef59)
 
-[1]: https://www.css88.com/archives/7262
+[1]: https://www.html.cn/archives/7262
 [2]: https://www.jianshu.com/p/21a16d44f150
 [3]: https://www.jianshu.com/p/330b1505e41d
 
