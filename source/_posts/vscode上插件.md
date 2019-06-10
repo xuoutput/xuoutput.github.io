@@ -44,6 +44,6 @@ Settings Sync 这个插件可以通过 github 上面的 gist 来同步你的 vsc
 3. 使用这个备份,alt+shift+d,一次输入 token 和 gist ID, 然后就是等待下载咯.
 
 比如
-GitHub Token: 234e5dc413b0b00f7073698c945b116d82fa2951
-GitHub Gist: 347db9e402bbc26b2ebbeddbabc46be1
+GitHub Token: 293f9e53416c8ae5xx2c6a6e69604125fe80f3e8 自己生成一个， 上传更新才用到
+GitHub Gist: b7e3625d05f1b3b31cb33180254a1e7d 这里才是下载更新用到的
 GitHub Gist Type: Secret
