@@ -168,7 +168,54 @@ git remote rename <oldname> <newname> // 改名
 git remote update [name]              // 更新远程库
 ```
 
+### 添加子模块 submodules
+
+在一个 git 项目中需要使用到另一个 git 项目, 如何将两个项目单独处理并且有需要在其中一个使用另一个.
+
+一般从远程 clone 下来后处理下并不会下载子模块的内容(只是个空文件夹, 并且有 **.gitmodules**文件), 要 `git submodule` 下, 看项目中有没有 `.gitmodules` 就知道了
+
+2 种方式 clone, 一种是递归的方式 clone 整个项目, 另一种是先 clone 父项目在 clone 子模块.
+
+```git
+git clone git@lll.git --recursive   // 一种就是在clone父项目的时候带00recursive参数就好, 那么子模块就会自动clone下来
+```
+
+```git
+git submodule           // 查看子模块, 如果是 `-` 开头的, 那么说明是个空文件夹, 单独clone子模块就要先初始化 git submodule init 再 update
+git submodule init      // 用来初始化子模块的本地配置文件
+git submodule update    // 合并起来就是git submodule update --init --recursive
+```
+
+子模块作为工作目录中的一个子目录，但 Git 还是会将它视作一个子模块
+
+#### 本项目添加一个新的子模块
+
+```git
+git submodule add git@...git [path]   // 将其他一个项目作为一个子模块添加到path中, 然后你就会多一个你指定的文件夹和一个.gitmodules
+git submodule   // 查看子模块, 如果是 - 开头的, 那么说明是个空文件夹, 要先初始化 git submodule init 再 update
+git submodule update
+git submodule update --remote
+```
+
+更新 submodule 的 URL
+
+`git submodule update --remote <yoursuboduleName>`
+
+1. 更新.gitsubmodule 中对应 submodule 的条目 URL
+2. 更新 .git/config 中对应 submodule 的条目的 URL
+3. 执行 git submodule sync
+
+删除子模块, **git 不支持直接删除 submodule 的操作**
+
+1. 执行 `git rm --cached {submodule_path}` 以及 `git rm {submodule_path}`。注意，路径不要加后面的“/”(加了表示删除文件夹内文件,不是删除整个文件夹)。例如：你的 submodule 保存在 supports/libs/websocket/ 目录。执行命令为： git rm --cached supports/libs/websocket
+2. 使用 vim 编辑.gitmodules(vim  .gitmodule), 删除对应要删除的 submodule 的行．**或直接删除.gitmodeuls 文件**
+3. 使用 vim 编辑.git/config,删除有对应要删除的 submodule 的行．
+
 ## 参考
 
 [GitHub Pull Request 入门](https://zhuanlan.zhihu.com/p/51199833)
 [阮一峰的 git 666666](https://www.bookstack.cn/read/git-tutorial/docs-commands-git-add.md)
+[git submodule 的简单介绍](https://www.jianshu.com/p/ca2862e449fa)
+[使用Git Submodule管理子模块](https://segmentfault.com/a/1190000003076028)
+[Git 子模块：git submodule](https://juejin.im/post/5aa11f486fb9a028e0140e34)
+[7.11 Git 工具 - 子模块](https://git-scm.com/book/zh/v2/Git-工具-子模块)
