@@ -14,6 +14,9 @@ permalink:
 
 # git 入门中
 
+git 入门只需要知道在本地的config， add rm diff commit， push到自己的origin库中这些
+中级就涉及和fork的库进行协同开发， 子模块的更新
+
 对于掌握一些 git 命令基础的情况下,总结.
 {% post_link 常用git命令总结 常用git命令总结 %}
 
