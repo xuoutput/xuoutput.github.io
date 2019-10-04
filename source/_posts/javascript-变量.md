@@ -27,7 +27,9 @@ JavaScript 中的变量**没有附加任何类型**。 将**特定字面量类�
 建议先声明变量再使用它。 有 3 种方法可以做到：使用 `var`，`let` 或 `const`。 这三种方式在以后如何与变量进行交互方面有所不同。
 
 > `let` 或 `const`必须先声明变量才能使用它, 而`var`有变量提升
-> [JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.css88.com/archives/7924) > [由变量提升谈谈 JavaScript Execution Context](https://juejin.im/post/5a5ee28f6fb9a01cbe655860) > [JavaScript 中作用域和作用域链的简单理解（变量提升）](https://www.cnblogs.com/buchongming/p/5858026.html)
+> [JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.css88.com/archives/7924) 这里看提升的处理方式
+> [由变量提升谈谈 JavaScript Execution Context](https://juejin.im/post/5a5ee28f6fb9a01cbe655860).
+> [JavaScript 中作用域和作用域链的简单理解（变量提升）](https://www.cnblogs.com/buchongming/p/5858026.html)
 
 ## 使用 var
 
@@ -43,7 +45,7 @@ var a = 0;
 
 在现代环境中，**启用严格模式后，您将收到错误**。 在较旧的环境中（或禁用严格模式），这将**简单地初始化变量并将其分配给全局(`global`)对象**，在浏览器中，全局对象是 `window`，在 Node.js 中，全局对象是 `global` 。
 
-> 注意分配给全局对象和声明变量一个全局变量是不一样的
+> 注意分配给全局对象和声明变量一个全局变量是不一样的, 就看 `Hoist` 的问题, 会不会提升, 虽然最后都是当做 `window` 的一个属性, 但声明的要执行到那条语句才有. 看了 `execution context` 就大致懂
 
 如果在声明变量时没有初始化变量，则在为其赋值之前，它将具有 `undefined` (未定义) 的值。
 
@@ -53,7 +55,7 @@ JavaScript 代码:
 var a; //typeof a === 'undefined'
 ```
 
-您可以**多次重新声明变量**，以覆盖它：
+您可以**多次重新声明变量**，以覆盖它：(注意这里和仅仅 hoist 不同, hoist时, 对函数声明是按覆盖来, 对变量就是忽略, 反正都是 undefined. 这里肯定是执行时才覆盖的.)
 
 JavaScript 代码:
 
@@ -80,7 +82,7 @@ var a = 1,
 
 > 作用域链的知识点
 
-重要的是要理解一个 `block`(块)（由一对花括号`{}`标识）**没有定义新的作用域**。
+重要的是要理解一个 `block`(块)（由一对花括号`{}`标识）**没有定义新的作用域**。在用 `let` 和 `const` 后, 那么就有块作用域了.
 
 > **只有在创建函数时才会创建新作用域**，因为 `var` **没有块作用域，而是函数作用域**。
 
