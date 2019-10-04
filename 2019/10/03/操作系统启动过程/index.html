@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="os,">
+
+
+<meta name="description" content="操作系统启动过程先过一遍阮一峰的计算机是如何启动的？知道了BIOS，MBR，GRUB，kernel，init BIOSBIOS中包含两块  POST 硬件自检，检查CPU，内存，显卡，鼠标外设，所以这个不是加载到内存中的。   启动顺序 决定从软盘，CD-ROM，硬盘或网络启动。    MBR从例如只检测到硬盘，然后动硬盘的第一个001扇区读取 512B的数据，这就是MBR。3部分结构，  那第一">
+<meta name="keywords" content="os">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统启动过程">
+<meta property="og:url" content="http://yoursite.com/2019/10/03/操作系统启动过程/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="操作系统启动过程先过一遍阮一峰的计算机是如何启动的？知道了BIOS，MBR，GRUB，kernel，init BIOSBIOS中包含两块  POST 硬件自检，检查CPU，内存，显卡，鼠标外设，所以这个不是加载到内存中的。   启动顺序 决定从软盘，CD-ROM，硬盘或网络启动。    MBR从例如只检测到硬盘，然后动硬盘的第一个001扇区读取 512B的数据，这就是MBR。3部分结构，  那第一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/10/03/操作系统启动过程/inux.png">
+<meta property="og:updated_time" content="2019-10-04T01:56:41.875Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统启动过程">
+<meta name="twitter:description" content="操作系统启动过程先过一遍阮一峰的计算机是如何启动的？知道了BIOS，MBR，GRUB，kernel，init BIOSBIOS中包含两块  POST 硬件自检，检查CPU，内存，显卡，鼠标外设，所以这个不是加载到内存中的。   启动顺序 决定从软盘，CD-ROM，硬盘或网络启动。    MBR从例如只检测到硬盘，然后动硬盘的第一个001扇区读取 512B的数据，这就是MBR。3部分结构，  那第一">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/03/操作系统启动过程/inux.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/03/操作系统启动过程/">
+
+
+  <title>操作系统启动过程 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/03/操作系统启动过程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">操作系统启动过程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-03T11:16:37+08:00">2019-10-03</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/os/" itemprop="url" rel="index"><span itemprop="name">os</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="操作系统启动过程"><a href="#操作系统启动过程" class="headerlink" title="操作系统启动过程"></a>操作系统启动过程</h1><p>先过一遍阮一峰的<a href="http://www.ruanyifeng.com/blog/2013/02/booting.html" target="_blank" rel="noopener">计算机是如何启动的？</a><br>知道了BIOS，MBR，GRUB，kernel，init</p>
+<h2 id="BIOS"><a href="#BIOS" class="headerlink" title="BIOS"></a>BIOS</h2><p>BIOS中包含两块</p>
+<ol>
+<li>POST<ol>
+<li>硬件自检，检查CPU，内存，显卡，鼠标外设，所以这个不是加载到内存中的。</li>
+</ol>
+</li>
+<li>启动顺序<ol>
+<li>决定从软盘，CD-ROM，硬盘或网络启动。</li>
+</ol>
+</li>
+</ol>
+<h2 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h2><p>从例如只检测到硬盘，然后动硬盘的第一个001扇区读取 512B的数据，这就是MBR。<br>3部分结构，</p>
+<ol>
+<li>那第一部分的GRUB和装在/boot/下有什么区别。</li>
+<li>第二部分就是分区表</li>
+<li>第三部的是在BIOS中启动顺序用到的</li>
+</ol>
+<h2 id="GRUB"><a href="#GRUB" class="headerlink" title="GRUB"></a>GRUB</h2><p>用grub来决定进入那个内核，有1 1.5 2 三个阶段</p>
+<hr>
+<p>从 BIOS POST =&gt; MBR =&gt; GRUB =&gt; kernel =&gt; init =&gt; runLevel</p>
+<p><img src="inux.png" alt="linux.png"></p>
+<ol>
+<li>BIOS: POST and gives control the BOOT Device and loads MBR (在选择的设备比如硬盘的第一个扇区，512B的MBR)</li>
+<li>MBR executes the Boot Load</li>
+<li>Grub Menu List</li>
+<li>Grub loads Kernel and Initrd</li>
+<li>Initrd initial root filesystem</li>
+<li>Kernel loads the actual root files</li>
+<li>/sbin/init is executed</li>
+<li>checks runlevel in /etc/inittab</li>
+<li>runs all the files present in /etc</li>
+<li>run /etc/rc.local</li>
+</ol>
+<p>首先大致知道整个系统的启动过程，然后要知道细节，具体从哪个地址到哪个地址，CPU控制权哪个程序交个哪个程序。<br>直到登录。进入系统。</p>
+<p>CPU读取到CS：IP的值是FFFF0H， 然后这个地址在内存中到末尾就16B，所以只有一个跳转指令。跳转到BIOS中</p>
+<blockquote>
+<p>X86系统20个地址总线 8或16个数据总线。<br>然后知道显卡也是有BIOS的了。<br>磁盘的第一个扇区的大小就是512B  MBR,最外面开始存。 “0”磁道检测器<br>加载到内存的7c00处，磁盘可不是固件。<br>BIOS 将启动磁盘中的第 1 个扇区（MBR 扇区，Master Boot Record）的 512 个字节的数据加载到物理内存地址为 0x7C00 ~ 0x7E00 的区域，然后程序就跳转到 0x7C00 处开始执行，至此，BIOS 就完成了所有的工作，将控制权转交到了 MBR 中的代码。</p>
+</blockquote>
+<p>“盘面”、“磁道”、“柱面”和“扇区”的含义逐一进行介绍。</p>
+<p>POST不放入内存，固件就在固件中执行，而从磁盘中读取的MBR就会放入内存中。</p>
+<p>实模式和保护模式。 实模式下可以直接访问物理地址。在保护膜实现是访问虚拟地址。</p>
+<p>疑问：通电后到底是从哪个地址开始（实模式下应该是直接找物理地址），<br>CS:IP 到地址FFFF:0000 还是F000：FFF0，或者还是直接到BIOS中了，<br>然后有一跳跳转地址的，这是跳转到BIOS中吧<br>POST后还有中断的吧</p>
+<p>Grub的具体过程看Linux Boot Sequence<br>/boot/grub2/grub.cfg</p>
+<hr>
+<p>启动登录后boot log后是在/var/log/<br>dmesg命令也能给你登录信息</p>
+<p>最后的runlevel是6个level<br>/etc/inittab<br>runlevel也是个命令，可以看当前是在哪<br>默认的在/etc/init/文件夹下的rc-sysinit.conf //ubuntu<br>start up script, sk开头的<br>就是那个rc.d 文件夹 在/etc/下， 里面有s和k开头的</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.ruanyifeng.com/blog/2013/02/booting.html" target="_blank" rel="noopener">计算机是如何启动的？666</a><br><a href="http://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html" target="_blank" rel="noopener">Linux 的启动流程</a><br><a href="https://www.youtube.com/watch?v=ZtVpz5VWjAs" target="_blank" rel="noopener">Linux Boot Process</a><br><a href="https://www.youtube.com/watch?v=mHB0Z-HUauo" target="_blank" rel="noopener">Understanding the Linux Boot Process - CompTIA Linux+, LPIC-1</a><br><a href="https://github.com/chyyuu/ucore_os_docs/blob/master/lab1/lab1_3_1_bios_booting.md" target="_blank" rel="noopener">BIOS启动过程</a><br><a href="https://www.cnblogs.com/bluestorm/p/5981435.html" target="_blank" rel="noopener">Linux系统启动过程分析</a><br><a href="https://blog.csdn.net/ywf861029/article/details/5800549" target="_blank" rel="noopener">BIOS执行位置的问题</a><br><a href="https://neosmart.net/wiki/mbr-boot-process/" target="_blank" rel="noopener">The BIOS/MBR Boot Process</a><br><a href="http://flint.cs.yale.edu/feng/cos/resources/BIOS/" target="_blank" rel="noopener">How BIOS Works 666</a><br><a href="https://caibaoz.com/blog/2013/08/02/harddisk_structure_indepth/" target="_blank" rel="noopener">深入解析硬盘结构 666</a><br><a href="https://blog.csdn.net/xiaominthere/article/details/19756551" target="_blank" rel="noopener">硬盘概念：扇区，磁道，磁头，柱面，簇</a><br><a href="https://www.ibm.com/developerworks/cn/linux/l-linuxboot/index.html" target="_blank" rel="noopener">Linux 引导过程内幕 666</a><br><a href="https://woshijpf.github.io/内核/2017/06/26/Linux-内核加载启动过程分析.html" target="_blank" rel="noopener">BIOS 传统模式下的 X86 PC 启动过程</a><br><a href="https://www.youtube.com/watch?v=yeMA7AJFtb8" target="_blank" rel="noopener">Basics of the Linux Boot Process 666 主要讲登录runlevel这里开始</a><br><a href="https://www.youtube.com/watch?v=ALzySqflHJw" target="_blank" rel="noopener">Linux Boot Sequence</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/os/" rel="tag"># os</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/14/HTTP协议入门/" rel="next" title="HTTP协议入门">
+                <i class="fa fa-chevron-left"></i> HTTP协议入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">133</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">135</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统启动过程"><span class="nav-number">1.</span> <span class="nav-text">操作系统启动过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BIOS"><span class="nav-number">1.1.</span> <span class="nav-text">BIOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MBR"><span class="nav-number">1.2.</span> <span class="nav-text">MBR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GRUB"><span class="nav-number">1.3.</span> <span class="nav-text">GRUB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

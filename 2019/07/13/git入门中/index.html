@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="前端工具,前端,git,github,">
+
+
+<meta name="description" content="git 入门中git 入门只需要知道在本地的config， add rm diff commit， push到自己的origin库中这些中级就涉及和fork的库进行协同开发， 子模块的更新 对于掌握一些 git 命令基础的情况下,总结.常用git命令总结 刚入手的电脑装完 git 后配置123git config --global user.name &amp;apos;username&amp;apos;">
+<meta name="keywords" content="前端工具,前端,git,github">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git入门中">
+<meta property="og:url" content="http://yoursite.com/2019/07/13/git入门中/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="git 入门中git 入门只需要知道在本地的config， add rm diff commit， push到自己的origin库中这些中级就涉及和fork的库进行协同开发， 子模块的更新 对于掌握一些 git 命令基础的情况下,总结.常用git命令总结 刚入手的电脑装完 git 后配置123git config --global user.name &amp;apos;username&amp;apos;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-04T01:59:29.314Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git入门中">
+<meta name="twitter:description" content="git 入门中git 入门只需要知道在本地的config， add rm diff commit， push到自己的origin库中这些中级就涉及和fork的库进行协同开发， 子模块的更新 对于掌握一些 git 命令基础的情况下,总结.常用git命令总结 刚入手的电脑装完 git 后配置123git config --global user.name &amp;apos;username&amp;apos;">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/13/git入门中/">
+
+
+  <title>git入门中 | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/13/git入门中/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git入门中</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-13T11:20:15+08:00">2019-07-13</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="git-入门中"><a href="#git-入门中" class="headerlink" title="git 入门中"></a>git 入门中</h1><p>git 入门只需要知道在本地的config， add rm diff commit， push到自己的origin库中这些<br>中级就涉及和fork的库进行协同开发， 子模块的更新</p>
+<p>对于掌握一些 git 命令基础的情况下,总结.<br><a href="/2018/01/20/常用git命令总结/" title="常用git命令总结">常用git命令总结</a></p>
+<h2 id="刚入手的电脑装完-git-后配置"><a href="#刚入手的电脑装完-git-后配置" class="headerlink" title="刚入手的电脑装完 git 后配置"></a>刚入手的电脑装完 git 后配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &apos;username&apos;      // 用github就填你github的昵称, 公司内部的就填你真正的名字</span><br><span class="line">git config --global user.email &apos;user@xx.com&apos;  // 同理</span><br><span class="line">ssh-keygen -t rsa -C &quot;youremail&quot; // 将~/.ssh/id_rsa.pub的内容放到你远程库上的SSH key中, 这样就可以push上去</span><br></pre></td></tr></table></figure>
+<p>开发人员一般再去远程库上 clone 下来, 而不是本地推上去一个新的(建议用 clone)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone git@xxx.com:yourname/project.git     // 注意不是http的, http的push时要输密码的</span><br><span class="line">cd project</span><br><span class="line">vim readme.md</span><br><span class="line">git add readme.md</span><br><span class="line">git commit -m &apos;add readme&apos;</span><br><span class="line">git push -u origin your-branch</span><br></pre></td></tr></table></figure>
+<p>以上只是在自己开发, 在公司私有库开发要先 fork 公司的代码到自己的 github 库中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">git clone git@xxx.com:yourname/project.git     // 还是从你的github账号中fork的库</span><br><span class="line">cd project</span><br><span class="line">vim readme.md</span><br><span class="line">git add readme.md</span><br><span class="line">git commit -m &apos;add readme&apos;</span><br><span class="line">// 一种push</span><br><span class="line">git push -u origin your-branch      // push到自己的远程库后, 然后提pr</span><br><span class="line">// 常用的另一种方式, 推荐</span><br><span class="line">git remote add upstream git@xxx.com:yourcompany/project.git   // 加了这个主要是为了提交前同步</span><br><span class="line">git remote update upstream            // 提交前保持最新, 防止冲突</span><br><span class="line">git rebase upstream/develop</span><br><span class="line">git push -u upstream your-branch              // 也不是origin, 这样你就直接可以去upstream的仓库中找到你提交的分支信息(一般直接在项目库首页, 不需要专门点到branch, pr中),再点pr了, 当然在你的origin中也是有这个分支的</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意, 在你想推倒远程的分支上第一次 push 时要加-u,某些公司内部仓库需要每次 push 都加, github 只要一次. origin 和 upstream 这个可以在 git remote -v 中看, 一般 origin 就是你 clone 的地址(<code>git branch -a</code>也可以看), upstrea 是 fork 的地址, 没有就<code>git remote add</code>. 最后的 branch 是你想推到远程的 feat, hotfix 分支. -u 这个操作也可以在 checkout 新分支时用 <code>git branch -u</code>指定, 这样就不用-u 了.<br>在 github 中一般 origin 指你自己账号下的库, upstream 指公司开发的那个库 clone 源头<br>一般开发人员在 push 前需要更新最新分支, 防止冲突, 命令<code>git remote update</code> 在 <code>git rebase origin master</code>. <code>git fetch upstream</code> 也一样, 第二种增加远程分支主一方面是为了提 pr 方便, <strong>但重点是同步下远程分支, 防止冲突</strong><br>那什么时候用<code>git merge</code> 呢, 比如你想拉别人的 branch 就可以用 <code>git pull</code> 而不是 <code>git rebase</code></p>
+</blockquote>
+<p>一般只会 clone 下第一个分支, 如果要别的分支呢, checkout 一个出来就好</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev upstream/dev</span><br></pre></td></tr></table></figure>
+<p>本地 push 一个新的到远程(可不看, 只是针对自己的库)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd existing_folder</span><br><span class="line">git init    // 一般都早init了 不需要这个</span><br><span class="line">git remote add origin git@xxx     // origin是你自己设置的远程库</span><br><span class="line">git add .</span><br><span class="line">git commit</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<h2 id="其他常用操作"><a href="#其他常用操作" class="headerlink" title="其他常用操作"></a>其他常用操作</h2><h3 id="查看配置问题-git-config-—list"><a href="#查看配置问题-git-config-—list" class="headerlink" title="查看配置问题 git config —list"></a>查看配置问题 git config —list</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. git config --list                    // 列出所有配置</span><br><span class="line">  1. git config --system --list         // 所有用户/etc/gitconfig</span><br><span class="line">  2. git config --global --list         // 当前用户~/.gitconfig 使用git前的配置</span><br><span class="line">    1. git config --global user.name &quot;yourname&quot;</span><br><span class="line">    2. git config --global user.email &quot;youremail@cc&quot;</span><br><span class="line">    3. git config --global core.editor vim</span><br><span class="line">    4. git config --global merge.tool kdiff3    // 差异分析工具</span><br><span class="line">  3. git config --local --list          // 当前项目.git/config，向上覆盖</span><br></pre></td></tr></table></figure>
+<p>打 git 命令后不想弹出新的窗口用 <code>git config --global core.pager &#39;less -FXR&#39;</code></p>
+<h3 id="status"><a href="#status" class="headerlink" title="status"></a>status</h3><p><code>git status</code> 就常用了, 看状态, 有些参数也可以研究下</p>
+<h3 id="add-中的操作-到暂存区"><a href="#add-中的操作-到暂存区" class="headerlink" title="add 中的操作, 到暂存区"></a>add 中的操作, 到暂存区</h3><blockquote>
+<p><code>.</code> 是用来表示当前目录<br>注意这里主要说的是添加 add 到暂存区, <code>git rm</code>有从暂存区删除的功能, 也有只删除文件, 但还是需要 add 下的</p>
+</blockquote>
+<p><code>git add -i</code> 可以看到用交互时, 但不推荐这么操作, 太影响使用了.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. git add [参数] &lt;filename&gt;</span><br><span class="line">  1. git add .    // 不加参数默认将修改的文件和未跟踪新添加的文件添加到git的暂存区, **也包括删除的**, 注意git2.0开始就包括删除的了. 等同于 git add -A, 要想达到原来的效果用 git add --ignore-removal</span><br><span class="line">  2. git add -u   // 将跟踪的修改或删除的文件添加到暂存区, **不包括新建的文件**</span><br><span class="line">  3. git add -p &lt;filename&gt;  // 按选择对一个文件中的某些修改代码块进行分次add, 实现多次提交</span><br><span class="line">  3. git add -f &lt;filename&gt;  // 强制添加, 而不管.gitignore中的设置</span><br></pre></td></tr></table></figure>
+<h3 id="rm-删除操作"><a href="#rm-删除操作" class="headerlink" title="rm 删除操作"></a>rm 删除操作</h3><p><code>git rm</code>删除文件, 但还是需要 add 下的, 也有从暂存区删除的功能, <strong>解除追踪</strong> unadd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;filename&gt;</span><br><span class="line">git rm --cached &lt;filename&gt;    // 抵消git add的操作</span><br></pre></td></tr></table></figure>
+<h3 id="移动-mv-不要自己手动移动"><a href="#移动-mv-不要自己手动移动" class="headerlink" title="移动 mv, 不要自己手动移动"></a>移动 mv, 不要自己手动移动</h3><p>移动和改名, 记得 <code>git mv</code>, 手动移动会导致 git 记录问题</p>
+<h3 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h3><p><code>git commit</code> 就是注意按 angular 的注释规范来, 最多用的参数是 —amend. -m 就不用了</p>
+<h3 id="分支的问题"><a href="#分支的问题" class="headerlink" title="分支的问题"></a>分支的问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. git branch [&lt;branchname&gt;]                    // 不加参数就是列出全部分支, -a是显示远程, 只有分支名就是创建</span><br><span class="line">    1. git branch -v                            // 显示sha1和commit的注释</span><br><span class="line">    2. git branch -d &lt;branchname&gt;               // -D强制删除</span><br><span class="line">    3. git branch -m &lt;branchname&gt; &lt;newname&gt;     // 改名</span><br><span class="line">    4. git branch -u &lt;url&gt; [name]               // 设置upstream, 没有name就是当前分支</span><br><span class="line">  2. git checkout &lt;branchname&gt;</span><br><span class="line">    1. git checkout -b &lt;branckname&gt;             // 一般创建并切换就用这gco -b &lt;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h3><p>暂存区, 经常用到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git stash list            // 列出暂存区有哪些</span><br><span class="line">git stash save &apos;comment&apos;  // 给暂存进去的加个名字</span><br><span class="line">git stash apply stash@&#123;n&#125; // 使用, 但不删除</span><br><span class="line">git stash pop             // 使用最近一个, 并在暂存区中删除</span><br><span class="line">git stash drop            // 删掉某一个</span><br><span class="line">git stash clear           // 清空暂存区</span><br></pre></td></tr></table></figure>
+<h3 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h3><p>很少用, 一般用 vsc 上的功能看</p>
+<h3 id="remote"><a href="#remote" class="headerlink" title="remote"></a>remote</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git remote -v                         // 看下有哪些远程</span><br><span class="line">git remote show &lt;name&gt;                // 某个远程仓库具体的信息</span><br><span class="line">git remote add origin git@..          // 添加, 用来保持更新</span><br><span class="line">git remote remove &lt;name&gt;              // 删除</span><br><span class="line">git remote rename &lt;oldname&gt; &lt;newname&gt; // 改名</span><br><span class="line">git remote update [name]              // 更新远程库</span><br></pre></td></tr></table></figure>
+<h3 id="添加子模块-submodules"><a href="#添加子模块-submodules" class="headerlink" title="添加子模块 submodules"></a>添加子模块 submodules</h3><p>在一个 git 项目中需要使用到另一个 git 项目, 如何将两个项目单独处理并且有需要在其中一个使用另一个.</p>
+<p>一般从远程 clone 下来后处理下并不会下载子模块的内容(只是个空文件夹, 并且有 <strong>.gitmodules</strong>文件), 要 <code>git submodule</code> 下, 看项目中有没有 <code>.gitmodules</code> 就知道了</p>
+<p>2 种方式 clone, 一种是递归的方式 clone 整个项目, 另一种是先 clone 父项目在 clone 子模块.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@lll.git --recursive   // 一种就是在clone父项目的时候带00recursive参数就好, 那么子模块就会自动clone下来</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git submodule           // 查看子模块, 如果是 `-` 开头的, 那么说明是个空文件夹, 单独clone子模块就要先初始化 git submodule init 再 update</span><br><span class="line">git submodule init      // 用来初始化子模块的本地配置文件</span><br><span class="line">git submodule update    // 合并起来就是git submodule update --init --recursive</span><br></pre></td></tr></table></figure>
+<p>子模块作为工作目录中的一个子目录，但 Git 还是会将它视作一个子模块</p>
+<h4 id="本项目添加一个新的子模块"><a href="#本项目添加一个新的子模块" class="headerlink" title="本项目添加一个新的子模块"></a>本项目添加一个新的子模块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git submodule add git@...git [path]   // 将其他一个项目作为一个子模块添加到path中, 然后你就会多一个你指定的文件夹和一个.gitmodules</span><br><span class="line">git submodule   // 查看子模块, 如果是 - 开头的, 那么说明是个空文件夹, 要先初始化 git submodule init 再 update</span><br><span class="line">git submodule update</span><br><span class="line">git submodule update --remote</span><br></pre></td></tr></table></figure>
+<p>更新 submodule 的 URL</p>
+<p><code>git submodule update --remote &lt;yoursuboduleName&gt;</code></p>
+<ol>
+<li>更新.gitsubmodule 中对应 submodule 的条目 URL</li>
+<li>更新 .git/config 中对应 submodule 的条目的 URL</li>
+<li>执行 git submodule sync</li>
+</ol>
+<p>删除子模块, <strong>git 不支持直接删除 submodule 的操作</strong></p>
+<ol>
+<li>执行 <code>git rm --cached {submodule_path}</code> 以及 <code>git rm {submodule_path}</code>。注意，路径不要加后面的“/”(加了表示删除文件夹内文件,不是删除整个文件夹)。例如：你的 submodule 保存在 supports/libs/websocket/ 目录。执行命令为： git rm —cached supports/libs/websocket</li>
+<li>使用 vim 编辑.gitmodules(vim  .gitmodule), 删除对应要删除的 submodule 的行．<strong>或直接删除.gitmodeuls 文件</strong></li>
+<li>使用 vim 编辑.git/config,删除有对应要删除的 submodule 的行．</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zhuanlan.zhihu.com/p/51199833" target="_blank" rel="noopener">GitHub Pull Request 入门</a><br><a href="https://www.bookstack.cn/read/git-tutorial/docs-commands-git-add.md" target="_blank" rel="noopener">阮一峰的 git 666666</a><br><a href="https://www.jianshu.com/p/ca2862e449fa" target="_blank" rel="noopener">git submodule 的简单介绍</a><br><a href="https://segmentfault.com/a/1190000003076028" target="_blank" rel="noopener">使用Git Submodule管理子模块</a><br><a href="https://juejin.im/post/5aa11f486fb9a028e0140e34" target="_blank" rel="noopener">Git 子模块：git submodule</a><br><a href="https://git-scm.com/book/zh/v2/Git-工具-子模块" target="_blank" rel="noopener">7.11 Git 工具 - 子模块</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端工具/" rel="tag"># 前端工具</a>
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/github/" rel="tag"># github</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/31/Building-C-Projects/" rel="next" title="Building-C-Projects">
+                <i class="fa fa-chevron-left"></i> Building-C-Projects
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/14/fidder4使用/" rel="prev" title="fidder4使用">
+                fidder4使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">133</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">135</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#git-入门中"><span class="nav-number">1.</span> <span class="nav-text">git 入门中</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#刚入手的电脑装完-git-后配置"><span class="nav-number">1.1.</span> <span class="nav-text">刚入手的电脑装完 git 后配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他常用操作"><span class="nav-number">1.2.</span> <span class="nav-text">其他常用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看配置问题-git-config-—list"><span class="nav-number">1.2.1.</span> <span class="nav-text">查看配置问题 git config —list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#status"><span class="nav-number">1.2.2.</span> <span class="nav-text">status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add-中的操作-到暂存区"><span class="nav-number">1.2.3.</span> <span class="nav-text">add 中的操作, 到暂存区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm-删除操作"><span class="nav-number">1.2.4.</span> <span class="nav-text">rm 删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移动-mv-不要自己手动移动"><span class="nav-number">1.2.5.</span> <span class="nav-text">移动 mv, 不要自己手动移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commit"><span class="nav-number">1.2.6.</span> <span class="nav-text">commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支的问题"><span class="nav-number">1.2.7.</span> <span class="nav-text">分支的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stash"><span class="nav-number">1.2.8.</span> <span class="nav-text">stash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff"><span class="nav-number">1.2.9.</span> <span class="nav-text">diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#remote"><span class="nav-number">1.2.10.</span> <span class="nav-text">remote</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加子模块-submodules"><span class="nav-number">1.2.11.</span> <span class="nav-text">添加子模块 submodules</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本项目添加一个新的子模块"><span class="nav-number">1.2.11.1.</span> <span class="nav-text">本项目添加一个新的子模块</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.3.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

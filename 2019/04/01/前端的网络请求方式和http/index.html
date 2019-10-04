@@ -110,7 +110,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/04/01/前端的网络请求方式和http/request.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/01/前端的网络请求方式和http/response.png">
-<meta property="og:updated_time" content="2019-04-02T13:13:56.769Z">
+<meta property="og:updated_time" content="2019-05-15T03:32:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端的网络请求方式和http">
 <meta name="twitter:description" content="前端的网络请求方式和httphttp请求报文HTTP之请求消息Request客户端发送一个HTTP请求到服务器的请求消息包括以下格式： 请求行（request line）、请求头部（header）、空行和请求数据四个部分组成。  这里难理解的事请求头中各个字段的用法. 所有的头部信息HTTP Headers 列一些常见的     消息头 描述 更多信息 标准     date 报文创建的日期和时间">
@@ -540,6 +540,62 @@
 <li>Security Considerations …………………………….. 49<br>12.1  Authentication of Clients ……………………… 49<br>12.2  Safe Methods …………………………………. 49<br>12.3  Abuse of Server Log Information ………………… 50<br>12.4  Transfer of Sensitive Information ………………. 50<br>12.5  Attacks Based On File and Path Names ……………. 51</li>
 <li>Acknowledgments </li>
 </ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>http status code</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>301</td>
+<td>永久重定向</td>
+</tr>
+<tr>
+<td>302</td>
+<td>短暂重定向 303</td>
+</tr>
+<tr>
+<td>307</td>
+<td>短暂重定向, 不改方法 303</td>
+</tr>
+<tr>
+<td>308</td>
+<td>永久重定向, 不改方法 301</td>
+</tr>
+<tr>
+<td>400</td>
+<td>客户端错误，<strong>比如缺少参数</strong>，或者业务上还不允许的操作（提交包含未标注图片的数据集）等等</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized <strong>未带登录</strong>token</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden 带了token，但是没有权限（比如标注未分配给自己的数据集等等）</td>
+</tr>
+<tr>
+<td>404</td>
+<td>资源不存在</td>
+</tr>
+<tr>
+<td>409</td>
+<td>Conflict 资源重复</td>
+</tr>
+<tr>
+<td>500</td>
+<td>服务器错误（程序异常，数据库异常等等情况）</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://segmentfault.com/a/1190000018668190" target="_blank" rel="noopener">全面分析前端的网络请求方式</a><br><a href="https://juejin.im/post/58ddb636ac502e0063992865" target="_blank" rel="noopener">HTTP最强资料大全 66</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers" target="_blank" rel="noopener">HTTP Headers MDN</a></p>
 
       
@@ -655,7 +711,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">133</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -666,7 +722,7 @@
                 
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -677,7 +733,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">135</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

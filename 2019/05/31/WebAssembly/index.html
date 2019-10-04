@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.0.1" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  
+  <meta name="keywords" content="WebAssembly,">
+
+
+<meta name="description" content="WebAssembly需要了解计算机组成原理, 操作系统从 OS 的原来 0101 写对应某一种 CPU, 然后写汇编, 用编译器来装换, 到高级语言在”编译”, “汇编”, “链接”. 这里会出现不同的 CPU 架构, 指令集不同, 然后 是编译器来识别到最后编译成 对应什么架构 CPU 的机器码么. 高级语言会用 LLVM 来编译成对应底层不同 CPU 架构能识别的机器码. WebAssemb">
+<meta name="keywords" content="WebAssembly">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebAssembly">
+<meta property="og:url" content="http://yoursite.com/2019/05/31/WebAssembly/index.html">
+<meta property="og:site_name" content="Little H title">
+<meta property="og:description" content="WebAssembly需要了解计算机组成原理, 操作系统从 OS 的原来 0101 写对应某一种 CPU, 然后写汇编, 用编译器来装换, 到高级语言在”编译”, “汇编”, “链接”. 这里会出现不同的 CPU 架构, 指令集不同, 然后 是编译器来识别到最后编译成 对应什么架构 CPU 的机器码么. 高级语言会用 LLVM 来编译成对应底层不同 CPU 架构能识别的机器码. WebAssemb">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-31T08:05:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WebAssembly">
+<meta name="twitter:description" content="WebAssembly需要了解计算机组成原理, 操作系统从 OS 的原来 0101 写对应某一种 CPU, 然后写汇编, 用编译器来装换, 到高级语言在”编译”, “汇编”, “链接”. 这里会出现不同的 CPU 架构, 指令集不同, 然后 是编译器来识别到最后编译成 对应什么架构 CPU 的机器码么. 高级语言会用 LLVM 来编译成对应底层不同 CPU 架构能识别的机器码. WebAssemb">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/31/WebAssembly/">
+
+
+  <title>WebAssembly | Little H title</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Little H title</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">this is subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益404</a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/31/WebAssembly/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Henry x">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatarMogu.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Little H title">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WebAssembly</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-31T09:55:12+08:00">2019-05-31</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript教程/" itemprop="url" rel="index"><span itemprop="name">javascript教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="WebAssembly"><a href="#WebAssembly" class="headerlink" title="WebAssembly"></a>WebAssembly</h1><h2 id="需要了解计算机组成原理-操作系统"><a href="#需要了解计算机组成原理-操作系统" class="headerlink" title="需要了解计算机组成原理, 操作系统"></a>需要了解计算机组成原理, 操作系统</h2><p>从 OS 的原来 0101 写对应某一种 CPU, 然后写汇编, 用编译器来装换, 到高级语言在”编译”, “汇编”, “链接”. 这里会出现不同的 CPU 架构, 指令集不同, 然后 是编译器来识别到最后编译成 对应什么架构 CPU 的机器码么. 高级语言会用 LLVM 来编译成对应底层不同 CPU 架构能识别的机器码.</p>
+<p>WebAssembly 字节码是一种抹平了不同 CPU 架构的机器码，WebAssembly 字节码不能直接在任何一种 CPU 架构上运行， 但由于非常接近机器码，可以非常快的被翻译为对应架构的机器码，因此 WebAssembly 运行速度和机器码接近，这听上去非常像 Java 字节码。</p>
+<p>每个高级语言都去实现源码到不同平台的机器码的转换工作是重复的，高级语言只需要生成底层虚拟机(LLVM)认识的中间语言(LLVM IR)，LLVM 能实现：</p>
+<p>通常负责把高级语言翻译到 LLVM IR 的部分叫做编译器前端，把 LLVM IR 编译成各架构 CPU 对应机器码的部分叫做编译器后端； 现在越来越多的高级编程语言选择 LLVM 作为后端，高级语言只需专注于如何提供开发效率更高的语法同时保持翻译到 LLVM IR 的程序执行性能。</p>
+<p>ARM 的手机上还有很多不同的处理器, 高通 小米 华为 联发科 三星 苹果.</p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>举个例子，假设有以下 5 盏灯。灯由开关控制着，只有开关两种状态。我们约定 1 表示开灯，0 表示关灯。那么，当电灯管理员得到“01000”这样一组数字时，<strong>他就知道了应该开第二盏灯，其他的关掉</strong>。</p>
+<p>机器码编程是不方便的，程序员想要完成某种计算功能，往往需要从非常庞大的<strong>指令表</strong>查找到相应的数字功能码。因此，后来人们设计了很多助记符，用有意义的单词来表示机器指令，这就形成了汇编语言。</p>
+<p><a href="https://www.zhihu.com/question/20793038" target="_blank" rel="noopener">CPU 的指令集存放在什么地方？Ricky Li 回答 6</a></p>
+<p>CPU 的指令集是软件与 CPU 这两个层级之间的接口, 而 CPU 自己, 就是对于这一套 CPU 指令集的<strong>实例化</strong>.</p>
+<p>软件意义上, “指令集”实际上是一个规范, 规范汇编的文件格式.一条汇编指令与一段机器码是一一对应的. 可以看出来, 指令集的作用, 就是告诉程序员/编译器, 汇编一定要有格式. 支持什么指令, 指令带什么限制条件, 用什么操作数, 用什么地址, 都是指令集规范的内容, 要是写错了, 就无法翻译成机器码.<strong>指令集规范汇编</strong>, 汇编可以翻译成机器码, 机器码告诉 CPU 每个周期去做什么. 因此, <strong>CPU 指令集是描述 CPU 能实现什么功能的一个集合, 就是描述”CPU 能使用哪些机器码”的集合”</strong>.</p>
+<p><a href="https://www.zhihu.com/question/22193700" target="_blank" rel="noopener">汇编指令集与 cpu 指令集是什么关系？bombless 的回答</a><br>更多的讲了标准与实现哦, CPU 指令集是标准, CPU 这个硬件是实现. 同理还有编译器上, 这个编译器也是个实现, 按不同的 CPU 指令集标准来.</p>
+<h2 id="从-0101-到汇编-6"><a href="#从-0101-到汇编-6" class="headerlink" title="从 0101 到汇编 6"></a>从 0101 到汇编 6</h2><p><a href="http://www.ruanyifeng.com/blog/2018/01/assembly-language-primer.html" target="_blank" rel="noopener">汇编语言入门教程</a><br>先看下阮一峰的第二段,阮一峰的很好的讲了从开关到打孔纸带, 到使用人能识别的符号即汇编语言的这个过程.</p>
+<p>到汇编语言后就多出一个步骤，要把这些文字指令重新翻译回二进制, 这样 CPU 才能识别，这个步骤就称为 assembling，用来处理这个步骤的程序就叫做 assembler。它处理的文本，自然就叫做 aseembly code。标准化以后，称为 assembly language，缩写为 asm，中文译为汇编语言.</p>
+<p>注: 每一种 CPU 的机器指令都是不一样的，因此对应的汇编语言也不一样。本文介绍的是目前最常见的 x86 汇编语言，即 Intel 公司的 CPU 使用的那一种。</p>
+<blockquote>
+<p>例如常见的处理器还有 intel AMD ARM 这些, 手机上 ARM 的还有高通, 华为麒麟, 小米松果, 三星, 联发科, 苹果 A 这些. 都不同的.<br>现在的话你不需要关心不同的汇编语言问题 LLVM 会把一份汇编语言都转换成对应 CPU 能运行的机器指令.</p>
+</blockquote>
+<p>然后看下周荷琴的 <strong>微机原理及接口第三版</strong> 第 65 页开始的 <strong>3-2 指令的机器码表示方式</strong>, 讲了对于 8 位的微处理器可以从汇编到机器码通过查表. 对于 8086 这种 32 位的直接查表不行, 要先按指令类型给出编码格式, 再查表得到机器码. 就举了个 <code>MOV SP, BX</code> 指令的例子. 所以你就知道了编译器 assembler 干什么的了. <strong>其实也是按某种方式查表</strong></p>
+<p>更进一步是看下<a href="https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf#page=29&amp;zoom=100,0,818" target="_blank" rel="noopener">intel 指令集</a><br>知乎上张盼锋的解释, 讲的十分不错哦. 第 1 个视频，正是汇编语言到机器语言的步骤，在编译器处理此阶段，是直接将 mov 这些汇编翻译为机器码；在计算机执行层面，是 CU 控制单元根据不同的 opcode 产生不同的控制信号(见视频 3)。<br><a href="https://www.zhihu.com/question/65385471" target="_blank" rel="noopener">汇编语言转换成机器语言，具体在机器这个层面是如何实现的？ 知乎</a></p>
+<blockquote>
+<p>前面我只讲了从编译器处理程序的角度, 没有说计算机执行层面的, 知乎上张盼锋还讲了从执行层面的.</p>
+</blockquote>
+<p>对于我们现在在用的高级语言, 当然也是从汇编语言发展过来, 为了进一步提高开发效率咯. 那高级语言怎么运行呢?</p>
+<p>你可能在编写完 C 文件后用 gcc 的时候听过预处理, 编译, 链接 这个. 那编译完后不是成汇编语言了么, 为什么有个链接, 直接从汇编语言到机器指令有这个步骤么?</p>
+<p><a href="http://www.ruanyifeng.com/blog/2014/11/compiler.html" target="_blank" rel="noopener">编译器的工作过程</a><br>除了将你知道的用 gcc 进行 -E -S -c 生成 .i .s .o 文件后, 还有其他步骤准备. <a href="http://nethack4.org/blog/building-c.html" target="_blank" rel="noopener">建议看英文原文更加详细</a>.</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.ibm.com/developerworks/cn/web/wa-lo-webassembly-status-and-reality/index.html" target="_blank" rel="noopener">WebAssembly 现状与实战</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WebAssembly/" rel="tag"># WebAssembly</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/30/javascript初中高手册/" rel="next" title="javascript初中高手册">
+                <i class="fa fa-chevron-left"></i> javascript初中高手册
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/31/Building-C-Projects/" rel="prev" title="Building-C-Projects">
+                Building-C-Projects <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatarMogu.jpg" alt="Henry x">
+            
+              <p class="site-author-name" itemprop="name">Henry x</p>
+              <p class="site-description motion-element" itemprop="description">this is description</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">133</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    <span class="site-state-item-count">135</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yourname" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com/" title="weibo" target="_blank">weibo</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WebAssembly"><span class="nav-number">1.</span> <span class="nav-text">WebAssembly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需要了解计算机组成原理-操作系统"><span class="nav-number">1.1.</span> <span class="nav-text">需要了解计算机组成原理, 操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指令"><span class="nav-number">1.2.</span> <span class="nav-text">指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从-0101-到汇编-6"><span class="nav-number">1.3.</span> <span class="nav-text">从 0101 到汇编 6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Henry x</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.1"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

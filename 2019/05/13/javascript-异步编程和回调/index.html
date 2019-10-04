@@ -100,17 +100,17 @@
   <meta name="keywords" content="Hexo, NexT">
 
 
-<meta name="description" content="JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。 编程语言中的异步计算机在设计上是异步的。 异步意味着某些事情可以独立于主程序流而发生。 在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们认为我们的计算机同时运行许多程序，但">
+<meta name="description" content="javascript-异步编程和回调JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。 编程语言中的异步计算机在设计上是异步的。 异步意味着某些事情可以独立于主程序流而发生。 在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript-异步编程和回调">
 <meta property="og:url" content="http://yoursite.com/2019/05/13/javascript-异步编程和回调/index.html">
 <meta property="og:site_name" content="Little H title">
-<meta property="og:description" content="JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。 编程语言中的异步计算机在设计上是异步的。 异步意味着某些事情可以独立于主程序流而发生。 在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们认为我们的计算机同时运行许多程序，但">
+<meta property="og:description" content="javascript-异步编程和回调JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。 编程语言中的异步计算机在设计上是异步的。 异步意味着某些事情可以独立于主程序流而发生。 在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-13T04:03:13.913Z">
+<meta property="og:updated_time" content="2019-05-13T06:39:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript-异步编程和回调">
-<meta name="twitter:description" content="JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。 编程语言中的异步计算机在设计上是异步的。 异步意味着某些事情可以独立于主程序流而发生。 在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们认为我们的计算机同时运行许多程序，但">
+<meta name="twitter:description" content="javascript-异步编程和回调JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。 编程语言中的异步计算机在设计上是异步的。 异步意味着某些事情可以独立于主程序流而发生。 在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们">
 
 
 
@@ -342,33 +342,52 @@
       
 
       
-        <p>JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。</p>
-<p>编程语言中的异步<br>计算机在设计上是异步的。</p>
-<p>异步意味着某些事情可以独立于主程序流而发生。</p>
+        <h1 id="javascript-异步编程和回调"><a href="#javascript-异步编程和回调" class="headerlink" title="javascript-异步编程和回调"></a>javascript-异步编程和回调</h1><p>JavaScript <strong>默认是同步的，并且是单线程的</strong>。这意味着代码无法创建新线程并且并行运行。让我们了解一下什么是异步代码及其样子。</p>
+<h2 id="编程语言中的异步"><a href="#编程语言中的异步" class="headerlink" title="编程语言中的异步"></a>编程语言中的异步</h2><p>计算机在<strong>设计上是异步</strong>的。</p>
+<p>异步意味着某些事情可以<strong>独立于主程序流而发生</strong>。</p>
 <p>在当前的消费者计算机中，每个程序都运行在一个特定的时间段，然后它停止执行，以让另一个程序继续执行。这种循环运行如此之快以至于我们无法注意到，我们认为我们的计算机同时运行许多程序，但这是一种幻觉（除了多处理器机器）。</p>
-<p>程序内部使用 中断 ，这是一个发送到处理器的信号，以引起系统的注意。</p>
-<p>我不会深入讨论它的内部细节，但请记住，程序是异步的是很正常的，并在需要注意之前停止它们的执行，并且计算机可以在此期间执行其他操作。当程序正在等待来自网络的响应时，它不能在请求完成之前停止处理器。</p>
+<p>程序内部使用 <strong>中断</strong> ，这是一个发送到处理器的信号，以引起系统的注意。</p>
+<p>我不会深入讨论它的内部细节，但请记住，<strong>程序是异步的是很正常的</strong>，并在需要注意之前停止它们的执行，并且计算机可以在此期间执行其他操作。当程序正在等待来自网络的响应时，它不能在请求完成之前停止处理器。</p>
 <p>通常，编程语言是同步的，有些语言提供了一种在语言或库中管理异步方法。 C，Java，C＃，PHP，Go，Ruby，Swift，Python，默认情况下它们都是同步的。其中一些通过使用线程处理异步，产生一个新进程。</p>
-<p>JavaScript<br>JavaScript 默认是同步的，并且是单线程的。这意味着代码无法创建新线程并且并行运行。</p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><p>JavaScript <strong>默认是同步的，并且是单线程的</strong>。这意味着代码无法创建新线程并且并行运行。</p>
 <p>代码行是一个接一个地串行执行的，例如：</p>
-<p>JavaScript 代码:<br>const a = 1<br>const b = 2<br>const c = a * b<br>console.log(c)<br>doSomething()<br>但 JavaScript 诞生于浏览器中，一开始其主要工作就是响应用户操作，如 onClick，onMouseOver，onChange，onSubmit等。 怎么用同步编程模型呢？</p>
-<p>答案是在它的环境中。 浏览器通过提供一组可以处理这种功能的 API 来解决这个问题。</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">const</span> c = a * b;</span><br><span class="line"><span class="built_in">console</span>.log(c);</span><br><span class="line">doSomething();</span><br></pre></td></tr></table></figure>
+<p>但 JavaScript 诞生于浏览器中，一开始其主要工作就是响应用户操作，如 <code>onClick</code>，<code>onMouseOver</code>，<code>onChange</code>，<code>onSubmit等</code>。 怎么用同步编程模型呢？</p>
+<p><strong>答案是在它的环境中</strong>。 <strong>浏览器</strong>通过提供一组可以处理这种功能的 <code>API</code> 来解决这个问题。</p>
 <p>最近，Node.js 引入了一个非阻塞 I/O 环境，将这个概念扩展到文件访问，网络调用等。</p>
-<p>回调函数（Callbacks）<br>你无法知道用户何时要单击按钮，因此你 要为click事件定义事件处理程序。 此事件处理程序接受一个函数，该函数将在事件触发时调用：</p>
-<p>JavaScript 代码:<br>document.getElementById(‘button’).addEventListener(‘click’, () =&gt; {<br>  //item clicked<br>})<br>这就是所谓的 回调函数。</p>
-<p>回调是一个简单的函数，它作为值传递给另一个函数，并且只在事件发生时执行。 我们可以这样做，是因为函数是 JavaScript 的 “一等公民” ，可以分配给变量并传递给其他函数（称为 高阶函数 ）</p>
-<p>将所有客户端代码包装在 window 对象上的 load 事件侦听器中是很常见的，这样仅在该页面准备就绪时才运行回调函数：</p>
-<p>JavaScript 代码:<br>window.addEventListener(‘load’, () =&gt; {<br>  //window loaded<br>  //do what you want<br>})<br>回调在任何地方都使用，而不仅仅在DOM事件中使用。</p>
+<h2 id="回调函数（Callbacks）"><a href="#回调函数（Callbacks）" class="headerlink" title="回调函数（Callbacks）"></a>回调函数（Callbacks）</h2><p>你无法知道用户何时要单击按钮，因此你 <strong>要为 click 事件定义事件处理程序</strong>。 此事件处理程序接受一个函数，该函数将在事件触发时调用：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">//item clicked</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这就是所谓的 <code>回调函数</code>。</p>
+<p>回调是一个简单的函数，它<strong>作为值传递给另一个函数，并且只在事件发生时执行</strong>。 我们可以这样做，是因为函数是 JavaScript 的 “一等公民” ，可以分配给变量并传递给其他函数（称为 <a href="/2019/05/11/javascript-高阶函数/" title="javascript-高阶函数">javascript-高阶函数</a> ）</p>
+<p>将所有客户端代码包装在 <code>window</code> 对象上的 <code>load</code> 事件侦听器中是很常见的，这样仅在<strong>该页面准备就绪时</strong>才运行回调函数：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="comment">//window loaded</span></span><br><span class="line">  <span class="comment">//do what you want</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>回调在任何地方都使用，而不仅仅在 <code>DOM</code> 事件中使用</strong>。</p>
 <p>一个常见的例子是使用定时器：</p>
-<p>JavaScript 代码:<br>setTimeout(() =&gt; {<br>  // runs after 2 seconds<br>}, 2000)<br>XHR请求也接受回调。在本示例中，通过将函数分配给属性，该函数在特定事件发生时将被调用(在本例中，请求状态发生了变化)：</p>
-<p>JavaScript 代码:<br>const xhr = new XMLHttpRequest()<br>xhr.onreadystatechange = () =&gt; {<br>  if (xhr.readyState === 4) {<br>    xhr.status === 200 ? console.log(xhr.responseText) : console.error(‘error’)<br>  }<br>}<br>xhr.open(‘GET’, ‘<a href="https://yoursite.com">https://yoursite.com</a>‘)<br>xhr.send()<br>在回调中处理错误<br>你如何处理回调错误？ 一个非常常见的策略是使用 Node.js 采用的办法：任何回调函数中的第一个参数是错误对象：error-first callbacks（错误优先的回调）</p>
-<p>如果没有错误，则该对象为 null。 如果有错误，则包含错误的描述和其他信息。</p>
-<p>JavaScript 代码:<br>fs.readFile(‘/file.json’, (err, data) =&gt; {<br>  if (err !== null) {<br>    //handle error<br>    console.log(err)<br>    return<br>  }<br>  //no errors, process data<br>  console.log(data)<br>})<br>回调带来的问题<br>对于简单的情况，回调非常有用！</p>
-<p>但是每个回调都会增加嵌套层级，当你有很多回调时，代码开始变得非常复杂，也就大家经常会听到的 “回调地狱” ：</p>
-<p>JavaScript 代码:<br>window.addEventListener(‘load’, () =&gt; {<br>  document.getElementById(‘button’).addEventListener(‘click’, () =&gt; {<br>    setTimeout(() =&gt; {<br>      items.forEach(item =&gt; {<br>        //your code here<br>      })<br>    }, 2000)<br>  })<br>})<br>这只是一个简单的 4 层嵌套代码，但我已经看到了更多层级的嵌套，这并不好玩。</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// runs after 2 seconds</span></span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+<p><code>XHR</code> 请求也接受回调。在本示例中，通过将函数分配给属性，该函数在特定事件发生时将被调用(在本例中，请求状态发生了变化)：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    xhr.status === <span class="number">200</span> ? <span class="built_in">console</span>.log(xhr.responseText) : <span class="built_in">console</span>.error(<span class="string">'error'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.open(<span class="string">'GET'</span>, <span class="string">'https://yoursite.com'</span>);</span><br><span class="line">xhr.send();</span><br></pre></td></tr></table></figure>
+<h2 id="在回调中处理错误"><a href="#在回调中处理错误" class="headerlink" title="在回调中处理错误"></a>在回调中处理错误</h2><p>你如何<strong>处理回调错误</strong>？ 一个非常常见的策略是使用 <code>Node.js</code> 采用的办法：<strong>任何回调函数中的第一个参数是错误对象</strong>：<code>error-first callbacks</code>（错误优先的回调）</p>
+<p>如果没有错误，则该对象为 <code>null</code>。 如果有错误，则包含错误的描述和其他信息。</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'/file.json'</span>, (err, data) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (err !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="comment">//handle error</span></span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//no errors, process data</span></span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="回调带来的问题"><a href="#回调带来的问题" class="headerlink" title="回调带来的问题"></a>回调带来的问题</h2><p>对于简单的情况，回调非常有用！</p>
+<p>但是<strong>每个回调都会增加嵌套层级</strong>，当你有很多回调时，代码开始变得非常复杂，也就大家经常会听到的 <strong>“回调地狱”</strong> ：</p>
+<p>JavaScript 代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'button'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      items.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//your code here</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这只是一个简单的 4 层嵌套代码，但我已经看到了更多层级的嵌套，这并不好玩。</p>
 <p>我们如何解决这个问题呢？</p>
-<p>回调的替代方案<br>从 ES6 开始，JavaScript 引入了一些新功能，可以帮助我们不用回调就能处理异步代码：</p>
-<p>Promises (ES6)<br>Async/Await (ES8)<br>这些将在后面的章节中单独介绍。</p>
+<h2 id="回调的替代方案"><a href="#回调的替代方案" class="headerlink" title="回调的替代方案"></a>回调的替代方案</h2><p>从 ES6 开始，<code>JavaScript</code> 引入了一些新功能，可以帮助我们不用回调就能处理异步代码：</p>
+<ul>
+<li>Promises (ES6)</li>
+<li>Async/Await (ES8)</li>
+</ul>
+<p>这些将在后面的章节中单独介绍。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.html.cn/archives/10222" target="_blank" rel="noopener">JavaScript 异步编程和回调 – JavaScript 完全手册（2018 版）</a></p>
 
       
     </div>
@@ -402,6 +421,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/13/javascript-Promises/" rel="prev" title="javascript-Promises">
+                javascript-Promises <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -450,8 +473,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -468,7 +500,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">117</span>
+                    <span class="site-state-item-count">133</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -479,7 +511,7 @@
                 
                 <div class="site-state-item site-state-categories">
                   <a href="/categories/index.html">
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -490,7 +522,7 @@
                 
                 <div class="site-state-item site-state-tags">
                   <a href="/tags/index.html">
-                    <span class="site-state-item-count">121</span>
+                    <span class="site-state-item-count">135</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -543,6 +575,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#javascript-异步编程和回调"><span class="nav-number">1.</span> <span class="nav-text">javascript-异步编程和回调</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程语言中的异步"><span class="nav-number">1.1.</span> <span class="nav-text">编程语言中的异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript"><span class="nav-number">1.2.</span> <span class="nav-text">JavaScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调函数（Callbacks）"><span class="nav-number">1.3.</span> <span class="nav-text">回调函数（Callbacks）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在回调中处理错误"><span class="nav-number">1.4.</span> <span class="nav-text">在回调中处理错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调带来的问题"><span class="nav-number">1.5.</span> <span class="nav-text">回调带来的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调的替代方案"><span class="nav-number">1.6.</span> <span class="nav-text">回调的替代方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
