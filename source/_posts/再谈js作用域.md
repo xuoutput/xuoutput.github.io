@@ -39,7 +39,7 @@ js 有 3 种作用域, 全局作用域(`Global context： window/global`), 局�
 ## 例子 add()
 
 主要是看这个链接
-[JavaScript 核心概念之作用域和闭包 666](https://www.css88.com/archives/7262)
+[JavaScript 核心概念之作用域和闭包 666](https://www.html.cn/archives/7262)
 
 ```JavaScript
 function add(num1, num2) {
@@ -57,7 +57,7 @@ function add(num1, num2) {
 
 ![scope1.jpg](scope1.jpg)
 
-[实例分析 JavaScript 作用域](https://www.css88.com/archives/7300)
+[实例分析 JavaScript 作用域](https://www.html.cn/archives/7300)
 
 上面这个链接讲了 **JavaScript 的词法作用域**
 
@@ -139,7 +139,7 @@ obj.getA();
 
 看完闭包后要看这个链接巩固, 在整体回顾.
 
-[实例分析 JavaScript 作用域](https://www.css88.com/archives/7300)
+[实例分析 JavaScript 作用域](https://www.html.cn/archives/7300)
 
 上面这个链接讲了 **JavaScript 的词法作用域**
 
@@ -870,10 +870,10 @@ bar();
 [《高性能 JavaScript》第 2 章](http://www.menvscode.com/detail/599fd4673bb2bd430d7a7e01)
 
 **重点是这 4 篇文章, 然后看完就看下浏览器的机制, 再看下执行上下文的结构**
-[JavaScript 核心概念之作用域和闭包 666](https://www.css88.com/archives/7262)
-[深入理解 JavaScript 中的作用域和上下文 666](https://www.css88.com/archives/7255)
-[实例分析 JavaScript 作用域 6666](https://www.css88.com/archives/7300)
-[JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.css88.com/archives/7924)
+[JavaScript 核心概念之作用域和闭包 666](https://www.html.cn/archives/7262)
+[深入理解 JavaScript 中的作用域和上下文 666](https://www.html.cn/archives/7255)
+[实例分析 JavaScript 作用域 6666](https://www.html.cn/archives/7300)
+[JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.html.cn/archives/7924)
 
 {% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %}
 

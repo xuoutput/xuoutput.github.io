@@ -573,8 +573,8 @@ setTimeout
 
 分别怎么样的场景会形成`macrotask`和`microtask`呢？
 
-`macrotask`：主代码块，`setTimeout`，`setInterval`等（可以看到，事件队列中的每一个事件都是一个`macrotask`）
-`microtask`：`Promise`，`process.nextTick`等
+`macrotask`：script主代码块，`setTimeout`，`setInterval`等（可以看到，事件队列中的每一个事件都是一个`macrotask`）, IO事件, UI交互事件, postMessage, MessageChannel, SetImmediate(nodejs)
+`microtask`：`Promise.then`，`process.nextTick`(nodejs), MutationObserver等
 **补充：在 node 环境下，`process.nextTick`的优先级高于`Promise`**，也就是可以简单理解为：在**宏任务**结束后会先执行**微任务队列**中的`nextTickQueue`部分，然后才会执行**微任务**中的`Promise`部分。
 
 参考：[process.nextTick()与 promise.then()](https://segmentfault.com/q/1010000011914016)
