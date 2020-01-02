@@ -106,3 +106,4 @@ var blob = new Blob([JSON.stringify(debug, null, 2)],
 [什么是data URI scheme及如何使用data URI scheme](https://sjolzy.cn/What-is-the-data-URI-scheme-and-how-to-use-the-data-URI-scheme.html)
 [Data URLs](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/data_URIs)
 [Blob](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob)
+[这应该是你见过的最全前端下载总结 666](https://juejin.im/post/5c3c4b3551882524a5420119)
