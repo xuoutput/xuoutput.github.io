@@ -213,3 +213,7 @@ typingclub
 ### go
 
 ### HTTP
+
+### 终端
+
+{% post_link 终端相关入门 终端相关入门 %}

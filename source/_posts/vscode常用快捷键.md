@@ -27,3 +27,37 @@ jj {
 
     
 }
+
+## 其他操作
+
+终端中使用命令 `code` 启动vscode,常用的就 `code .` 和 `code -n`
+
+```bash
+# open code with current directory **
+code .
+
+# open the current directory in the most recently used code window
+code -r .
+
+# create a new window **
+code -n
+
+# change the language
+code --locale=es
+
+# open diff editor
+code --diff <file1> <file2>
+
+# open file at specific line and column <file:line[:character]>
+code --goto package.json:10:5
+
+# see help options
+code --help
+
+# disable all extensions
+code --disable-extensions .
+```
+
+## 参考
+
+[Launching from the command line](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line)
