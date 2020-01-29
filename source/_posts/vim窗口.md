@@ -13,6 +13,7 @@ permalink:
 
 vim 有自己的窗口, tmux 也有窗口和 panel 管理, 这个需要调整下怎么处理
 
+> 一般对比的时候用window, 而多文件用tab的
 > 不建议用 tmux 的 panel 代替 vim 的窗口
 
 ## 操作

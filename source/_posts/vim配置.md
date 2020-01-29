@@ -37,9 +37,9 @@ permalink:
 {% post_link vim缓冲区 vim缓冲区 %}
 {% post_link vim光标移动 vim光标移动 %}
 
-
 > 这个可以在 chrome, vscode 中一起用
 > 使用窗口还是配合tmux来分隔panel使用, 我觉得用tmux来分隔窗口就好
+> **快捷键一般都是在normal模式下设置, 在insert模式下可以按照emacs的方式来设置**
 
 ```vim
 <c+i>
