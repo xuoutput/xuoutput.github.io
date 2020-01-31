@@ -176,6 +176,70 @@ map <C-g> fzm
 
 ## 常用快捷键
 
+- `?` 帮助
+
+### 浏览
+
+- h/j/k/l 往父目录/下/上/进入
+- `[`/`]` 父目录下/上
+- gg 跳到顶端
+- G 跳到底端
+- H 后退
+- Ctrl-d/u 向上翻页/向下翻页
+- L 前进
+- gh go home
+  - cd 依旧可以用
+  - 建议使用书签(m)来配置一些常用路径
+- m 新建书签(之后按一个字母)
+  - ` 显示所有书签
+  - um 按一个字母删除一个书签
+- gn/c-n 新建 tab 标签
+  - tab/s-tab 切换
+  - gc/c-w/`q` 关闭
+- f 查找
+  - 自定义为过滤了
+  - alt-f fd 查找 alt-n/N
+  - c-f 使用 fzf 过滤
+- / 搜素 n/N
+- g 快速进入目录或标签
+
+- zh 显示隐藏
+- zp 打开/关闭文件预览功能
+- zP 打开目录预览功能
+
+### 编辑
+
+- space 选择
+  - v 全选/取消
+  - V 开始连续选择
+  - uv 取消选择
+- yy 复制文件
+  - yn 复制文件名
+  - yp 复制路径
+- dd 剪切
+  - dD 删除
+  - delete 删除
+- pp 粘贴
+  - po 直接覆盖
+- cw 重命名(支持多选后改名)
+  - i/a /I/A 在当前名称基础上重命名
+- :show_files_in_finder 在 mac 上的 Finder 显示文件
+
+### 粘贴, 解压时的任务管理
+
+- w: 打开/关闭(或 q)任务视图. 在 w 打开的任务视图中:
+  - dd: 终止一个任务
+  - J/K: 降低/提升当前任务的优先级
+
+### 排序
+
+- on/ob 根据文件名进行排序(natural/basename)
+- oc/C 根据改变时间进行排序 (Change Time 文件的权限组别和文件自身数据被修改的时间)
+  - oa/A 访问时间进行排序 (Access Time 访问文件自身数据的时间)
+  - om/N 修改进行排序 (Modify time 文件自身内容被修改的时间)
+- os/T 根据文件大小进行排序(Size)
+- ot/S 根据后缀名进行排序 (Type)
+
 ## 参考
 
 [Plugins](https://github.com/ranger/ranger/wiki/Plugins)
@@ -184,5 +248,4 @@ map <C-g> fzm
 [ranger 1.9.3](https://github.com/ranger/ranger)
 [Linux 文件管理器 ranger #31](https://github.com/itgoyo/500Days-Of-Github/issues/31)
 [linux 终端文件管理器 ranger 使用详解 66](http://www.mikewootc.com/wiki/linux/usage/ranger_file_manager.html)
-[[Ranger – 给命令行用户一个基于文本的文件管理器](https://linux.cn/article-1995-1.html#3_3958)
-]
+[Ranger – 给命令行用户一个基于文本的文件管理器](https://linux.cn/article-1995-1.html#3_3958)
