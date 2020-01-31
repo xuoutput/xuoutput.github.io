@@ -10,18 +10,18 @@ comments: false
 permalink:
 ---
 
-# markdown在vscode上的简单优化
+# markdown 在 vscode 上的简单优化
 
-本文章只是简单介绍下在vscode上简单配置一些插件就可以体验更好的`markdown`
+本文章只是简单介绍下在 vscode 上简单配置一些插件就可以体验更好的`markdown`
 
-分4部分:
+分 4 部分:
 
 1. 用`Markdown All in One` 来设置快捷键
 2. 用`Markdown Preview Enhanced` 来加强`cmd+k, v`的预览
-3. 用 `markdownlint` 来formatting 一致性,
+3. 用 `markdownlint` 来 formatting 一致性,
 4. {% post_link markdown常用语法 文章markdown常用语法 %}
-5. **markdown主题**
-6. [进阶使用论文latex咯](https://zh.wikipedia.org/wiki/LaTeX)
+5. **markdown 主题**
+6. [进阶使用论文 latex 咯](https://zh.wikipedia.org/wiki/LaTeX)
 
 ## markdown All in One
 
@@ -39,14 +39,14 @@ permalink:
 
 ### Available Commands `cmd+shift+p`
 
-- Markdown: Create Table of Contents  只用创建TOC
+- Markdown: Create Table of Contents 只用创建 TOC
 - Markdown: Update Table of Contents
 
 Use `<!-- omit in toc -->` to ignore specific heading in TOC
 
 **注意点:**
-list的一定要写全了才能打上x, 如`- [ ] 写好了` 空格别忘了
-数学公式用别的`LATEX` [在线latex公式](https://www.codecogs.com/latex/eqneditor.php)
+list 的一定要写全了才能打上 x, 如`- [ ] 写好了` 空格别忘了
+数学公式用别的`LATEX` [在线 latex 公式](https://www.codecogs.com/latex/eqneditor.php)
 
 ## [Markdown Preview Enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/)
 
@@ -54,7 +54,7 @@ list的一定要写全了才能打上x, 如`- [ ] 写好了` 空格别忘了
 
 [Markdown 基本要素](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/markdown-basics)
 
-不过快捷键暂时用不到,只是当做预览pdf用.
+不过快捷键暂时用不到,只是当做预览 pdf 用.
 
 ## markdownlint
 
@@ -63,8 +63,8 @@ list的一定要写全了才能打上x, 如`- [ ] 写好了` 空格别忘了
 
 ## latex
 
-如果无法在`hexo`中使用`$`来写公式, 参看这个[使用LaTex添加公式到Hexo博客里](https://www.jianshu.com/p/68e6f82d88b7)
+如果无法在`hexo`中使用`$`来写公式, 参看这个[使用 LaTex 添加公式到 Hexo 博客里](https://www.jianshu.com/p/68e6f82d88b7)
 
-[YouTube视频](https://www.youtube.com/watch?v=RcvSMu9uRfA&list=PLsaRQCHmdZTD3rcrmGsV-AqCfDWJuBDNd)
+[YouTube 视频](https://www.youtube.com/watch?v=RcvSMu9uRfA&list=PLsaRQCHmdZTD3rcrmGsV-AqCfDWJuBDNd)
 
 {% post_link latex常用语法 文章latex常用语法 %}

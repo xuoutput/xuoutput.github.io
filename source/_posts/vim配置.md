@@ -36,19 +36,13 @@ permalink:
 {% post_link vim标签页 vim标签页 %}
 {% post_link vim缓冲区 vim缓冲区 %}
 {% post_link vim光标移动 vim光标移动 %}
+{% post_link vim寄存器 vim寄存器 %}
 
 > 这个可以在 chrome, vscode 中一起用
 > 使用窗口还是配合 tmux 来分隔 panel 使用, 我觉得用 tmux 来分隔窗口就好
 > **快捷键一般都是在 normal 模式下设置, 在 insert 模式下可以按照 emacs 的方式来设置**
 
-```vim
-<c+i>
-<c+o>
-
-:ls
-:bn :bp
-:b123
-```
+类似IDE中的代码snippet, fold, 交换上下行
 
 ## 操作定义
 
