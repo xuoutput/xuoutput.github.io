@@ -174,6 +174,8 @@ map <C-g> fzm
 
 [ranger-fzf-marks](https://github.com/laggardkernel/ranger-fzf-marks)
 
+## 常用快捷键
+
 ## 参考
 
 [Plugins](https://github.com/ranger/ranger/wiki/Plugins)
