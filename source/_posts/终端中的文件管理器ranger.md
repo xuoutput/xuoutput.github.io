@@ -78,6 +78,8 @@ fzf integration (`map <C-f> fzf_select`)
 
 ## 图片预览, 视频预览, pdf 预览等
 
+[Image preview not working inside tmux session in iTerm2 ](https://github.com/ranger/ranger/issues/539)
+
 ## 版本控制
 
 例如 `git`
@@ -181,6 +183,7 @@ map <C-g> fzm
 ### 浏览
 
 - h/j/k/l 往父目录/下/上/进入
+  - i 是查看内容
 - `[`/`]` 父目录下/上
 - gg 跳到顶端
 - G 跳到底端
@@ -210,7 +213,7 @@ map <C-g> fzm
 ### 编辑
 
 - space 选择
-  - v 全选/取消
+  - v 反选(可以当全选用)
   - V 开始连续选择
   - uv 取消选择
 - yy 复制文件
@@ -222,7 +225,7 @@ map <C-g> fzm
 - pp 粘贴
   - po 直接覆盖
 - cw 重命名(支持多选后改名)
-  - i/a /I/A 在当前名称基础上重命名
+  - I/a/A 在当前名称基础上重命名 (i是查看内容)
 - :show_files_in_finder 在 mac 上的 Finder 显示文件
 
 ### 粘贴, 解压时的任务管理
@@ -239,6 +242,11 @@ map <C-g> fzm
   - om/N 修改进行排序 (Modify time 文件自身内容被修改的时间)
 - os/T 根据文件大小进行排序(Size)
 - ot/S 根据后缀名进行排序 (Type)
+
+### 杂项
+
+- z: 切换设置
+- u: 撤销操作
 
 ## 参考
 
