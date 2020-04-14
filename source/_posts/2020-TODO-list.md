@@ -1,6 +1,6 @@
 ---
-title: 2019-TODO-list
-date: 2019-01-04 08:29:57
+title: 2020-TODO-list
+date: 2020-03-04 20:27:10
 tags:
 - TODO
 categories:
@@ -9,211 +9,292 @@ comments: false
 permalink:
 ---
 
-# 2019-TODO-list
+# 2020-TODO-list
 
-收集了一些 github、掘金、segmentfault 等平台文章或小册中的内容，完成一些整理并总结!
+主要从基础开始,
+先学网络, OS+linux
 
-## 英语
-
-### 听力
-
-每日英语听力
+待完成 hexo 不支持checkbox, 后面换一种blog
+- [x] http
+- [ ] tea脚手架公有云和私有云
+- [ ] UI组件常用的componen源码
+- [ ] 算法
+- [ ] 表单中, 能和redux-form兼容的一些 自己写的validator
+- [ ] eslint
+- [ ] 组件名,方法名, 组件内, 项目路径规范
+- [ ] docker k8s
 
 ## 计算机基础
 
-## 刷题
+### 操作系统
 
-### LeetCode
+{% post_link 理解计算机 理解计算机 %}
+{% post_link 操作系统 操作系统 %}
+{% post_link 操作系统启动过程 操作系统启动过程 %}
+{% post_link HaiKu-OS HaiKu-OS %}
 
-[LeetCode solutions with JavaScript](https://github.com/hanzichi/leetcode)
+### linux
 
-## 打字
+{% post_link ubuntu上优化 ubuntu上优化 %}
+{% post_link ubuntu重装后要做的事 ubuntu重装后要做的事 %}
+{% post_link linux基本命令使用 linux基本命令使用 %}
+{% post_link linux操作系统编程 linux操作系统编程 %}
 
-typingclub
+{% post_link ubuntu上安装软件方法 ubuntu上安装软件方法 %}
+{% post_link pacman源添加及yaourt安装 pacman源添加及yaourt安装 %}
+{% post_link manjaro上安装软件 manjaro上安装软件 %}
 
-## JS 篇
+{% post_link kde manjaro-kde manjaro-%}
 
-### 导引
+### 网络
 
-[给 2019 前端的 5 个建议](https://zhuanlan.zhihu.com/p/55357377)
+主要就 HTTP DHCP
 
-### 专题
+{% post_link http目录 http目录 %}
 
-[预计写四个系列：JavaScript 深入系列、JavaScript 专题系列、ES6 系列、React 系列。666](https://github.com/mqyqingfeng/Blog)
-[前端基础进阶系列 666](https://www.jianshu.com/p/cd3fee40ef59)
-[深入理解 JavaScript 系列 666666](http://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html)
-[给前端好文多一首歌的时间（九）](https://www.jianshu.com/p/dd35aa1472b3)
-[程序员练级攻略（2018）：前端基础和底层原理](https://segmentfault.com/a/1190000017072371)
-[前端基础进阶目录](https://segmentfault.com/a/1190000012646488)
+{% post_link CDN原理 CDN原理 %}
+{% post_link DHCP原理 DHCP原理 %}
 
-### 数据类型
+### 数据结构
 
-[JS 基本数据类型和引用数据类型的区别及深浅拷贝](https://www.cnblogs.com/c2016c/articles/9328725.html)
-[的第七种数据类型](https://www.jianshu.com/p/eab46f1af003)
-[JS 中 typeof 与 instanceof 的区别](https://www.cnblogs.com/Trr-984688199/p/6180040.html)
-[typeof null 为什么等于 object?](https://www.cnblogs.com/wzybnzy/p/7232618.html?tdsourcetag=s_pcqq_aiomsg)
-[为什么用 Object.prototype.toString.call(obj)检测对象类型?](https://www.cnblogs.com/youhong/p/6209054.html)
-[JS 显性数据类型转换和隐性数据类型转换](https://blog.csdn.net/gnail_oug/article/details/53135603)
-[理解 Object.defineProperty 的作用](https://segmentfault.com/a/1190000007434923)
+### 刷题
+
+{% post_link Building-C-Projects Building-C-Projects %}
+
+{% post_link 牛客JS能力评测 牛客JS能力评测 %}
+{% post_link 数据结构中的常用算法总结 数据结构中的常用算法总结 %}
+{% post_link 刷题 刷题 %}
+{% post_link PAT刷题前的准备 PAT刷题前的准备 %}
+{% post_link PAT乙级 PAT乙级 %}
+{% post_link leetcode刷题-js版 leetcode刷题-js版 %}
+
+## js 篇
+
+几座大山
+
+{% post_link js立即执行函数 js立即执行函数 %}
+{% post_link js的数组 js的数组 %}
+{% post_link js函数 js函数 %}
+{% post_link js作用域链和闭包 js作用域链和闭包 %}
+{% post_link js事件处理 js事件处理 %}
+{% post_link JSON_Web_Token实现URL认证访问 JSON_Web_Token实现URL认证访问 %}
+{% post_link javascript复杂判断的优雅写法 javascript复杂判断的优雅写法 %}
+{% post_link javascript-高阶函数 javascript-高阶函数 %}
+{% post_link javascript-箭头函数适用与不适用场景 javascript-箭头函数适用与不适用场景 %}
+{% post_link javascript-箭头函数 javascript-箭头函数 %}
+{% post_link javascript-立即执行函数表达式IIFE javascript-立即执行函数表达式IIFE %}
+{% post_link JavaScript-的-async-await JavaScript-的-async-await %}
+{% post_link javascript-数组 javascript-数组 %}
+{% post_link javascript-数据类型判断 javascript-数据类型判断 %}
+{% post_link javascript-数据类型 javascript-数据类型 %}
+{% post_link javascript-循环loop javascript-循环loop %}
+{% post_link javascript-引号 javascript-引号 %}
+{% post_link javascript-异步编程和回调 javascript-异步编程和回调 %}
+{% post_link javascript-异常处理 javascript-异常处理 %}
+{% post_link javascript-工厂函数 javascript-工厂函数 %}
+{% post_link javascript-字面量模板 javascript-字面量模板 %}
+{% post_link javascript-变量 javascript-变量 %}
+{% post_link javascript-原型继承 javascript-原型继承 %}
+
+{% post_link javascript-分号 javascript-分号 %}
+{% post_link javascript-事件循环event-loop javascript-事件循环event-loop %}
+{% post_link javascript-事件events javascript-事件events %}
+{% post_link javascript-this javascript-this %}
+{% post_link javascript-Prototype javascript-Prototype %}
+{% post_link javascript-Promises javascript-Promises %}
+{% post_link javascript-function函数 javascript-function函数 %}
+{% post_link javascript-class javascript-class %}
+{% post_link javascript-AJAX javascript-AJAX %}
+
+### 原型链
+
+{% post_link javascript原型 javascript原型 %}
+{% post_link javascript初中高手册 javascript初中高手册 %}
+
+### 作用域与闭包
+
+{% post_link 静态作用域与动态作用域 静态作用域与动态作用域 %}
+{% post_link 再谈js作用域 再谈js作用域 %}
 
 ### this
 
-[深入理解 js this 绑定 ( 无需死记硬背，尾部有总结和面试题解析 )](https://segmentfault.com/a/1190000011194676#articleHeader13)
-[前端基础进阶（五）：全方位解读 this](https://www.jianshu.com/p/d647aa6d1ae6)
-[this、apply、call、bind](https://juejin.im/post/59bfe84351882531b730bac2)
-[JavaScript 中的 call、apply、bind 深入理解](https://www.jianshu.com/p/00dc4ad9b83f)
+{% post_link javascript中this指向由函数调用方式决定 javascript中this指向由函数调用方式决定 %}
 
-### 作用域链与闭包
+### Promise
 
-[我所认识的 JavaScript 作用域链和原型链 666](https://cnodejs.org/topic/59662f6dbda29e0f7480235b)
-[浅谈 JavaScript 闭包](https://github.com/MrErHu/blog/issues/11)
-[JavaScript 中作用域和作用域链的简单理解（变量提升） nonono](https://www.cnblogs.com/buchongming/p/5858026.html)
-[JavaScript 作用域、上下文、执行期上下文、作用域链、闭包 666](https://blog.csdn.net/qq_27626333/article/details/78463565)
+{% post_link 使用Promise 使用Promise %}
 
-4 连套
-[JavaScript 核心概念之作用域和闭包 666](https://www.html.cn/archives/7262)
-[深入理解 JavaScript 中的作用域和上下文 666](https://www.html.cn/archives/7255)
-[实例分析 JavaScript 作用域](https://www.html.cn/archives/7300)
-[JavaScript 中的 Hoisting (变量提升和函数声明提升) 666](https://www.html.cn/archives/7924)
+{% post_link async-function-await async-function-await %}
 
-[前端基础进阶（四）：详细图解作用域链与闭包 666 还带基础进阶的](https://www.jianshu.com/p/21a16d44f150)
-[JavaScript 闭包入门（译文）](https://juejin.im/post/58832fe72f301e00697b672d)
-[JavaScript 深入之闭包](https://juejin.im/post/590159d8a22b9d0065c2d918)
-[JavaScript 闭包](https://segmentfault.com/a/1190000006875662)
-[浏览器是怎么看闭包的。](https://juejin.im/post/5979b5755188253df1067397)
+{% post_link webpack简单入门 webpack简单入门 %}
 
-### 原型与原型链
+{% post_link fetch-API fetch-API %}
 
-[JavaScript 原型与继承的秘密](https://github.com/dreamapplehappy/blog/blob/master/2018/12/30/README.md)
-[白话原型和原型链](https://juejin.im/post/599d69fc6fb9a0248f4a7b31)
-[前端基础进阶（九）：详解面向对象、构造函数、原型与原型链](https://www.jianshu.com/p/15ac7393bc1f)
-[最详尽的 JS 原型与原型链终极详解，没有「可能是」。（一）](https://www.jianshu.com/p/dee9f8b14771)
-[最详尽的 JS 原型与原型链终极详解，没有「可能是」。（二）](https://www.jianshu.com/p/652991a67186)
-[最详尽的 JS 原型与原型链终极详解，没有「可能是」。（三）](https://www.jianshu.com/p/a4e1e7b6f4f8)
+### ES6/ESNext
 
-## Promise
+{% post_link ES6-动态对象键 ES6-动态对象键 %}
+{% post_link ES5-to-ESNext—自2015以来JavaScript新增的所有新特性 ES5-to-ESNext—自2015以来JavaScript新增的所有新特性 %}
 
-[关于 ES6 中 Promise 的面试题](https://segmentfault.com/a/1190000016848192)
+### js 技巧 常用功能
 
-### 异步
+{% post_link 在前端用JavaScript来实现下载 在前端用JavaScript来实现下载 %}
+{% post_link 前端的网络请求方式和http 前端的网络请求方式和http %}
 
-[8 张图让你一步步看清 async/await 和 promise 的执行顺序](https://segmentfault.com/a/1190000017224799)
-[理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
-{% post_link JavaScript-的-async-await JavaScript-的-async-await %}
+### typescript
 
-### fetch
+{% post_link tsconfig.json配置解析 tsconfig.json配置解析 %}
+{% post_link typescript代码检查 typescript代码检查 %}
 
-[深度介绍：也许你对 Fetch 了解得不是那么多](https://segmentfault.com/a/1190000017742993)
+## HTML/CSS
 
-### JS 执行底层
+{% post_link CSS实现水平垂直居中的第10种方式 CSS实现水平垂直居中的第10种方式 %}
+{% post_link css-:nth-child和:nth-of-type的区别 css-:nth-child和:nth-of-type的区别 %}
 
-[前端基础进阶（一）：内存空间详细图解](https://www.jianshu.com/p/996671d4dcc4)
-[前端基础进阶（二）：执行上下文详细图解](https://www.jianshu.com/p/a6d37c77e8db)
-[前端基础进阶（十二）：深入核心，详解事件循环机制](https://www.jianshu.com/p/12b9f73c5a4f)
-[js 中的事件委托或是事件代理详解](https://www.cnblogs.com/liugang-vip/p/5616484.html)
+## node
 
-### ES6/ES7..
+{% post_link npm简单入门 npm简单入门 %}
+{% post_link yarn的使用 yarn的使用 %}
 
-[ES6 系列之 let 和 const](https://juejin.im/post/5b0238f66fb9a07aca7a74ba)
-[前端基础进阶（十四）：es6 常用基础合集](https://www.jianshu.com/p/cfb0893c34f1)
-[ES6 系列之箭头函数](https://juejin.im/post/5b14d0b4f265da6e60393680)
-[JavaScript 初学者必看“箭头函数”](https://juejin.im/post/59327a58a0bb9f0058c8caae)
-[Promise 之你看得懂的 Promise](https://juejin.im/post/5b32f552f265da59991155f0)
-[ES6 系列之我们来聊聊 Promise](https://juejin.im/post/5bc5e114e51d450e632277aa)
-[Promise 原理讲解 && 实现一个 Promise 对象 (遵循 Promise/A+规范)](https://juejin.im/post/5aa7868b6fb9a028dd4de672)
-[web 前端-js 继承的理解](https://www.jianshu.com/p/1016160e91fe)
-[js 深拷贝 vs 浅拷贝](https://juejin.im/post/59ac1c4ef265da248e75892b)
-[深拷贝的终极探索（90%的人都不知道）](https://juejin.im/post/5bc1ae9be51d450e8b140b0c)
-[理解 async/await](https://juejin.im/post/596e142d5188254b532ce2da)
-[ES6 系列之我们来聊聊 Async](https://juejin.im/post/5bcf3e3f6fb9a05cd53b3e3d)
-[近一万字的 ES6 语法知识点补充](https://juejin.im/post/5c6234f16fb9a049a81fcca5)
+{% post_link eslint简单使用 eslint简单使用 %}
+{% post_link require-dir增强require的使用 require-dir增强require的使用 %}
 
-除此之外强烈推荐[冴羽老师的 ES6 系列](https://juejin.im/user/58e4b9b261ff4b006b3227f4/posts))文章，深入骨髓的理解 ES6 中的核心
+{% post_link koa的一些middleware koa的一些middleware %}
 
-### TypeScript
+## 浏览器
 
-[深入理解 TypeScript](https://jkchao.github.io/typescript-book-chinese/)
-[TypeScript 体系调研报告](https://juejin.im/post/59c46bc86fb9a00a4636f939)
-[TypeScript 实践](https://juejin.im/post/5a9c004a6fb9a028b92c9e91)
+{% post_link url的组成 url的组成 %}
+{% post_link 从输入URL到页面加载发生了什么 从输入URL到页面加载发生了什么 %}
+{% post_link chrome入门目录 chrome入门目录 %}
 
-### Node
+## 前端相关
 
-[Node 入门](https://www.nodebeginner.org/index-zh-cn.html)
-[谈谈 Node 中的常见概念](https://juejin.im/post/5a8e44ea5188257a8929bf9b)
-[Node & Express 入门指南](https://github.com/xitu/gold-miner/blob/master/TODO/introduction-to-node-express.md)
-[Express 使用手记：核心入门](https://juejin.im/post/5902973eb123db3ee46a0107)
-[node 进阶——之事无巨细手写 koa 源码](https://juejin.im/post/5ba48fc4e51d450e704277fa)
-[带你走进 koa2 的世界（koa2 源码浅谈）](https://juejin.im/post/5914fdce44d904006c44dfac)
-[fly.js—Node 下增强的 API](https://juejin.im/post/59f6ec44f265da43252895be)
+### React
 
-## HTML/CSS 篇
+{% post_link react-redux基本使用 react-redux基本使用 %}
+{% post_link react-router-v4 react-router-v4 %}
+{% post_link react-router react-router %}
+{% post_link react-虚拟DOM和diff react-虚拟DOM和diff %}
+{% post_link react中的defaultProps react中的defaultProps %}
+{% post_link react入门 react入门 %}
+{% post_link React项目结构和组件命名之道 React项目结构和组件命名之道 %}
 
-[CSS 常见布局方式](https://juejin.im/post/599970f4518825243a78b9d5)
-[【整理】CSS 布局方案](https://segmentfault.com/a/1190000010989110)
-[CSS 查漏补缺](https://segmentfault.com/a/1190000006242814)
-[[布局概念] 关于 CSS-BFC 深入理解](https://juejin.im/post/5909db2fda2f60005d2093db)
-[[译]这些 CSS 命名规范将省下你大把调试时间](https://juejin.im/post/5a6c5881518825733201daf7)
-[CSS 知识总结](https://juejin.im/post/5a954add6fb9a06348538c0d)
-[前端开发规范：命名规范、html 规范、css 规范、js 规范](https://juejin.im/post/592d4a5b0ce463006b43b6da)
+{% post_link redux教程 redux教程 %}
+{% post_link redux-form基本使用 redux-form基本使用 %}
+{% post_link redux基本使用 redux基本使用 %}
 
-## HTTP
+### Vue
 
-[HTTP 状态码（HTTP Status Code）](HTTP 状态码（HTTP Status Code）)
+### webpack
 
-[面试 -- 网络 HTTP](https://juejin.im/post/5872309261ff4b005c4580d4)
-[HTTP 最强资料大全](https://juejin.im/post/58ddb636ac502e0063992865)
-[我知道的 HTTP 请求](https://juejin.im/post/5a757d2f5188254e5c6c404a)
+### 面试相关
 
-## 性能&优化篇
+### 前端杂项
 
-[深入浅出浏览器渲染原理](https://blog.fundebug.com/2019/01/03/understand-browser-rendering/)
-[浏览器的回流与重绘 (Reflow & Repaint)](https://juejin.im/post/5a9923e9518825558251c96a)
-[浏览器缓存](https://segmentfault.com/a/1190000008377508)
-[浏览器前端优化](https://zcfy.cc/article/optimising-the-front-end-for-the-browser-hacker-noon-2847.html)
-[浏览器渲染引擎](https://juejin.im/post/5ac45882518825558723c4fd)
-[JavaScript 浏览器事件解析](https://zhuanlan.zhihu.com/p/22718822)
-[前端性能——监控起步](http://www.cnblogs.com/chuaWeb/p/PerformanceMonitoring.html)
-[javascript 性能优化](https://juejin.im/post/5b89274de51d4538c17e0f7d)
-[浏览器性能优化-渲染性能](https://juejin.im/post/59da456951882525ed2b706d)
-[浏览器渲染过程与性能优化](https://juejin.im/post/59d489156fb9a00a571d6509)
-[现代浏览器性能优化-CSS 篇](https://juejin.im/post/5a461f006fb9a0450408358f)
-[浏览器工作原理及 web 性能优化](https://juejin.im/post/5b721656f265da28140e53ba)
+#### 性能优化
 
-## Webpack 篇
+{% post_link axios使用 axios使用 %}
+{% post_link lru_cache最近最少使用缓存处理 lru_cache最近最少使用缓存处理 %}
 
-[webpack 详解](https://juejin.im/post/5aa3d2056fb9a028c36868aa)
-[Webpack4 优化之路](https://juejin.im/post/5ac42d5c6fb9a028b617b851)
-[webpack4 之高级篇](https://juejin.im/post/5ab7c222f265da237f1e4434)
-[webpack4-用之初体验，一起敲它十一遍](https://juejin.im/post/5adea0106fb9a07a9d6ff6de)
-[📚 免费的渐进式教程：Webpack4 的 16 篇讲解和 16 份代码](https://juejin.im/post/5c25b76ef265da614b120ed0)
-[手写一个 webpack4.0 配置](https://juejin.im/post/5b4609f5e51d4519596b66a7)
+#### 代码风格
 
-## React 篇
+{% post_link 代码规范目录 代码规范目录 %}
 
-[五星推荐的系列文章清单](https://juejin.im/post/5c1f01fef265da61587723f4)
-[胡子大哈 React.js 小书](https://www.cnblogs.com/huzidaha/p/6603658.html)
-[TypeScript 2.8 下的终极 React 组件模式](https://juejin.im/post/5b07caf16fb9a07aa83f2977)
+## 后端相关
 
-## 面试篇
+### docker
 
-[HTML&&css 面试题](https://www.cnblogs.com/DCL1314/p/7903102.html)
-[Excuse me？这个前端面试在搞事！](https://zhuanlan.zhihu.com/p/25407758)
-[80% 应聘者都不及格的 JS 面试题](https://juejin.im/post/58cf180b0ce4630057d6727c)
-[2019 年前端面试都聊啥？一起来看看](https://juejin.im/post/5bf5610be51d452a1353b08d)
-[一篇文章搞定前端面试](https://juejin.im/post/5bbaa549e51d450e827b6b13)
-[如何轻松拿到淘宝前端 offer | 掘金技术征文](https://juejin.im/post/5bbc54a2e51d450e5a7445b4)
-[腾讯前端面试篇（一）](https://juejin.im/post/5c19c1b6e51d451d1e06c163)
-[腾讯前端面试篇（二）](https://juejin.im/post/5c1869ab6fb9a049f154207a)
-[30secondsofinterviews](https://30secondsofinterviews.org/)
-
-## 后端
+{% post_link docker的简单使用 docker的简单使用 %}
 
 ### kubernetes
 
+{% post_link k8s集群的简单安装和使用 k8s集群的简单安装和使用 %}
+
 ### go
 
-### HTTP
+{% post_link go简单入门 go简单入门 %}
+
+### 数据库
+
+{% post_link mysql创建表的时候COLLATE干嘛的 mysql创建表的时候COLLATE干嘛的 %}
+{% post_link mysql的ENGINE=InnoDB mysql的ENGINE=InnoDB %}
+{% post_link mysql的timestamp和datetime区别 mysql的timestamp和datetime区别 %}
+
+{% post_link mongodb使用 mongodb使用 %}
+{% post_link mongoose操作MongoDB数据库的模块 mongoose操作MongoDB数据库的模块 %}
+
+## 杂项
+
+{% post_link WebAssembly WebAssembly %}
+{% post_link YAML语言入门 YAML语言入门 %}
+{% post_link travis配置文件的编写 travis配置文件的编写 %}
+
+{% post_link strip-ansi是将转义码转换为原码 strip-ansi是将转义码转换为原码 %}
+
+{% post_link git入门中 git入门中 %}
+
+{% post_link md5使用MD5来hash md5使用MD5来hash %}
+{% post_link mockjs简单用法 mockjs简单用法 %}
+{% post_link moment一款管理date格式的轻量级js库 moment一款管理date格式的轻量级js库 %}
+{% post_link highlight-js高亮你的代码 highlight-js高亮你的代码 %}
+
+{% post_link Font-Awesome一套绝佳的图标字体库和CSS框架 Font-Awesome一套绝佳的图标字体库和CSS框架 %}
+
+{% post_link fidder4使用 fidder4使用 %}
+
+{% post_link fastclick-解决移动端click事件300ms延迟 fastclick-解决移动端click事件300ms延迟 %}
+
+{% post_link 机械键盘 机械键盘 %}
+
+
 
 ### 终端
 
 {% post_link 终端相关入门 终端相关入门 %}
+
+### 键盘布局
+
+#### 打字
+
+### markdown
+
+{% post_link simplemde一款markdown编辑器 simplemde一款markdown编辑器 %}
+{% post_link markdown常用语法 markdown常用语法 %}
+
+{% post_link markdown在vscode上的简单优化 markdown在vscode上的简单优化 %}
+
+{% post_link marked一个简易markdown功能实现模块 marked一个简易markdown功能实现模块 %}
+
+### latex
+
+{% post_link latex常用语法 latex常用语法 %}
+
+### 编辑器
+
+#### vim/neovim/emacs
+
+{% post_link vim相关目录 vim相关目录 %}
+{% post_link emacs相关目录 emacs相关目录 %}
+{% post_link vscode相关目录 vscode相关目录 %}
+
+### 视频相关
+
+{% post_link 视频格式基础知识 视频格式基础知识 %}
+{% post_link 那些播放器教程背后的知识 那些播放器教程背后的知识 %}
+{% post_link 基于-PotPlayer-和-madVR-的播放器教程 基于-PotPlayer-和-madVR-的播放器教程 %}
+
+## AI
+
+{% post_link python环境安装 python环境安装 %}
+
+## mac
+
+{% post_link mac下用键盘控制程序窗口大小位置 mac下用键盘控制程序窗口大小位置 %}
+{% post_link mac在多个屏幕间切换焦点 mac在多个屏幕间切换焦点 %}
+
+## blog
+
+{% post_link hexo基本使用 hexo基本使用 %}
+{% post_link hexo制作自己的主题 hexo制作自己的主题 %}
+{% post_link hexo中使用LaTex公式的开启方法 hexo中使用LaTex公式的开启方法 %}
+
+{% post_link gitpage-jekyll-hexo搭建blog gitpage-jekyll-hexo搭建blog %}

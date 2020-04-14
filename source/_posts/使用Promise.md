@@ -41,6 +41,50 @@ console.log(promise1);
 // expected output: [object Promise]
 ```
 
+## Promise含义
+
+[Promsie含义](https://es6.ruanyifeng.com/?search=import&x=0&y=0#docs/promise#Promise-%E7%9A%84%E5%90%AB%E4%B9%89)
+
+3种装填, 用resolve和reject可以改变Promis的状态, 本质上Promise也是个对象
+
+Promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数。(而不是直接用promise实例, 因为你不清楚当期状态是啥 当然你可以自己实现判断)
+
+> 懂了基本的后, 思考下, resolved和rejected参数是Promise的情况, 太南了
+> 一般在resolve和reject前加return, 防止没有注意到事件队列的问题
+> try catch 和resolve, throw Erroe.
+> 尤其是要注意setTimeout的这种宏队列和Promise的微队列
+
+```
+new Promise((resolve, reject) => {
+  resolve(1);
+  console.log(2);
+}).then(r => {
+  console.log(r);
+});
+// 2
+// 1
+
+防止意外加return
+new Promise((resolve, reject) => {
+  return resolve(1);
+  // 后面的语句不会执行
+  console.log(2);
+})
+
+但这个和throw Error的区别呢?? 说明这个throw不是同步, 也是会进入一个队列的
+
+const promise = new Promise(function(resolve, reject) {
+  resolve('ok');
+  throw new Error('test');
+});
+promise
+  .then(function(value) { console.log(value) })
+  .catch(function(error) { console.log(error) });
+// ok
+```
+
+[前端魔法堂——异常不仅仅是try/catch 6](https://www.cnblogs.com/fsjohnhuang/p/7685144.html)
+
 ## 创建 Promise
 
 `Promise`对象是由关键字 `new` 及其`构造函数`来创建的。该构造函数会把一个叫做“处理器函数”（`executor function`）的函数作为它的`参数`。这个“处理器函数”接受`两个函数`——`resolve` 和 `reject` ——作为其参数。当异步任务顺利完成且返回结果值时(异步操作在`executor`内)，会调用 `resolve` 函数；而当异步任务失败且返回失败原因（通常是一个错误对象）时，会调用`reject` 函数。

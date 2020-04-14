@@ -35,14 +35,18 @@ permalink:
 {% post_link vim窗口 vim窗口 %}
 {% post_link vim标签页 vim标签页 %}
 {% post_link vim缓冲区 vim缓冲区 %}
+
+> {% post_link vim中的buffer-tab和window' vim中的buffer-tab和window' %}
+
 {% post_link vim光标移动 vim光标移动 %}
 {% post_link vim寄存器 vim寄存器 %}
+{% post_link vim代码缩进 vim代码缩进 %}
 
 > 这个可以在 chrome, vscode 中一起用
 > 使用窗口还是配合 tmux 来分隔 panel 使用, 我觉得用 tmux 来分隔窗口就好
 > **快捷键一般都是在 normal 模式下设置, 在 insert 模式下可以按照 emacs 的方式来设置**
 
-类似IDE中的代码snippet, fold, 交换上下行
+类似 IDE 中的代码 snippet, fold, 交换上下行
 
 ## 操作定义
 
@@ -129,59 +133,18 @@ call plug#end()
 
 ### 常用插件
 
-vim-cheat40
+{% post_link vim插件 vim插件 %}
 
-nerdcommenter 注释的
-  - leader默认是`\`, 你可以改下,或者map成vsc一样的
-  - [preservim/nerdcommenter](https://github.com/preservim/nerdcommenter)
-vim-surround 括号,引号, htmltag的
-  - [tpope/vim-surround](https://github.com/tpope)安装 (**改变cs 大写的S是一行, 删除ds, 插入ys**)
-  - `cs"'`(只能单行 v不行) 或全部 `cst"'`(这个是改html的)
-  - `ds"` 删除
-  - `ysiw]/[` 用`[` 会多一个空格 `[ hello ]` 而不是`[hello]`
-    - 使用 `cs]{` 也会增加一个额空格, 左空格, 右无
-  - `yssb` or `yss)` 整行增加
-    - `ys` 是一个 your surround 一个 test object, `yss` 是当前行
-  - visual 模式下, 用S包上整个选中的
-  - 重复的 `.` 需要安装 `tpope/vim-repeat`
-switch
-Tabularize
-q是开启录制宏
-simplyFlod
-Tagbar c-i/o
-vim-signture
-semshi
-coc.nvim 插件可以管理剪贴板, 找同作用域内同名变量, 跳转. coc也可以装插件
-Far.vim 也是查找内容, 跳转
-Undotree
-  - 配置 `<F5>`
-FZF 找文件, 在创建一个窗口后按 fzf 搜索, 这个fzf除了单独用, 也可以在ranger中用
-NERDTree 仍然是一个窗口
-  - 使用hjkl来移动, 主要还是jk,hl没用
-  - 打开用enter
-  - nerdtree-git-plugin 这个也是, 要在终端中进入当前项目目录才能正确显示git情况, 不好用, 还不如ranger
-markdownpreview.nvim
-vim-table-mode
-  - 也直接使用vim-plug安装
-  - 使用 `<leader>tm` 在normal模式下开启tm模式
-  - 配置下, 在inset模式下`||` 或 `__` 也能开启 就不用单独开启了
-  - `airline-tablemode.vim` 插件来显示当前是什么模式下
-  - 使用`|` 在输入列名, 然后在按 `|` .第二行用 `||`就直接显示对齐方式或结束的
-  - `<Leader>tr` 格式化下?
-  - 选中后CSV的格式用`,` 隔开的用 `<Leader>tt` 转换,为|
-  - 移动 `[|` `]|` `{|` `}|` 左右 上下
-  - 删除行 `<Leader>tdd` 直接用dd好了 列 `<Leader>tdc`
-md-snippests
-vim-startify 相当于welcome页
-airline 地下状态栏
+## 快捷键管理
 
-identLine py用的
-python-syntax
-taglist
+用不同的前置组合键来区分不同的功能
 
-vim-multiple-cursor
-emmet
+`<c-w>` 开头的是窗口相关
+tag
+buffer
+`leader` 开头的这种
 
+管理
 
 ## 参考
 
@@ -211,3 +174,5 @@ emmet
 [将你的 Vim 打造成轻巧强大的 IDE](http://yuez.me/jiang-ni-de-vim-da-zao-cheng-qing-qiao-qiang-da-de-ide/)
 
 {% post_link emacs相关目录 emacs相关目录 %}
+
+[The ultimate Vim configuration: vimrc 666666](https://github.com/amix/vimrc)

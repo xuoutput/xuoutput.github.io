@@ -421,6 +421,107 @@ and the repository exists.
 git stash clear
 ```
 
+## git bisect
+
+git bisect start HEAD xxx  // 从不正常到正常范围
+
+git bisect good/bad
+
+git bisect reset
+
+配合 git log --pretty=oneline 用
+
+也可以
+
+git bisect start
+然后 git bisect `good/bad [commithash]` 指定范围
+
+还有个操作时replay吧, 如果good后bad打错了可以撤销
+
+## git remote
+
+git remote -v
+
+git remote add upstream xxx
+
+git remote set-url xxxx
+
+这个命令一般和 git fetch , git rebase , git checkout 一起用
+
+## 常用缩写
+
+结合 zsh 的 git 插件
+
+gfu = git fetch upstream
+gbc = git branch --show-current
+
+## git pull
+
+git pull upstream pull/2398/head 
+可以拉取github上指定的MR
+
+`git remote set-url origin [url]`
+
+## FAQ
+
+整理下, 写个3个阶段吧
+
+- 第一阶段就介绍常用的 git 命令
+- 结合一些工具 zsh 的插件, 等 fork 这种, 介绍常用快捷键 场景, git open
+- 将 git 底层原理
+- 讲 git 其他命令
+- 将工程中, 比如tapd, gitub上 issue 的标签, tag
+
+git config
+git branch
+git checkout
+git remote
+git bisect
+git rebase
+git fetch
+git commit
+git push
+
+git add
+git status
+git diff
+  diff的 --name-only和 --stat  相对而言,--stat详细点点
+git show
+git log
+  tig
+  [自定义log颜色](https://jasonhzy.github.io/2016/05/05/git-log/)
+  tig 就是一些查看的命令
+```bash
+tig log    [options] [revisions] [--] [paths]
+tig show   [options] [revisions] [--] [paths]
+tig blame  [options] [rev] [--] path
+tig grep   [options] [pattern]
+tig refs
+tig stash
+tig status
+```
+
+这些常用的
+
+[进阶 git 底层原理](http://gitbook.liuhui998.com/1_2.html)
+
+
+2. git push的会后要你输入账号密码的问题. 是协议的不对.
+`git remote -v`后如果是https的地址, 在push的时候回让你填账号密码的, 所以用`git remote set-url origin [url]`来修改为用`git@`的协议
+
+3. 获取远程库中指定分支
+
+直接gco -b好了, 然后带上远程库/远程分支名
+git checkout -b 本地分支名 upstream/远程分支名
+
+4. git remote update, git fetch, git pull的区别
+git remote update will update all of your branches set to track remote ones, but not merge any changes in., 比如你设置了origin和upstream的, 都更新, 然后你可以指定某一个远程分支
+git fetch will update only the branch you're on, but not merge any changes in., 这里你可以用git fetch --all拉所有的,效果同上, 也可以指定git fetch origin , 当然git fetch origin master:master
+git pull will update and merge any remote changes of the current branch you're on. This would be the one you use to update a local branch.
+
+加这个 不要新建一页
+git config --global core.pager 'less -FXR'
+
 ## 参考
 
 [Git 和 Pager 的那点事](http://icyleaf.com/2013/10/about-pager-on-git/)
@@ -448,3 +549,5 @@ git stash clear
 ```
 
 alias 用的多的是用 oh-my-zsh 的自带的 `~/.oh-my-zsh/plugins/git/git.plugin.zsh`
+
+> 可以添加 自定义 命令缩写的

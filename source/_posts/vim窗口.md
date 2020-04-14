@@ -100,7 +100,7 @@ map si :set nosplitbelow<CR>:split<CR>    # 新建一个水平分割的窗口，
 map sk :set splitbelow<CR>:split<CR>      # 新建一个水平分割的窗口，放置当前窗口下方
 map sl :set splitright<CR>:vsplit<CR>     # 新建一个垂直分割的窗口，放置在当前窗口右侧
 map sx :close                             # 关闭当前窗口panel
-map so :only                              # 关闭其他窗口, 只保留当前窗口panel
+map sxo :only                             # 关闭其他窗口, 只保留当前窗口panel
 map sx <C-w>q                             # 关闭当前窗口panel
 " 或使用 C-hjkl,用 C-HJKL 来,这样快一点
 ```

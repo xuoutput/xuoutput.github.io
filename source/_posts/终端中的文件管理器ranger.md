@@ -36,6 +36,8 @@ Install the Command Line Tools:
   xcode-select --install
 ```
 
+或直接下 git clone 启动`ranger.py`就行
+
 最后安装 `xcode-select --install` 即可
 
 ## 安装 imgcat
@@ -79,6 +81,46 @@ fzf integration (`map <C-f> fzf_select`)
 ## 图片预览, 视频预览, pdf 预览等
 
 [Image preview not working inside tmux session in iTerm2 ](https://github.com/ranger/ranger/issues/539)
+
+## 快捷键整理
+
+从 ranger 中 按 shift + s 会进入当前选中的 终端地址
+
+### ueberzug
+
+上面的事 iterm2 的, 由于我是用了 `alacritty` 所以配置上使用 `ueberzug` 来设置图片预览
+
+安装[seebye/ueberzug](https://github.com/seebye/ueberzug) 中可以看到使用 `sudo pip3 install ueberzug`, 但会遇到报错 `X11` 的库依赖你没有安装, 不过在 `brew` 和 `pip3` 中都搜不到 `X11` 相关的库.
+
+通过搜索后最终查到一篇
+[About X11 for Mac](https://support.apple.com/en-us/HT201341)
+[Run X11 Apps on Mac](http://blog.mclaughlinsoftware.com/2015/06/09/run-x11-apps-on-mac/)
+
+此时通过命令安装 `brew cask install xquartz`. 之后需要重新 **启动下电脑** 才能执行 `xquarzt`
+
+> 重启前通过 `brew cask list` 是看不到 `xquartz` 的
+
+这里只是安装好了, 但还是会报错, 找不到 `#include<X11>`
+这是需要增加一个软连接 [Xlib.h not found when building graphviz on Mac OS X 10.8 (Mountain Lion)](https://stackoverflow.com/questions/11465258/xlib-h-not-found-when-building-graphviz-on-mac-os-x-10-8-mountain-lion/12089021#12089021)
+
+[osx - File not found (X11/Xlib.h) in MacOS](http://www.itkeyword.com/doc/6440360707893630x761/osx-file-not-found-x11-xlib-h-in-macos)
+
+```bash
+ln -s /opt/X11/include/X11 /usr/local/include/X11
+```
+
+[How to install in MacOS?](https://github.com/seebye/ueberzug/issues/61)
+
+创建一个文件 `~/.pydistutils.cfg`
+
+```cfg
+[build_ext]
+include_dirs=/usr/X11R6/include
+library_dirs=/usr/X11R6/lib
+```
+
+然后 `sudo pip3 install ueberzug` 即可.
+但还是不能预览
 
 ## 版本控制
 
@@ -225,7 +267,7 @@ map <C-g> fzm
 - pp 粘贴
   - po 直接覆盖
 - cw 重命名(支持多选后改名)
-  - I/a/A 在当前名称基础上重命名 (i是查看内容)
+  - I/a/A 在当前名称基础上重命名 (i 是查看内容)
 - :show_files_in_finder 在 mac 上的 Finder 显示文件
 
 ### 粘贴, 解压时的任务管理
@@ -247,6 +289,39 @@ map <C-g> fzm
 
 - z: 切换设置
 - u: 撤销操作
+
+## bug
+
+似乎依赖 autojump, 写在 autojump 就报错
+
+```bash
+$ ranger
+ranger version: ranger 1.9.3
+Python version: 2.7.10 (default, Feb 22 2019, 21:55:15) [GCC 4.2.1 Compatible Apple LLVM 10.0.1 (clang-1001.0.37.14)]
+Locale: None.None
+
+Traceback (most recent call last):
+  File "/usr/local/Cellar/ranger/1.9.3/libexec/ranger/core/main.py", line 201, in main
+    fm.loop()
+  File "/usr/local/Cellar/ranger/1.9.3/libexec/ranger/core/fm.py", line 359, in loop
+    self.enter_dir(self.thistab.path)
+  File "/usr/local/Cellar/ranger/1.9.3/libexec/ranger/core/actions.py", line 614, in enter_dir
+    result = self.thistab.enter_dir(path, history=history)
+  File "/usr/local/Cellar/ranger/1.9.3/libexec/ranger/core/tab.py", line 169, in enter_dir
+    self.fm.signal_emit('cd', previous=previous, new=self.thisdir)
+  File "/usr/local/Cellar/ranger/1.9.3/libexec/ranger/ext/signals.py", line 268, in signal_emit
+    fnc(signal)
+  File "/Users/xuheng/.config/ranger/plugins/autojump.py", line 10, in update_autojump
+    subprocess.Popen(["autojump", "--add", signal.new.path])
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py", line 710, in __init__
+    errread, errwrite)
+  File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/subprocess.py", line 1335, in _execute_child
+    raise child_exception
+OSError: [Errno 2] No such file or directory
+
+ranger crashed. Please report this traceback at:
+https://github.com/ranger/ranger/issues
+```
 
 ## 参考
 
